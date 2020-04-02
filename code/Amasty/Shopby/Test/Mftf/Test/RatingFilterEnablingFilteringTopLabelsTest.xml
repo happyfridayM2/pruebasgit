@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringTopLabelsTest" extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description value="Check of rating filter enabling and filtering in top position and labels mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNRATINGFILTER-3"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="RatingFilterEnabling1"
+                         ref="RatingFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterLabelsTop"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Rating Filter: expand filter, select 5 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: expand filter, select 4 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: expand filter, select 3 stars option on top in labels, check the result, don't remove selected option from state/-->
+
+        <!--Filter by Rating Filter: select 2 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter4"
+               after="waitSeconds3"/>
+
+        <!--Filter by Rating Filter: expand filter, select 1 stars option on top in labels, check the result, remove selected option from state/-->
+
+    </test>
+</tests>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCFunctionalCreateAccountAtOSCWhilePlacing" extends="OSCFunctionalCreateAccountAtOSCAfterPlacing">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Create an Account at Checkout"/>
+            <title value="Check Create an Account at Checkout"/>
+            <description value="Check Create an Account at Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-56"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCFunctional"/>
+            <group value="OSCCreateAccount"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminConfigOSCGeneralCreateAccountWhilePlacing" stepKey="ConfigurationGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOSCGeneralCreateAccountWhilePlacing"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomerFromAdminActionGroup" stepKey="deleteCustomer">
+                <argument name="customer" value="customerOSCCheckCreateAccountWhilePlacingOrder"/>
+            </actionGroup>
+        </after>
+
+        <remove keyForRemoval="CheckRegistrationLetter"/>
+        <actionGroup ref="GoToOSCCreateAccount" stepKey="GoToOSCCheckout">
+            <argument name="customer" value="customerOSCCheckCreateAccountWhilePlacingOrder"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithCheckMoney" stepKey="CreatePlaceOrder"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" after="CreatePlaceOrder" stepKey="loginCreateAccount">
+            <argument name="Customer" value="customerOSCCheckCreateAccountWhilePlacingOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckCreateCustomer" after="loginCreateAccount" stepKey="checkWelcomeMessageWithCreatedCustomer"/>
+
+    </test>
+</tests>

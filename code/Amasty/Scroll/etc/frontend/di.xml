@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Scroll
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="Amasty_Scroll::ajax-observe" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Amasty\Shopby\Controller\Index\Index">
+        <plugin name="Amasty_Scroll::ajax-observe-amshopby" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Amasty\Shopby\Controller\Search\Result\Index">
+        <plugin name="Amasty_Scroll::ajaxSearchInjectAmshopby" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Amasty\ShopbyBrand\Controller\Index\Index">
+        <plugin name="Amasty_Scroll::ajaxSearchInjectAmShopbyBrand" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Amasty\ShopbyLite\Controller\Search\Result\Index">
+        <plugin name="Amasty_Scroll::ajaxSearchInjectShopbyLite" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Amasty\Xlanding\Controller\Page\View">
+        <plugin name="Amasty_Scroll::ajax-observe-xlanding" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+    <type name="Magento\Framework\App\View">
+        <plugin name="Amasty_Scroll::ajax-observe-search" type="Amasty\Scroll\Plugin\Ajax\InitAjaxSearchPage" />
+    </type>
+    <type name="Magento\Theme\Block\Html\Pager">
+        <plugin name="Amasty_Scroll::add-prev-next" type="Amasty\Scroll\Plugin\Pager" />
+    </type>
+    <!--compatibility with Smartwave Porto theme-->
+    <type name="Smartwave\Porto\Controller\CatalogSearch\Result\Index">
+        <plugin name="Amasty_Scroll::ajax-observe-smartwave-search" type="Amasty\Scroll\Plugin\Ajax\InitAjaxResponse" />
+    </type>
+</config>

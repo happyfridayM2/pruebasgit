@@ -1,0 +1,16 @@
+#product_attribute_tabs_amasty_shopby_content select {
+    width:37%;
+}
+
+#row_not_instaled_toolkit .value {
+    color: #f70606;
+}
+
+#row_instaled_toolkit .value {
+    color: #00f702;
+}
+
+.modal-popup.confirm .modal-inner-wrap.am-popup {
+    width: 75%;
+    max-width: 130rem;
+}

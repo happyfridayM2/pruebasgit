@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="DefaultCategoryTitleAndDescription" type="CatTitleAndDescriptILNSettings">
+        <data key="AddFilterTitle">after</data>
+        <data key="SeparateCategoryNameAndTitleWith"> - </data>
+        <data key="AddFilterDescription">after</data>
+        <data key="ReplaceCategoryImage">1</data>
+        <data key="ReplaceCategoryCMSBlock">1</data>
+    </entity>
+    <entity name="ReplaceCatImageCMSBlockNo" type="CatTitleAndDescriptILNSettings"
+            extends="DefaultCategoryTitleAndDescription">
+        <data key="ReplaceCategoryImage">0</data>
+        <data key="ReplaceCategoryCMSBlock">0</data>
+    </entity>
+    <entity name="CheckTitleAndDescriptionSeparator" type="CatTitleAndDescriptILNSettings"
+            extends="DefaultCategoryTitleAndDescription">
+        <data key="SeparateCategoryNameAndTitleWith">+tst+</data>
+    </entity>
+    <entity name="FilterTitleDescriptionBefore" type="CatTitleAndDescriptILNSettings"
+            extends="DefaultCategoryTitleAndDescription">
+        <data key="AddFilterTitle">before</data>
+        <data key="AddFilterDescription">before</data>
+    </entity>
+    <entity name="FilterTitleDescriptionReplace" type="CatTitleAndDescriptILNSettings"
+            extends="DefaultCategoryTitleAndDescription">
+        <data key="AddFilterTitle">replace</data>
+        <data key="AddFilterDescription">replace</data>
+    </entity>
+    <entity name="FilterTitleDescriptionDoNotAdd" type="CatTitleAndDescriptILNSettings"
+            extends="DefaultCategoryTitleAndDescription">
+        <data key="AddFilterTitle">do-not-add</data>
+        <data key="AddFilterDescription">do-not-add</data>
+    </entity>
+
+</entities>

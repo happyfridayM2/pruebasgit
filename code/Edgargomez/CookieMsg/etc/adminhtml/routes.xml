@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Edgar J. Gómez
+ * @copyright Copyright (c) 2017 Edgargomez (http://www.edgargomez.es)
+ * @package Edgargomez_CookieMsg
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+    <router id="admin">
+        <route id="edgargomez_cookiemsg" frontName="edgargomez_cookiemsg">
+            <module name="Edgargomez_CookieMsg" />
+        </route>
+    </router>
+</config>

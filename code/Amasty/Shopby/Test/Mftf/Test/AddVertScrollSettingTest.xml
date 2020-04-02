@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AddVertScrollSettingTest">
+
+        <annotations>
+            <features value="Add Vertical Scrolling to Filter Block After setting"/>
+            <stories value="Add Vertical Scrolling to Filter Block After setting checking"/>
+            <title value="check Add Vertical Scrolling to Filter Block After setting"/>
+            <description
+                    value="Check that Add Vertical Scrolling to Filter Block After setting works correctly"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ADDVERTSCROLL-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="addvertscroll"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="GeneralBlockConfiguration" ref="ConfigureAddVerticalScrolling">
+                <argument name="generalILNSettings2" value="SetVerticalScrolling"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DefaultGeneralBlockConfiguration" ref="ConfigureAddVerticalScrolling">
+                <argument name="generalILNSettings2" value="SetVerticalScrollingDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check that Add Vertical Scrolling to Filter Block After setting works correctly/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter2"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.VerticalScroll('max-height:60px')}}"
+                    stepKey="SeeScroll"/>
+
+    </test>
+</tests>
+

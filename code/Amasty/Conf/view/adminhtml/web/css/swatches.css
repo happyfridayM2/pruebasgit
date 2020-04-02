@@ -1,0 +1,121 @@
+.swatch_window {
+    border: 1px solid #c6c5c3 !important;
+    cursor: pointer;
+    overflow: visible !important;
+    position: relative;
+    width: 25px !important;
+    height: 24px !important;
+}
+
+.swatch_window:after {
+    position: absolute;
+    content: '\2193';
+    top: -5px;
+    font-size: 19px;
+    color: #808080;
+    right: -20px;
+    width: 16px;
+    height: 32px;
+    background: #fff;
+    border-radius: 0 3px 3px 0;
+    border: 1px solid rgb(173, 173, 173);
+    text-align: center;
+    z-index: 8;
+}
+
+.swatch_window:before {
+    position: absolute;
+    content: '';
+    top: -4px;
+    font-size: 19px;
+    color: #808080;
+    left: -4px;
+    width: 32px;
+    height: 30px;
+    background: transparent;
+    border-radius: 3px 0 0 3px;
+    border: 3px solid rgb(255, 255, 255);
+    z-index: 1;
+    outline: 1px solid rgb(173, 173, 173);
+}
+
+.swatch_sub-menu_container {
+    top: 22px !important;
+}
+
+.field-visual .admin__field {
+   position:relative;
+}
+
+.swatch_window_unvailable:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: #f00;
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    z-index: 5;
+    left: -2px;
+    top: 11px;
+}
+input.input-checkbox {
+    background: #fff;
+    border: 1px solid #adadad;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px 0 0;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.1s ease-in;
+}
+
+input.input-checkbox:checked:after {
+    font-family: 'Admin Icons';
+    content: "\e62d";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    color: #514943;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    font-weight: 400;
+}
+.col-short {
+    width:10%;
+}
+.admin__control-table .col-draggable {
+    padding-top:1.6rem;
+}
+
+td.col-option {
+    text-align: center;
+}
+select.admin__control-select, table.admin__control-table {
+    width:50%;
+}
+
+.swatch_option {
+    cursor: pointer;
+    overflow: visible !important;
+    position: relative;
+    display: inline-block;
+    width: 25px !important;
+    height: 24px !important;
+    float:right;
+}
+.option_value {
+    display: inline-block;
+}

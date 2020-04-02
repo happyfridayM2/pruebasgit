@@ -1,0 +1,409 @@
+<script>
+requirejs(['jquery','domReady!','menugrid'], function(jQuery){
+	jQuery('.navigationmenu-menucreator-index').menugrid();
+});
+</script>
+<body>
+	<div id="page:main-container">
+	<div id="navigation-pro">
+		<div class="columns">
+			<div id="page:left" class="side-col">
+			<p class="switcher">
+				<?php 
+				$helper = $this->helper('Magebees\Navigationmenu\Helper\Data');
+				$backend_helper = $this->helper('Magento\Backend\Helper\Data');?>
+				<?php $store_swatcher = $helper->getstore_swatcher();?>
+				<label for="store_switcher">Choose Store View </label>
+				<select id="store_switcher" name="store_switcher">
+					<?php 
+						foreach($store_swatcher as $value){
+						if($value['value']==0){
+						?>
+						<option value="0"><?php echo $value['label']; ?></option>
+					<?php } else { ?>
+						<optgroup label="<?php echo $value['label']; ?>"></optgroup>
+					<?php
+				if(!empty($value['value'])){
+						foreach ($value['value'] as $option){
+							?>
+					<option value="<?php echo $option['value']; ?>"><?php echo "&nbsp;&nbsp;&nbsp;&nbsp;".$option['label'];?></option>
+					<?php 
+						}
+					}
+				}
+				}
+				?>
+				</select>
+				</p>
+				<?php 
+				$menu_backend = $helper->getMenuItemsInTreeStructure();
+				echo $menu_backend;
+				?>
+				<div id="deletedialog" style="display:none;">
+					<form class="deletemenuitem-form" action="#" id="deletemenuitem">
+						<span class="deleteMenu ui-icon ui-icon-closethick" title="Close"><span></span></span>
+						<h3>Delete Menu Item Options</h3>
+						<div class="delete-detail">
+						<input type="radio" id="deleteparent"  name="deleteoption" value="deleteparent" checked="checked">
+						<label for="deleteparent">Delete Parent Menu Item Only </label>
+						</div>
+						<div class="delete-detail">
+						<input type="radio" id="deleteparentchild" name="deleteoption" value="deleteparentchild">
+						<label for="deleteparentchild">Delete Parent And Child Both Menu Items</label>
+						</div>
+						<input type="button" id="deleteitem" name="deleteitem" value="Delete"/>
+						<input type="button" id="cancelitem" name="cancelitem" value="Cancel" />
+						<br/>
+					</form>
+				</div>
+				<div id="footerBut">
+				<?php $url = $this->getUrl('navigationmenu/menucreator/updateMenu');?>
+					<button id="saveorder" name="saveorder" class="scalable save " type="button" title="SaveOrder" data-saveOrder-url="<?php echo $url;?>"><span>SaveOrder</span></button>
+					<button style="" id="expandall" name="expanded" class="scalable " type="button" title="Expand All"><span><span><span>Expand All</span></span></span></button>
+					<button style="" id="collapsed" name="expanded" class="scalable " type="button" title="Collapse All"><span><span><span>Collapse All</span></span></span></button>
+				</div>
+			</div>
+			<div class="main-col" id="content">
+				<div class="main-col-inner">
+			<form action="<?php echo $this->getUrl('*/*/save/') ?>" method="post" enctype="multipart/form-data" 
+           id="edit_form" >
+			<p class="form-buttons">
+			<button style="" id="add_new_btn" class="action primary" type="button" title="Add New"><span>Add New</span></button>
+			<button type="submit" class="action primary" name="Save" id="save"><span><?php echo __('Save'); ?></span></button>
+			<button style="" id="cancel_btn" class="action primary " type="button" title="Cancel"><span>Cancel</span></button>
+			</p>
+					
+				<?php 
+				$menuType = $helper->getallMenuTypes();
+				$getallLink =$helper->getallLinks();
+				 ?>
+				<div class="sticky-content-header">
+					<h3 align="center">
+						<p id="menu_title">Create New Menu Item</p>
+					</h3>
+				</div>
+				<input name="form_key" type="hidden" value="<?php echo $helper->getFormkey(); ?>" />
+				<input type="hidden" value="" name="menu_id" id="menu_id">
+				<input name="current_menu_id" id="current_menu_id" type="hidden"/>
+				<?php 
+				
+				$path = $helper->getImagePath();
+				?>
+				<input type="hidden" name="image_path" id="image_path" value="<?php echo $path;?>"/>
+				<div id="menucreator-tabs">
+					<ul>
+						<li><a href="#general-option">General Options</a></li>
+						<li><a href="#advance-option">Advance Options</a></li>
+						<li><a href="#label-option">Label Options</a></li>
+					</ul>
+				<div id="general-option">
+					<ul class="fieldSet">
+						<li class="fields">
+							<div class="field">
+								<label class="label required-label" data-toggle="tooltip" data-placement="bottom" title="The type of link: CMS Page, Category Page, Form ...">Menu Item Type <em>*</em></label>
+								<select id="type" name="type" class="required-entry select">
+									<option value="">Select Menu type</option>
+									<optgroup label="Top url types">
+									<?php foreach($menuType as $key => $value):?>
+									<option value="<?php echo $key;?>"><?php echo $value;?></option>
+									<?php endforeach;?>
+									</optgroup>
+									<optgroup label="Mosted Used Links">
+									<?php foreach($getallLink as $key => $value):?>
+									<option value="<?php echo $key;?>"><?php echo $value;?></option>
+									<?php endforeach;?>
+									</optgroup>
+								</select>
+							</div>
+							<div class="field">
+								<label class="label required-label" title="">Status</label>
+								<select id="status" class="required-entry select" name="status">
+									<?php 
+										$menu_status = $helper->getOptionArray();
+										foreach ($menu_status as $key => $status) {
+											echo "<option value='".$key."'>".$status."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</li>
+						<li class="fields column3" id="category_content" style="display:none;">
+							<div class="field">
+								<label class="label required-label" data-toggle="tooltip" data-placement = "bottom" title="The type of link: CMS Page, Category Page, Form ...">Select Category <em>*</em></label>
+								<select id="category_id"  disable="true" name="category_id" class="required-entry">
+									<option value="">Select Category</option>
+									<?php echo $helper->getCategoryListForForm();?>
+								</select>
+							</div>
+							
+							<div class="field" id="category_image_type" style="display:none;">
+								<label class="label">Show Category Image</label>
+								<select  name="image_type" id="image_type">
+									<option value = "none">None</option>
+									<option value = "main_image">Show category image in menu</option>
+								</select>
+							</div>
+							<div class="field" id="category_content_option" style="display:none;">
+								<label for="autosub"><input type="checkbox" disable="true" value="0" onclick="this.value = this.checked ? 1 : 0;" value="" name="autosub" id="autosub"> Show Auto Sub-Categories</label><br />
+								<label for="autosubimage">
+								<input type="checkbox" disable="true" value="0" onclick="this.value = this.checked ? 1 : 0;" value="" name="autosubimage" id="autosubimage"> Show Images For Sub-Categories</label><br />
+								
+								<label for="customimage"><input type="checkbox" disable="true" value="0" onclick="this.value = this.checked ? 1 : 0;" value="" name="show_custom_category_image" id="customimage"> Use Custom Image For Main Category</label><br />
+								
+							</div>
+						</li>
+						<li class="fields" id="select_cms_pages" style="display:none;">
+							<div class="field">
+								<label class="control-label required-label"  title="">Select Cms Pages <em>*</em></label>
+								
+								
+							<select id="cmspage_identifier" name="cmspage_identifier" disable="true" class="required-entry select">
+									<option value=''>Please Select Cms Page</option>
+									<?php
+										$cms_page_sort =$helper->getCMSPageCollection();
+										foreach($cms_page_sort as $cms_key => $cms_value):
+										if($cms_value['0']['is_active']== "1")
+										{
+									?>
+										<option value="<?php echo $cms_value['0']['page_id'];?>"><?php echo $cms_value['0']['title'];?></option>
+									<?php 
+									}endforeach;
+									?>
+								</select>
+							</div>
+							
+						</li>
+						
+						<li class="fields" id="select_static_block" style="display:none;">
+							<div class="field" >
+								<label class="control-label required-label"  title="">Select Static Block <em>*</em></label>	
+								<select id="staticblock_identifier" disable="true" name="staticblock_identifier" class="required-entry select">
+									<option value=''>Please Select Static Block</option>
+									<?php
+										$static_block_sort = $helper->getCMSBlockCollection(); 
+										foreach($static_block_sort as $static_key => $static_value):
+										if($static_value['0']['is_active']== "1")
+										{
+									?>
+										<option value="<?php echo $static_value['0']['block_id'];?>"><?php echo $static_value['0']['title'];?></option>
+									<?php 
+									}endforeach;
+									?>
+								</select>
+							</div>
+							<div class="field" id="show_hide_menu_title" style="display:none;">
+								<label class="control-label required-label"  title="">Show / Hide Menu Title <em>*</em></label>
+								<select id="title_show_hide" disable="true" name="title_show_hide"class="required-entry select">
+									<option value=''>Please Select Show / Hide Menu Title</option>
+									<option value='show'>Show</option>
+									<option value='hide'>Hide</option>
+								</select>
+							</div>
+							</li>
+							
+						<li class="fields" id="product_page" style="display:none;">
+							<div class="field">
+								<label class="control-label required-label"  title="">Product Id <em>*</em></label>
+								<input type="text" id="product_id" disable="true" value="" name="product_id" class="required-entry input-text validate-digits" placeholder="Enter product id..." />
+							</div>
+						</li>
+						<li class="fields" id="custom_url" style="display:none;">
+							<div class="field">
+								<label class="control-label required-label"  title="">Custom Url <em>*</em></label>
+								<input type="text" id="url_value" value="" disable="true" name="url_value" class="required-entry input-text" placeholder="Enter url here..." />
+							</div>
+							<!-- validate-url  -->
+							<div class="field" id="custom_link_content_option" style="display:block;">
+							<label for="useexternalurl"><input type="checkbox" disable="true" value="0" value="" name="useexternalurl" id="useexternalurl"> External URL </label>
+								<br />
+								(Ex: http://www.example.com)
+							</div>
+						</li>
+						<li class="fields" id="menu_title_check">
+							<div class="field">
+								<label class="control-label required-label"  title="">Menu Title <em>*</em></label>
+								<input type="text" id="title" name="title"  class="span3 required-entry input-text" placeholder="Enter title here..." />
+							</div>
+							<div class="field">
+								<label class="label" title="">Add Custom Class</label>
+								<input type="text" id="class_subfix" name="class_subfix" class="input-text" placeholder="Enter class name" />
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field required-entry" id="group_id_content">
+								<label title="" class="label required-label">Assign Menu Group <em>*</em></label>
+								<?php $url = $backend_helper->getUrl('navigationmenu/menudata/parents');?>
+								<input type="hidden" name="parent_url" id="parent_url" value="<?php echo $url;?>"/>
+								<select id="group_id" class="required-entry select" name="group_id"  data-parenturl="<?php echo $url;?>">
+									<?php 
+										$groupData = $helper->getAllGroup();
+										foreach ($groupData as $group) {
+											echo "<option value='".$group['value']."'>".$group['label']."</option>";
+										}
+									?>
+								</select>
+							</div>
+							<div class="field required-entry" id="parent_id_content">
+								<label class="label required-label"  title="">Parent Item <em>*</em></label>
+								<select id="parent_id" class="required-entry select" name="parent_id" >
+									<option value="">Please Select Parent</option>
+									<option value="0">Root</option>
+								</select>
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field required-entry">
+								<label class="label required-label"  title="">Visible In <em>*</em></label>
+								<select id="storeids" name="storeids[]" multiple="multiple" class="required-entry">
+									<?php 
+										foreach($store_swatcher as $value){
+										if($value['value']==0){
+									?>
+										<option value="0"><?php echo $value['label']; ?></option>
+									<?php
+										} else { ?>
+										<optgroup label="<?php echo $value['label']; ?>"></optgroup>
+									<?php
+										if(!empty($value['value'])){
+											foreach ($value['value'] as $option){
+									?>
+										<option value="<?php echo $option['value']; ?>"><?php echo "&nbsp;&nbsp;&nbsp;&nbsp;".$option['label'];?></option>
+									<?php 
+										}
+										}
+										}
+										}
+									?>
+								</select>
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field" id="subcolumn">
+								<label class="control-label required-label"  title="">Sub Column Layout <em>*</em></label>
+								<select name="subcolumnlayout" class="required-entry select" id="subcolumnlayout">
+									<?php 
+										$column_layout =$helper->columnLayout();
+										foreach ($column_layout as $key => $layout) {
+											echo "<option value='".$key."'>".$layout."</option>";
+										}
+									?>
+								</select>
+							</div>
+							<div class="field" id="text_align_content">
+								<label class="control-label"  title="">Sub Menu Align <em>*</em></label>
+								<select name="text_align" id="text_align">
+									<?php 
+										$alignment = $helper->getAlignment();
+										foreach ($alignment as $key => $layout) {
+											echo "<option value='".$key."'>".$layout."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="advance-option">
+					<ul class="fieldSet">
+						<li class="fields">
+							<div class="field">
+								<label class="label" title="">Access Permission</label>
+								<select id="permission" name="permission">
+									<?php 
+										$permissions = $helper->getPermission();
+										foreach ($permissions as $permissions) {
+											echo "<option value='".$permissions['value']."'>".$permissions['label']."</option>";
+										}
+									?>
+								</select>
+							</div>
+							<div class="field">
+								<label class="label">Target Window</label>
+								<select id="target" name="target">
+									<option value="1">Parent</option>
+									<option value="2">New Window</option>
+								</select>
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field">
+								<label class="label">Custom Link Title <span style="padding-right:10px"></span> </label>
+								<input type="text" id="description" name="description" class="input-text" placeholder="Custom item title for SEO ...">
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field">
+								<label class="label" title="">Set Relation {For Example : rel="nofollow noreferrer"}</label>
+								<select id="setrel" name="setrel[]" multiple>
+									<?php 
+										$relations = $helper->getRelation();
+										foreach ($relations as $relation) {
+											echo "<option value='".$relation['value']."'>".$relation['label']."</option>";
+										}
+									?>
+								</select>
+							</div>
+						</li>
+						<li class="fields">
+							<div class="field" id="image_upload">
+								<label class="label"  title="">Upload Item Thumbnail</label>
+								<input type="file" class="input-file input-text" value="" name="image" id="image">
+								<label class="control-label required-label"  title=""><strong> <em>Only JPG, PNG and GIF files are allowed.</em></strong></label>
+								
+							</div>
+							<div class="field" id="image_upload_show_hide">
+								<label class="label"  title="">Show/Hide Thumbnail</label>
+								<select name="image_status" id="image_status" style="height:auto;">
+									<option value="0">Please select</option>
+									<option value="1">Show</option>
+									<option value="2">Hide</option>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<div id="label-option">
+					<ul class="fieldSet">
+						<li class="fields">
+							<!--<div class="field" id="show_hide_label_title" style="display:block;">
+								<label class="control-label"  title="">Show / Hide Label Title</label>
+								<select id="label_show_hide" disable="true" name="label_show_hide"class="select">
+									<option value=''>Please Select Show / Hide Label Title</option>
+									<option value='1'>Show</option>
+									<option value='0'>Hide</option>
+								</select>
+							</div>-->
+							<div class="field">
+								<label class="label">Label Title <span style="padding-right:10px"></span> </label>
+								<input type="text" id="label_title" name="label_title" class="input-text" placeholder="Label Title...">
+							</div>
+							<div class="field" id="label_height">
+								<label class="label"  title="">Label Font Size</label>
+								<input type="text" class="input-file input-text" value="9px" name="height" id="height" placeholder="In Px..">
+							</div>
+							
+						</li>
+						<li class="fields">
+							<div class="field" id="label_bg_color">
+								<label class="label"  title="">Label Text Color</label>
+								<input type="text" class="input-file input-text color" value="#FFFF00" name="label_text_color" id="label_text_color">
+							</div>
+							<div class="field" id="label_color">
+								<label class="label"  title="">Label Text Background  Color</label>
+								<input type="text" class="input-file input-text color" value="#db0000" name="label_text_bg_color" id="label_text_bg_color">
+							</div>
+							
+						</li>
+					</ul>
+				</div>
+						</div>
+	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</div>

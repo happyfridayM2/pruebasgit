@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="TestSourceA1" type="am_test_source">
+        <data key="source_code" unique="suffix">sourcecode</data>
+        <data key="name">Test Source A1</data>
+        <data key="enabled">1</data>
+        <data key="country_id">US</data>
+        <data key="region_id">12</data>
+        <data key="postcode">12345</data>
+    </entity>
+    <entity name="TestSourceA2" type="am_test_source" extends="TestSourceA1">
+        <data key="name">Test Source A2</data>
+    </entity>
+
+</entities>

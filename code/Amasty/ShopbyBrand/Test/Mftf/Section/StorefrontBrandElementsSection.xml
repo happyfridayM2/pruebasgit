@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StorefrontBrandElementsSection">
+        <element name="AllBrandsPageLink" type="button"
+                 selector="//li[{{var1}}][contains(string(), 'BrandsTest')]"
+                 parameterized="true"/>
+        <element name="AllBrandsPageLinkInCustomerMenu" type="button"
+                 selector="//*[@class='customer-menu']//a[contains(string(), 'BrandsTest')]"/>
+        <element name="FirstBrandLetter" type="button"
+                 selector="//*[@class='ambrands-letter letter-{{var1}}']"
+                 parameterized="true"/>
+        <element name="BrandListItem" type="button"
+                 selector="//*[@id='ui-id-2']//a[contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="BrandLogo" type="block"
+                 selector="//div[@class='amshopby-option-link']/a[contains(@href,'{{var1}}')]/img[contains(@title, '{{var2}}')][contains(@src,'{{var3}}') or contains(@src,'{{var4}}')]"
+                 parameterized="true"/>
+        <element name="BrandLogoTooltipContent" type="block"
+                 selector="//div[@class='amshopby-option-link']/a[contains(@data-tooltip-content, '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="BrandItemOnAllBrandsPage" type="block"
+                 selector="//li[@class='brand-item']/a[contains(@title, '{{var1}}')]//img[contains(@src,'{{var2}}') or contains(@src,'{{var3}}')]"
+                 parameterized="true"/>
+        <element name="BrandItemTooltipContent" type="block"
+                 selector="//li[@class='brand-item'][contains(@data-tooltip-content, '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="BrandItemOnAllBrandsPageWithLetterNotStarts" type="block"
+                 selector="//li[@class='brand-item']/a[not(starts-with(@title, '{{var1}}'))]"
+                 parameterized="true"/>
+        <element name="BrandItemWithCont" type="block"
+                 selector="//li[@class='brand-item']/a/p[contains(@class, 'count') {{var1}} '{{var2}}']"
+                 parameterized="true"/>
+        <element name="AllBrandsPageSearcher" type="input"
+                 selector="//*[@class='ambrands-search-wrapper']/input"/>
+        <element name="LinkInAllBrandsPageSearcher" type="block"
+                 selector="//*[@id='livesearch']/a[contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="FilterByLetterActive" type="button"
+                 selector="//*[@class='letter letter-{{var1}}']"
+                 parameterized="true"/>
+        <element name="FilterByLetterInactive" type="button"
+                 selector="//*[@class='letter -disabled']"/>
+        <element name="BrandSliderItem" type="button"
+                 selector="//*[@class='swiper-brand ']"/>
+        <element name="BrandSliderHeaderColors" type="block"
+                 selector="//div[@class='amslider-header-container'][contains(@style,'background-color:{{var1}}')][contains(@style,'color: {{var2}}')]"
+                 parameterized="true"/>
+        <element name="BrandSliderItemsSequence" type="block"
+                 selector="//*[@class='swiper-container swiper-container-horizontal']//a[contains(@href, '{{var1}}')]/following::a[contains(@href, '{{var2}}')]"
+                 parameterized="true"/>
+        <element name="BrandSliderItemsSequenceAutoplayCheck" type="block"
+                 selector="//*[@class='swiper-container swiper-container-horizontal']//a[contains(@href, '{{var1}}')][contains(@class, 'swiper-slide swiper-slide-{{var2}}')]/following::a[contains(@href, '{{var3}}')]"
+                 parameterized="true"/>
+        <element name="BrandSliderItemsImage" type="block"
+                 selector="//*[@class='swiper-brand ']/div/img[contains(@src,'{{var1}}') or contains(@src,'{{var2}}')]"
+                 parameterized="true"/>
+        <element name="BrandSliderItemsLabel" type="block"
+                 selector="//*[@class='brand-title']"/>
+        <element name="BrandSliderPrevNextButton" type="block"
+                 selector="//*[@class='swiper-button-{{var1}}']"
+                 parameterized="true"/>
+        <element name="BrandSliderPaginationBullet" type="block"
+                 selector="//*[@class='swiper-pagination-bullet']"/>
+        <element name="BrandSliderPaginationBulletActive" type="block"
+                 selector="//*[@class='swiper-pagination-bullet swiper-pagination-bullet-active']"/>
+        <element name="BrandSliderPaginationBulletClickable" type="block"
+                 selector="//*[@class='swiper-pagination swiper-pagination-clickable swiper-pagination-bullets']"/>
+        <element name="MoreFromThisBrandBlockAndTitle" type="block"
+                 selector="//*[@class='block amshopby-morefrom']//*[contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="ProductInMoreFromThisBrandBlock" type="block"
+                 selector="//*[@class='block amshopby-morefrom']//div/ol/li[@class='item product product-item']"/>
+        <element name="ShortDescriptionContent" type="block"
+                 selector="//*[@class='link-short-description'][contains(string(), 'Test {{var1}} Short Description')]"
+                 parameterized="true"/>
+    </section>
+
+</sections>

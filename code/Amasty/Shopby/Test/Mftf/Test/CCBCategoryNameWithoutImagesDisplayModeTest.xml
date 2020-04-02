@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CCBCategoryNameWithoutImagesDisplayModeTest">
+
+        <annotations>
+            <features value="Children Categories Block"/>
+            <stories value="Children Categories Block checking"/>
+            <title value="Check Children Categories Block"/>
+            <description value="Check of Children Categories Without Image display mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CHILDCATBLOCK-2"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="childcatblock"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SetChildrenCategoriesDisplayMode1"
+                         ref="ConfigureChildrenCategoriesDisplayModeActionGroup">
+                <argument name="ChildrenCategories" value="CategoryNamesWithoutImagesMode"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryNamesWithoutImg"
+                         ref="ConfigureCategoryNamesWithoutImgWithoutSliderActionGroup">
+                <argument name="ChildrenCategories1" value="CategoryNamesWithoutImagesDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableChildrenCategories"
+                         ref="ConfigureChildrenCategoriesDisplayModeActionGroup">
+                <argument name="ChildrenCategories" value="DisableChildrenCategoriesBlock"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Category Names without Images display mode on the Storefront/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="OpenMenTopsCategoryPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <dontSeeElement
+                selector="{{StorefrontPageElementsSection.ChildrenCategoryWithImages('100','100','placeholder.jpg','placeholder.jpg')}}"
+                stepKey="CheckCCBElements1"/>
+        <seeNumberOfElements selector="{{StorefrontPageElementsSection.ChildrenCategoryWithoutIMGorLabel}}"
+                             userInput="4"
+                             stepKey="CheckCCBElements2"/>
+
+    </test>
+</tests>
+
+

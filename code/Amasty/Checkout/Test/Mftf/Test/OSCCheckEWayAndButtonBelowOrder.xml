@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckEWayAndButtonBelowOrder" extends="OSCCheckAmazonAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With eWay via the storefront"/>
+            <title value="Check Place Order with eWay And Button Below the Order on the Checkout"/>
+            <description value="Check Place Order with eWay And Button Below the Order on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-43"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsEWay"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleProductByWayfarerMessenger" stepKey="createSecondSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="OSCCustomerCalifornia" after="createSecondSimpleProduct" stepKey="createCustomer"/>
+            <actionGroup ref="AdminChooseCurrenciesAndChangeBaseCurrency" after="ConfigurationPlaceButtonDesignSetting" stepKey="configureCurrencies">
+                <argument name="currenciesConfigurations" value="_CurrencySet_USD_AUD"/>
+                <argument name="baseCurrency" value="_AustralianDollar.currencyCode"/>
+            </actionGroup>
+            <actionGroup ref="LoginToStorefrontActionGroup" after="configureCurrencies" stepKey="loginAsCustomer">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+            <actionGroup ref="StorefrontAddNewCustomerAddress" after="loginAsCustomer" stepKey="AddNewAddress">
+                <argument name="customer" value="customerOSCCheckEWay"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createCustomer" after="deleteSecondSimpleProduct" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminReturnDefaultCurrencyAndBaseCurrency" after="deleteCustomer" stepKey="ReturnDefaultSettingCurrencies"/>
+        </after>
+
+        <actionGroup ref="GoToOSCAsCustomerChooseAddressAndShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckEWay"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentEWay"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckEWayAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithEWayGrabNumber" stepKey="PlaceOrderWithEWay">
+            <argument name="creditCard" value="creditCardVisaTwo"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentEWay"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithEWay}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckEWayAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithEWay}"/>
+        </actionGroup>
+
+    </test>
+</tests>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CustomFilterSidebarLabels" type="customFilter">
+        <data key="CustomFilterEnableSwitcher">1</data>
+        <data key="CustomFilterBlockPositionSwitcher">0</data>
+        <data key="CustomFilterDisplayModeSwitcher">0</data>
+        <data key="CustomFilterPositionField">0</data>
+        <data key="CustomFilterTooltipField"></data>
+    </entity>
+    <entity name="CustomFilterDisabled" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterEnableSwitcher">0</data>
+    </entity>
+    <entity name="CustomFilterDropdownSidebar" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CustomFilterLabelsTop" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">1</data>
+    </entity>
+    <entity name="CustomFilterDropdownTop" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">1</data>
+        <data key="CustomFilterDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CustomFilterLabelsBoth" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">2</data>
+    </entity>
+    <entity name="CustomFilterDropdownBoth" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">2</data>
+        <data key="CustomFilterDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CustomFilterPositionLabelTooltip" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">2</data>
+        <data key="CustomFilterPositionField">99</data>
+        <data key="CustomFilterTooltipField">TestTooltip</data>
+    </entity>
+    <entity name="CustomFilterPosition" type="customFilter" extends="CustomFilterSidebarLabels">
+        <data key="CustomFilterBlockPositionSwitcher">2</data>
+        <data key="CustomFilterPositionField">98</data>
+    </entity>
+    <entity name="CustomFilterExpandAuto" type="customFilter2">
+        <data key="CustomFilterExpandSwitcher">0</data>
+    </entity>
+    <entity name="CustomFilterExpandDesktopMobile" type="customFilter2">
+        <data key="CustomFilterExpandSwitcher">1</data>
+    </entity>
+    <entity name="CustomFilterExpandDesktopOnly" type="customFilter2">
+        <data key="CustomFilterExpandSwitcher">2</data>
+    </entity>
+    <entity name="NewFilterLabel" type="customFilter3">
+        <data key="CustomFilterLabelField">New</data>
+    </entity>
+    <entity name="NewFilterLabelTest" type="customFilter3">
+        <data key="CustomFilterLabelField">NewTest</data>
+    </entity>
+    <entity name="OnSaleFilterLabel" type="customFilter3">
+        <data key="CustomFilterLabelField">On Sale</data>
+    </entity>
+    <entity name="OnSaleFilterLabelTest" type="customFilter3">
+        <data key="CustomFilterLabelField">On SaleTest</data>
+    </entity>
+    <entity name="RatingFilterLabel" type="customFilter3">
+        <data key="CustomFilterLabelField">Rating</data>
+    </entity>
+    <entity name="RatingFilterLabelTest" type="customFilter3">
+        <data key="CustomFilterLabelField">RatingTest</data>
+    </entity>
+    <entity name="StockFilterLabel" type="customFilter3">
+        <data key="CustomFilterLabelField">Stock</data>
+    </entity>
+    <entity name="StockFilterLabelTest" type="customFilter3">
+        <data key="CustomFilterLabelField">StockTest</data>
+    </entity>
+
+    <entity name="StockFilterMSIQtyScenario1" type="customFilter4">
+        <data key="Stock1">0</data>
+        <data key="Stock2">0</data>
+    </entity>
+    <entity name="StockFilterMSIQtyScenario2" type="customFilter4" extends="StockFilterMSIQtyScenario1">
+        <data key="Stock2">1</data>
+    </entity>
+
+</entities>

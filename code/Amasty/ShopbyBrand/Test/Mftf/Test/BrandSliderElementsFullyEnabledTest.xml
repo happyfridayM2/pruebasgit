@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandSliderElementsFullyEnabledTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brands Slider elements checking"/>
+            <title value="Check of Brands Slider elements"/>
+            <description
+                    value="Check that all Brands Slider elements is displayed correctly on All Brands Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-18"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandslider"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureClickablePaginationAutoplayDelayActionGroup"
+                         stepKey="configureBrandSliderElements1">
+                <argument name="brandSlider2" value="brandSliderConfigurationFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="ProductsInBrandSliderConfigurationActionGroup"
+                         stepKey="configureBrandOptionsInSlider1">
+                <argument name="AttrOptionInBrandSlider1" value="polyesterInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider2" value="organicCottonInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider3" value="nylonInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider4" value="spandexInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider5" value="AddToTheSliderMassAction"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="ConfigureBrandSliderElementsActionGroup"
+                         stepKey="configureBrandSliderElements1">
+                <argument name="brandSlider2" value="brandSliderConfigurationDefault"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="ProductsInBrandSliderConfigurationActionGroup"
+                         stepKey="configureBrandOptionsInSlider1">
+                <argument name="AttrOptionInBrandSlider1" value="polyesterInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider2" value="organicCottonInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider3" value="nylonInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider4" value="spandexInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider5" value="RemoveFromTheSliderMassAction"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that Brands Slider Elements is displayed correctly on All Brands Page/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+
+        <!--Check Show Brand Label setting: should be displayed 4 Brand Item Labels.-->
+
+        <seeNumberOfElements userInput="4"
+                             selector="{{StorefrontBrandElementsSection.BrandSliderItemsLabel}}"
+                             stepKey="seeBrandLabels1"/>
+
+        <!--Check Show Buttons/Infinity Loop settings: should be displayed Prev and Next Buttons. Both of them should be active. In case of Infinity Loop=No one of them will be inactive.-->
+
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPrevNextButton('next')}}"
+                stepKey="seeBrandSliderNextButton1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPrevNextButton('prev')}}"
+                stepKey="seeBrandSliderPrevButton1"/>
+
+        <!--Check Show Pagination setting: should be displayed 6 "bullets". One of them should be active. Check that bullets are clickable by code.-->
+
+        <seeNumberOfElements userInput="5"
+                             selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBullet}}"
+                             stepKey="seePagination1"/>
+        <seeNumberOfElements userInput="1"
+                             selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBulletActive}}"
+                             stepKey="seePagination2"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBulletClickable}}"
+                stepKey="seeClickablePagination1"/>
+
+        <!--Check Autoplay/Autoplay Delay settings: check that Brand Slider Items sequence has been changing in time defined by Autoplay Delay setting. See Autoplay Delay in Source Code.-->
+
+        <waitForElementVisible
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','next','polyester')}}"
+                time="4"
+                stepKey="waitForElementVisible1"/>
+        <waitForElementVisible
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','active','polyester')}}"
+                time="3"
+                stepKey="waitForElementVisible2"/>
+        <waitForElementVisible
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','prev','polyester')}}"
+                time="3"
+                stepKey="waitForElementVisible3"/>
+        <seeInSource html="autoplay:2000,"
+                     stepKey="checkBrandSliderAutoplayDelay1"/>
+
+        <!--Check Clickable Pagination setting: Click on Pagination Bullet. Check Brand Slider Items sequence.-->
+
+        <click selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBullet}}"
+               stepKey="clickOnPagination1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('burlap','active','cocona_reg_performance_fabric')}}"
+                stepKey="seeBrandSliderSequence1"/>
+
+        <!--Check Simulate Touch setting: Drag and Drop defined Brand Slider Item. Check Brand Slider Items sequence.-->
+
+        <wait time="1" stepKey="wait1"/>
+        <dragAndDrop
+                selector1="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('burlap','active','cocona_reg_performance_fabric')}}"
+                selector2="{{StorefrontBrandElementsSection.BrandSliderPrevNextButton('next')}}"
+                stepKey="checkSimulateTouch1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','duplicate swiper-slide-active','polyester')}}"
+                stepKey="seeBrandSliderSequence2"/>
+
+    </test>
+</tests>

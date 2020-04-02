@@ -1,0 +1,105 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+    /** @var \Amasty\Xnotif\Block\Catalog\Category\StockSubscribe $block */
+    /** @var Amasty\Xnotif\Helper\Data $helper */
+    $helper = $block->getModuleHelper();
+
+    $productId = $helper->getOriginalProduct($block) ? (int)$helper->getOriginalProduct($block)->getId() : 0;
+    $parentId = (int)$block->getData('parent_product_id');
+    $url = $helper->getEmailUrl('stock');
+    $usePopup = $block->usePopupForSubscribe();
+    $subscribeLinkTag = $usePopup ? 'a' : 'label';
+    $popupClass = $usePopup ? 'subscribe-popup' : '';
+?>
+
+<div class="amxnotif-container" data-product-id="<?= /* @noEscape */  $productId ?>">
+    <div class="amxnotif-block label <?= /* @noEscape */  $popupClass; ?>">
+        <<?= /* @noEscape */ $subscribeLinkTag ?> for="notification-container-<?= /* @noEscape */ $productId ?>">
+            <?= $block->escapeHtml(__('Subscribe to back in stock')) ?>
+        </<?= /* @noEscape */ $subscribeLinkTag ?>>
+    </div>
+    <div class="category amxnotif-block <?= /* @noEscape */ $popupClass; ?>"
+         data-action="<?= $block->escapeUrl($url); ?>"
+    >
+        <form class="form-for-swatches-inputs-fix"></form>
+        <form id="form-validate-stock-<?= /* @noEscape */ $productId ?>"
+              class="<?= /* @noEscape */ $popupClass; ?>"
+              method="post"
+              data-nofocus="true"
+              action="<?= $block->escapeUrl($url); ?>">
+            <?php if ($usePopup) : ?>
+                <label for="notification-container-<?= /* @noEscape */ $productId ?>">
+                    <?= $block->escapeHtml(__('Subscribe to back in stock notification')) ?>
+                </label>
+            <?php endif; ?>
+            <div class="notification-container" id="notification-container-<?= /* @noEscape */ $productId ?>">
+                <div class="input-fields fieldset">
+                    <input name="guest_email"
+                           class="input-text amxnotif-guest-email"
+                           id="amxnotif-guest-email-<?= /* @noEscape */ $productId ?>"
+                           size="30"
+                           type="email"
+                           data-validate="{required:true, 'validate-email':true }"
+                           placeholder="<?= $block->escapeHtml($helper->getPlaceholder()) ?>"
+                    />
+                    <input type="hidden" name="product_id"
+                           value="<?= /* @noEscape */ $productId ?>"/>
+                    <input type="hidden" name="type" value="email"/>
+
+                    <?php if ($parentId) : ?>
+                        <input type="hidden" name="parent_id"
+                               value="<?= /* @noEscape */ $parentId ?>"/>
+                    <?php endif; ?>
+
+                    <input type="hidden"
+                           name="<?= /* @noEscape */ \Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
+                           value="<?= /* @noEscape */ $block->getEncodedUrl() ?>"/>
+
+                    <?php if ($helper->isGDRPEnabled()) : ?>
+                        <div class="field required">
+                            <input type="checkbox"
+                                   name="gdrp"
+                                   id="amxnotif-stock-gdrp-<?= /* @noEscape */ $productId ?>"
+                                   title="<?= /* @noEscape */ __('GDRP'); ?>"
+                                   data-validate="{required:true}"
+                                   value="1">
+                            <label class="label" for="amxnotif-stock-gdrp-<?= /* @noEscape */ $productId ?>">
+                                <?= /* @noEscape */ $helper->getGDRPText(); ?>
+                            </label>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="actions-toolbar amxnotif_guest_action">
+                    <div class="primary">
+                        <button type="submit"
+                                class="action submit primary <?= /* @noEscape */ (!$usePopup) ? "amsubscribe" : ''?>"
+                        >
+                            <?= /* @noEscape */ ($usePopup) ? __('Subscribe') : ''; ?>
+                        </button>
+                    </div>
+                </div>
+                <?php if ($usePopup) : ?>
+                    <span class="close-subscribe-popup">&times;</span>
+                <?php endif; ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        "mage/mage",
+        "mage/validation"
+    ], function ($) {
+        "use strict";
+        $('#form-validate-stock-<?= /* @noEscape */  $productId ?>').mage('validation');
+    });
+</script>

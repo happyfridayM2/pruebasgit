@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <body>
+		<referenceContainer name="content">
+			<referenceBlock name="catalog.compare.sidebar" remove="true" />
+			<referenceContainer name="sidebar.additional" remove="true" />
+			<referenceBlock name="category.products.list">
+                <action method="setDefaultDirection">
+                    <argument name="dir" xsi:type="string">desc</argument>
+                </action>
+            </referenceBlock>
+		</referenceContainer>
+		<move element="page.main.title" destination="content" as="page.main.title" before="-" />
+	</body>
+</page>

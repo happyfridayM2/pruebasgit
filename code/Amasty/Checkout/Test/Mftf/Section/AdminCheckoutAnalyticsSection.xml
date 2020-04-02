@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminCheckoutAnalyticsSection">
+        <element name="StoreView" type="select" selector="#checkout_reports_website"/>
+        <element name="Refresh" type="button" selector="#refresh"/>
+        <element name="FormCompletionRateOfShippingAddress" type="block" selector="g[aria-label='Form Completion Rate, % Shipping Address 100']"/>
+        <element name="CustomerInformationAndShippingAddressTab" type="button" selector="//span[contains (text(), 'Customer Information &amp; Shipping Address')]"/>
+        <element name="CustomerInformationAndShippingAddressTabOpen" type="button" selector="//span[contains(text(), 'Customer Information &amp; Shipping Address')]/ancestor::div[@class='fieldset-wrapper-title'][@data-state-collapsible='open']"/>
+        <element name="BillingAddressTab" type="button" selector="//span[contains (text(), 'Billing Address')]"/>
+        <element name="BillingAddressTabOpen" type="button" selector="//span[contains(text(), 'Billing Address')]/ancestor::div[@class='fieldset-wrapper-title'][@data-state-collapsible='open']"/>
+        <element name="ShippingMethodTab" type="button" selector="//span[contains (text(), 'Shipping Method')]"/>
+        <element name="ShippingMethodTabOpen" type="button" selector="//span[contains(text(), 'Shipping Method')]/ancestor::div[@class='fieldset-wrapper-title'][@data-state-collapsible='open']"/>
+        <element name="DeliveryDateTab" type="button" selector="//span[contains (text(), 'Delivery Date')]"/>
+        <element name="DeliveryDateTabOpen" type="button" selector="//span[contains(text(), 'Delivery Date')]/ancestor::div[@class='fieldset-wrapper-title'][@data-state-collapsible='open']"/>
+        <element name="PaymentMethodTab" type="button" selector="//span[contains (text(), 'Payment Method')]"/>
+        <element name="PaymentMethodTabOpen" type="button" selector="//span[contains(text(), 'Payment Method')]/ancestor::div[@class='fieldset-wrapper-title'][@data-state-collapsible='open']"/>
+        <element name="CustomerEmailCompletionRate" type="block" selector="//tbody/tr[position()=1]/td[contains (text(), 'Customer Email')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="LastNameCompletionRate" type="block" selector="//div[@data-index='shipping_address']//td[contains (text(), 'Last Name')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="PhoneNumberCompletionRate" type="block" selector="//div[@data-index='billing_address']//td[contains (text(), 'Phone Number')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="CityCompletionRate" type="block" selector="//div[@data-index='billing_address']//td[contains (text(), 'City')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="ShippingMethodCompletionRate" type="block" selector="//td[contains (text(), 'Flat Rate - Fixed')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="DeliveryDateCompletionRate" type="block" selector="//td[contains (text(), 'Delivery Date')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="DeliveryCommentCompletionRate" type="block" selector="//td[contains (text(), 'Delivery Comment')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="PaymentMethodCompletionRate" type="block" selector="//td[contains (text(), 'Cash On Delivery')]/following-sibling::td[contains(text(), '100')]"/>
+        <element name="CustomerInformationGrid" type="block" selector=".fieldset-wrapper[data-index=shipping_address] table.data-grid"/>
+        <element name="BillingAddressGrid" type="block" selector=".fieldset-wrapper[data-index=billing_address] table.data-grid"/>
+        <element name="ShippingMethodGrid" type="block" selector=".fieldset-wrapper[data-index=shipping_method] table.data-grid"/>
+        <element name="DeliveryDateGrid" type="block" selector=".fieldset-wrapper[data-index=delivery_date] table.data-grid"/>
+        <element name="PaymentMethodGrid" type="block" selector=".fieldset-wrapper[data-index=payment_method] table.data-grid"/>
+    </section>
+
+</sections>

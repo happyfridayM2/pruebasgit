@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureCategoryIDSDisplayModeActionGroup">
+        <arguments>
+            <argument name="categoryIDS1"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(categoryIDS1.CategoryIDSID)}}" stepKey="navigateToCategoryIDSSettingsPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}"
+               stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.DisplayModeSwitcher}}"
+                      userInput="{{categoryIDS1.DisplayModeSwitcher}}"
+                      stepKey="SetDisplayMode1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowInTheBlockSwitcher}}"
+                      userInput="{{categoryIDS1.ShowInTheBlockSwitcher}}"
+                      stepKey="SetLocation1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSOtherElementsActionGroup"
+                 extends="ConfigureCategoryIDSDisplayModeActionGroup">
+        <arguments>
+            <argument name="categoryIDS2"/>
+        </arguments>
+        <selectOption selector="{{AttributeProfileSection.SortOptionsBySwitcher}}"
+                      userInput="{{categoryIDS2.SortOptionsBySwitcher}}"
+                      stepKey="SetSortOptions1"
+                      after="SetLocation1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowProductQuantitiesSwitcher}}"
+                      userInput="{{categoryIDS2.ShowProductQuantitiesSwitcher}}"
+                      stepKey="SetShowProductQty1"
+                      after="SetSortOptions1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowSearchBoxSwitcher}}"
+                      userInput="{{categoryIDS2.ShowSearchBoxSwitcher}}"
+                      stepKey="SetShowSearchBox1"
+                      after="SetShowProductQty1"/>
+        <fillField selector="{{AttributeProfileSection.ShowSearchBoxIfTrigger}}"
+                      userInput="{{categoryIDS2.ShowSearchBoxIfTrigger}}"
+                      stepKey="SetShowSearchBoxTrigger1"
+                      after="SetShowSearchBox1"/>
+        <fillField selector="{{AttributeProfileSection.NumberUnfoldedOptions}}"
+                      userInput="{{categoryIDS2.NumberUnfoldedOptions}}"
+                      stepKey="SetNumberUnfoldedOptions1"
+                      after="SetShowSearchBoxTrigger1"/>
+        <selectOption selector="{{AttributeProfileSection.IsExpandedSwitcher}}"
+                      userInput="{{categoryIDS2.IsExpandedSwitcher}}"
+                      stepKey="SetIsExpandedSwitcher1"
+                      after="SetNumberUnfoldedOptions1"/>
+        <fillField selector="{{AttributeProfileSection.TooltipTextField}}"
+                   userInput="{{categoryIDS2.TooltipTextField}}"
+                   stepKey="SetTooltipTextField1"
+                   after="SetIsExpandedSwitcher1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSOtherElementsDefaultActionGroup"
+                 extends="ConfigureCategoryIDSDisplayModeActionGroup">
+        <arguments>
+            <argument name="categoryIDS2"/>
+        </arguments>
+        <selectOption selector="{{AttributeProfileSection.SortOptionsBySwitcher}}"
+                      userInput="{{categoryIDS2.SortOptionsBySwitcher}}"
+                      stepKey="SetSortOptions1"
+                      after="SetLocation1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowProductQuantitiesSwitcher}}"
+                      userInput="{{categoryIDS2.ShowProductQuantitiesSwitcher}}"
+                      stepKey="SetShowProductQty1"
+                      after="SetSortOptions1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowSearchBoxSwitcher}}"
+                      userInput="{{categoryIDS2.ShowSearchBoxSwitcher}}"
+                      stepKey="SetShowSearchBox1"
+                      after="SetShowProductQty1"/>
+        <fillField selector="{{AttributeProfileSection.NumberUnfoldedOptions}}"
+                   userInput="{{categoryIDS2.NumberUnfoldedOptions}}"
+                   stepKey="SetNumberUnfoldedOptions1"
+                   after="SetShowSearchBox1"/>
+        <selectOption selector="{{AttributeProfileSection.IsExpandedSwitcher}}"
+                      userInput="{{categoryIDS2.IsExpandedSwitcher}}"
+                      stepKey="SetIsExpandedSwitcher1"
+                      after="SetNumberUnfoldedOptions1"/>
+        <fillField selector="{{AttributeProfileSection.TooltipTextField}}"
+                   userInput="{{categoryIDS2.TooltipTextField}}"
+                   stepKey="SetTooltipTextField1"
+                   after="SetIsExpandedSwitcher1"/>
+        <magentoCLI
+                command="config:set {{categoryIDS2.path}} {{categoryIDS2.value}}"
+                stepKey="configurePosition1"
+                after="SetTooltipTextField1"/>
+    </actionGroup>
+
+    <actionGroup name="SetCategoryIDSMultiSelectActionGroup"
+                 extends="ConfigureCategoryIDSDisplayModeActionGroup">
+        <arguments>
+            <argument name="categoryIDS4"/>
+        </arguments>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{categoryIDS4.AllowMultiSelectSwitcher}}"
+                      stepKey="SetIsExpandedSwitcher1"
+                      after="SetLocation1"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+

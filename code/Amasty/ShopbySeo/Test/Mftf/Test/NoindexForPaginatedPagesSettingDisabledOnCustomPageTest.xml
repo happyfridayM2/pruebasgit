@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NoindexForPaginatedPagesSettingDisabledOnCustomPageTest" extends="NoindexForPaginatedPagesSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Noindex for paginated pages setting disabling on Custom Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-50"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="noindexpagination"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SeoEnabling1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="CustomPageEnabling1" ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario2"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="SeoEnabling1"/>
+        </after>
+
+        <!--Check RTC settings: navigate to Custom Page, check Follow in Page Source after pagination/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"
+               after="seeInSource1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"
+               after="clickClimateFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1"
+             after="clickAllWeatherOption1"/>
+        <seeInPageSource
+                html="&quot;INDEX,nofollow"
+                stepKey="seeInSource3"
+                after="checkPageTitle1"/>
+        <seeInPageSource
+                html="&quot;INDEX,nofollow"
+                stepKey="seeInSource2"/>
+
+    </test>
+</tests>

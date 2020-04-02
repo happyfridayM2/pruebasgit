@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CCBCategoryThumbnailImagesDisplayModeTest">
+
+        <annotations>
+            <features value="Children Categories Block"/>
+            <stories value="Children Categories Block checking"/>
+            <title value="Check Children Categories Block"/>
+            <description value="Check of Children Categories display mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CHILDCATBLOCK-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="childcatblock"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SetChildrenCategoriesDisplayMode1"
+                         ref="ConfigureChildrenCategoriesDisplayModeActionGroup">
+                <argument name="ChildrenCategories" value="CategoryThumbnailImagesMode"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryThumbImg"
+                         ref="ConfigureCategoryThumbImgWithoutSliderActionGroup">
+                <argument name="ChildrenCategories1" value="CategoryThumbnailImagesDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableChildrenCategories"
+                         ref="ConfigureChildrenCategoriesDisplayModeActionGroup">
+                <argument name="ChildrenCategories" value="DisableChildrenCategoriesBlock"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Category Thumbnail Images display mode on the Storefront/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="OpenMenTopsCategoryPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <seeNumberOfElements
+                selector="{{StorefrontPageElementsSection.ChildrenCategoryWithImages('100','100','placeholder.jpg','placeholder.jpg')}}"
+                userInput="4"
+                stepKey="CheckCCBElements1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.ChildrenCategoryWithoutIMGorLabel}}"
+                        stepKey="CheckCCBElements2"/>
+
+    </test>
+</tests>
+
+

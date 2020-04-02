@@ -1,0 +1,17 @@
+#product_attribute_tabs_amasty_shopby_content select {
+    width:37%;
+}
+.field-customer_help .control {
+    margin-left: 0 !important;
+}
+#customer_help-note {
+    font-size: 15px;
+    font-weight: bold;
+}
+#shopby_fieldset_categories_tree {
+    margin-bottom: 0px;
+}
+
+.data-table .swatches-visual-col.unavailable:after {
+    top: calc(50% - 2px);
+}

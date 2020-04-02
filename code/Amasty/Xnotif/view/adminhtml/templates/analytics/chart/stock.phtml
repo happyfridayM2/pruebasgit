@@ -1,0 +1,124 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/** @var Amasty\Xnotif\Block\Adminhtml\Analytics\Chart\Stock $block */
+?>
+<div id="stock_analytics" class="analytics-chart"></div>
+<div class="amxnotif-legend-wrap">
+    <div class="amxnotif-item">
+        <div class="amxnotif-total -subscribed">
+            <?= /* @noEscape */ $block->getTotal('subscribed') ?>
+        </div>
+        <p class="amxnotif-label">
+            <?= $block->escapeHtml(__('Subscriptions created')); ?>
+        </p>
+    </div>
+    <div class="amxnotif-item">
+        <div class="amxnotif-total -sent">
+            <?= /* @noEscape */ $block->getTotal('sent') ?>
+        </div>
+        <p class="amxnotif-label">
+            <?= $block->escapeHtml(__('Alerts sent')); ?>
+        </p>
+    </div>
+    <div class="amxnotif-item">
+        <div class="amxnotif-total -orders">
+            <?= /* @noEscape */ $block->getTotal('orders') . $block->getCurrencySymbol() ?>
+        </div>
+        <p class="amxnotif-label">
+            <?= $block->escapeHtml(__('Orders made')); ?>
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Amasty_Xnotif/js/amcharts/amcharts'
+    ], function ($) {
+        require(['Amasty_Xnotif/js/amcharts/serial'], function ($) {
+            AmCharts.makeChart("stock_analytics",
+                {
+                    "type": "serial",
+                    "categoryField": "date",
+                    "startDuration": 0.5,
+                    "fontSize": 14,
+                    "categoryAxis": {
+                        "gridPosition": "start"
+                    },
+                    "trendLines": [],
+                    "graphs": [
+                        {
+                            "balloonText": "[[value]] [[title]]",
+                            "fillAlphas": 1,
+                            "id": "graph-1",
+                            "title": "subscriptions created",
+                            "type": "column",
+                            "valueAxis": "axis-1",
+                            "valueField": "subscribed",
+                            "legendPeriodValueText": "<?= /* @noEscape */ $block->getTotal('subscribed') ?>"
+                        },
+                        {
+                            "balloonText": "[[value]] [[title]]",
+                            "fillAlphas": 1,
+                            "id": "graph-2",
+                            "title": "alerts sent",
+                            "type": "column",
+                            "valueAxis": "axis-1",
+                            "valueField": "sent",
+                            "legendPeriodValueText": "<?= /* @noEscape */ $block->getTotal('sent') ?>"
+                        },
+                        {
+                            "balloonText": "[[value]]<?= /* @noEscape */ $block->getCurrencySymbol() ?> [[title]]",
+                            "fillAlphas": 1,
+                            "id": "graph-3",
+                            "title": "orders made",
+                            "type": "column",
+                            "valueAxis": "axis-2",
+                            "valueField": "orders",
+                            "legendPeriodValueText": "<?= /* @noEscape */ $block->getTotal('orders')
+                            . $block->getCurrencySymbol() ?>"
+                        }
+                    ],
+                    "guides": [],
+                    "valueAxes": [
+                        {
+                            "id": "axis-1",
+                            "integersOnly": true
+                        },
+                        {
+                            "id": "axis-2",
+                            "unit": "<?= /* @noEscape */ $block->getCurrencySymbol() ?>",
+                            "position": "right"
+                        }
+                    ],
+                    "allLabels": [],
+                    "balloon": {},
+                    "legend": {
+                        "enabled": false
+                    },
+                    "titles": [
+                        {
+                            "id": "title-1",
+                            "size": 25,
+                            "bold": false,
+                            "text": "<?= $block->escapeHtml($block->getTitle()); ?>"
+                        }
+                    ],
+                    "dataProvider": <?= /* @noEscape */ $block->getAnalyticsData() ?>,
+                    "fontFamily": "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    "colors": [
+                        "#ffa942",
+                        "#5B81CC",
+                        "#2DCA9B"
+                    ],
+                    "startEffect": "easeOutSine"
+                }
+            );
+        });
+    });
+</script>

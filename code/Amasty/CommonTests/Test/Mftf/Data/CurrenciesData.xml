@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="_Dollars" type="currencies">
+        <data key="currencyName">USD - US Dollar</data>
+        <data key="currencyCode">USD</data>
+    </entity>
+
+    <entity name="_BelarusianRuble" type="currencies">
+        <data key="currencyName">BYR - Belarusian Ruble</data>
+        <data key="currencyCode">BYR</data>
+    </entity>
+
+    <entity name="_Euro" type="currencies">
+        <data key="currencyName">EUR - Euro</data>
+        <data key="currencyCode">EUR</data>
+    </entity>
+
+    <entity name="_AustralianDollar" type="currencies">
+        <data key="currencyName">AUD - Australian Dollar</data>
+        <data key="currencyCode">AUD</data>
+    </entity>
+
+    <entity name="_CurrencySet_USD_AUD" type="currenciesConfigurations">
+        <data key="currencyCodeOne">AUD</data>
+        <data key="currencyCodeTwo">USD</data>
+    </entity>
+
+    <entity name="_CurrencySetOne" type="currenciesConfigurations">
+        <data key="currencyCodeOne">EUR</data>
+        <data key="currencyCodeTwo">USD</data>
+    </entity>
+
+</entities>

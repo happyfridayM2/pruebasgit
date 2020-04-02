@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarCategoryTreeNoDepthOneLabelsOnlyTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and rendering of Category Tree with Children Categories Depth of one, Labels only"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-82"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeNoDepthOneActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeNoDepthOneLabelsOnly"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription1"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SetCategoryDescriptionDefault1"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Navigate to All-Products Page and Category Page: check the result of Category Tree Rendering/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                        stepKey="checkCategoryOptionImage1"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+             userInput="Women"
+             stepKey="checkCategoryOptionLabel1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Women','Men','Gear','Training')}}"
+                    stepKey="checkCategoryTreeSequence1"/>
+        <amOnPage url="{{CategoryPage.url('women','tops-women')}}" stepKey="navigateToCategoryPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter2"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Jackets','Hoodies &amp; Sweatshirts','Tees','Bras &amp; Tanks')}}"
+                stepKey="checkCategoryTreeSequence2"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterOption('Jackets')}}"
+             userInput="Jackets"
+             stepKey="checkCategoryOptionLabel2"/>
+        <dontSeeElement
+                selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Jackets','placeholder.jpg','placeholder.jpg')}}"
+                stepKey="checkCategoryOptionImage2"/>
+
+    </test>
+</tests>
+
+

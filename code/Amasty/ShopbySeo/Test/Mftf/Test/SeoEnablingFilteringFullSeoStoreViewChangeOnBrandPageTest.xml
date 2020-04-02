@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringFullSeoStoreViewChangeOnBrandPageTest"
+          extends="SeoEnablingFilteringFullSeoStoreViewChangeTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled full SEO settings in Store View changing scenario on Brand Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="SEOSETTINGS-76"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="fullseo"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="attributeSeoScenario4" value="seoFriendlyMultiSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup" stepKey="configureAttributesForSeo1"
+                         before="configureBrandAttribute2">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute2"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with full seo in Store View changing scenario on Brand Page, check the result in url/-->
+
+        <amOnPage url="{{StorefrontBrandWithURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <seeInCurrentUrl
+                url="/default/testbrandurlkey/polyester/testfilterkey/pattern-solid-climate-all-weather-indoor.html?style_general=5561%2C5552"
+                stepKey="seeInCurrentUrl1"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1" after="seeInCurrentUrl1"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchStoreView1">
+            <argument name="storeView" value="storeViewILN"/>
+        </actionGroup>
+         <seeInCurrentUrl url="/tsv2/testbrandurlkey/polyester/testfilterkey/pattern-solid-climate-all-weather-indoor.html?style_general=5561%2C5552"
+                          stepKey="seeInCurrentUrl2"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage2"/>
+        <click selector="{{StorefrontPageElementsSection.MagentoLogo}}"
+               stepKey="clickOnMagentoLogo1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <seeInCurrentUrl url="/tsv2/"
+                         stepKey="seeInCurrentUrl3"/>
+        <amOnPage url="{{StorefrontBrandWithURLKeyPage.url('polyester')}}" stepKey="navigateToBrandPage2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchStoreView2">
+            <argument name="storeView" value="storeViewILN"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <click selector="{{StorefrontNavigationSection.topCategory('Men')}}"
+               stepKey="moveMouseOverTopNavigationCategory1"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <seeInCurrentUrl url="/tsv2/"
+                         stepKey="seeInCurrentUrl4"/>
+
+    </test>
+</tests>
+
+

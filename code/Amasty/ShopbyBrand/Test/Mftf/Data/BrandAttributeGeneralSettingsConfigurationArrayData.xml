@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="materialAsBrandAttribute" type="brandAttribute">
+        <data key="SelectBrandAttributeOption">material</data>
+        <data key="BrandUrlKeyField"></data>
+    </entity>
+    <entity name="materialAsBrandAttributeWithUrlKey" type="brandAttribute">
+        <data key="SelectBrandAttributeOption">material</data>
+        <data key="BrandUrlKeyField">testbrandurlkey</data>
+    </entity>
+    <entity name="noBrandAttribute" type="brandAttribute">
+        <data key="SelectBrandAttributeOption">-- Empty --</data>
+        <data key="BrandUrlKeyField"></data>
+    </entity>
+
+    <entity name="noDisplayBrandsLink" type="brandsLink1">
+        <data key="AddBrandsLinkTopMenu">0</data>
+        <data key="AddBrandsAccountTopLinks">0</data>
+        <data key="BrandsItemLabel">Brands</data>
+    </entity>
+    <entity name="brandsLinkFirstAddToAccountLinks" type="brandsLink1">
+        <data key="AddBrandsLinkTopMenu">1</data>
+        <data key="AddBrandsAccountTopLinks">1</data>
+        <data key="BrandsItemLabel">BrandsTest</data>
+    </entity>
+    <entity name="brandsLinkLastAddToAccountLinks" type="brandsLink1" extends="brandsLinkFirstAddToAccountLinks">
+        <data key="AddBrandsLinkTopMenu">2</data>
+    </entity>
+    <entity name="showBrandsList" type="brandsLink1" extends="brandsLinkFirstAddToAccountLinks">
+        <data key="ShowBrandsList">1</data>
+    </entity>
+
+    <entity name="brandLogoTooltipDefault" type="brandLogoTooltip1">
+        <data key="DisplayTooltip">no</data>
+        <data key="useInProductListing">0</data>
+    </entity>
+    <entity name="brandLogoTooltipFullyEnabled" type="brandLogoTooltip1">
+        <data key="DisplayTooltip">all_brands','product_page','listing_page</data>
+        <data key="TooltipContent">Test {title} Tooltip Content</data>
+        <data key="useInProductListing">1</data>
+    </entity>
+    <entity name="displayTooltipNo" type="brandLogoTooltip1" extends="brandLogoTooltipDefault">
+        <data key="useInProductListing">1</data>
+    </entity>
+
+</entities>

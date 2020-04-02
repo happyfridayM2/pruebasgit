@@ -1,0 +1,27 @@
+%1,%1
+"You saved the item.","You saved the item."
+"Something went wrong while saving the item data. Please review the error log.","Something went wrong while saving the item data. Please review the error log."
+"Requested filter setting doesn't exist","Requested filter setting doesn't exist"
+"Requested Improved Navigation submodule is disabled. Only read methods is allowed.","Requested Improved Navigation submodule is disabled. Only read methods is allowed."
+"Requested option setting doesn't exist","Requested option setting doesn't exist"
+Labels,Labels
+Dropdown,Dropdown
+Images,Images
+"Images & Labels","Images & Labels"
+"Text Swatches","Text Swatches"
+Slider,Slider
+"From-To Only","From-To Only"
+Ranges,Ranges
+"Please upload images at the Properties tab.","Please upload images at the Properties tab."
+"Please add text values at the Properties tab.","Please add text values at the Properties tab."
+Default,Default
+Yes,Yes
+No,No
+"Featured Options","Featured Options"
+"Is Featured","Is Featured"
+"Not featured options will be hidden under ‘show more’ element (if at least one attribute's option is marked as ‘Is Featured’). ","Not featured options will be hidden under ‘show more’ element (if at least one attribute's option is marked as ‘Is Featured’). "
+SEO,SEO
+"URL alias","URL alias"
+Loading...,Loading...
+Settings,Settings
+"Use Default Value","Use Default Value"

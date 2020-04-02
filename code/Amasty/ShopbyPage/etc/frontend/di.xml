@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\ShopbyBase\Model\Customizer\Category">
+        <arguments>
+            <argument name="customizers" xsi:type="array">
+                <item name="page" xsi:type="string">Amasty\ShopbyPage\Model\Customizer\Category\Page</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Helper\Category">
+        <plugin name="Amasty_ShopbyPage::TemplateContext"
+                type="Amasty\ShopbyPage\Plugin\Catalog\Helper\Category" sortOrder="100"/>
+    </type>
+    <type name="Amasty\ShopbySeo\Helper\Meta">
+        <plugin name="Amasty_ShopbyPage::PageIndexTag" type="Amasty\ShopbyPage\Plugin\ShopbySeo\Helper\Meta" />
+    </type>
+</config>

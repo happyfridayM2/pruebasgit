@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AutomaticallyAddRelNofollowSettingPriceTest" extends="AutomaticallyAddRelNofollowSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Automatically Add relnofollow to Filter Links when Required setting enabling in case of Price Filter"/>
+            <severity value="MINOR"/>
+            <testCaseId value="RTCSETTINGS-57"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="relnofollow"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigurePriceForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefaultPrice"/>
+                <argument name="RTC2" value="AllowMultiSelectLabelsMode"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigurePriceForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefaultPrice"/>
+                <argument name="RTC2" value="SingleSelectDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check RTC settings: navigate to All-Products Page, check Nofollow in Price Filter Option in Page Source/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Price')}}"
+               stepKey="clickPatternFilter1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterOptionWithNofollow('39.99')}}"
+                    stepKey="seeNofollowInOption1"/>
+
+    </test>
+</tests>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="enableSeoDisableSuffix" type="seoScenario">
+        <data key="SeoSwitcher">1</data>
+        <data key="AddSuffixSwitcher">0</data>
+    </entity>
+    <entity name="disableSeoAndSuffix" type="seoScenario">
+        <data key="SeoSwitcher">0</data>
+        <data key="AddSuffixSwitcher">0</data>
+    </entity>
+    <entity name="disableSeoEnableSuffix" type="seoScenario" extends="disableSeoAndSuffix">
+        <data key="AddSuffixSwitcher">1</data>
+    </entity>
+
+    <entity name="enableSeoDefault" type="seoScenario2">
+        <data key="IncludeAttrNameSwitcher">0</data>
+        <data key="FilterKeyField"></data>
+        <data key="AddSuffixSwitcher">0</data>
+        <data key="ReplaceSpecChar">_</data>
+        <data key="SeparateAttrOpt">-</data>
+    </entity>
+    <entity name="enableSeoDefault2" type="seoScenario2" extends="enableSeoDefault">
+        <data key="ReplaceSpecChar">-</data>
+    </entity>
+    <entity name="enableSeoDefault3" type="seoScenario2" extends="enableSeoDefault">
+        <data key="ReplaceSpecChar">-</data>
+        <data key="SeparateAttrOpt">--</data>
+    </entity>
+    <entity name="enableFullSeo" type="seoScenario2">
+        <data key="IncludeAttrNameSwitcher">1</data>
+        <data key="FilterKeyField">testfilterkey</data>
+        <data key="AddSuffixSwitcher">1</data>
+        <data key="ReplaceSpecChar">-</data>
+        <data key="SeparateAttrOpt">-</data>
+    </entity>
+    <entity name="enableFullSeoDisableSuffix" type="seoScenario2" extends="enableFullSeo">
+        <data key="AddSuffixSwitcher">0</data>
+    </entity>
+    <entity name="enableFullSeo2" type="seoScenario2" extends="enableFullSeo">
+        <data key="ReplaceSpecChar">_</data>
+        <data key="SeparateAttrOpt">_</data>
+    </entity>
+    <entity name="enableSeoAttrName" type="seoScenario2" extends="enableSeoDefault">
+        <data key="IncludeAttrNameSwitcher">1</data>
+        <data key="ReplaceSpecChar">_</data>
+        <data key="SeparateAttrOpt">_</data>
+    </entity>
+    <entity name="enableSeoAttrName2" type="seoScenario" extends="enableFullSeo">
+        <data key="FilterKeyField"></data>
+        <data key="AddSuffixSwitcher">0</data>
+        <data key="SeparateAttrOpt">--</data>
+    </entity>
+    <entity name="enableSeoSuffix" type="seoScenario2" extends="enableSeoDefault">
+        <data key="AddSuffixSwitcher">1</data>
+        <data key="SeparateAttrOpt">--</data>
+    </entity>
+    <entity name="enableSeoSuffix2" type="seoScenario" extends="enableSeoDefault">
+        <data key="AddSuffixSwitcher">1</data>
+        <data key="SeparateAttrOpt">_</data>
+    </entity>
+    <entity name="enableSeoFilterKey" type="seoScenario2" extends="enableSeoDefault">
+        <data key="FilterKeyField">testfilterkey</data>
+        <data key="ReplaceSpecChar">-</data>
+    </entity>
+    <entity name="enableSeoFilterKey2" type="seoScenario2" extends="enableSeoDefault">
+        <data key="FilterKeyField">testfilterkey</data>
+    </entity>
+
+    <entity name="magentoURLSuffixDefault" type="magurlsuffix">
+        <data key="value">.html</data>
+        <data key="path">catalog/seo/category_url_suffix</data>
+    </entity>
+    <entity name="magentoURLSuffixEmpty" type="magurlsuffix" extends="magentoURLSuffixDefault">
+        <data key="value">''</data>
+    </entity>
+</entities>
+

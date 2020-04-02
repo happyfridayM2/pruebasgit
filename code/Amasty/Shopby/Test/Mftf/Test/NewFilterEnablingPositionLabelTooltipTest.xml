@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterEnablingPositionLabelTooltipTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and displaying of elements"/>
+            <description value="Check of new filter enabling position label tooltip in all locations"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNNEWFILTER-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="NewFilterEnabling1"
+                         ref="NewFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+                <argument name="customFilter" value="CustomFilterPositionLabelTooltip"/>
+                <argument name="customFilter3" value="NewFilterLabelTest"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsBoth"/>
+                <argument name="categoryIDS2" value="CategoryIDSDefinedPosition"/>
+            </actionGroup>
+            <actionGroup ref="EnableStyleGeneralPositionLabelTooltipActionGroup"
+                         stepKey="configureTLPForStyleGeneral1"/>
+            <actionGroup ref="TooltipEnablingWithoutImageActionGroup" stepKey="configureTooltip1"/>
+        </before>
+
+        <after>
+            <actionGroup ref="TooltipEnablingWithoutImageActionGroup" stepKey="configureTooltip2"/>
+            <actionGroup ref="DisableStyleGeneralPositionLabelTooltipActionGroup"
+                         stepKey="configureTLPForStyleGeneral1"/>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="NewFilterDisabling1"
+                         ref="NewFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Checking of New Filter elements: check configuration of position, label, tooltip without image/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts"/>
+        <wait time="1" stepKey="waitSeconds1"/>
+        <see userInput="NewTest"
+             selector="{{StorefrontFilterElementsSection.FilterSidebarPosition('21')}}"
+             stepKey="seeTitleAndPosition1"/>
+        <see userInput="NewTest"
+             selector="{{StorefrontFilterElementsSection.FilterTop2}}"
+             stepKey="seeTitleandPosition2"/>
+        <wait time="1" stepKey="waitSeconds2"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.FilterSidebarTooltip('NewTest')}}"
+                stepKey="seeTooltipText1"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.FilterTopTooltip('NewTest')}}"
+                stepKey="seeTooltipText2"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('21','tooltip','tooltip'))}}"
+                    stepKey="seeTooltipImage1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('2','tooltip','tooltip'))}}"
+                    stepKey="seeTooltipImage2"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterSidebarTooltip('NewTest')}}"
+                       stepKey="hoverOverTooltip1"/>
+        <wait time="3" stepKey="waitSeconds3"/>
+        <seeElementInDOM selector='{{StorefrontFilterElementsSection.TooltipInDOM}}'
+                         stepKey="seeTooltipInDOM1"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterTopTooltip('NewTest')}}"
+                       stepKey="hoverOverTooltip2"/>
+        <wait time="3" stepKey="waitSeconds4"/>
+        <seeElementInDOM selector='{{StorefrontFilterElementsSection.TooltipInDOM}}'
+                         stepKey="seeTooltipInDOM2"/>
+        <wait time="1" stepKey="waitSeconds5"/>
+
+    </test>
+</tests>

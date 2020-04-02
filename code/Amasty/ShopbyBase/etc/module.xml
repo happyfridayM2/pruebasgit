@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <!-- setup_version is not a module version -->
+    <module name="Amasty_ShopbyBase" setup_version="2.10.2">
+        <sequence>
+            <module name="Amasty_Base" />
+            <module name="Magento_Cms"/>
+            <module name="Magento_Catalog"/>
+        </sequence>
+    </module>
+</config>

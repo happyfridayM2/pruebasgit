@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <!-- PROGRESS BAR CONFIGURATION STARTS -->
+    <virtualType name="Wyomind\OrdersExportTool\Block\Adminhtml\Progress\Status"
+                 type="Wyomind\Core\Block\Adminhtml\Progress\Status">
+        <arguments>
+            <argument name="module" xsi:type="string">OrdersExportTool</argument>
+            <argument name="field" xsi:type="string">scheduled_task</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Wyomind\OrdersExportTool\Helper\Progress"
+                 type="Wyomind\Core\Helper\Progress">
+        <arguments>
+            <argument name="module" xsi:type="string">OrdersExportTool</argument>
+            <argument name="tempDirectory" xsi:type="string">/var/tmp/OrdersExportTool/</argument>
+            <argument name="filePrefix" xsi:type="string">profile_</argument>
+        </arguments>
+    </virtualType>
+    <!-- PROGRESS BAR CONFIGURATION ENDS -->
+
+
+    <!-- LOGGER CONFIGURATION STARTS -->
+    <virtualType name="Wyomind\OrdersExportTool\Logger\Logger" type="\Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">OrdersExportTool</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="ordersexporttool" xsi:type="object">Wyomind\OrdersExportTool\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Wyomind\OrdersExportTool\Logger\Handler" type="\Wyomind\Core\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/Wyomind_OrdersExportTool.log</argument>
+            <argument name="filePath" xsi:type="string"></argument>
+        </arguments>
+    </virtualType>
+
+    <!-- LOGGER CONFIGURATION ENDS -->
+
+    <!-- LOGGERCRON CONFIGURATION STARTS -->
+    <virtualType name="Wyomind\OrdersExportTool\Logger\LoggerCron" type="\Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">OrdersExportToolCron</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="ordersexporttool" xsi:type="object">Wyomind\OrdersExportTool\Logger\HandlerCron</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Wyomind\OrdersExportTool\Logger\HandlerCron" type="\Wyomind\Core\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/Wyomind_OrdersExportToolCron.log</argument>
+            <argument name="filePath" xsi:type="string"></argument>
+        </arguments>
+    </virtualType>
+    <!-- LOGGERCRON CONFIGURATION ENDS -->
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="oet_generate" xsi:type="object">Wyomind\OrdersExportTool\Console\Command\Export</item>
+                <item name="oet_list" xsi:type="object">Wyomind\OrdersExportTool\Console\Command\Listing</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_conf>
+            <general>
+                <share>1</share>
+                <enable_zoom_lightbox>1</enable_zoom_lightbox>
+            </general>
+            <reload>
+                <content>name,description,short_description,attributes,sku</content>
+                <name>h1 span[itemprop="name"], .page-title-wrapper.product span</name>
+                <description>div.product.attribute.description div.value</description>
+                <short_description>div[itemprop="description"], div.overview .value</short_description>
+                <attributes>div.additional-attributes-wrapper</attributes>
+                <sku>[itemprop="sku"], .product-info-stock-sku .sku .value</sku>
+            </reload>
+            <matrix>
+                <enable>0</enable>
+                <display_sku>0</display_sku>
+                <available_qty>1</available_qty>
+                <subtotal>1</subtotal>
+            </matrix>
+            <zoom>
+                <viewer_position>1</viewer_position>
+                <offset_x>10</offset_x>
+                <offset_y>10</offset_y>
+                <viewer_width>300</viewer_width>
+                <viewer_height>300</viewer_height>
+                <preloading>1</preloading>
+                <fadein>1</fadein>
+                <easing>1</easing>
+                <scroll>1</scroll>
+                <tint_color></tint_color>
+                <lens_size>200</lens_size>
+            </zoom>
+            <lightbox>
+                <enable>1</enable>
+                <circular_lightbox>1</circular_lightbox>
+                <effect_slide>tube</effect_slide>
+                <animationEffect>zoom-in-out</animationEffect>
+                <thumbnail_helper>1</thumbnail_helper>
+                <thumbnail_lignhtbox>0</thumbnail_lignhtbox>
+            </lightbox>
+            <carousel>
+                <enable>1</enable>
+                <image_change>click</image_change>
+                <main_image_swipe>1</main_image_swipe>
+                <carousel_position>under</carousel_position>
+                <slides_to_show>3</slides_to_show>
+                <slides_to_scroll>1</slides_to_scroll>
+                <circular>1</circular>
+                <use_pagination>1</use_pagination>
+                <auto_scrolling>0</auto_scrolling>
+            </carousel>
+        </amasty_conf>
+    </default>
+</config>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AutomaticallyAddRelNofollowSettingDisplayModeImagesLabelsTest"
+          extends="AutomaticallyAddRelNofollowSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Automatically Add relnofollow to Filter Links when Required setting in interaction with Attribute's appropriate setting in Images and Labels Display Mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="RTCSETTINGS-35"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="relnofollow"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+                <argument name="RTC2" value="ImagesLabelsMode"/>
+            </actionGroup>
+        </before>
+
+        <!--Check RTC settings: navigate to All-Products Page, check Nofollow in Attribute's Option in Page Source/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterOptionWithNofollow('Black')}}"
+                    stepKey="seeNofollowInOption1"/>
+
+    </test>
+</tests>

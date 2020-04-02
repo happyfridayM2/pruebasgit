@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="GAOType1" type="gaoValues">
+        <data key="GroupTitleField">Test GAO Title 1</data>
+        <data key="GroupCodeField" unique="suffix">Code</data>
+        <data key="StatusSwitcher">1</data>
+        <data key="SwatchSwitcher">3.png</data>
+        <data key="AliasField">amtestgaoaliasone</data>
+        <data key="PositionField">1</data>
+        <data key="AttributeTriggerSelect">156</data>
+        <data key="ID1">All-Weather</data>
+        <data key="ID2">Indoor</data>
+        <data key="ID3">Warm</data>
+    </entity>
+
+</entities>
+
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAddNewCustomerAddress">
+        <arguments>
+            <argument name="customer"/>
+        </arguments>
+        <amOnPage url="{{FrontAccountAddressBook.url}}" stepKey="navigateToAccountAddressBook"/>
+        <click selector="{{StorefrontCustomerAddressBookSection.AddNewAddress}}" stepKey="AddNewAddress"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.FirstNameField}}" userInput="{{customer.firstName}}"
+                   stepKey="enterFirstName"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.LastNameField}}" userInput="{{customer.lastName}}"
+                   stepKey="enterLastName"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.PhoneNumberField}}" userInput="{{customer.telephone}}"
+                   stepKey="enterTelephone"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.StreetAddressField}}" userInput="{{customer.street}}"
+                   stepKey="enterStreet"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.CityField}}" userInput="{{customer.city}}"
+                   stepKey="enterCity"/>
+        <selectOption selector="{{StorefrontCustomerAddNewAddressSection.CountrySelect}}"
+                      userInput="{{customer.country}}"
+                      stepKey="selectCountry"/>
+        <fillField selector="{{StorefrontCustomerAddNewAddressSection.ZipField}}" userInput="{{customer.postcode}}"
+                   stepKey="enterZip"/>
+        <selectOption selector="{{StorefrontCustomerAddNewAddressSection.StateSelect}}"
+                      userInput="{{customer.region}}"
+                      stepKey="selectRegion"/>
+        <click selector="{{StorefrontCustomerAddNewAddressSection.SaveAddress}}" stepKey="SaveNewAddress"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontDeleteLastCustomerAddress">
+        <amOnPage url="{{FrontAccountAddressBook.url}}" stepKey="navigateToAccountAddressBook"/>
+        <click selector="{{StorefrontCustomerAddressBookSection.ButtonDeleteLastAddress}}" stepKey="DeleteAddress"/>
+        <waitForElementVisible selector="{{StorefrontCustomerAddressBookSection.ButtonConfirmDelete}}" stepKey="waitForModal"/>
+        <click selector="{{StorefrontCustomerAddressBookSection.ButtonConfirmDelete}}" stepKey="confirmDelete"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+</actionGroups>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPayPalAndButtonBelowPayment" extends="OSCCheckAmazonAndButtonBelowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With PayPal via the storefront"/>
+            <title value="Check Place Order with PayPal And Button Below Payment Methods on the Checkout"/>
+            <description value="Check Place Order with PayPal And Button Below Payment Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-28"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsPayPal"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createCustomer"/>
+            <remove keyForRemoval="loginAsCustomer"/>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <createData entity="SimpleProductByBagImpulseDuffle" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="AdminConfigOSCDesignLayoutClassic" stepKey="ConfigurationPlaceButtonDesignSetting">
+                <argument name="adminSettingOSCDesignLayout" value="SetOSCDesignLayoutButtonPlaceBelowPayment"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteCustomer"/>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentPaypalExpressCheckout"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPayPalAndButtonBelowPaymentMethods"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowPaymentPayPalExpressGrabNumberGuest" stepKey="PlaceOrderWithPayPal">
+            <argument name="customerCredentialsData" value="customerPayPalAccount"/>
+            <argument name="orderTotalForCheck" value="OSCCheckPayPalAndButtonBelowPaymentMethods.orderTotal"/>
+        </actionGroup>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentPaypalExpressCheckout"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithPayPal}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckPayPalAndButtonBelowPaymentMethods"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithPayPal}"/>
+        </actionGroup>
+
+    </test>
+</tests>

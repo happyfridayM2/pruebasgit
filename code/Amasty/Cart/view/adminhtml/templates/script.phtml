@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+?>
+<script>
+    require([
+        'jquery',
+        'jquery/colorpicker/js/colorpicker'
+    ], function ($) {
+        $(document).ready(function () {
+            $('input[id*="amasty_cart_visual"]').each(function (i, element) {
+                var $element = $(element),
+                    value = $element.val();
+                $element.css("backgroundColor", "#" + value);
+
+                // Attach the color picker
+                $element.ColorPicker({
+                    color: value,
+                    onChange: function (hsb, hex, rgb) {
+                        $element.css("backgroundColor", "#" + hex).val(hex);
+                    }
+                });
+            });
+        });
+    });
+</script>

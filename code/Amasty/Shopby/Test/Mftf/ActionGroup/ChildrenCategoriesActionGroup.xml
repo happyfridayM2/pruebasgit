@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureChildrenCategoriesDisplayModeActionGroup">
+        <arguments>
+            <argument name="ChildrenCategories"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandChildrenCategoriesTab"
+                          selector="{{AdminILNSettingsSection.ChildrenCategoriesTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.DisplayMode}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.DisplayMode}}"
+                      userInput="{{ChildrenCategories.DisplayMode}}"
+                      stepKey="SetDisplayMode"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryThumbImgWithoutSliderActionGroup">
+        <arguments>
+            <argument name="ChildrenCategories1"/>
+        </arguments>
+        <fillField selector="{{AdminILNSettingsSection.CategoryThumbnailImageSize}}"
+                   userInput="{{ChildrenCategories1.CategoryThumbnailImageSize}}"
+                   stepKey="SetCategoryThumbnailImageSize"/>
+        <selectOption selector="{{AdminILNSettingsSection.ShowImageLabels}}"
+                      userInput="{{ChildrenCategories1.ShowImageLabels}}"
+                      stepKey="SetShowImageLabels"/>
+        <selectOption selector="{{AdminILNSettingsSection.EnableSlider}}"
+                      userInput="{{ChildrenCategories1.EnableSlider}}"
+                      stepKey="SetSliderOption"/>
+        <selectOption selector="{{AdminILNSettingsSection.CategoriesSelection}}"
+                      parameterArray="['{{ChildrenCategories1.CategoriesSelection}}']"
+                      stepKey="SelectCategories"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache2"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryThumbImgWithSliderActionGroup"
+                 extends="ConfigureCategoryThumbImgWithoutSliderActionGroup">
+        <arguments>
+            <argument name="ChildrenCategories1"/>
+        </arguments>
+        <fillField selector="{{AdminILNSettingsSection.ItemsPerSlide}}"
+                   userInput="{{ChildrenCategories1.ItemsPerSlide}}"
+                   stepKey="SetItemPerSlider"
+                   after="SetSliderOption"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryNamesWithoutImgWithoutSliderActionGroup">
+        <arguments>
+            <argument name="ChildrenCategories1"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.EnableSlider}}"
+                      userInput="{{ChildrenCategories1.EnableSlider}}"
+                      stepKey="SetEnableSlider"/>
+        <selectOption selector="{{AdminILNSettingsSection.CategoriesSelection}}"
+                      userInput="{{ChildrenCategories1.CategoriesSelection}}"
+                      stepKey="SelectCategories"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache3"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryNamesWithoutImgWithSliderActionGroup"
+                 extends="ConfigureCategoryNamesWithoutImgWithoutSliderActionGroup">
+        <arguments>
+            <argument name="ChildrenCategories1"/>
+        </arguments>
+        <fillField selector="{{AdminILNSettingsSection.ItemsPerSlide}}"
+                   userInput="{{ChildrenCategories1.ItemsPerSlide}}"
+                   stepKey="SetItemPerSlider"
+                   after="SetEnableSlider"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+

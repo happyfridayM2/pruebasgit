@@ -1,0 +1,53 @@
+<div class="items payment-methods">
+    <div class="field">
+        <div class="control">
+            <select class="select"
+                    id="iwd_opc_payment_method_select"
+                    data-validate="{required:true}"
+                    data-can-unselect="false"
+                    data-bind="
+                        value: selectedPaymentMethod,
+                        options: paymentMethods,
+                        optionsAfterRender:
+                            function(option, item) {
+                                decorateSelect('iwd_opc_payment_method_select', option, item);
+                            },
+                        optionsText: 'title',
+                        optionsValue: 'method',
+                        optionsCaption: '',
+                        event: {change: function(data, event){selectPaymentMethod(data, event, selectedPaymentMethod())}}
+                    "></select>
+        </div>
+    </div>
+    <div repeat="foreach: paymentGroupsList, item: '$group'">
+        <each args="data: getRegion($group().displayArea), as: 'method'" render=""/>
+    </div>
+    <div class="custom-payment-method-list">
+        <!-- ko foreach: window.checkoutConfig.activePaymentMethods -->
+            <div class="custom-payment-method">
+                <div class="custom-payment-method-title">
+                    <div class="custom-radio-container">
+                        <!-- ko if: (value == window.checkoutConfig.defaultPaymentMethod) -->
+                            <input type="radio" class="payment-method-code" name="custom_payment_method" data-bind="value: value, attr:{checked: 'checked'}" />
+                        <!-- /ko -->
+                        <!-- ko ifnot: (value == window.checkoutConfig.defaultPaymentMethod) -->
+                            <input type="radio" class="payment-method-code" name="custom_payment_method" data-bind="value: value" />
+                        <!-- /ko -->
+                        <div class="checkmark"></div>
+                    </div>
+                    <label>
+                        <img data-bind="attr:{src: image}" />
+                        <span data-bind="text: label"></span>
+                    </label>
+
+                </div>
+                
+                <div class="custom-payment-method-message">
+                    <span data-bind="text: message"></span>
+                </div>
+                    
+                
+            </div>
+        <!-- /ko -->
+    </div>
+</div>

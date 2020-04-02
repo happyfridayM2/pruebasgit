@@ -1,0 +1,56 @@
+<div class="amoptimizer-tab-container">
+    <ul class="amoptimizer-links-container">
+        <!-- ko foreach: contentData -->
+        <li class="amoptimizer-link-block" data-bind="click: $parent.linkClick.bind($parent), css: {'-active': !$index()}">
+            <span class="amoptimizer-title" data-bind="text: title"></span>
+            <!-- ko if: displayValue -->
+            <span class="amoptimizer-separator">|</span>
+            <span class="amoptimizer-time" data-bind="text: displayValue, css: {'-red': score < 0.5, '-yellow': score > 0.49}"></span>
+            <!-- /ko -->
+        </li>
+        <!-- /ko -->
+    </ul>
+    <!-- ko foreach: contentData -->
+    <div class="amoptimizer-recommendation-block" data-bind="css: {'-hide': $index}, attr: {'data-amoptimizer-js': id}">
+        <div class="amoptimizer-google-recommendation">
+            <p class="amoptimizer-title-container">
+                <span class="amoptimizer-name" data-bind="text: title"></span>
+                <!-- ko if: displayValue -->
+                <span class="amoptimizer-separator">|</span>
+                <span class="amoptimizer-time" data-bind="text: displayValue, css: {'-red': score < 0.5, '-yellow': score > 0.49}"></span>
+                <!-- /ko -->
+            </p>
+            <!-- ko if: $data.description.hasLink -->
+            <div class="amoptimizer-recommendation">
+                <!-- ko foreach: $data.description -->
+                <span data-bind="text: prevText"></span>
+                <!-- ko if: link != '' -->
+                    <a data-bind="attr:{ href: link, title: linkTitle }, text: linkTitle" target="_blank"></a>
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: $data.description.hasLink -->
+            <p class="amoptimizer-recommendation" data-bind="text: description.description"></p>
+            <!-- /ko -->
+        </div>
+        <!-- ko if: $data.amastyDescription -->
+        <div class="amoptimizer-amasty-recommendation">
+            <div class="amoptimizer-title-container">
+                <span class="amoptimizer-name" data-bind="i18n: 'Recommendations:'"></span>
+            </div>
+            <!-- ko if: $data.amastyDescriptionLink -->
+            <p class="amoptimizer-recommendation" >
+                <span data-bind="text: amastyDescriptionLink.prevText"></span>
+                <a data-bind="text: amastyDescriptionLink.linkText, attr: {href:amastyDescriptionLink.url, title:amastyDescriptionLink.linkText}" target="_blank"></a>
+                <span data-bind="text: amastyDescriptionLink.afterText"></span>
+            </p>
+            <!-- /ko -->
+            <!-- ko ifnot: $data.amastyDescriptionLink -->
+            <div class="amoptimizer-recommendation" data-bind="text: amastyDescription"></div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>

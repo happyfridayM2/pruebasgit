@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateConfigurableProductWithCategory">
+        <createData entity="_defaultCategory" stepKey="createCategory"/>
+        <createData entity="ConfigurableProductPrice52" stepKey="createConfigProduct">
+            <requiredEntity createDataKey="createCategory"/>
+        </createData>
+        <createData entity="productAttributeWithTwoOptions" stepKey="createConfigProdAttr"/>
+        <createData entity="productAttributeOption1" stepKey="createConfigProdAttrOptionOne">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+        </createData>
+        <createData entity="productAttributeOption2" stepKey="createConfigProdAttrOptionTwo">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+        </createData>
+        <createData entity="AddToDefaultSet" stepKey="createConfigAddToAttributeSet">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+        </createData>
+        <getData entity="ProductAttributeOptionGetter" index="1" stepKey="getFirstConfigAttributeOption">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+        </getData>
+        <getData entity="ProductAttributeOptionGetter" index="2" stepKey="getSecondConfigAttributeOption">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+        </getData>
+        <createData entity="SimpleChildConfigurableProductPrice52" stepKey="createFirstChildProd">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+            <requiredEntity createDataKey="getFirstConfigAttributeOption"/>
+        </createData>
+        <createData entity="SimpleChildConfigurableProductPrice52" stepKey="createSecondChildProd">
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+            <requiredEntity createDataKey="getSecondConfigAttributeOption"/>
+        </createData>
+        <createData entity="ConfigurableProductTwoOptions" stepKey="createConfigProductOption">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createConfigProdAttr"/>
+            <requiredEntity createDataKey="getFirstConfigAttributeOption"/>
+            <requiredEntity createDataKey="getSecondConfigAttributeOption"/>
+        </createData>
+        <createData entity="ConfigurableProductAddChild" stepKey="createConfigProductAddFirstChild">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createFirstChildProd"/>
+        </createData>
+        <createData entity="ConfigurableProductAddChild" stepKey="createConfigProductAddSecondChild">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createSecondChildProd"/>
+        </createData>
+    </actionGroup>
+
+</actionGroups>

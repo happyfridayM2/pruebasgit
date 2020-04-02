@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Amasty_Xnotif" setup_version="1.9.0">
+        <sequence>
+            <module name="Magento_ProductAlert" />
+            <module name="Magento_Customer" />
+            <module name="Magento_ConfigurableProduct" />
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CreateCMSPageWithWidgetCodeActionGroup">
+        <arguments>
+            <argument name="widgetCode"/>
+        </arguments>
+        <amOnPage url="{{CmsNewPagePage.url}}" stepKey="amOnCMSNewPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <fillField selector="{{CmsNewPagePageBasicFieldsSection.pageTitle}}"
+                   userInput="Test CMS Page"
+                   stepKey="fillFieldTitle1"/>
+        <click selector="{{CmsNewPagePageContentSection.header}}"
+               stepKey="clickExpandContent1"/>
+        <fillField selector="{{CmsNewPagePageContentSection.contentHeading}}"
+                   userInput="Test CMS Page"
+                   stepKey="fillFieldContentHeading1"/>
+        <grabCookie userInput="{{widgetCode.CookieUserInput}}"
+                    stepKey="grabCookie2"/>
+        <fillField userInput="{$grabCookie2}"
+                   selector="{{CmsNewPagePageActionsSection.content}}"
+                   stepKey="insertWidget1"/>
+        <click selector="{{CmsNewPagePageSeoSection.header}}"
+               stepKey="clickExpandSearchEngineOptimization1"/>
+        <fillField selector="{{CmsNewPagePageSeoSection.urlKey}}"
+                   userInput="test-cms-page"
+                   stepKey="fillFieldURLKey1"/>
+        <grabValueFrom selector="{{CmsNewPagePageSeoSection.urlKey}}"
+                       stepKey="grabCMSPageUrl"/>
+        <setCookie userInput="setCMSPageURL"
+                   value="{$grabCMSPageUrl}"
+                   stepKey="setCookie1"/>
+        <click selector="{{CmsNewPagePiwSection.header}}"
+               stepKey="clickPageInWebsites1"/>
+        <click selector="{{CmsNewPagePageActionsSection.saveAndContinueEdit}}"
+               stepKey="clickSaveCmsPage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteCMSPageActionGroup">
+        <amOnPage url="{{CmsPagesPage.url}}" stepKey="amOnCMSNewPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{CmsPagesPageActionsSection.select('test-cms-page')}}"
+               stepKey="clickSelect"/>
+        <click selector="{{CmsPagesPageActionsSection.delete('test-cms-page')}}"
+               stepKey="clickDelete"/>
+        <waitForElementVisible selector="{{CmsPagesPageActionsSection.deleteConfirm}}"
+                               stepKey="waitForOkButtonToBeVisible"/>
+        <click selector="{{CmsPagesPageActionsSection.deleteConfirm}}"
+               stepKey="clickOkButton"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see userInput="The page has been deleted."
+             stepKey="seeSuccessMessage"/>
+    </actionGroup>
+
+    <actionGroup name="CreateCMSPageWithWidgetCodeCMSBlockActionGroup"
+                 extends="CreateCMSPageWithWidgetCodeActionGroup">
+        <arguments>
+            <argument name="widgetCode"/>
+        </arguments>
+        <remove keyForRemoval="grabCookie2"/>
+        <remove keyForRemoval="insertWidget1"/>
+        <click selector="{{TinyMCESection.InsertWidgetBtn}}"
+               stepKey="clickInsertWidgetButton1"
+               after="fillFieldContentHeading1"/>
+        <waitForPageLoad stepKey="waitForPageLoad3" after="clickInsertWidgetButton1"/>
+        <selectOption selector="{{WidgetSection.WidgetType}}"
+                      userInput="CMS Static Block"
+                      stepKey="selectCMSStaticBlock2"
+                      after="waitForPageLoad3"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskDisappear1" after="selectCMSStaticBlock2"/>
+        <selectOption selector="{{WidgetSection.WidgetTemplate}}"
+                      userInput="CMS Static Block Default Template"
+                      stepKey="selectTemplate1"
+                      after="waitForLoadingMaskDisappear1"/>
+        <click selector="{{WidgetSection.BtnChooser}}"
+               stepKey="clickSelectPageBtn1"
+               after="selectTemplate1"/>
+        <waitForElementVisible selector="{{WidgetSection.BlockPage(CMSBlockData3.title)}}"
+                               stepKey="waitForBlockTitle1"
+                               after="clickSelectPageBtn1"/>
+        <click selector="{{WidgetSection.BlockPage(CMSBlockData3.title)}}"
+               stepKey="selectPreCreateBlock1"
+               after="waitForBlockTitle1"/>
+        <wait time="3"
+              stepKey="wait1"
+              after="selectPreCreateBlock1"/>
+        <click selector="{{WidgetSection.InsertWidget}}"
+               stepKey="clickInsertWidgetBtn1"
+               after="wait1"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoading1" after="clickInsertWidgetBtn1"/>
+        <waitForPageLoad stepKey="waitForPageLoad4" after="waitForLoading1"/>
+        <waitForElementVisible selector="{{CmsNewPagePageActionsSection.saveAndContinueEdit}}"
+                               stepKey="waitForSaveButtonVisible1"
+                               after="waitForPageLoad4"/>
+    </actionGroup>
+
+    <actionGroup name="CreateCMSPageWithAllBrandsPageWidgetCodeWidgetActionGroup"
+                 extends="CreateCMSPageWithWidgetCodeActionGroup">
+        <remove keyForRemoval="grabCookie2"/>
+        <remove keyForRemoval="insertWidget1"/>
+        <click selector="{{TinyMCESection.InsertWidgetBtn}}"
+               stepKey="clickInsertWidgetButton1"
+               after="fillFieldContentHeading1"/>
+        <waitForPageLoad stepKey="waitForPageLoad3" after="clickInsertWidgetButton1"/>
+        <selectOption selector="{{WidgetSection.WidgetType}}"
+                      userInput="{{widgetCode.AmWidgetType}}"
+                      stepKey="selectCMSStaticBlock2"
+                      after="waitForPageLoad3"/>
+        <waitForElementVisible stepKey="waitForNumberOfColumns1"
+                               selector="{{AdminBrandSliderSettingsSection.BrandSliderWidgetNumberOfColumnsSwitcher}}"
+                               after="selectCMSStaticBlock2"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.BrandSliderWidgetNumberOfColumnsSwitcher}}"
+                   userInput="3"
+                   stepKey="fillNumberOfColumnsFiels1"
+                   after="waitForNumberOfColumns1"/>
+        <click selector="{{WidgetSection.InsertWidget}}"
+               stepKey="clickInsertWidgetBtn1"
+               after="fillNumberOfColumnsFiels1"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoading1" after="clickInsertWidgetBtn1"/>
+        <waitForPageLoad stepKey="waitForPageLoad4" after="waitForLoading1"/>
+        <waitForElementVisible selector="{{CmsNewPagePageActionsSection.saveAndContinueEdit}}"
+                               stepKey="waitForSaveButtonVisible1"
+                               after="waitForPageLoad4"/>
+    </actionGroup>
+
+    <actionGroup name="CreateCMSPageWithBrandSliderWidgetCodeWidgetActionGroup"
+                 extends="CreateCMSPageWithWidgetCodeActionGroup">
+        <remove keyForRemoval="grabCookie2"/>
+        <remove keyForRemoval="insertWidget1"/>
+        <click selector="{{TinyMCESection.InsertWidgetBtn}}"
+               stepKey="clickInsertWidgetButton1"
+               after="fillFieldContentHeading1"/>
+        <waitForPageLoad stepKey="waitForPageLoad3" after="clickInsertWidgetButton1"/>
+        <selectOption selector="{{WidgetSection.WidgetType}}"
+                      userInput="{{widgetCode.AmWidgetType}}"
+                      stepKey="selectCMSStaticBlock2"
+                      after="waitForPageLoad3"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoading1" after="selectCMSStaticBlock2"/>
+        <waitForPageLoad stepKey="waitForPageLoad1" after="waitForLoading1"/>
+        <click selector="{{WidgetSection.InsertWidget}}"
+               stepKey="clickInsertWidgetBtn1"
+               after="waitForPageLoad1"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoading2" after="clickInsertWidgetBtn1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2" after="waitForLoading2"/>
+        <waitForElementVisible selector="{{CmsNewPagePageActionsSection.saveAndContinueEdit}}"
+                               stepKey="waitForSaveButtonVisible1"
+                               after="waitForPageLoad2"/>
+    </actionGroup>
+
+</actionGroups>
+
+

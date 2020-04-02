@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+
+    <page name="FrontMainPage" url="/" area="storefront" module="Magento_SalesRule">
+        <section name="FrontCartSection"/>
+        <section name="FrontCartWithPromoSection"/>
+    </page>
+
+    <page name="FrontCartPage" url="/checkout/cart/" area="storefront" module="Magento_SalesRule">
+        <section name="FrontCartSection"/>
+        <section name="FrontCartWithPromoSection"/>
+    </page>
+
+    <page name="CheckoutShippingPage" url="/checkout/#shipping" area="storefront" module="Magento_Promo" >
+        <section name="CheckoutShippingGuestInfoSection"/>
+        <section name="CheckoutShippingSection"/>
+    </page>
+
+    <page name="CheckoutPaymentsPage" url="/checkout/#payment" area="storefront" module="Magento_Promo">
+        <section name="CheckoutPaymentSection"/>
+    </page>
+
+    <page name="FrontMultishippingAddress" url="/multishipping/checkout/addresses/" area="storefront" module="Magento_Shiprules">
+        <section name="StorefrontMultishippingAddress"/>
+    </page>
+
+    <page name="FrontAccountAddressBook" url="/customer/address/" area="storefront" module="Magento_Shiprules">
+        <section name="StorefrontCustomerAddressBookSection"/>
+    </page>
+
+</pages>

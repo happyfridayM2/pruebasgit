@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandSliderVisibleItemsQtySortByPositionColorTitleTest"
+          extends="BrandSliderVisibleItemsQtySortColorTitleTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brands Slider elements checking"/>
+            <title value="Check of Brands Slider qty of visible elements, Sorting by Position, Color Configuration, Title and Images/Slider Size"/>
+            <description
+                    value="Check that Brands Slider qty of visible elements, Sorting by Position, Color Configuration, Title and Images/Slider Size displayed correctly on All Brands Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="BRANDATTR-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandslider"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureBrandSliderQtySortColorTitleSizeActionGroup"
+                         stepKey="configureBrandSliderQtySortColorTitleSize1">
+                <argument name="brandSlider1" value="setBrandSliderQtySortByPositionColorTitleSize"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Brands Slider qty of visible elements, Sorting by Position, Color Configuration, Title and Images/Slider Size displayed correctly on All Brands Page/-->
+
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequence('nylon','spandex')}}"
+                stepKey="seeBrandSliderSequence1"/>
+
+    </test>
+</tests>

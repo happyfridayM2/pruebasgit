@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringSidebarLabelsWithAjaxTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode with Ajax"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNRATINGFILTER-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxInstantlyOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Rating Filter: select 5 stars option on sidebar in labels, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"
+                               after="selectRatingOption1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"
+                         after="waitForAjaxLoaderVisible1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible2"
+                               after="removeSelectedFilterOptionFromState1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"
+                         after="waitForAjaxLoaderVisible2"/>
+        <wait time="2" stepKey="waitSeconds1"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible3"
+                               after="selectRatingOption2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"
+                         after="waitForAjaxLoaderVisible3"/>
+        <wait time="1" stepKey="wait2"
+              after="waitForAjaxLoad3"/>
+        <wait time="2" stepKey="waitSeconds2"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels, check the ajax loader is visible, check the result, don't remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible5"
+                               after="selectRatingOption3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"
+                         after="waitForAjaxLoaderVisible5"/>
+        <wait time="2" stepKey="waitSeconds3"/>
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible6"
+                               after="selectRatingOption4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"
+                         after="waitForAjaxLoaderVisible6"/>
+        <wait time="1" stepKey="wait4"
+              after="waitForAjaxLoad6"/>
+        <wait time="2" stepKey="waitSeconds4"/>
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible8"
+                               after="selectRatingOption5"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad8"
+                         after="waitForAjaxLoaderVisible8"/>
+
+    </test>
+</tests>

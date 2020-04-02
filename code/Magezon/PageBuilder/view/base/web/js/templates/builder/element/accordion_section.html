@@ -1,0 +1,13 @@
+<div class="mgz-element-accordion-content" >
+	<div uib-accordion-group class="mgz-tab-panel" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+		<uib-accordion-heading>
+			<i class="mgz-icon-element {{ element.icon }}" ng-if="element.add_icon&&element.icon&&element.icon_position=='left'"></i>
+			<span>{{ element.title }}</span>
+			<i class="mgz-icon-element {{ element.icon }}" ng-if="element.add_icon&&element.icon&&element.icon_position=='right'"></i>
+		</uib-accordion-heading>
+		<div class="mgz-element-list-inner" ng-class="{'mgz-empty-component': !element.elements || element.elements.length==0}">
+			<i class="mgz-icon mgz-icon-add" ng-if="element.elements.length==0" ng-click="addChildComponent(element)"></i>
+			<magezon-builder-component-list element="element" parentElement="parentElement"></magezon-builder-component-list>
+		</div>
+	</div>
+</div>

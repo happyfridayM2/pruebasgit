@@ -1,0 +1,18 @@
+<div if="isAddressDetailsVisible() && currentShippingAddress()" class="shipping-address-details">
+    <text args="currentShippingAddress().prefix"/> <text args="currentShippingAddress().firstname"/> <text args="currentShippingAddress().middlename"/>
+    <text args="currentShippingAddress().lastname"/> <text args="currentShippingAddress().suffix"/><br/>
+    <text args="_.values(currentShippingAddress().street).join(', ')"/><br/>
+    <text args="currentShippingAddress().city "/>, <span text="currentShippingAddress().region"></span> <text args="currentShippingAddress().postcode"/><br/>
+    <text args="getCountryName(currentShippingAddress().countryId)"/><br/>
+    <a if="currentShippingAddress().telephone" attr="'href': 'tel:' + currentShippingAddress().telephone" text="currentShippingAddress().telephone"></a><br/>
+
+    <!-- ko foreach: { data: currentShippingAddress().customAttributes, as: 'element' } -->
+        <!-- ko text: element.value --><!-- /ko --><br/>
+    <!-- /ko -->
+
+    <button type="button"
+            class="action action-edit-address amcheckout-button -edit"
+            click="editAddress">
+        <span translate="'Edit'"></span>
+    </button>
+</div>

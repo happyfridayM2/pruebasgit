@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AttributeProfileSection">
+        <element name="AttributeNameLabel" type="text" selector="#attribute_label"/>
+        <element name="StorefrontPropertiesTab" type="block" selector="#product_attribute_tabs_front"/>
+        <element name="PropertiesTab" type="block" selector="#product_attribute_tabs_main"/>
+        <element name="ILNTab" type="block" selector="#product_attribute_tabs_amasty_shopby"/>
+        <element name="PositionField" type="text" selector="#position"/>
+        <element name="BlockPositionField" type="text" selector="#block_position"/>
+        <element name="ShowFilterOnSRPSwitcher" type="select" selector="#is_filterable_in_search"/>
+        <element name="DisplayModeSwitcher" type="select" selector="#display_mode"/>
+        <element name="ShowInTheBlockSwitcher" type="select" selector="#block_position"/>
+        <element name="SortOptionsBySwitcher" type="select" selector="#sort_options_by"/>
+        <element name="ShowProductQuantitiesSwitcher" type="select" selector="#show_product_quantities"/>
+        <element name="ShowSearchBoxSwitcher" type="select" selector="#is_show_search_box"/>
+        <element name="ShowSearchBoxIfTrigger" type="input" selector="#limit_options_show_search_box"/>
+        <element name="NumberUnfoldedOptions" type="input" selector="#number_unfolded_options"/>
+        <element name="IsExpandedSwitcher" type="select" selector="#is_expanded"/>
+        <element name="TooltipTextField" type="input" selector="(//*[@id='attribute-labels-table']//input)[last()]"/>
+
+        <element name="RenderAllCategoriesTreeSwitcher" type="select" selector="#render_all_categories_tree"/>
+        <element name="SubcategoriesViewSwitcher" type="select" selector="#subcategories_view"/>
+        <element name="CategoryTreeDisplayModeSwitcher" type="select" selector="#category_tree_display_mode"/>
+        <element name="CategoryTreeDepthField" type="input" selector="#category_tree_depth"/>
+        <element name="RenderCategoriesLevelSwitcher" type="select" selector="#render_categories_level"/>
+        <element name="ExpandSubcategoriesSwitcher" type="select" selector="#subcategories_expand"/>
+
+        <element name="VisibleInCategoriesSwitcher" type="select" selector="#visible_in_categories"/>
+        <element name="ExpandShowOnlyWhenAnyOptionIsSelectedField" type="block" selector="#attributes_filter_chosen"/>
+        <element name="VisibilityOption" type="block" selector="//li[contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="ShowOnlyIfFollowingOptionIsSelectedField" type="select" selector="#attributes_options_filter_chosen"/>
+        <element name="ShowOnCategories" type="select" selector="#categories_filter"/>
+        <element name="RemoveVisibilityOption" type="button" selector="(//*[@class='search-choice-close'])[last()]"/>
+
+        <element name="AllowMultiSelectSwitcher" type="select" selector="#is_multiselect"/>
+        <element name="EnableSeoSwitcher" type="select" selector="#is_seo_significant"/>
+        <element name="IndexModeSwitcher" type="select" selector="#index_mode"/>
+        <element name="FollowModeSwitcher" type="select" selector="#follow_mode"/>
+        <element name="RelNoFollowSwitcher" type="select" selector="#rel_nofollow"/>
+        <element name="IssueMessageBlock" type="text" selector="#messages"/>
+        <element name="OptionAttributeSettingsDeleteButton" type="button"
+                 selector="//*[@id='{{var1}}_button_{{vat2}}']/span"
+                 parameterized="true"/>
+        <element name="OptionAttributeSettingsDeleteButtonLast" type="button"
+                 selector="(//*[@id='{{var1}}_button_{{vat2}}']/span)[last()]"
+                 parameterized="true"/>
+        <element name="PreconfOptionAttributeSettingsDeleteButtonLast" type="button"
+                 selector="(//input[@value='{{var1}}'])[last()]/following::button[2]"
+                 parameterized="true"/>
+
+        <element name="UseDefaultMetaTitle" type="checkbox" selector="#meta_title_default"/>
+        <element name="MetaTitle" type="text" selector="#meta_title"/>
+        <element name="MetaDescription" type="text" selector="#meta_description"/>
+        <element name="MetaKeywords" type="text" selector="#meta_keywords"/>
+
+        <element name="UseDefaultPageTitle" type="checkbox" selector="#title_default"/>
+        <element name="PageTitle" type="text" selector="#title"/>
+        <element name="Description" type="text" selector="#description"/>
+        <element name="Image" type="block" selector="#image"/>
+        <element name="DeleteImage" type="checkbox" selector="#image_delete"/>
+        <element name="TopCMSBlock" type="select" selector="#top_cms_block_id"/>
+
+        <element name="ShowInBrandSliderSwitcher" type="select" selector="//*[@title='Show in Brand Slider']"/>
+        <element name="PositionInSlider" type="text" selector="//*[@class='admin__field-control control']/*[@id='slider_position']"/>
+        <element name="BrandShortDescription" type="text" selector="#short_description"/>
+
+        <element name="SaveProperty" type="button"
+                 selector="//*[@class='action-primary action-accept']/span[contains(string(), 'Save')]"/>
+        <element name="Save" type="button" selector="#save"/>
+        <element name="SaveAndContinueEdit" type="button" selector="#save_and_edit_button"/>
+    </section>
+
+</sections>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="DefaultAllWeatherAttributeData" type="Attributes">
+        <data key="Attribute">156</data>
+        <data key="OptionName">5628</data>
+        <data key="PageTitle">All-Weather</data>
+        <data key="Description"></data>
+        <data key="TopCMSBlock">Please select a static block.</data>
+    </entity>
+    <entity name="DefaultPolyesterAttributeData" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5465</data>
+        <data key="PageTitle">Polyester</data>
+        <data key="BrandShortDescription"></data>
+    </entity>
+    <entity name="AllWeatherTitleAndDescription" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="PageTitle">All-Weather Test Page Title</data>
+        <data key="Description">All-Weather &lt;strong&gt;Test&lt;&#x0002F;strong&gt; Description</data>
+        <data key="Image">3.png</data>
+    </entity>
+    <entity name="PolyesterTitleAndDescription" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5465</data>
+        <data key="PageTitle">Polyester Test Page Title</data>
+        <data key="Description">Polyester &lt;strong&gt;Test&lt;&#x0002F;strong&gt; Description</data>
+        <data key="BrandShortDescription">Test Polyester Short Description</data>
+        <data key="Image">1.jpg</data>
+    </entity>
+    <entity name="AllWeatherAttrWithCMSBlockData" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="TopCMSBlock">Test CMS Block 1</data>
+        <data key="Image">3.png</data>
+    </entity>
+    <entity name="PolyesterAttrWithCMSBlockData" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5465</data>
+        <data key="PageTitle">Polyester</data>
+        <data key="TopCMSBlock">Test CMS Block 2</data>
+        <data key="Image">1.jpg</data>
+    </entity>
+    <entity name="DefaultBurlapAttributeData" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5458</data>
+        <data key="PageTitle">Burlap</data>
+    </entity>
+    <entity name="BurlapTitleAndDescription" type="Attributes" extends="DefaultAllWeatherAttributeData">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5458</data>
+        <data key="PageTitle">Burlap Test Page Title</data>
+        <data key="Description">Burlap Test Description</data>
+        <data key="Image">1.jpg</data>
+    </entity>
+    <entity name="AllWeatherMetaDataDefault" type="Attributes">
+        <data key="Attribute">156</data>
+        <data key="OptionName">5628</data>
+        <data key="MetaTitle">All-Weather</data>
+        <data key="MetaDescription"></data>
+        <data key="MetaKeywords"></data>
+    </entity>
+    <entity name="PolyesterMetaDataDefault" type="Attributes" extends="AllWeatherMetaDataDefault">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5465</data>
+        <data key="MetaTitle">Polyester</data>
+    </entity>
+    <entity name="AllWeatherMetaData" type="Attributes" extends="AllWeatherMetaDataDefault">
+        <data key="MetaTitle">All-Weather Meta Title TST</data>
+        <data key="MetaDescription">All-Weather Meta Description TST</data>
+        <data key="MetaKeywords">All-Weather Meta Keywords TST</data>
+    </entity>
+    <entity name="PolyesterMetaData" type="Attributes" extends="AllWeatherMetaDataDefault">
+        <data key="Attribute">139</data>
+        <data key="OptionName">5465</data>
+        <data key="MetaTitle">Polyester Meta Title TST</data>
+        <data key="MetaDescription">Polyester Meta Description TST</data>
+        <data key="MetaKeywords">Polyester Meta Keywords TST</data>
+    </entity>
+
+</entities>
+
+
+

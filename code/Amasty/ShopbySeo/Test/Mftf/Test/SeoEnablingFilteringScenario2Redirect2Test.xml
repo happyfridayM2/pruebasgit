@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringScenario2Redirect2Test" extends="SeoEnablingFilteringFullSeoRedirect2Test">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled SEO in scenario 2 (redirect2 from All-products to Brand Page)"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-68"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="seoscenario2-3"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoDefault2"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with enabled seo in scenario 2 (redirect2 from All-products to Brand Page), check the result in url/-->
+
+        <seeInCurrentUrl
+                url="/polyester/solid-all-weather-indoor?style_general=5561%2C5552"
+                stepKey="seeInCurrentUrl1"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+        <dontSeeInCurrentUrl url="all-products?" stepKey="dontSeeInCurrentUrl1"/>
+        <dontSeeInCurrentUrl url=".html" stepKey="dontSeeInCurrentUrl2"/>
+        <dontSeeInCurrentUrl url="testfilterkey" stepKey="dontSeeInCurrentUrl3"/>
+        <dontSeeInCurrentUrl url="testbrandurlkey" stepKey="dontSeeInCurrentUrl4"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,31 @@
+<!--@subject {{trans "Low stock notification"}} @-->
+<!--@vars
+{
+"var alertGrid":"Low Stock Alerts Grid",
+"var sourceName":"Source name used for MSI"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<style>
+    .details tr {
+        text-align: center;
+    }
+</style>
+<table>
+    <tr class="email-intro">
+        <td valign="top">
+
+            <p>{{trans "Hello,"}}</p>
+
+            <p>{{trans "This is an automatic notification about the low stock of the following product(s)"}}{{depend sourceName}}{{trans " in <b>%sourceName</b> Source" sourceName=$sourceName | raw}}{{/depend}}.</p>
+
+            {{var alertGrid|raw}}
+            <br>
+
+            <p>{{trans "Thank you!"}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

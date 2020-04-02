@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckOrderComment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Order Comment on the OSC"/>
+            <title value="Check Order Comment"/>
+            <description value="Check Order Comment on the OSC and Check Comment In Order"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-23"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationAdditional"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="OSCCustomerArizona" stepKey="createCustomer"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByBagImpulseDuffle" stepKey="createSecondSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCAdditionalMain" stepKey="ConfigurationAdditionalSetting">
+                <argument name="adminSettingOSCDesignAdditional" value="SetOSCDesignAdditionalOrderComment"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondSimpleProduct"/>
+            <actionGroup ref="AdminDefaultConfigOSCAdditional" stepKey="ReturnDefaultAdditionalSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!-- Login to Storefront and Add Products to Cart-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogIn">
+            <argument name="Customer" value="CustomerLogIn"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <!-- Go To Checkout and Check Have Order Comment-->
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckoutFromCart">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckHaveOrderCommentField" stepKey="checkHaveOrderCommentField"/>
+        <!-- Add Comment and Create Order -->
+        <actionGroup ref="StorefrontOSCAddCommentForOrder" stepKey="AddOrderComment">
+            <argument name="comment" value="OSCConfigurationCheckOrderComment.comment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumber" stepKey="CreateOrderWithCheckMoney"/>
+        <!-- Check Have Comment on the Success Page and Order -->
+        <actionGroup ref="StorefrontOSCCheckHaveCommentOnSuccessPageAndInCustomerAccount" stepKey="CheckHaveOrderCommentInSuccessPage">
+            <argument name="comment" value="OSCConfigurationCheckOrderComment.comment"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckOrderCommentInLastOrder" stepKey="checkCommentOrderInAdminArea">
+            <argument name="commentInAdminOrder" value="OSCConfigurationCheckOrderComment.comment"/>
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderWithCheckMoney}"/>
+        </actionGroup>
+
+    </test>
+</tests>

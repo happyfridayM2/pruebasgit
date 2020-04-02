@@ -1,0 +1,36 @@
+<ul class="mgz-element-list" 
+	dnd-disable-if="element.component.dndDisabled" 
+	dnd-list="element.elements" 
+	dnd-drop="dropComponent(item, index, element)"
+    dnd-horizontal-list="true"
+	dnd-allowed-types="::allowedTypes"
+	>
+	<li ng-repeat="element in element.elements" 
+	ng-class="getElementClasess(element)"
+	dnd-effect-allowed="move"
+	dnd-type="element.type"
+	dnd-dragstart="onDragstart(element)"
+	dnd-dragend="onDragend(element)"
+	dnd-moved="removeComponent(element)"
+	ng-hide="element.component.hide" 
+	ng-if="element.component.visible"
+	>
+		<div class="mgz-spinner" ng-if="element.component.loading"><i></i></div>
+		<div class="mgz-element-controls mgz-element-{{ ::element.type }}-control" 
+		ng-include="::controlTemplateUrl" 
+		ng-if="parents.length && element.component.control"
+		></div>
+		<magezon-builder-component element="element" dnd-nodrag></magezon-builder-component>
+		<div class="mgz-element-livepreview-content" dnd-disable-if="$root.draggingElement"></div>
+		<div class="mgz-element-add-control mgz-element-{{ ::element.type }}-add-control" 
+			ng-if="$root.elementManager.getElement(parentElement).is_collection && !$root.draggingElement && element.component.control">
+			<a class="mgz-element-add" ng-click="addNextComponent(element)" title="Add Element">
+				<span class="mgz-btn-content">
+					<i class="mgz-icon mgz-icon-add"></i>
+				</span>
+			</a>
+		</div>
+		<div ng-if="$root.elementManager.getElement(element).resizable&&element.component.control" class="mgz-resize-wrapper mgz-resize-{{ ::element.type }}" magezon-builder-resizable r-element="element" r-directions="['right']"></div>
+	</li>
+	<li class="dndPlaceholder mgz-placeholder" ng-class="getPlaceHolderClassess()"></li>
+</ul>

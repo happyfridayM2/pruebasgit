@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="TestLinksSourceStock" dataType="am_test_stock_source_link" type="create" auth="adminOauth"
+               url="/V1/inventory/stock-source-links" method="POST">
+        <contentType>application/json</contentType>
+        <array key="links">
+            <value>source_stock_link</value>
+        </array>
+    </operation>
+
+    <operation name="LinkSourceStock" dataType="source_stock_link" type="create">
+        <field key="stock_id">integer</field>
+        <field key="source_code">string</field>
+        <field key="priority">integer</field>
+    </operation>
+
+</operations>

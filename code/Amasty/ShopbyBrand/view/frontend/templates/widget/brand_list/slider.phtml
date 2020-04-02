@@ -1,0 +1,139 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+?>
+<?php
+/** @var Amasty\ShopbyBrand\Block\Widget\BrandSlider $block */
+use Amasty\ShopbyBrand\Block\Widget\BrandSlider;
+
+$items = $block->getItems();
+$isSliderEnable = $block->isSliderEnabled();
+$swiperPrefix = $isSliderEnable ? 'swiper-' : '';
+$itemsPerView = (int)$block->getData('items_number');
+$imgWidth = (int)$block->getData('image_width') ?: BrandSlider::DEFAULT_IMG_WIDTH;
+$imgHeight = (int)$block->getData('image_height');
+$sliderWidth = (int)$block->getData('slider_width') ?: ($imgWidth + 10) * $itemsPerView;
+$buttonWidth = 40;
+$sliderId = BrandSlider::HTML_ID . random_int(1, 10000);
+?>
+
+<style>
+    <?php if ($isSliderEnable): ?>
+    #<?= /* @noEscape */ $sliderId ?> {
+        max-width: <?= /* @noEscape */ $buttonWidth * 2 + $sliderWidth; ?>px;
+        padding: 0 <?= /* @noEscape */ $buttonWidth?>px;
+    }
+    <?php endif;?>
+
+    #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper,
+    #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper > .am-image {
+        <?php if ($imgWidth): ?>
+            max-width: <?= /* @noEscape */ $imgWidth ?>px;
+        <?php endif;?>
+        <?php if ($imgHeight): ?>
+            max-height: <?= /* @noEscape */ $imgHeight ?>px;
+        <?php endif;?>
+    }
+
+    .swiper-brand .no-img {
+        max-width: <?= /* @noEscape */ $imgWidth ?>px;
+        line-height: <?= /* @noEscape */ $imgWidth ?>px;
+        font-size: <?= /* @noEscape */ $imgWidth * 0.65 ?>px;
+    }
+
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    <?php if ($isSliderEnable): ?>
+        #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper,
+        #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper img {
+            max-width: <?= /* @noEscape */ ($itemsPerView <= count($items)) ?
+            $sliderWidth / $itemsPerView :
+            $sliderWidth / count($items)
+            ?>px;
+        }
+    <?php else: ?>
+        #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper,
+        #<?= /* @noEscape */ $sliderId ?> .swiper-brand .am-image-wrapper img {
+            <?php if ($imgWidth): ?>
+           max-width: <?= /* @noEscape */ $imgWidth;?>px;
+            <?php endif;?>
+            <?php if ($imgHeight): ?>
+           max-height: <?= /* @noEscape */ $imgHeight;?>px;
+            <?php endif;?>
+           }
+    <?php endif;?>
+    }
+</style>
+<div class="am-slider-container">
+    <div class="amslider-header-container"
+       style="background-color:<?= $block->escapeHtml($block->getHeaderColor()) ?>;
+              color: <?= $block->escapeHtml($block->getTitleColor()) ?>;">
+        <?= $block->escapeHtml($block->getTitle()) ?>
+    </div>
+
+    <div class="am-brand-slider amslider <?= $block->escapeHtml($isSliderEnable ? '-enable' : '') ?>" id="<?= /** @noEscape */ $sliderId ?>">
+        <?php if ($block->getData('buttons_show') && $isSliderEnable): ?>
+            <div class="swiper-button-prev"></div>
+            <div  class="swiper-button-next"></div>
+        <?php endif; ?>
+        <div class="swiper-container">
+            <div class="<?= /** @noEscape */ $swiperPrefix ?>wrapper">
+                <?php foreach ($items as $brand): ?>
+                    <a href="<?= /** @noEscape */ $brand['url']?>" class="<?= /** @noEscape */ $swiperPrefix?>slide">
+                        <div class="swiper-brand <?= ($block->getData('show_label')) ? ' brand-label' : '' ?>">
+                            <?php if ($brand['img']): ?>
+                                <div class="am-image-wrapper">
+                                    <img alt="<?= $block->escapeHtml($brand['alt']) ?>"
+                                         title="<?= $block->escapeHtml($brand['alt']) ?>"
+                                         src="<?= /* @escapeNotVerified */ $block->escapeHtml($brand['img']); ?>"
+                                         class="am-image"/>
+                                </div>
+                            <?php else: ?>
+                                <div class="am-image-wrapper">
+                                    <p class="no-img"><?= /** @noEscape */ $brand['label'][0] ?></p>
+                                </div>
+                            <?php endif ?>
+
+                            <?php if ($block->getData('show_label')): ?>
+                                <div class="brand-title"><?= $block->escapeHtml($brand['label'])?></div>
+                            <?php endif; ?>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php if ($block->getData('pagination_show')): ?>
+        <div class="swiper-pagination"></div>
+    <?php endif; ?>
+    </div>
+</div>
+<?php if ($isSliderEnable): ?>
+    <script>
+        require([
+            'jquery',
+            'Amasty_ShopbyBase/js/swiper.min',
+            'domReady!'
+        ], function ($) {
+            new Swiper('#<?= /** @noEscape */ $sliderId ?> .swiper-container', {
+                <?php foreach ($block->getSliderOptions() as $option => $value): ?>
+                    <?php $sliderConf = $option . ':' . $value . ',' ?>
+                    <?= /** @noEscape */ $sliderConf ?>
+                <?php endforeach; ?>
+                breakpoints: {
+                <?php for ($i = 1; $i < $itemsPerView; $i++): ?>
+                    <?= /** @noEscape */ ($i + 1) * ($imgWidth + 20 + 10) + $buttonWidth * 2; ?> : {
+                        slidesPerView: <?= /** @noEscape */ $i ?>
+                        },
+                <?php endfor; ?>
+                },
+                nextButton: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-next',
+                prevButton: '#<?= /** @noEscape */ $sliderId ?> .swiper-button-prev',
+                spaceBetween: 10
+        });
+
+
+        });
+    </script>
+<?php endif; ?>

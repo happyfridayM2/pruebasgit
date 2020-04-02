@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="AdminCatalogPriceRuleProfilePage" url="/catalog_rule/promo_catalog/edit/id/{{var1}}/" area="admin"
+          module="Shopby" parameterized="true">
+        <section name="AttributeProfileSection"/>
+    </page>
+
+</pages>

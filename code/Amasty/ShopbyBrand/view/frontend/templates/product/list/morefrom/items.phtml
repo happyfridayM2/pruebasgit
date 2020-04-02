@@ -1,0 +1,123 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+?>
+<?php
+/** phpcs:ignoreFile */
+$class = 'amshopby-morefrom';
+$image = 'am_brand_more_from_image';
+/* @var $block \Amasty\ShopbyBrand\Block\Catalog\Product\ProductList\MoreFrom */
+$title = $block->getTitle();
+$items = $block->getItemCollection();
+
+$showAddTo = true;
+$showCart = true;
+$templateType = null;
+$description = false;
+?>
+
+<div class="block <?= /* @noEscape */ $class ?>">
+    <div class="block-title title">
+        <strong id="block-<?= /* @noEscape */ $class ?>-heading" role="heading" aria-level="2">
+            <?= $block->escapeHtml($title) ?>
+        </strong>
+    </div>
+    <div class="block-content content" aria-labelledby="block-<?= /* @noEscape */ $class ?>-heading">
+        <div class="products wrapper grid products-grid products-morefrom">
+            <ol class="products list items product-items">
+                <?php foreach ($items as $item) : ?>
+                    <li class="item product product-item">
+
+                        <div class="product-item-info">
+                            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
+                            <a href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>"
+                               class="product photo product-item-photo">
+                                <?= $block->getImage($item, $image)->toHtml() ?>
+                            </a>
+                            <div class="product details product-item-details">
+                                <strong class="product name product-item-name">
+                                    <a class="product-item-link"
+                                       title="<?= $block->escapeHtml($item->getName()) ?>"
+                                       href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>">
+                                        <?= $block->escapeHtml($item->getName()) ?>
+                                    </a>
+                                </strong>
+
+                                <?= /* @noEscape */ $block->getProductPrice($item) ?>
+
+                                <?php if ($showAddTo || $showCart) : ?>
+                                    <div class="product actions product-item-actions">
+                                        <?php if ($showCart) : ?>
+                                            <div class="actions-primary">
+                                                <?php if ($item->isSaleable()) : ?>
+                                                    <?php if ($item->getTypeInstance()->hasRequiredOptions($item)) : ?>
+                                                        <button class="action tocart primary"
+                                                                data-mage-init='{"redirectUrl": {"url": "<?= $block->escapeUrl($block->getAddToCartUrl($item)) ?>"}}'
+                                                                type="button"
+                                                                title="<?= /* @noEscape */ __('Add to Cart') ?>">
+                                                            <span><?= /* @noEscape */ __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php else : ?>
+                                                        <?php
+                                                        $postData = $block->getPostHelper()->getPostData($block->getAddToCartUrl($item), ['product' => $item->getEntityId()])
+                                                        ?>
+                                                        <button class="action tocart primary"
+                                                                data-post='<?= /* @noEscape */ $postData ?>'
+                                                                type="button"
+                                                                title="<?= /* @noEscape */ __('Add to Cart') ?>">
+                                                            <span><?= /* @noEscape */ __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else : ?>
+                                                    <?php if ($item->getIsSalable()) : ?>
+                                                        <div class="stock available">
+                                                            <span><?= /* @noEscape */ __('In stock') ?></span>
+                                                        </div>
+                                                    <?php else : ?>
+                                                        <div class="stock unavailable">
+                                                            <span><?= /* @noEscape */ __('Out of stock') ?></span>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                                <div data-role="add-to-links" class="actions-secondary">
+                                                    <?php if ($block->getWishlistHelper()->isAllow()) : ?>
+                                                        <a href="#"
+                                                           class="action towishlist"
+                                                           title="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                                           aria-label="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                                           data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($item); ?>'
+                                                           data-action="add-to-wishlist"
+                                                           role="button">
+                                                            <span><?= /* @noEscape */ __('Add to Wish List') ?></span>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <a href="#"
+                                                       class="action tocompare"
+                                                       title="<?= $block->escapeHtml(__('Add to Compare')); ?>"
+                                                       aria-label="<?= $block->escapeHtml(__('Add to Compare')); ?>"
+                                                       data-post='<?= /* @noEscape */ $block->getCompareHelper()->getPostDataParams($item); ?>'
+                                                       role="button">
+                                                        <span><?= /* @noEscape */ __('Add to Compare') ?></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if ($showAddTo && ($addToBlock = $block->getChildBlock('addto'))) : ?>
+                                            <div class="secondary-addto-links actions-secondary" data-role="add-to-links">
+                                                <?= /* @noEscape */ $addToBlock->setProduct($item)->getChildHtml(); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+            </ol>
+        </div>
+    </div>
+</div>

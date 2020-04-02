@@ -1,0 +1,7 @@
+<?php
+$bannerIds = $this->getBannerIds($block->getNameInLayout());
+?>
+
+<?php foreach ($bannerIds as $key => $bannerId): ?>
+    <div class="cn_banner_placeholder" id="<?php echo $bannerId ?>"></div>
+<?php endforeach;?>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDAddFilterTitleDescriptionAfterAndSeparatorCheckingTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Category Title and Description position after filtering in case of After Category Name/Description with defined Separator"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CTD-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="AllWeatherTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="CheckTitleAndDescriptionSeparator"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="SetDefaultCategoryDescription"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultAllWeatherAttributeData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescriptionDefault1"
+                         ref="ClearDefaultCategoryContent">
+                <argument name="Category" value="DefaultCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescriptionDefault1"
+                         ref="DefaultCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Category Title, Description and Separator: filter page by attributes, check that Category Title consists of Attribute Option Names and separated by defined separator/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <waitForElement selector="{{StorefrontPageElementsSection.PageTitle}}" stepKey="waitForElement2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Default Category+tst+All-Weather Test Page Title"
+             stepKey="checkPageTitle1"/>
+        <seeInSource html="&lt;title&gt;Default Category+tst+All-Weather Test Page Title&lt;&#x0002F;title&gt;"
+                     stepKey="seeInSourcePageTitle1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.FilterDescriptionBeforeAndAfter('Test Default Category Description','All-Weather Test Description','preceding')}}"
+                stepKey="checkPageDescription1"/>
+
+    </test>
+</tests>
+
+

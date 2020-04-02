@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterExpandingSidebarBothTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and expanding"/>
+            <description value="Check of new filter enabling expanding in Sidebar and Both Location"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNNEWFILTER-7"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="NewFilterEnabling1"
+                         ref="NewFilterExpandActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="NewFilterDisabling1"
+                         ref="NewFilterDisablingForExpandedActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter2" value="CustomFilterExpandAuto"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Checking of New Filter elements: check expanded New Filter in Sidebar position/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="New"
+             stepKey="checkIfFilterExpand1"/>
+        <actionGroup stepKey="NewFilterEnabling2"
+                     ref="NewFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="NewFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="New"
+             stepKey="checkIfFilterExpand2"/>
+
+        <!--Checking of New Filter elements: check expanded New Filter in Both position/-->
+
+        <actionGroup stepKey="NewFilterEnabling3"
+                     ref="NewFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="NewFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts3"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="New"
+             stepKey="checkIfFilterExpand3"/>
+        <actionGroup stepKey="NewFilterEnabling4"
+                     ref="NewFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+            <argument name="customFilter3" value="NewFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts4"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="New"
+             stepKey="checkIfFilterExpand4"/>
+
+    </test>
+</tests>

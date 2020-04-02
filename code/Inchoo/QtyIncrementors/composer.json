@@ -1,0 +1,23 @@
+{
+  "name": "inchoo/qty_incrementors",
+  "description": "Inchoo Quantity increment buttons on product page",
+  "type": "magento2-module",
+  "version": "dev-master",
+  "license": [
+    "OSL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Luka Rajcevic",
+      "email": "luka.rajcevic@inchoo.net"
+    }
+  ],
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Inchoo/QtyIncrementors"
+      ]
+    ]
+  }
+}

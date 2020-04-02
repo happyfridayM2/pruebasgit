@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NumberOfUnfoldedOptionsSettingTest">
+
+        <annotations>
+            <features value="Number of Unfolded Options in State setting"/>
+            <stories value="Number of Unfolded Options in State setting checking"/>
+            <title value="Check Number of Unfolded Options in State setting"/>
+            <description
+                    value="Check that Number of Unfolded Options in State setting works correctly"/>
+            <severity value="MINOR"/>
+            <testCaseId value="NUMBOFUNFOLDOPT"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="numbofunfoldopt"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="GeneralBlockConfiguration" ref="ConfigureNumberOfUnfoldedOptionsInState">
+                <argument name="generalILNSettings4" value="SetCheckNumberOfUnfoldedOptionsInState"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DefaultGeneralBlockConfiguration" ref="ConfigureNumberOfUnfoldedOptionsInState">
+                <argument name="generalILNSettings4" value="SetCheckNumberOfUnfoldedOptionsInStateDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check that umber of Unfolded Options in State setting works correctly/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                        stepKey="DontSeeShowMoreButton1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption2"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                        stepKey="DontSeeShowMoreButton2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Style')}}"
+               stepKey="clickStyleGeneralFilter3"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.FilterOptionWithException('Tank','Tanks')}}" stepKey="waitForTankOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionWithException('Tank','Tanks')}}"
+               stepKey="clickTankOption3"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}" stepKey="waitForElement1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                    stepKey="SeeShowMoreButton"/>
+        <click selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+               stepKey="clickShowMoreButton"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('Less')}}"
+                    stepKey="SeeLessButton"/>
+        <click selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('Less')}}"
+               stepKey="clickLessButton"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                    stepKey="SeeShowMoreButton1"/>
+
+    </test>
+</tests>
+

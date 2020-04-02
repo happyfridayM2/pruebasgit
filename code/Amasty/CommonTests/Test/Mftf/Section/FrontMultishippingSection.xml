@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontMultishippingAddress">
+        <element name="GoToShippingInformationButton" type="button" selector="//div[@class='primary']//button[@data-role='can-continue']"/>
+    </section>
+
+    <section name="StorefrontMultishippingShipping">
+        <element name="ContinueToBillingInformation" type="button" selector="//div[@class='actions-toolbar']//button[@class='action primary continue']"/>
+    </section>
+
+    <section name="StorefrontMultishippingBilling">
+        <element name="GoToReviewYourOrderButton" type="button" selector="//button[@id='payment-continue']"/>
+    </section>
+
+    <section name="StorefrontMultishippingReview">
+        <element name="PlaceOrderButton" type="button" selector="//button[@id='review-button']"/>
+        <element name="MultiCheckoutSuccess" type="text" selector="//div[@class='multicheckout success']"/>
+    </section>
+
+</sections>

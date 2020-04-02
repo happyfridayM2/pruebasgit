@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckGiftWrapDecimalNumber" extends="OSCConfigurationCheckGiftWrapIntegerNumber">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Setting Gift Wrap With Decimal Number"/>
+            <title value="Check Gift Wrap"/>
+            <description value="Check Setting Allow Gift Wrap With Decimal Number and Place Order With Wrap"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-15"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationGifts"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <actionGroup ref="AdminConfigOSCWithGiftWrapFee" stepKey="ConfigurationGiftsSetting">
+                <argument name="adminSettingOSCGiftWrap" value="SetGiftWrapIsDecimal"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="StorefrontOSCCheckHaveGiftWrapCheckbox" stepKey="checkGiftWrapCheckbox">
+            <argument name="giftWrapFee" value="OSCConfigurationCheckGiftWrapDecimalNumber.giftWrapFeeAmount"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCAddGiftWrapAndCheckAddInTotals" stepKey="checkGiftWrapAfterAdd">
+            <argument name="giftWrapFee" value="OSCConfigurationCheckGiftWrapDecimalNumber.giftWrapFeeAmount"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCConfigurationCheckGiftWrapDecimalNumber"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckGiftWrapInOrder" stepKey="checkGiftWrapInAdminOrder">
+            <argument name="giftWrapFee" value="OSCConfigurationCheckGiftWrapDecimalNumber.giftWrapFeeAmount"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCConfigurationCheckGiftWrapDecimalNumber"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+    </test>
+</tests>

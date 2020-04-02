@@ -1,0 +1,13 @@
+<?php
+$_block = $block->getLayout()->createBlock('\Magento\Contact\Block\ContactForm')->setTemplate('Magento_Contact::form.phtml');
+$input = '<input type="hidden" name="mgz" value="1"/>';
+$html  = $_block->toHtml();
+$start = strpos($html, '<form');
+$end   = strpos($html, '>', $start);
+
+if ($end > $start) {
+	$str = substr($html, $start, ($end - $start) + 1);
+	$html = str_replace($str, $str . $input, $html);
+}
+
+echo $html;

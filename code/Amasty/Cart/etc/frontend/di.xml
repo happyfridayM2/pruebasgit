@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_Cart::make-css" type="Amasty\Cart\Plugin\View\Page\Config\Renderer" />
+    </type>
+
+    <!-- replace data-post to data-post-ajax -->
+    <type name="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist">
+        <plugin name="Amasty_Cart::wishlist-category" type="Amasty\Cart\Plugin\DataPost\Block\Category\Wishlist" />
+    </type>
+    <type name="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist">
+        <plugin name="Amasty_Cart::wishlist-product" type="Amasty\Cart\Plugin\DataPost\Block\Product\Wishlist" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare">
+        <plugin name="Amasty_Cart::compare-category" type="Amasty\Cart\Plugin\DataPost\Block\Category\Compare" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\AddTo\Compare">
+        <plugin name="Amasty_Cart::compare-product" type="Amasty\Cart\Plugin\DataPost\Block\Product\Compare" />
+    </type>
+    <type name="Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="Amasty_Cart::Wishlist-sidebar" type="Amasty\Cart\Plugin\DataPost\Block\Sidebar\Wishlist" />
+    </type>
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="Amasty_Cart::widget-ajax" type="Amasty\Cart\Plugin\DataPost\Block\Widget\ProductsList" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Amasty_Cart::widget-ajax" type="Amasty\Cart\Plugin\DataPost\Block\Compare\ListCompare" />
+    </type>
+    <!-- return json if data-post-ajax used -->
+    <type name="Magento\Wishlist\Controller\Index\Add">
+        <plugin name="Amasty_Cart::wishlist-add-controller" type="Amasty\Cart\Plugin\DataPost\Controller\Ajax" />
+    </type>
+    <type name="Magento\Wishlist\Controller\Index\Remove">
+        <plugin name="Amasty_Cart::wishlist-remove-controller" type="Amasty\Cart\Plugin\DataPost\Controller\Ajax" />
+    </type>
+    <type name="Magento\Wishlist\Controller\Index\Cart">
+        <plugin name="Amasty_Cart::wishlist-cart-controller" type="Amasty\Cart\Plugin\DataPost\Controller\Ajax" />
+    </type>
+    <type name="Magento\Catalog\Controller\Product\Compare\Add">
+        <plugin name="Amasty_Cart::compare-controller" type="Amasty\Cart\Plugin\DataPost\Controller\Ajax" />
+    </type>
+
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="addAmProductSuccessMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Amasty_Cart::messages/addProductSuccessMessage.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Cart\Controller\Wishlist\Cart">
+        <arguments>
+            <argument name="blockFactory" xsi:type="object">Magento\Cms\Api\BlockRepositoryInterface\Proxy</argument>
+            <argument name="filterProvider" xsi:type="object">Magento\Cms\Model\Template\FilterProvider\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Cart\Controller\Cart\Add">
+        <arguments>
+            <argument name="blockFactory" xsi:type="object">Magento\Cms\Api\BlockRepositoryInterface\Proxy</argument>
+            <argument name="filterProvider" xsi:type="object">Magento\Cms\Model\Template\FilterProvider\Proxy</argument>
+        </arguments>
+    </type>
+</config>

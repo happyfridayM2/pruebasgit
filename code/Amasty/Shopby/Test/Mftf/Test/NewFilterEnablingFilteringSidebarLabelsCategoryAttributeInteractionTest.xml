@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterEnablingFilteringSidebarLabelsCategoryAttributeInteractionTest"
+          extends="NewFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and filtering"/>
+            <description
+                    value="Check of new filter enabling and filtering in sidebar position and labels mode in interaction with Category Attribute"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNNEWFILTER-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <!--Filter by New Filter on All-products Page: select option on sidebar, check the result, filter page by Category Attribute, check the result, remove selected options from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               after="clickNewOption1"
+               stepKey="clickCategoryFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Bags')}}"
+               after="clickCategoryFilter1"
+               stepKey="clickBagsCategoryOption1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Bags"
+             stepKey="checkTitle"
+             after="clickBagsCategoryOption1"/>
+
+    </test>
+</tests>
+
+

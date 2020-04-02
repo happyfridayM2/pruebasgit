@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="DisableChildrenCategoriesBlock" type="ChildrenCategories">
+        <data key="DisplayMode">0</data>
+    </entity>
+    <entity name="CategoryThumbnailImagesMode" type="ChildrenCategories">
+        <data key="DisplayMode">1</data>
+    </entity>
+    <entity name="CategoryNamesWithoutImagesMode" type="ChildrenCategories">
+        <data key="DisplayMode">2</data>
+    </entity>
+
+    <entity name="CategoryThumbnailImagesDefault" type="ChildrenCategories1">
+        <data key="CategoryThumbnailImageSize">100</data>
+        <data key="ShowImageLabels">0</data>
+        <data key="EnableSlider">0</data>
+        <data key="CategoriesSelection">0</data>
+    </entity>
+    <entity name="CategoryNamesWithoutImagesDefault" type="ChildrenCategories1">
+        <data key="EnableSlider">0</data>
+        <data key="CategoriesSelection">0</data>
+    </entity>
+    <entity name="CategoryThumbnailImagesSizeAndLabels" type="ChildrenCategories1"
+            extends="CategoryThumbnailImagesDefault">
+        <data key="CategoryThumbnailImageSize">200</data>
+        <data key="ShowImageLabels">1</data>
+    </entity>
+    <entity name="CategoryThumbnailImagesEnabledSlider" type="ChildrenCategories1"
+            extends="CategoryThumbnailImagesDefault">
+        <data key="EnableSlider">1</data>
+        <data key="ItemsPerSlide">3</data>
+    </entity>
+    <entity name="CategoryNamesWithoutImagesEnabledSlider" type="ChildrenCategories1"
+            extends="CategoryNamesWithoutImagesDefault">
+        <data key="EnableSlider">1</data>
+        <data key="ItemsPerSlide">3</data>
+    </entity>
+    <entity name="CategoryThumbnailImagesDifferentCategories" type="ChildrenCategories1"
+            extends="CategoryThumbnailImagesDefault">
+        <data key="CategoriesSelection">12</data>
+    </entity>
+    <entity name="CategoryNamesWithoutImagesDifferentCategories" type="ChildrenCategories1"
+            extends="CategoryNamesWithoutImagesDefault">
+        <data key="CategoriesSelection">12</data>
+    </entity>
+
+</entities>

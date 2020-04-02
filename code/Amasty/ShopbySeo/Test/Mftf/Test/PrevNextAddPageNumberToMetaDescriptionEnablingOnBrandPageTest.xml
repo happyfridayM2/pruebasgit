@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextAddPageNumberToMetaDescriptionEnablingOnBrandPageTest"
+          extends="PrevNextAddPageNumberToMetaDescriptionEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description value="Check of Add Page Number to Meta Description setting enabling on Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="PNTSETTINGS-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="pntsettings"/>
+            <group value="pagenumberinmeta"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute2"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Check Add Page Number to Meta Description setting: navigate to Brand Page, check Page Number in Meta Description of Page Source, activate pagination, check Page Number in Meta Description of Page Source/-->
+
+        <amOnPage url="{{StorefrontBrandWithURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST&quot;"
+                stepKey="seeInSource1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | Page 2&quot;"
+                stepKey="seeInSource2"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | "
+                stepKey="seeInSource3"/>
+        <dontSeeInPageSource
+                userInput="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | "
+                stepKey="dontSeeInSource1"/>
+
+    </test>
+</tests>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationTermsAndConditionsBelowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Terms And Conditions on the OSC"/>
+            <title value="Check Terms And Conditions"/>
+            <description value="Check Terms And Conditions Bellow Payment on the OSC"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-25"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationAdditionalOptions"/>
+        </annotations>
+
+        <before>
+            <!-- Login as admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <!-- Configuration setting -->
+            <actionGroup ref="AdminConfigurationSettingOSCGeneral" stepKey="ConfigurationGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOnlyEnableCheckout"/>
+            </actionGroup>
+            <actionGroup ref="AdminConfigurationSettingOSCAdditionalTermsAndConditions" stepKey="ConfigurationAdditionalSetting">
+                <argument name="adminSettingOSCAdditionalMain" value="SetAdditionalDefaultValue"/>
+                <argument name="adminSettingOSCAdditionalTermsAndConditions" value="SetAdditionalTermsBelowPayment"/>
+            </actionGroup>
+            <!-- Create Store Condition Rule -->
+            <actionGroup ref="AdminCreateStoresTermsAndConditionsRule" stepKey="CreateStoreCondition">
+                <argument name="termsAndConditionsData" value="OSCTermsAndConditionsData"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Return default setting -->
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCGeneral" stepKey="ReturnDefaultGeneralSetting"/>
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCAdditional" stepKey="ReturnDefaultAdditionalSetting"/>
+            <!-- Delete Store Condition Rule -->
+            <actionGroup ref="AdminDeleteTermsAndConditionsRule" stepKey="DeleteCondition">
+                <argument name="conditionName" value="OSCTermsAndConditionsData.name"/>
+            </actionGroup>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add First Product to Cart-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagImpulseDuffleData"/>
+        </actionGroup>
+
+        <!-- Go To Checkout -->
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckoutFromCart">
+            <argument name="customer" value="defaultCustomerOSCData"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+
+        <!-- Check Condition Position -->
+        <actionGroup ref="StorefrontOSCCheckHaveConditionBellowPayment" stepKey="checkHaveConditionsBellowPayment">
+            <argument name="conditionCheckboxText" value="OSCTermsAndConditionsData.checkboxText"/>
+            <argument name="conditionContent" value="OSCTermsAndConditionsData.content"/>
+        </actionGroup>
+
+    </test>
+</tests>

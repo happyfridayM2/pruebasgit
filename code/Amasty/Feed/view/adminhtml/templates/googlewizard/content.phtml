@@ -1,0 +1,69 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Feed
+ */
+?>
+<?php
+    /**
+     * @var \Amasty\Feed\Block\Adminhtml\GoogleWizard\Edit\Tab\Content\Element $block
+     */
+    $element = $block->getElement();
+    $value       = $element->getValue();
+    $htmlId      = $element->getHtmlId();
+    $htmlClass   = $element->getClass();
+    $htmlName    = $element->getName();
+    $htmlNote    = $element->getNote();
+    $readonly    = $element->getReadonly();
+?>
+<?php if ($htmlNote) : ?>
+    <p><?= $block->escapeHtml(__($htmlNote->getText())); ?></p>
+<?php endif; ?>
+<table class="data border data-grid">
+    <thead>
+        <tr>
+            <th class="data-grid-th _sortable not-sort"><?= $block->escapeHtml(__('Header')); ?></th>
+            <th class="data-grid-th _sortable not-sort"><?= $block->escapeHtml(__('Attribute')); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($value as $idx => $element) : ?>
+        <tr>
+            <td>
+                <div><?= $block->escapeHtml($element->getName()); ?></div>
+                <small><?= $block->escapeHtml($element->getDescription()); ?></small>
+            </td>
+            <td>
+                <?php if ($idx !== 'condition') : ?>
+                    <select name="<?= $block->escapeHtml($htmlName); ?>[<?= $block->escapeHtml($idx); ?>][attribute]"
+                            id="amasty_feed_content_attributes_<?= $block->escapeHtml($idx);?>">
+                        <?php if (!$element->getRequired()) : ?>
+                            <option value=''><?= $block->escapeHtml(__('None')); ?></option>
+                        <?php endif;?>
+
+                        <?php foreach ($block->getAttributes() as $type => $config) : ?>
+                            <?php $label = $config['label']; ?>
+                            <optgroup label="<?= $block->escapeHtml($label); ?>">
+                                <?php foreach ($config['options'] as $value => $label) : ?>
+                                    <?php $selected = $block->isSelectedAttribute($element, $value); ?>
+
+                                    <option<?= ($selected ? ' selected' : ''); ?>
+                                            value="<?= $block->escapeHtml($value); ?>">
+                                        <?= $block->escapeHtml($label); ?>
+                                    </option>
+
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else : ?>
+                    <input type="text" value="<?= $block->escapeHtml($element->getValue()); ?>"
+                           name="<?= $block->escapeHtml($htmlName); ?>[<?= $block->escapeHtml($idx) ?>][attribute]"
+                           id="amasty_feed_content_attributes_<?= $block->escapeHtml($idx); ?>"/>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

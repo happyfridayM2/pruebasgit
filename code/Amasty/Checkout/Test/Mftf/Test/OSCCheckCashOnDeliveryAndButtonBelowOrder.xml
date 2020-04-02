@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckCashOnDeliveryAndButtonBelowOrder" extends="OSCCheckAmazonAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Cash On Delivery via the storefront"/>
+            <title value="Check Place Order with Cash On Delivery And Button Below the Order Totals on the Checkout"/>
+            <description value="Check Place Order with Cash On Delivery And Button Below the Order Totals on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-46"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCPaymentCashOnDelivery"/>
+            <group value="OSCPaymentMethods"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <createData entity="OSCCustomerCalifornia" after="createFirstSimpleProduct" stepKey="createCustomer"/>
+            <actionGroup ref="AdminActivateCashOnDeliveryPayment" after="ConfigurationPlaceButtonDesignSetting" stepKey="ActivateCashOnDeliveryPayment"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" after="ActivateCashOnDeliveryPayment" stepKey="loginAsCustomer">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+            <deleteData createDataKey="createCustomer" after="deleteFirstSimpleProduct" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminReturnDefaultSettingCashOnDeliveryPayment" after="deleteCustomer" stepKey="ReturnDefaultPaymentSetting"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentCashOnDeliveryPayment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckCashOnDeliveryAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithCashOnDeliveryGrabNumber" stepKey="PlaceOrderWithCashOnDelivery"/>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentCashOnDeliveryPayment"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCashOnDelivery}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckCashOnDeliveryAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCashOnDelivery}"/>
+        </actionGroup>
+
+    </test>
+</tests>

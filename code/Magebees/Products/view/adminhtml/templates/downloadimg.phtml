@@ -1,0 +1,68 @@
+<div id="imgresult"></div>
+<div id="messages"><div class="messages"><div class="message message-notice notice"><div>
+<?php echo __('<b>Note :</b> Generated CSV file is store in <b>"var/import"</b> folder and Images are store in <b>"pub/media/import"</b> folder.')?>
+<br/>
+<?php echo __('Make sure that data encoding in the file is consistent and saved in CSV (comma separated only) with supported encodings (UTF-8 or ANSI).')?>
+</div></div></div></div>
+
+<div id="imguploadPage" class="imguploadPage">
+    <form action="<?php //echo $block->getUrl('*/*/uploadimg') ?>" method="post" id="uploadimg" name="uploadimg" enctype="multipart/form-data">
+        <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>" />
+        <div class="headingLabel"><b><?php echo __("Upload File") ?></b></div>
+            <table height="100">
+            <tr>
+                <td width="55%">
+                    <label for="downloadimg"><?php echo __("Select your CSV (Comma Delimited) File : ") ?></label>
+                </td>
+                <td width="55%">
+                    <input type="file" class="required-entry required-entry" id="filename" name="filename"  />
+                </td>
+            </tr>
+            <tr>
+                <td width="55%"></td>
+                <td width="55%">
+                    <button style="" id="uploadimgbtn" name="uploadimgbtn" class="scalable save primary" type="button" title="Run Profile in Popup" ><span><?php echo __("Download Images and Generate csv") ?></span></button>
+                </td>
+            </tr>
+            </table>
+    </form>
+    <div id="sample_csv_content">
+        <div class="sample-csv-item">
+            <div class="headingLabel"><b><?php echo __("Sample CSV for Download Images from Live URL") ?></b></div>
+                <a href="https://www.magebees.com/media/mconnect_uploadfiles/import-export-products-magento-2-csv/download_images_sample.csv"> <?php echo __("Download Sample CSV File") ?> </a>
+                
+        </div>
+    </div>
+</div>
+<?php $import_url = $block->getUrl('*/*/uploadimg'); ?>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ],
+    function(jQuery) {
+        var importurl = "<?php echo $import_url ?>";
+        jQuery('#uploadimg').on('click', '#uploadimgbtn', function(event){
+            var file = document.getElementById("filename");
+            var formData = new FormData();
+            formData.append("filename", file.files[0]);
+            formData.append('form_key', FORM_KEY);
+            var filename = jQuery('#filename').val();
+            if(filename) {
+                jQuery.ajax({
+                    url : importurl,
+                    showLoader:true,
+                    contentType: false,
+                    processData: false,
+                    data: formData,                         
+                    type: 'post',
+                    success: function(data){
+                        jQuery('#imgresult').html(data);
+                    }
+                });
+            }else{
+                alert('<?php echo __("Please Upload CSV File.") ?>');
+            }
+        })
+    }
+    );
+</script>

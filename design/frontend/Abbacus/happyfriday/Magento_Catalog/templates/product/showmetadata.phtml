@@ -1,0 +1,6 @@
+<?php $category = $block->getCurrentCategory(); 
+$catblock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('bottomcontent-cat14')->toHtml(); ?>
+<h1 class="product-metatitle"><?php echo $category->getMetaKeywords(); ?></h1>
+<?php 
+$meta = ($category->getId() == 5) ? $catblock : $category->getMetaDescription() ?>
+<div class="product-metadescription"><?php echo $meta; ?></div>

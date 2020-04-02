@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterFilteringBrandFilterInteractionTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter filtering in interaction with other filters"/>
+            <description
+                    value="Check of rating filter filtering in interaction with brand attribute"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-11"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by On Rating Filter: select 4 stars option on sidebar, filter by Brand Attribute Filter (Material), check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnMaterialFilter1"
+               after="selectRatingOption2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="selectPolyesterOption1"
+               after="clickOnMaterialFilter1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"
+                         after="selectPolyesterOption1"/>
+        <seeInPageSource html="ambrand-"
+                         stepKey="checkIfItBrandPage1"
+                         after="removeSelectedFilterOptionFromState5"/>
+
+    </test>
+</tests>
+
+

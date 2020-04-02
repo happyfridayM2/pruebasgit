@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureBrandSliderQtySortColorTitleSizeActionGroup">
+        <arguments>
+            <argument name="brandSlider1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandBrandSliderSettingsTab1"
+                          selector="{{AdminBrandSliderSettingsSection.BrandSliderSettingsTab}}"
+                          dependentSelector="{{AdminBrandSliderSettingsSection.VisibleItemsQuantity}}"
+                          visible="false"/>
+        <grabTextFrom selector="{{AdminBrandSliderSettingsSection.BrandSliderWidgetCode}}"
+                      stepKey="grabBrandSliderWidgetCode1"/>
+        <setCookie userInput="setBrandSliderWidgetCodeInCookie"
+                   value="{$grabBrandSliderWidgetCode1}"
+                   stepKey="setBrandSliderWidgetCodeInCookie1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.VisibleItemsQuantity}}"
+                   userInput="{{brandSlider1.VisibleItemsQuantity}}"
+                   stepKey="setVisibleItemsQuantity1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.SortBySwitcher}}"
+                      userInput="{{brandSlider1.SortBySwitcher}}"
+                      stepKey="setSortBy1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.HeaderBackgroundColor}}"
+                   userInput="{{brandSlider1.HeaderBackgroundColor}}"
+                   stepKey="setHeaderBackgroundColor1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.HeaderTextColor}}"
+                   userInput="{{brandSlider1.HeaderTextColor}}"
+                   stepKey="setHeaderTextColor1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.HeaderTitle}}"
+                   userInput="{{brandSlider1.HeaderTitle}}"
+                   stepKey="setHeaderTitle1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.SliderMaxWidth}}"
+                   userInput="{{brandSlider1.SliderMaxWidth}}"
+                   stepKey="setSliderMaxWidth1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.ImageMaxWidth}}"
+                   userInput="{{brandSlider1.ImageMaxWidth}}"
+                   stepKey="setImageMaxWidth1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.ImageMaxHeight}}"
+                   userInput="{{brandSlider1.ImageMaxHeight}}"
+                   stepKey="setImageMaxHeight1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureBrandSliderElementsActionGroup">
+        <arguments>
+            <argument name="brandSlider2"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandBrandSliderSettingsTab1"
+                          selector="{{AdminBrandSliderSettingsSection.BrandSliderSettingsTab}}"
+                          dependentSelector="{{AdminBrandSliderSettingsSection.VisibleItemsQuantity}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.ShowBrandLabelSwitcher}}"
+                      userInput="{{brandSlider2.ShowBrandLabelSwitcher}}"
+                      stepKey="setBrandLabel1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.ShowButtonsSwitcher}}"
+                      userInput="{{brandSlider2.ShowButtonsSwitcher}}"
+                      stepKey="setShowButtons1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.InfinityLoopSwitcher}}"
+                      userInput="{{brandSlider2.InfinityLoopSwitcher}}"
+                      stepKey="setInfinityLoop1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.SimulateTouchSwitcher}}"
+                      userInput="{{brandSlider2.SimulateTouchSwitcher}}"
+                      stepKey="setSimulateTouch1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.SimulateTouchSwitcher}}"
+                      userInput="{{brandSlider2.SimulateTouchSwitcher}}"
+                      stepKey="setSimulateTouch2"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.ShowPaginationSwitcher}}"
+                      userInput="{{brandSlider2.ShowPaginationSwitcher}}"
+                      stepKey="setShowPagination1"/>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.AutoplaySwitcher}}"
+                      userInput="{{brandSlider2.AutoplaySwitcher}}"
+                      stepKey="setAutoplay1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureClickablePaginationAutoplayDelayActionGroup"
+                 extends="ConfigureBrandSliderElementsActionGroup">
+        <arguments>
+            <argument name="brandSlider2"/>
+        </arguments>
+        <selectOption selector="{{AdminBrandSliderSettingsSection.ClickablePaginationSwitcher}}"
+                      userInput="{{brandSlider2.ClickablePaginationSwitcher}}"
+                      stepKey="setClickablePagination1"
+                      after="setShowPagination1"/>
+        <fillField selector="{{AdminBrandSliderSettingsSection.AutoplayDelay}}"
+                   userInput="{{brandSlider2.AutoplayDelay}}"
+                   stepKey="setAutoplayDelay1"
+                   after="setAutoplay1"/>
+    </actionGroup>
+
+</actionGroups>

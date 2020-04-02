@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="brandSliderQtySortColorTitleSizeDefault" type="brandSlider1">
+        <data key="VisibleItemsQuantity">4</data>
+        <data key="SortBySwitcher">name</data>
+        <data key="HeaderBackgroundColor">#E2E2E2</data>
+        <data key="HeaderTextColor">#000</data>
+        <data key="HeaderTitle">Featured Brands</data>
+        <data key="SliderMaxWidth">800</data>
+        <data key="ImageMaxWidth">130</data>
+        <data key="ImageMaxHeight"></data>
+    </entity>
+    <entity name="setBrandSliderQtySortColorTitleSize" type="brandSlider1">
+        <data key="VisibleItemsQuantity">3</data>
+        <data key="SortBySwitcher">name</data>
+        <data key="HeaderBackgroundColor">#F58C12</data>
+        <data key="HeaderTextColor">#E2E2E2</data>
+        <data key="HeaderTitle">Featured Brands Test Title</data>
+        <data key="SliderMaxWidth">600</data>
+        <data key="ImageMaxWidth">150</data>
+        <data key="ImageMaxHeight">100</data>
+    </entity>
+    <entity name="setBrandSliderQtySortByPositionColorTitleSize" type="brandSlider1" extends="setBrandSliderQtySortColorTitleSize">
+        <data key="SortBySwitcher">position</data>
+    </entity>
+
+    <entity name="brandSliderConfigurationDefault" type="brandSlider2">
+        <data key="ShowBrandLabelSwitcher">0</data>
+        <data key="ShowButtonsSwitcher">1</data>
+        <data key="InfinityLoopSwitcher">1</data>
+        <data key="SimulateTouchSwitcher">1</data>
+        <data key="ShowPaginationSwitcher">0</data>
+        <data key="AutoplaySwitcher">0</data>
+    </entity>
+    <entity name="brandSliderConfigurationFullyEnabled" type="brandSlider2">
+        <data key="ShowBrandLabelSwitcher">1</data>
+        <data key="ShowButtonsSwitcher">1</data>
+        <data key="InfinityLoopSwitcher">1</data>
+        <data key="SimulateTouchSwitcher">1</data>
+        <data key="ShowPaginationSwitcher">1</data>
+        <data key="AutoplaySwitcher">1</data>
+        <data key="ClickablePaginationSwitcher">1</data>
+        <data key="AutoplayDelay">2000</data>
+    </entity>
+    <entity name="brandSliderConfigurationFullyDisabled" type="brandSlider2">
+        <data key="ShowBrandLabelSwitcher">0</data>
+        <data key="ShowButtonsSwitcher">0</data>
+        <data key="InfinityLoopSwitcher">0</data>
+        <data key="SimulateTouchSwitcher">0</data>
+        <data key="ShowPaginationSwitcher">0</data>
+        <data key="AutoplaySwitcher">0</data>
+    </entity>
+
+</entities>

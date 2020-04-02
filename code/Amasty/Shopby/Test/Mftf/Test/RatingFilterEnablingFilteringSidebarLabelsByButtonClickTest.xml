@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringSidebarLabelsByButtonClickTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode by button click"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNRATINGFILTER-18"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxByButtonClickOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Rating Filter: select 5 stars option on sidebar in labels by button click, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton1"
+                               after="selectRatingOption1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick1"
+               after="waitForByButtonClickButton1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"
+                               after="clickOnByButtonClick1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"
+                         after="waitForAjaxLoaderVisible1"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton2"
+                               after="removeSelectedFilterOptionFromState1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick2"
+               after="waitForByButtonClickButton2"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible2"
+                               after="clickOnByButtonClick2"/>
+        <waitForElementNotVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                                  stepKey="waitForElementNotVisible1"
+                                  after="waitForAjaxLoaderVisible2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"
+                         after="waitForElementNotVisible1"/>
+        <wait time="2" stepKey="waitSeconds1"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels by button click, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton3"
+                               after="selectRatingOption2"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick3"
+               after="waitForByButtonClickButton3"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible3"
+                               after="clickOnByButtonClick3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"
+                         after="waitForAjaxLoaderVisible3"/>
+        <wait time="2" stepKey="wait2"
+              after="waitForAjaxLoad3"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton4"
+                               after="removeSelectedFilterOptionFromState2"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick4"
+               after="waitForByButtonClickButton4"/>
+        <waitForElementNotVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                                  stepKey="waitForElementNotVisible2"
+                                  after="clickOnByButtonClick4"/>
+        <wait time="2" stepKey="waitSeconds2"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels by button click, check the ajax loader is visible, check the result, don't remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton5"
+                               after="selectRatingOption3"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick5"
+               after="waitForByButtonClickButton5"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible4"
+                               after="clickOnByButtonClick5"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"
+                         after="waitForAjaxLoaderVisible4"/>
+        <wait time="2" stepKey="wait3"
+              after="waitForAjaxLoad4"/>
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels by button click, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton6"
+                               after="selectRatingOption4"/>
+        <scrollTo selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                  stepKey="scrollToFilter1"
+                  after="waitForByButtonClickButton6"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick6"
+               after="scrollToFilter1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible5"
+                               after="clickOnByButtonClick6"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"
+                         after="waitForAjaxLoaderVisible5"/>
+        <wait time="2" stepKey="wait4"
+              after="waitForAjaxLoad5"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton7"
+                               after="removeSelectedFilterOptionFromState4"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick7"
+               after="waitForByButtonClickButton7"/>
+        <waitForElementNotVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                                  stepKey="waitForElementNotVisible4"
+                                  after="clickOnByButtonClick7"/>
+        <wait time="2" stepKey="waitSeconds4"/>
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels by button click, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton8"
+                               after="selectRatingOption5"/>
+        <scrollTo selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                  stepKey="scrollToFilter3"
+                  after="waitForByButtonClickButton8"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick8"
+               after="scrollToFilter3"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible6"
+                               after="clickOnByButtonClick8"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"
+                         after="waitForAjaxLoaderVisible6"/>
+        <wait time="2" stepKey="wait5"
+              after="waitForAjaxLoad6"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton9"
+                               after="removeSelectedFilterOptionFromState5"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick9"
+               after="waitForByButtonClickButton9"/>
+        <waitForElementNotVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                                  stepKey="waitForElementNotVisible5"
+                                  after="clickOnByButtonClick9"/>
+
+    </test>
+</tests>

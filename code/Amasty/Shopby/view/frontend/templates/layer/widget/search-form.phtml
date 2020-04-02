@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\ShopbyBase\Model\FilterSetting $filterCode */
+?>
+
+<div class="amshopby-search-box">
+    <input type="text"
+           class="am-search-box-<?= $block->escapeHtml($filterCode);?>"
+           placeholder="<?= $block->escapeHtml(__("Search"))?>" />
+</div>
+
+<script type="text/x-magento-init">
+            {
+                ".am-search-box-<?= $block->escapeHtml($filterCode)?>": {
+                    "amShopbyFilterSearch": {
+                        "highlightTemplate": "<span class='amshopby-hightlighted'>$&</span>",
+                        "itemsSelector": ".am-filter-items-<?= $block->escapeHtml($filterCode);?>"
+                    }
+                }
+            }
+</script>

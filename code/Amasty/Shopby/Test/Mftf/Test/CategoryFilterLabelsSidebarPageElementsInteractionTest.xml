@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarPageElementsInteractionTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode in interaction with Page Elements"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-25"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription1"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SetCategoryDescriptionDefault1"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: activate Page Elements, select option on sidebar, check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{StorefrontPageElementsSection.GridListMode('list')}}"
+               stepKey="clickOnListConfiguration1"/>
+        <selectOption userInput="Product Name"
+                      selector="{{StorefrontPageElementsSection.SortBy}}"
+                      stepKey="selectPrice1"/>
+        <click selector="{{StorefrontPageElementsSection.AscDescDirectionSwitcher}}"
+               stepKey="setDescendingConfiguration1"/>
+        <selectOption userInput="15"
+                      selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"/>
+        <click selector="{{StorefrontPageElementsSection.NextPreviousPage('next')}}"
+               stepKey="clickOnNextPageButton1"/>
+        <seeInCurrentUrl
+                url="{{ListGridSortingAscDescProductLimitInURL.url('dir=desc','limit=15','mode=list','order=name')}}"
+                stepKey="seeInCurrentUrlPageElements1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+                      stepKey="grabQtyOfBagsProducts1"/>
+        <click selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+               stepKey="clickOnBagsOption1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter2"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+             userInput="{$grabQtyOfBagsProducts1}"
+             stepKey="checkQtyOfBagsProducts1"/>
+        <dontSeeInCurrentUrl url="{{SpecifiedPaginationInURL.url('2')}}"
+                             stepKey="seeInCurrentUrlPageElements2"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="50"
+             stepKey="checkQtyOfBagsProducts2"/>
+
+    </test>
+</tests>
+
+

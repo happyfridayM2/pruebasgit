@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+?>
+<?php
+/** @var $block \Amasty\ShopbyPage\Block\Adminhtml\Page\Edit\Tab\Selection\Value */
+?>
+<?php $inputName = $block->escapeHtml($block->getInputName()); ?>
+<?php if ($block->getFrontendInput() === 'select'): ?>
+    <select name="<?= /* @noEscape */ $inputName ?>" class="select admin__control-select required-entry _required">
+        <?php foreach ($block->getAttributeOptions() as $option): ?>
+            <option
+                value="<?= /* @noEscape */$option['value'];?>"
+                <?= /* @noEscape */ ($option['value'] === $block->getEavAttributeValue() ? 'selected' : '')?>
+                >
+                <?= $block->escapeHtml($option['label']);?>
+            </option>
+        <?php endforeach;?>
+    </select>
+
+<?php elseif ($block->getFrontendInput() === 'multiselect'): ?>
+    <select name="<?= /* @noEscape */ $inputName?>[]"
+            class="select multiselect admin__control-multiselect amasty-shopbypage-selection-multiselect required-entry _required"
+            multiple="multiple">
+        <?php foreach ($block->getAttributeOptions() as $option): ?>
+            <option
+                value="<?= /* @noEscape */$option['value'];?>"
+                <?= /* @noEscape */ (is_array($block->getEavAttributeValue()) && in_array(
+                    $option['value'],
+                    $block->getEavAttributeValue()
+                ) ? 'selected' : '')?>
+            >
+                <?= $block->escapeHtml($option['label']);?>
+            </option>
+        <?php endforeach;?>
+    </select>
+<?php else: ?>
+    <input
+        value="<?= $block->escapeHtml($block->getEavAttributeValue()) ?>"
+        name="<?= /* @noEscape */ $inputName?>"
+        class="input-text" type="text"
+    />
+<?php endif;?>

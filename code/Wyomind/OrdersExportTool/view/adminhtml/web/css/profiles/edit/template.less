@@ -1,0 +1,90 @@
+/* =========== Configurations ========= */
+
+.field-body, .field-header, .field-footer {
+  div.CodeMirror {
+    border:1px solid lightgrey;
+    height: auto !important;
+  }
+}
+
+.field-description {
+  margin-bottom: 0 !important;
+}
+
+
+
+#fields-list {
+  input {
+    height: 33px;
+    text-overflow: ellipsis;
+    width: 40%;
+  }
+
+  li {
+    margin: 0;
+    list-style: none;
+    position: relative;
+
+  }
+
+  li:before {
+    content: '\21C5';
+    font-size: 30px;
+    vertical-align: middle;
+    cursor: ns-resize;
+    color: #EE6125;
+  }
+
+  TEXTAREA {
+    height: auto;
+    min-height: 20px;
+    max-height: 30px;
+    width: 40%;
+    resize: none;
+    padding: 5px;
+    overflow: hidden;
+    margin-bottom: -11px;
+  }
+
+}
+
+.overlay-txtTemplate {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+
+  .container-txtTemplate {
+    position: absolute;
+    left: 50%;
+    min-width: 500px;
+    width: auto;
+    background: #808080 none repeat scroll 0 0;
+    border: 5px solid #808080;
+    margin-left: -84px;
+    top: 250px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  #codemirror-txtTemplate, .CodeMirror {
+    width: 100%;
+    min-width: 490px;
+    margin: 0 0 38px 0;
+  }
+
+  BUTTON {
+    position: absolute;
+    bottom: 0;
+    &.validate {
+      right: 0;
+    }
+
+    &.cancel {
+      right: 90px;
+    }
+  }
+}

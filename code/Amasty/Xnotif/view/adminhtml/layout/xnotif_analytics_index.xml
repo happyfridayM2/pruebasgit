@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Xnotif::css/analytics/amcharts.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" template="Amasty_Xnotif::analytics/dashboard.phtml">
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Chart\Stock" name="chart_stock"/>
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Wanted\ProductList" name="wanted_products"/>
+                <block class="Amasty\Xnotif\Block\Adminhtml\Analytics\Activity\ProductList" name="last_activity"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

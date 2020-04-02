@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2019 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cronscheduler>
+            <license>
+                <extension_label>Cron Scheduler</extension_label>
+                <extension_version>1.8.2</extension_version>
+                <extension_code>cs</extension_code>
+                <get_online_license>1</get_online_license>
+            <activation_key>DOT6V86Q2Q2LQVACV</activation_key></license>
+        </cronscheduler>
+    </default>
+</config>

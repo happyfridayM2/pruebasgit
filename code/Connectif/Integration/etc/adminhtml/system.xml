@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="connectif" translate="label" sortOrder="1000">
+            <label>Connectif</label>
+        </tab>
+        <section id="connectif" translate="label" type="text" sortOrder="102" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Settings</label>
+            <tab>connectif</tab>
+            <resource>Connectif_Integration::config_connectif</resource>
+
+            <group id="config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Basic Configuration</label>
+                <field id="is_active_multi_currency" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Multi-Currency?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>connectif/config/is_active_multi_currency</config_path>
+                </field>
+                <field id="multi_account_config" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Configure multi-account</label>
+                    <comment>
+                    </comment>
+                    <depends>
+                        <field id="is_active_multi_currency">1</field>
+                    </depends>
+                    <frontend_model>Connectif\Integration\Block\Adminhtml\MultiAccountConfig</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="is_active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activate</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>connectif/config/is_active</config_path>
+                    <depends>
+                        <field id="is_active_multi_currency">0</field>
+                    </depends>
+                </field>
+                <field id="client_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client ID</label>
+                    <comment>
+                    Paste here your Client ID from Connectif configuration
+                    </comment>
+                    <config_path>connectif/config/client_id</config_path>
+                    <depends>
+                        <field id="is_active">1</field>
+                         <field id="is_active_multi_currency">0</field>
+                    </depends>
+                </field>
+                <field id="secret_key" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret Key</label>
+                    <comment>
+                    Paste here your Secret Key from Connectif configuration
+                    </comment>
+                    <config_path>connectif/config/secret_key</config_path>
+                    <depends>
+                        <field id="is_active">1</field>
+                         <field id="is_active_multi_currency">0</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="banners" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Banners</label>
+                <field id="banner_config" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Configure Banners</label>
+                    <comment>
+                    Configure here your banner placeholders, copy the banner placeholder ID into Connectif and use them in your workflows
+                    </comment>
+                    <frontend_model>Connectif\Integration\Block\Adminhtml\BannerConfig</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+
+            <group id="url_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Public Urls</label>
+                <field id="service_worker_url" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Service Worker URL</label>
+                    <comment>
+                    URL to use with web push notifications
+                    </comment>
+                    <frontend_model>Connectif\Integration\Block\Adminhtml\ServiceWorkerUrl</frontend_model>
+                </field>
+                <field id="optin_url" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Opt In URL</label>
+                    <comment>
+                    Opt In URL to notify new subscriptions
+                    </comment>
+                    <frontend_model>Connectif\Integration\Block\Adminhtml\OptInUrl</frontend_model>
+                </field>
+                <field id="optout_url" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Opt Out URL</label>
+                    <comment>
+                    Opt out URL to notify new unsubscriptions
+                    </comment>
+                    <frontend_model>Connectif\Integration\Block\Adminhtml\OptOutUrl</frontend_model>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

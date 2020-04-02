@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\ShopbyBase\Model\FilterSetting\AttributeConfig">
+        <arguments>
+            <argument name="attributeProviders" xsi:type="array">
+                <item name="amasty_shopby_brand_attriubte_list_provider" xsi:type="object">Amasty\ShopbyBrand\Model\FilterSetting\AttributeListProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Xsearch\Block\Search\Brand">
+        <plugin name="Amasty_ShopbyBrand::addBrands" type="Amasty\ShopbyBrand\Plugin\Xsearch\Block\Search\Brand" />
+    </type>
+
+    <type name="Amasty\ShopbyBase\Model\UrlBuilder">
+        <arguments>
+            <argument name="urlAdapters" xsi:type="array">
+                <item name="brand" xsi:type="array">
+                    <item name="adapter" xsi:type="object">Amasty\ShopbyBrand\Model\UrlBuilder\Adapter</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

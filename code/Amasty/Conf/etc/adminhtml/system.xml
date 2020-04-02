@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_conf" translate="label" type="text" sortOrder="31519" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Color Swatches Pro</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Conf::config</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Conf\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="share" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Using Share Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_price" translate="label" type="select" sortOrder="25" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Price of Simple Products in Swatch Title</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dropdown_price" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Price of Simple Products in Drop-Downs</label>
+                    <comment>Prices are displayed only if 'Dropdown' input type is set for all attributes represented on product page.</comment>
+                    <source_model>Amasty\Conf\Model\Source\DropdownPrice</source_model>
+                </field>
+                <field id="show_in_checkout" translate="label" type="select" sortOrder="35" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show Selected Option Swatch in Cart and Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="change_mouseover" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Change Main Product Image on Mouse Hover</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_out_of_stock" translate="label comment" type="select" sortOrder="65" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show Out of Stock Configurable Attributes</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set 'No' to hide a simple option when all combinations of this option are out of stock, e.g. hide 'Red' option when all 'Size' combinations for 'Red' are out of stock. 'Yes' option works only if Stores - Catalog - Inventory - Stock Options: Display Out of Stock Products = Yes</comment>
+                </field>
+                <field id="enable_zoom_lightbox" translate="label comment" type="select" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Zoom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set 'No' to keep using the default zoom. Choose 'Yes' to get Zoom, Lightbox and Carousel functionality. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled.</comment>
+                </field>
+                <field id="flipper" translate="label comment" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Product Image Flipper</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Works on the category list and catalog search list</comment>
+                </field>
+                <field id="swatches_slider" translate="label" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable slider for the swatches</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="swatches_slider_items_per_view" translate="label comment" type="text" sortOrder="85" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Visible Items Quantity</label>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                    <comment>Keep empty to manage items quantity automatically</comment>
+                    <depends>
+                        <field id="swatches_slider">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="reload" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Reloadable Information</label>
+                <field id="content" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Reload Product Information</label>
+                    <source_model>Amasty\Conf\Model\Source\Reload</source_model>
+                    <comment>Note. Please enable "Used in Product Listing" setting for reloadable attribute.</comment>
+                </field>
+                <field id="name" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Name Dom-Selector</label>
+                </field>
+                <field id="description" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Description Dom-Selector</label>
+                </field>
+                <field id="short_description" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Short Description Dom-Selector</label>
+                </field>
+                <field id="attributes" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Attributes Block Dom-Selector</label>
+                </field>
+                <field id="sku" translate="label comment" type="text" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>SKU Dom-Selector</label>
+                </field>
+            </group>
+
+            <group id="matrix" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Product Matrix</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Last Attribute in Rows</label>
+                    <source_model>Amasty\Conf\Model\Source\MatrixMode</source_model>
+                </field>
+                <field id="display_sku" translate="label" type="select" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Display SKU Column</label>
+                    <depends>
+                        <field id="enable" separator=",">1,2</field>
+                    </depends>
+                </field>
+                <field id="available_qty" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Display Available Qty Column</label>
+                    <depends>
+                        <field id="enable" separator=",">1,2</field>
+                    </depends>
+                </field>
+                <field id="subtotal" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Display Subtotal Column</label>
+                    <depends>
+                        <field id="enable" separator=",">1,2</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="preselect" translate="label" type="text" sortOrder="26" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Preselect</label>
+
+                <field id="preselect" translate="label" type="select" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Preselect for All Configurable Products</label>
+                    <source_model>Amasty\Conf\Model\Source\Preselect</source_model>
+                </field>
+
+                <field id="preselect_category" translate="label" type="select" sortOrder="100" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Preselect on Category Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Please note that this setting may affect performance</comment>
+                </field>
+            </group>
+
+            <group id="zoom" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Zoom</label>
+
+                <field id="zoom_type" translate="label comment" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom Type</label>
+                    <source_model>Amasty\Conf\Model\Source\ZoomType</source_model>
+                    <comment>Choose 'Outside' to show the zoomed product image in a separate window. Choose 'Inside' to display the zoomed elements of product right in the main product image window. On Mobile 'Zoom Type' = 'Lens' is used only.</comment>
+                </field>
+
+                <field id="viewer_position" translate="label" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom Window Position</label>
+                    <source_model>Amasty\Conf\Model\Source\ViewerPosition</source_model>
+                    <comment><![CDATA[Choose Zoom window position by inserting corresponding  position number in this field
+                        <span class="amasty-zoom-window-position"></span>]]>
+                    </comment>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="offset_x" translate="label" type="text" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Horizontal Offset, px</label>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="offset_y" translate="label" type="text" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Vertical Offset, px</label>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="viewer_width" translate="label" type="text" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom Window Width, px</label>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="viewer_height" translate="label" type="text" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom Window Height, px</label>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="tint_color" translate="label" type="text" sortOrder="110" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Tint Color</label>
+                    <validate>color</validate>
+                    <comment>Specify the tint effect color here. Keep it empty to disable the tint effect.</comment>
+                    <depends>
+                        <field id="zoom_type">window</field>
+                    </depends>
+                </field>
+
+                <field id="lens_size" translate="label" type="text" sortOrder="120" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Lens Size</label>
+                    <depends>
+                        <field id="zoom_type">lens</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="lightbox" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Lightbox</label>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Lightbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set ‘Yes’ to enable the Lightbox effect when opening full-size images. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled.</comment>
+                </field>
+
+                <field id="thumbnail_lignhtbox" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Thumbnail Lightbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="circular_lightbox" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Endless Lightbox</label>
+                    <comment>Choose 'Yes' to show the non-stop circle of images</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="effect_slide" translate="label" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Transition Effect between Slides</label>
+                    <source_model>Amasty\Conf\Model\Source\LightboxEffectSlide</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="animationEffect" translate="label" type="select" sortOrder="55" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Open/close Animation Effect</label>
+                    <source_model>Amasty\Conf\Model\Source\LightboxEffect</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="thumbnail_helper" translate="label comment" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Thumbnail Helper</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set to 'Yes' to show the thumbnail helper in the lightbox.</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="carousel" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Carousel</label>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Carousel</label>
+                    <comment>Set ‘Yes’ to show product thumbnails in the carousel</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="image_change" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Main Image Change</label>
+                    <source_model>Amasty\Conf\Model\Source\ImageChange</source_model>
+                </field>
+
+                <field id="main_image_swipe" translate="label comment" type="select" sortOrder="25" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Swipe Effect for Main Image in Mobile</label>
+                    <comment>Zoom effect will be disabled on mobile view</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="image_change" separator=",">mouseenter,click</field>
+                    </depends>
+                </field>
+
+                <field id="carousel_position" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Carousel position</label>
+                    <source_model>Amasty\Conf\Model\Source\CarouselPosition</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="slides_to_show" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Qty of Visible Items</label>
+                    <comment>Set how many items should be visible in the carousel at the same time. On mobile this setting is ignored and 3 items are visible.</comment>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="slides_to_scroll" translate="label" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Items Qty to Scroll</label>
+                    <validate>required-entry validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="circular" translate="label comment" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Endless Carousel</label>
+                    <comment>Set ‘Yes’ to endlessly list the product thumbnails in the carousel</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="use_pagination" translate="label comment" type="select" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Pagination</label>
+                    <comment>Set ‘Yes’ to display the pagination and arrows for the thumbnail carousel</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="auto_scrolling" translate="label" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Automatic Scrolling</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

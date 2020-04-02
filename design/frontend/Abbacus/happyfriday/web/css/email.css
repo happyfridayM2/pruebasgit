@@ -1,0 +1,71 @@
+/*! Flickity v2.1.1
+https://flickity.metafizzy.co
+---------------------------------------------- */
+.social_icons{
+    margin: 0;
+    padding: 0;
+}
+.social_icons li{
+    float: left;
+    list-style: outside none none;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+a.my-account {
+    color: #2f2f2f;
+    float: right;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.footer > table {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+.thank-you {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #5a5848;
+    font-style: italic;
+}
+.action.primary {
+    background: #5e5e5e none repeat scroll 0 0;
+    border: 1px solid #514f40;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 8px 25px;
+    text-transform: uppercase;
+}
+html .action.primary:focus, html .action.primary:active, html .action.primary:hover {
+    background: #514f40 none repeat scroll 0 0;
+    border: 1px solid #514f40;
+}
+
+/** Order email **/
+.order-details {
+    text-align: center;
+}
+.order-details h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
+.email-items {
+    width: 100%;
+}
+.email-items thead tr th {
+    text-align: left;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.order-totals tr th {
+    text-align: right;
+    font-size: 13px;
+    font-weight: normal;
+    padding-right: 20px;
+}
+.order-totals .totals-tax {
+    display: none;
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminPaymentMethodsConfigurationSection">
+        <element name="OtherPayPalSolutionsTab" type="button" selector="//a[@id='payment_us_other_paypal_payment_solutions-head']"/>
+        <element name="OtherPayPalSolutionsTabOpen" type="block" selector="//a[@id='payment_us_other_paypal_payment_solutions-head'][@class='open']"/>
+        <element name="MerchantCountry" type="select" selector="//select[@id='payment_us_account_merchant_country']"/>
+        <element name="MerchantLocationTab" type="button" selector="//a[@id='payment_us_account-head']"/>
+        <element name="MerchantLocationTabOpen" type="block" selector="//a[@id='payment_us_account-head'][@class='open']"/>
+        <element name="OtherPaymentMethodsTab" type="button" selector="//a[@id='payment_us_other_payment_methods-head']"/>
+        <element name="OtherPaymentMethodsTabOpen" type="block" selector="//a[@id='payment_us_other_payment_methods-head'][@class='open']"/>
+        <element name="Save" type="button" selector="//button[@id='save']"/>
+        <!-- Purchase Order-->
+        <element name="PurchaseOrderTab" type="button" selector="//a[@id='payment_us_purchaseorder-head']"/>
+        <element name="PurchaseOrderTabOpen" type="button" selector="//a[@id='payment_us_purchaseorder-head'][@class='open']"/>
+        <element name="EnabledPurchaseOrder" type="select" selector="//select[@id='payment_us_purchaseorder_active']"/>
+        <element name="EnabledPurchaseOrderUseSystem" type="block" selector="//select[@id='payment_us_purchaseorder_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledPurchaseOrder" type="button" selector="//input[@id='payment_us_purchaseorder_active_inherit']"/>
+        <!-- Bank Transfer Payment-->
+        <element name="BankTransferTab" type="button" selector="//a[@id='payment_us_banktransfer-head']"/>
+        <element name="BankTransferTabOpen" type="button" selector="//a[@id='payment_us_banktransfer-head'][@class='open']"/>
+        <element name="EnabledBankTransfer" type="select" selector="//select[@id='payment_us_banktransfer_active']"/>
+        <element name="EnabledBankTransferUseSystem" type="block" selector="//select[@id='payment_us_banktransfer_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledBankTransfer" type="button" selector="//input[@id='payment_us_banktransfer_active_inherit']"/>
+        <!--Cash On Delivery-->
+        <element name="CashOnDeliveryTab" type="button" selector="//a[@id='payment_us_cashondelivery-head']"/>
+        <element name="CashOnDeliveryTabOpen" type="button" selector="//a[@id='payment_us_cashondelivery-head'][@class='open']"/>
+        <element name="EnabledCashOnDelivery" type="select" selector="//select[@id='payment_us_cashondelivery_active']"/>
+        <element name="EnabledCashOnDeliveryUseSystem" type="block" selector="//select[@id='payment_us_cashondelivery_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledCashOnDelivery" type="button" selector="//input[@id='payment_us_cashondelivery_active_inherit']"/>
+        <!-- PayPal -->
+        <element name="PayPalConfigure" type="button" selector="//button[@id='payment_us_paypal_alternative_payment_methods_express_checkout_us-head']"/>
+        <element name="EmailAssociatedWithPayPal" type="input"
+                 selector="//input[contains(@id, 'us_express_checkout_required_express_checkout_required_express_checkout_business_account')]"/>
+        <element name="PayPalApiUsername" type="input"
+                 selector="//input[contains(@id, 'us_express_checkout_required_express_checkout_required_express_checkout_api_username')]"/>
+        <element name="PayPalApiPassword" type="input"
+                 selector="//input[contains(@id, 'us_express_checkout_required_express_checkout_required_express_checkout_api_password')]"/>
+        <element name="PayPalApiSignature" type="input"
+                 selector="//input[contains(@id, 'us_express_checkout_required_express_checkout_required_express_checkout_api_signature')]"/>
+        <element name="PayPalSandboxMode" type="select"
+                 selector="//select[contains(@id, 'us_express_checkout_required_express_checkout_required_express_checkout_sandbox_flag')]"/>
+        <element name="PayPalEnableThisSolution" type="select"
+                 selector="//select[contains(@id, 'us_express_checkout_required_enable_express_checkout')][@data-enable='payment']"/>
+        <element name="PayPalEnableInContext" type="select"
+                 selector="//select[contains(@id, 'us_express_checkout_required_enable_in_context_checkout')]"/>
+        <element name="PayPalMerchantAccountID" type="input"
+                 selector="//input[contains(@id, 'checkout_us_express_checkout_required_merchant_id')]"/>
+        <!-- Payflow Pro -->
+        <element name="PayflowProConfigure" type="button"
+                 selector="//button[@id='payment_us_paypal_payment_gateways_paypal_payflowpro_with_express_checkout-head']"/>
+        <element name="PayflowProEmailAssociated" type="button"
+                 selector="//input[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_business_account')]"/>
+        <element name="PayflowPartner" type="input"
+                 selector="//input[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_partner')]"/>
+        <element name="PayflowUser" type="input"
+                 selector="//input[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_user')]"/>
+        <element name="PayflowVendor" type="input"
+                 selector="//input[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_vendor')]"/>
+        <element name="PayflowPassword" type="input"
+                 selector="//input[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_pwd')]"/>
+        <element name="PayflowTestMode" type="select"
+                 selector="//select[contains(@id, 'checkout_paypal_payflow_required_paypal_payflow_api_settings_sandbox_flag')]"/>
+        <element name="PayflowEnableThisSolution" type="select"
+                 selector="//select[contains(@id, 'checkout_paypal_payflow_required_enable_paypal_payflow')]"/>
+        <!-- Klarna -->
+        <element name="KlarnaTab" type="button" selector="//a[@id='payment_us_klarna_section-head']"/>
+        <element name="KlarnaTabOpen" type="button" selector="//a[@id='payment_us_klarna_section-head'][@class='open']"/>
+        <element name="KlarnaConfigure" type="button" selector="//button[@id='payment_us_klarna_section_klarna-head']"/>
+        <element name="KlarnaApiTab" type="button" selector="//a[@id='payment_us_klarna_section_klarna_api-head']"/>
+        <element name="KlarnaApiTabOpen" type="block" selector="//a[@id='payment_us_klarna_section_klarna_api-head'][@class='open']"/>
+        <element name="KlarnaApiVersion" type="select" selector="//select[@id='payment_us_klarna_section_klarna_api_api_version']"/>
+        <element name="KlarnaMerchantID" type="input" selector="//input[@id='payment_us_klarna_section_klarna_api_merchant_id']"/>
+        <element name="KlarnaPassword" type="input" selector="//input[@id='payment_us_klarna_section_klarna_api_shared_secret']"/>
+        <element name="KlarnaTestMode" type="select" selector="//select[@id='payment_us_klarna_section_klarna_api_test_mode']"/>
+        <element name="KlarnaDebugMode" type="select" selector="//select[@id='payment_us_klarna_section_klarna_api_debug']"/>
+        <element name="KlarnaEnableThisSolution" type="select" selector="//select[@id='payment_us_klarna_section_klarna_klarna_kp_required_active']"/>
+        <element name="KlarnaPaymentTab" type="button" selector="//a[@id='payment_us_klarna_section_klarna_klarna_kp_required-head']"/>
+        <element name="KlarnaPaymentTabOpen" type="block" selector="//a[@id='payment_us_klarna_section_klarna_klarna_kp_required-head'][@class='open']"/>
+        <!-- Braintree -->
+        <element name="BraintreeConfigure" type="button" selector="//button[@id='payment_us_braintree_section_braintree-head']"/>
+        <element name="BraintreeMerchantID" type="input" selector="//input[contains(@id, 'braintree_required_merchant_id')]"/>
+        <element name="BraintreePublicKey" type="input" selector="//input[contains(@id, 'braintree_required_public_key')]"/>
+        <element name="BraintreePrivateKey" type="input" selector="//input[contains(@id, 'braintree_required_private_key')]"/>
+        <element name="BraintreeEnableThisSolution" type="select" selector="//select[@id='payment_us_braintree_section_braintree_active']"/>
+        <element name="BraintreeEnablePayPal" type="select" selector="//select[@id='payment_us_braintree_section_braintree_active_braintree_paypal']"/>
+        <!-- Authorise -->
+        <element name="AuthorizeTab" type="button" selector="//a[@id='payment_us_authorizenet_acceptjs-head']"/>
+        <element name="AuthorizeTabOpen" type="block" selector="//a[@id='payment_us_authorizenet_acceptjs-head'][@class='open']"/>
+        <element name="AuthorizeBasicTab" type="button" selector="//a[@id='payment_us_authorizenet_acceptjs_required-head']"/>
+        <element name="AuthorizeBasicTabOpen" type="block" selector="//a[@id='payment_us_authorizenet_acceptjs_required-head'][@class='open']"/>
+        <element name="AuthorizeEnvironment" type="select" selector="//select[@id='payment_us_authorizenet_acceptjs_required_environment']"/>
+        <element name="AuthorizeAPILoginID" type="input" selector="//input[@id='payment_us_authorizenet_acceptjs_required_login']"/>
+        <element name="AuthorizeTransactionKey" type="input" selector="//input[@id='payment_us_authorizenet_acceptjs_required_trans_key']"/>
+        <element name="AuthorizePublicClientKey" type="input" selector="//input[@id='payment_us_authorizenet_acceptjs_required_public_client_key']"/>
+        <element name="AuthorizeTabSignatureKey" type="input" selector="//input[@id='payment_us_authorizenet_acceptjs_required_trans_signature_key']"/>
+        <element name="AuthorizeEnabled" type="select" selector="//select[@id='payment_us_authorizenet_acceptjs_active']"/>
+        <element name="AuthorizeEnabledUseSystem" type="block" selector="//select[@id='payment_us_authorizenet_acceptjs_active'][@disabled]"/>
+        <element name="AuthorizeCheckboxUseSystemEnabled" type="button" selector="//input[@id='payment_us_authorizenet_acceptjs_active_inherit']"/>
+        <!-- Stripe -->
+        <element name="StripeTab" type="button" selector="//a[@id='payment_us_amasty_stripe-head']"/>
+        <element name="StripeTabOpen" type="button" selector="//a[@id='payment_us_amasty_stripe-head'][@class='open']"/>
+        <element name="EnabledStripe" type="select" selector="//select[@id='payment_us_amasty_stripe_active']"/>
+        <element name="StripePublishableKey" type="input" selector="//input[@id='payment_us_amasty_stripe_public_key']"/>
+        <element name="StripeSecretKey" type="input" selector="//input[@id='payment_us_amasty_stripe_private_key']"/>
+        <element name="StripeMake3DSecure" type="select" selector="//select[@id='payment_us_amasty_stripe_three_d_secure_always']"/>
+        <element name="StripeDebugMode" type="select" selector="//select[@id='payment_us_amasty_stripe_debug']"/>
+        <!-- eWay -->
+        <element name="EWayTab" type="button" selector="//a[@id='payment_us_eway-head']"/>
+        <element name="EWayTabOpen" type="button" selector="//a[@id='payment_us_eway-head'][@class='open']"/>
+        <element name="EWayEnabled" type="select" selector="//select[@id='payment_us_eway_active']"/>
+        <element name="EWaySandboxMode" type="select" selector="//select[@id='payment_us_eway_sandbox_flag']"/>
+        <element name="EWaySandboxAPIKey" type="input" selector="//input[@id='payment_us_eway_sandbox_api_key']"/>
+        <element name="EWaySandboxAPIPassword" type="input" selector="//input[@id='payment_us_eway_sandbox_api_password']"/>
+        <element name="EWaySandboxClientEncryptionKey" type="input" selector="//input[@id='payment_us_eway_sandbox_encryption_key']"/>
+        <!-- Amazon Pay -->
+        <element name="AmazonConfigure" type="button" selector="//button[@id='payment_us_amazon_payment-head']"/>
+        <element name="AmazonCredentialsTab" type="button" selector="//a[@id='payment_us_amazon_payment_credentials-head']"/>
+        <element name="AmazonCredentialsTabOpen" type="block" selector="//a[@id='payment_us_amazon_payment_credentials-head'][@class='open']"/>
+        <element name="AmazonMerchantID" type="input" selector="//input[@id='payment_us_amazon_payment_credentials_merchant_id']"/>
+        <element name="AmazonAccessId" type="input" selector="//input[@id='payment_us_amazon_payment_credentials_access_key']"/>
+        <element name="AmazonSecretAccessKey" type="input" selector="//input[@id='payment_us_amazon_payment_credentials_secret_key']"/>
+        <element name="AmazonClientId" type="input" selector="//input[@id='payment_us_amazon_payment_credentials_client_id']"/>
+        <element name="AmazonClientSecret" type="input" selector="//input[@id='payment_us_amazon_payment_credentials_client_secret']"/>
+        <element name="AmazonPaymentRegion" type="select" selector="//select[@id='payment_us_amazon_payment_credentials_payment_region']"/>
+        <element name="AmazonSandbox" type="select" selector="//select[@id='payment_us_amazon_payment_credentials_sandbox']"/>
+        <element name="AmazonOptionsTab" type="button" selector="//a[@id='payment_us_amazon_payment_options-head']"/>
+        <element name="AmazonOptionsTabOpen" type="block" selector="//a[@id='payment_us_amazon_payment_options-head'][@class='open']"/>
+        <element name="AmazonEnable" type="select" selector="//select[@id='payment_us_amazon_payment_options_active']"/>
+        <element name="AmazonAdvancedTab" type="button" selector="//a[@id='payment_us_amazon_payment_advanced-head']"/>
+        <element name="AmazonAdvancedTabOpen" type="block" selector="//a[@id='payment_us_amazon_payment_advanced-head'][@class='open']"/>
+        <element name="AmazonAdvancedFrontendTab" type="button" selector="//a[@id='payment_us_amazon_payment_advanced_frontend-head']"/>
+        <element name="AmazonAdvancedFrontendTabOpen" type="button" selector="//a[@id='payment_us_amazon_payment_advanced_frontend-head'][@class='open']"/>
+        <element name="AmazonShowInPaymentMethods" type="select" selector="//select[@id='payment_us_amazon_payment_advanced_frontend_amazonloggin']"/>
+    </section>
+
+</sections>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="MoreFromThisBrandDefault" type="moreFTBBlock1">
+        <data key="EnableMoreFromThisBrandBlockSwitcher">0</data>
+        <data key="MoreFromThisBrandBlockTitle">More from {brand_name}</data>
+        <data key="MaxProductCount">7</data>
+        <data key="relatedAttributeOptions">5576','5465','5581</data>
+    </entity>
+    <entity name="setMoreFromThisBrand" type="moreFTBBlock1">
+        <data key="EnableMoreFromThisBrandBlockSwitcher">1</data>
+        <data key="MoreFromThisBrandBlockTitle">More from {brand_name} Test Title</data>
+        <data key="MaxProductCount">10</data>
+        <data key="relatedAttributeOptions">Polyester</data>
+    </entity>
+</entities>

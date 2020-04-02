@@ -1,0 +1,68 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+?>
+<?php
+/** @var \Amasty\Cart\Block\Config  $block */
+
+$hlr = $block->getHelper();
+//Visual Options
+$backgroundColor        = $hlr->getBackgroundColor();
+$productNameColor       = $hlr->getProductNameColor();
+$textColor              = $hlr->getTextColor();
+$buttonTextColor        = $hlr->getButtonTextColor();
+$leftButtonColor        = $hlr->getLeftButtonColor();
+$rightButtonColor       = $hlr->getRightButtonColor();
+?>
+
+<style>
+    <?php if ($backgroundColor) : ?>
+    #confirmBox,
+    .am-related-title > .am-title {
+        background-color: #<?= $block->escapeHtml($backgroundColor); ?>;
+    }
+    <?php endif; ?>
+
+    <?php if ($productNameColor) : ?>
+    #confirmBox a,
+    #confirmBox a:hover,
+    #confirmBox a:active {
+        color: #<?= $block->escapeHtml($productNameColor); ?>;
+    }
+    <?php endif;?>
+
+    <?php if ($buttonTextColor) : ?>
+    .amcart-confirm-buttons .button {
+        color: #<?= $block->escapeHtml($buttonTextColor); ?>;
+    }
+    <?php endif;?>
+
+    <?php if ($leftButtonColor) : ?>
+    .amcart-confirm-buttons .am-btn-left {
+        background-color: #<?= $block->escapeHtml($leftButtonColor); ?>;
+    }
+    <?php endif;?>
+
+    <?php if ($rightButtonColor) : ?>
+    .amcart-confirm-buttons .am-btn-right {
+        background-color: #<?= $block->escapeHtml($rightButtonColor); ?>;
+    }
+    <?php endif;?>
+
+    <?php if ($textColor) : ?>
+    .amcart-confirm-buttons,
+    .amcart-confirm-buttons .checkout,
+    .amcart-confirm-buttons .checkout:hover,
+    .amcart-confirm-buttons .checkout:active,
+    .amcart-message-box,
+    .am-related-box,
+    #am-a-count,
+    #am-a-count:visited,
+    .am-related-title > .am-title {
+        color: #<?= $block->escapeHtml($textColor); ?>;
+    }
+    <?php endif;?>
+</style>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\BackButton</item>
+            <item name="reset" xsi:type="string">ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">ShoppingFeed\Manager\Block\Adminhtml\Account\Store\Edit\SaveButton</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">sfm_account_store_form</item>
+        </item>
+        <item name="js_config" xsi:type="array">
+            <item name="deps" xsi:type="string">sfm_account_store_form.account_store_form_data_source</item>
+            <item name="provider" xsi:type="string">sfm_account_store_form.account_store_form_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <dataSource name="account_store_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">ShoppingFeed\Manager\Ui\DataProvider\Account\Store\Form\DataProvider</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+            <argument name="name" xsi:type="string">account_store_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">store_id</argument>
+            <argument name="requestFieldName" xsi:type="string">store_id</argument>
+        </argument>
+    </dataSource>
+    <fieldset name="feed_product_list">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Feed - Product List</item>
+                <item name="sortOrder" xsi:type="number">1000</item>
+            </item>
+        </argument>
+        <container name="feed_product_grid_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">ShoppingFeed\Manager\Block\Adminhtml\Feed\Product\Grid\Wrapper</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

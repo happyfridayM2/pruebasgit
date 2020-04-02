@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magezon
+ *
+ * This source file is subject to the Magezon Software License, which is available at https://www.magezon.com/license.
+ * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
+ * If you wish to customize this module for your needs.
+ * Please refer to https://www.magezon.com for more information.
+ *
+ * @category  Magezon
+ * @package   Magezon_PageBuilder
+ * @copyright Copyright (C) 2019 Magezon (https://www.magezon.com)
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">linkbuilder_form.linkbuilder_form_data_source</item>
+            <item name="deps" xsi:type="string">linkbuilder_form.linkbuilder_form_data_source</item>
+            <item name="component" xsi:type="string">Magezon_Builder/js/ui/form/form</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Modal Information</item>
+        <item name="config" xsi:type="array">
+            <item name="namespace" xsi:type="string">linkbuilder_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <dataSource name="linkbuilder_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magezon_Builder/js/ui/form/link-provider</item>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magezon\Builder\Ui\DataProvider\LinkBuilder\FormDataProvider</argument>
+            <argument name="name" xsi:type="string">linkbuilder_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">page_id</argument>
+            <argument name="requestFieldName" xsi:type="string">page_id</argument>
+        </argument>
+    </dataSource>
+</form>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandSliderWidgetInsertInWidgetOnCMSPageTest" extends="BrandSliderWidgetInsertInCMSPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brands Slider elements checking"/>
+            <title value="Check of Brands Slider qty of visible elements, Sorting, Color Configuration, Title and Images/Slider Size"/>
+            <description
+                    value="Check that Brand Slider Widget is inserted in Widget on CMS Page Content"/>
+            <severity value="MINOR"/>
+            <testCaseId value="BRANDATTR-36"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandslider"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="CreateCMSPageWithBrandSliderWidgetCodeWidgetActionGroup"
+                         stepKey="CreateCMSPageWithWidgetCode1">
+                <argument name="widgetCode" value="brandSliderWidgetCode"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Brand Slider Block from Brand Slider Widget is displayed on CMS Page-->
+
+
+    </test>
+</tests>

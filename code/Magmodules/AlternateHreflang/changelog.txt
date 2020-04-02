@@ -1,0 +1,9 @@
+1.0.2 (non released)
+* Added url cleanup from params
+* Added html comment on output when deug modus is enabled
+
+1.0.1
+* Small bugfixes (compilation)
+
+1.0.0
+* Initial Release

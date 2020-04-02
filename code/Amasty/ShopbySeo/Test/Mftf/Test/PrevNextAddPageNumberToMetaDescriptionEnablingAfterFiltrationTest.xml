@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextAddPageNumberToMetaDescriptionEnablingAfterFiltrationTest"
+          extends="PrevNextAddPageNumberToMetaDescriptionEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description value="Check of Add Page Number to Meta Description setting enabling after filtration"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="PNTSETTINGS-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="pntsettings"/>
+            <group value="pagenumberinmeta"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SetMetaDescriptionAttribute"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup">
+                <argument name="Attributes" value="AllWeatherMetaData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetFilterMetaData1" ref="CategoryMetaTagsActionGroup">
+                <argument name="CategoryMetaTags" value="CategoryMetaTagsDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SetFilterMetaData1"
+                         ref="DefaultMetaTags"
+                         before="ConfigureAttributeMetaData">
+                <argument name="CategoryMetaTags" value="CategoryMetaTagsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureAttributeMetaData"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup"
+                         before="logout">
+                <argument name="Attributes" value="AllWeatherMetaDataDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check Add Page Number to Meta Description setting: navigate to All-products Page, check Page Number in Meta Description of Page Source, activate pagination, check Page Number in Meta Description of Page Source/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1" after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1" after="clickClimateFilter1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST, All-Weather Meta Description TST&quot;"
+                stepKey="seeInSource1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST, All-Weather Meta Description TST | Page 2&quot;"
+                stepKey="seeInSource2"/>
+        <selectOption userInput="36" selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST, All-Weather Meta Description TST | "
+                stepKey="seeInSource3"/>
+        <dontSeeInPageSource
+                userInput="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST, All-Weather Meta Description TST | "
+                stepKey="dontSeeInSource1"/>
+
+    </test>
+</tests>

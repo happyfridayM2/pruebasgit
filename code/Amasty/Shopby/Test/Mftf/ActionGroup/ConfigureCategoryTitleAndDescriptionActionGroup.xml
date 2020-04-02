@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureCategoryTitleAndDescriptionActionGroup">
+        <arguments>
+            <argument name="CatTitleAndDescriptILNSettings"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandCatTitleAndDescription"
+                          selector="{{AdminILNSettingsSection.CatTitleAndDescrSettingsTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.AddTitleAndDescriptionOfTheSelectedFilters}}"
+                          visible="false"/>
+        <wait time="3" stepKey="waitSeconds001"/>
+        <click selector="{{AdminILNSettingsSection.AddTitleAndDescriptionOfTheSelectedFilters}}"
+               stepKey="ClickTitleAndDescriptionOfSelectedFilters"/>
+        <waitForElement selector="{{AdminILNSettingsSection.SelectTitleAndDescriptionOfTheSelectedFilters('Climate')}}"
+                        stepKey="waitForElement1"/>
+        <click selector="{{AdminILNSettingsSection.SelectTitleAndDescriptionOfTheSelectedFilters('Climate')}}"
+               stepKey="clickClimate"/>
+        <selectOption selector="{{AdminILNSettingsSection.AddFilterTitle}}"
+                      userInput="{{CatTitleAndDescriptILNSettings.AddFilterTitle}}"
+                      stepKey="SetAddFilterTitle"/>
+        <fillField userInput="{{CatTitleAndDescriptILNSettings.SeparateCategoryNameAndTitleWith}}"
+                   selector="{{AdminILNSettingsSection.SeparateCategoryNameAndTitleWith}}"
+                   stepKey="SetSeparateCategoryNameAndTitleWith"/>
+        <selectOption selector="{{AdminILNSettingsSection.AddFilterDescription}}"
+                      userInput="{{CatTitleAndDescriptILNSettings.AddFilterDescription}}"
+                      stepKey="SetAddFilterDescription"/>
+        <selectOption selector="{{AdminILNSettingsSection.ReplaceCategoryImage}}"
+                      userInput="{{CatTitleAndDescriptILNSettings.ReplaceCategoryImage}}"
+                      stepKey="SetReplaceCategoryImage"/>
+        <selectOption selector="{{AdminILNSettingsSection.ReplaceCategoryCMSBlock}}"
+                      userInput="{{CatTitleAndDescriptILNSettings.ReplaceCategoryCMSBlock}}"
+                      stepKey="SetReplaceCategoryCMSBlock"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DefaultCategoryTitleAndDescriptionActionGroup"
+                 extends="ConfigureCategoryTitleAndDescriptionActionGroup">
+        <arguments>
+            <argument name="CatTitleAndDescriptILNSettings"/>
+        </arguments>
+        <click selector="{{AdminILNSettingsSection.UnSelectTitleAndDescriptionOfTheSelectedFilters('Climate')}}"
+               stepKey="clickClimate"/>
+    </actionGroup>
+
+</actionGroups>
+
+

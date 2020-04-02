@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarSortByPositionTest" extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter sorting"/>
+            <description value="Checking of Category filter options sorting by Position"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-7"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check Category Filter options sorting, select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Women','Men','Gear','Training')}}"
+                    stepKey="checkCategoryTreeSequence1"
+                    after="clickOnCategoryFilter1"/>
+
+    </test>
+</tests>
+
+

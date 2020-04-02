@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPurchaseOrderAndButtonBellowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Purchase Order via the storefront"/>
+            <title value="Check Place Order with Purchase Order And Button Below the Payment Methods on the Checkout"/>
+            <description value="Check Place Order with Purchase Order And Button Below the Payment Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-49"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCPaymentPurchaseOrder"/>
+            <group value="OSCPaymentMethods"/>
+        </annotations>
+
+        <before>
+            <!-- Login as admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <!-- Configuration setting -->
+            <actionGroup ref="AdminConfigurationSettingOSCGeneral" stepKey="ConfigurateGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOnlyEnableCheckout"/>
+            </actionGroup>
+            <actionGroup ref="AdminConfigurationSettingOSCPlaceButtonDesign" stepKey="ConfiguratePlaceButtonDesignSetting">
+                <argument name="adminSettingOSCPlaceButtonDesign" value="BelowTheSelectedPaymentMethodAndRed"/>
+            </actionGroup>
+            <!-- Activate Payment Method -->
+            <actionGroup ref="AdminActivatePurchaseOrder" stepKey="ActivatePurchaseOrderPayment"/>
+            <!--Login As Customer -->
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogIn">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Return default setting -->
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCGeneral" stepKey="ReturnDefaultGeneralSetting"/>
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCPlaceButtonDesign" stepKey="ReturnDefaultPlaceButtonDesignSetting"/>
+            <actionGroup ref="AdminReturnDefaultSettingPurchaseOrder" stepKey="ReturnDefaultPaymentSetting"/>
+            <!-- Delete Product from cart if test failed -->
+            <actionGroup ref="DeleteProductFromTheCartIfTestWithLoginFailed" stepKey="DeleteProductIfTestFailed1">
+                <argument name="products" value="_theBagWayfarerMessenger"/>
+            </actionGroup>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Product to Cart-->
+        <actionGroup ref="AddProductToCart" stepKey="AddProductToCart">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagWayfarerMessenger"/>
+        </actionGroup>
+
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+
+        <!-- Check Payment method -->
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePurchaseOrder">
+            <argument name="paymentMethods" value="paymentPurchaseOrder"/>
+        </actionGroup>
+
+        <!-- Check totals -->
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingWithTax" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPurchaseOrderAndButtonBellowPayment"/>
+        </actionGroup>
+
+        <!-- Place Order -->
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowPaymentWithPurchaseOrder" stepKey="PlaceOrder">
+            <argument name="purchaseOrderNumber" value="OSCCheckPurchaseOrderAndButtonBellowPayment.purchaseOrderNumber"/>
+        </actionGroup>
+
+        <!-- Check Payment method in order-->
+        <actionGroup ref="AdminCheckPaymentMethodInLastOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentPurchaseOrder"/>
+        </actionGroup>
+
+        <!-- Check totals in order-->
+        <actionGroup ref="AdminCheckTotalsInLastOrderWithTax" stepKey="CheckTotalsInAdminOrder">
+            <argument name="subtotal" value="OSCCheckPurchaseOrderAndButtonBellowPayment.cartSubtotal"/>
+            <argument name="grandTotal" value="OSCCheckPurchaseOrderAndButtonBellowPayment.orderTotal"/>
+            <argument name="tax" value="OSCCheckPurchaseOrderAndButtonBellowPayment.tax"/>
+        </actionGroup>
+
+    </test>
+</tests>

@@ -1,0 +1,80 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+?>
+<?php
+// phpcs:ignoreFile
+/* @var $block \Amasty\ShopbyBase\Block\Adminhtml\Form\Renderer\Fieldset\Element */
+$element = $block->getElement();
+$note = $element->getNote() ?
+    '<div class="note" id="' . $element->getId() . '-note">' . $element->getNote() . '</div>' :
+    '';
+$elementBeforeLabel = $element->getExtType() == 'checkbox admin__control-checkbox'
+    || $element->getExtType() == 'radio admin__control-radio';
+$addOn = ($element->getBeforeElementHtml() || $element->getAfterElementHtml()) && !$element->getNoWrapAsAddon();
+$fieldClass = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+$fieldClass .= ($elementBeforeLabel) ? ' choice' : '';
+$fieldClass .= ($addOn) ? ' with-addon' : '';
+$fieldClass .= ($element->getRequired()) ? ' required _required' : '';
+$fieldClass .= ($note) ? ' with-note' : '';
+$fieldClass .= (!$element->getLabelHtml()) ? ' no-label' : '';
+$block->checkFieldDisable();
+?>
+
+<script>
+    require(['prototype']); // for legacy-build.min.js contains toggleValueElements()
+</script>
+<style>
+    .admin__scope-old label.addafter {
+        display: block;
+    }
+</style>
+
+<?php if (!$element->getNoDisplay()) : ?>
+    <?php if ($element->getType() == 'hidden') : ?>
+        <?= $element->getElementHtml() ?>
+    <?php else : ?>
+        <div <?= ($element->getHtmlContainerId()) ? ' id="' . $element->getHtmlContainerId() . '"' : ''?>
+            class="<?= $block->escapeHtml($fieldClass) ?>"
+        <?= $block->getUiId('form-field', $element->getId()) ?>
+            <?= $block->escapeHtml($element->getFieldExtraAttributes()); ?>>
+            <?php if ($elementBeforeLabel) : ?>
+                <?= $element->getElementHtml() ?>
+                <?= $element->getLabelHtml() ?>
+                <?= /* @escapeNotVerified */ $note ?>
+            <?php else : ?>
+                <?= $element->getLabelHtml() ?>
+                <div class="admin__field-control control">
+                    <?= /* @escapeNotVerified */ ($addOn) ?
+                        '<div class="admin__field">' . $element->getElementHtml() . '</div>' :
+                        $element->getElementHtml(); ?>
+                    <?= /* @escapeNotVerified */ $note ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="field-service" value-scope="<?= /* @escapeNotVerified */ $block->getScopeLabel() ?>">
+                <?php if ($block->canDisplayUseDefault()) : ?>
+                    <label for="<?= $element->getHtmlId() ?>_default" class="choice use-default">
+                        <input
+                            <?php if ($element->getReadonly()) : ?>
+                                disabled="disabled"
+                            <?php endif; ?>
+                                type="checkbox"
+                                name="use_default[]"
+                                class="use-default-control"
+                                id="<?= $element->getHtmlId() ?>_default"
+                            <?php if ($block->usedDefault()) : ?>
+                                checked="checked"
+                            <?php endif; ?>
+                                onclick="toggleValueElements(this, this.parentNode.parentNode.parentNode)"
+                                value="<?= $element->getName() ?>"/>
+                        <span class="use-default-label"><?= $block->escapeHtml(__('Use Default Value')) ?></span>
+                    </label>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

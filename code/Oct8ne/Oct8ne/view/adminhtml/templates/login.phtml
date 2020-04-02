@@ -1,0 +1,144 @@
+<form action="<?php echo $this->getFormAction(); ?>" method="GET">
+    <div class="accordion">
+
+        <div class="entry-edit form-inline">
+            <div class="config">
+                <table cellspacing="0" class="form-list">
+                    <tbody>
+
+                    <?php if (!$this->isLogged()) { ?>
+                        <tr>
+                            <td class="label">
+                                <label for="user"><span data-config-scope="[User]">Oct8ne username</span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <input required id="user" name="oct8ne_user" class="input-text admin__control-text"
+                                       type="text">
+                            </td>
+                            <td class=""></td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="oct8ne_pass"><span data-config-scope="[Pass]">Oct8ne password</span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <input required id="oct8ne_pass" name="oct8ne_pass" value=""
+                                       class="input-text admin__control-text" type="password">
+                            </td>
+                            <td class=""></td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label><span></span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <div>
+                                    <button class="primary" type="submit" name="oct8ne_form_action" value="login">
+                                        <span>Login in Oct8ne</span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class=""></td>
+                        </tr>
+
+                    <?php } else { ?>
+
+                        <tr>
+                            <td class="label">
+                                <label><span data-config-scope="[Default Magento]"> Choose Search Engine</span>
+                                </label>
+                            </td>
+
+                            <td>
+
+                                <?php  $engine = $this->getSearchEngine(); ?>
+                                <div class="admin__field-control">
+                                    <select class="admin__control-select" name="engine" style="max-width: 300px">
+
+                                        <option value="Magento" <?php if($engine=="Magento"){ echo "selected";} ?> >Magento</option>
+
+                                        <?php /** ?><option value="Celebros" <?php if($engine=="Celebros"){ echo "selected";} ?>>Celebros</option>
+                                        <option value="Solr" <?php if($engine=="Solr"){ echo "selected";} ?>>Solr</option>
+                                        <option value="Sli" <?php if($engine=="Sli"){ echo "selected";} ?>>Sli</option><?php **/ ?>
+                                    </select>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                <label><span data-config-scope="[Default Footer]"> Choose Position to load</span>
+                                </label>
+                            </td>
+
+                            <td>
+
+                                <?php  $position = $this->getPositionToLoad(); ?>
+                                <div class="admin__field-control">
+                                    <select class="admin__control-select" name="position" style="max-width: 300px">
+
+                                        <option value="Header" <?php if($position=="Header"){ echo "selected";} ?> >Header</option>
+                                        <option value="Footer" <?php if($position=="Footer"){ echo "selected";} ?> >Footer</option>
+
+                                    </select>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                <label><span></span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <div>
+                                    <button class="secondary" type="submit" name="oct8ne_form_action" value="basic_configuration">
+                                        <span>Save changes</span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class=""></td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="label">
+                                <label for="oct8ne_pass"><span data-config-scope="[User]">Oct8ne session</span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <span><?php echo $this->getEmail(); ?></span>
+                            </td>
+                            <td class=""></td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label><span></span>
+                                </label>
+                            </td>
+                            <td class="value">
+                                <div>
+                                    <button class="primary" type="submit" name="oct8ne_form_action" value="logout">
+                                        <span>Logout Oct8ne</span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class=""></td>
+                        </tr>
+
+
+
+
+                    <?php } ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

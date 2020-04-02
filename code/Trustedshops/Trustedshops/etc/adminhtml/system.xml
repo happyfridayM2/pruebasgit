@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <section id="trustedshops_trustedshops" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Trusted Shops</label>
+            <tab>service</tab>
+            <resource>Trustedshops_Trustedshops::trustedshops_trustedshops</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="intro" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Intro</frontend_model>
+                </field>
+                <field id="tsid" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Trusted Shops ID</label>
+                    <tooltip>The Trusted Shops ID is a unique identifier for your shop. You can find your Trusted Shops ID in your confirmation email after signing up.</tooltip>
+                </field>
+                <field id="mode" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mode</label>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Mode</source_model>
+                </field>
+                <field id="expert_notice" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Expertnotice</frontend_model>
+                    <depends>
+                        <field id="mode">expert</field>
+                    </depends>
+                </field>
+            </group>
+
+
+            <group id="trustbadge" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Trustbadge</label>
+                <field id="variant" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Variant</label>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Variant</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                    </depends>
+                </field>
+                <field id="offset" translate="label tooltip" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Y-Offset</label>
+                    <tooltip>Adjust the y-axis position of your Trustbadge up to 250px vertically from the lower right corner of your shop.</tooltip>
+                    <validate>validate-number validate-number-range number-range-0-250</validate>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                    </depends>
+                </field>
+                <field id="code" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Trustbadge code</label>
+                    <backend_model>Trustedshops\Trustedshops\Model\System\Config\Trustbadge</backend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                    </depends>
+                </field>
+                <field id="collect_orders" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Collect Reviews and enable money-back guarantee on your Thank you page</label>
+                    <comment><![CDATA[<span style="color:orange; font-weight:bold">Guarantee is mandatory for certified shops</span>]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                    </depends>
+                </field>
+            </group>
+
+
+            <group id="product" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Reviews</label>
+
+                <field id="collect_reviews" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Collect Product Reviews</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                    </depends>
+                </field>
+                <field id="collect_reviews_notice" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Collect Product Reviews Notice</label>
+                    <comment><![CDATA[More Traffic, less returns:<br/>Make sure to unlock unlimited Product Reviews in your Trusted Shops plan]]></comment>
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Notice</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="expert_collect_orders_notice" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>expert_collect_orders_notice</label>
+                    <comment><![CDATA[Please activate "Collect Reviews and enable customer guarantee card on your Thank you page"]]></comment>
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Notice</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">0</field>
+                    </depends>
+                </field>
+
+                <field id="expert_collect_reviews" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Collect Product Reviews</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                    </depends>
+                </field>
+                <field id="expert_collect_reviews_notice" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Collect Product Reviews Notice</label>
+                    <comment><![CDATA[More Traffic, less returns:<br/>Make sure to unlock unlimited Product Reviews in your Trusted Shops plan]]></comment>
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Notice</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <!-- Attributes -->
+                <field id="review_attribute_header" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Product Attributes</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_attribute_header" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Product Attributes</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_attribute_notice" translate="label comment" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Product Attributes Notice</label>
+                    <comment><![CDATA[These attributes for Product Reviews are optional and not integrated within Magento standard. You can choose from the product attributes which you have manually added to fill these fields. In this way you can use Google Shopping or improve your data analysis possibilities.]]></comment>
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Notice</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_attribute_notice" translate="label comment" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Product Attributes Notice</label>
+                    <comment><![CDATA[These attributes for Product Reviews are optional and not integrated within Magento standard. You can choose from the product attributes which you have manually added to fill these fields. In this way you can use Google Shopping or improve your data analysis possibilities.]]></comment>
+                    <frontend_model>Trustedshops\Trustedshops\Block\System\Notice</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_attribute_gtin" type="select" translate="label comment" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>GTIN</label>
+                    <tooltip>This is the product identification code for trade items. If you use Google Shopping and want to display your review stars in Shopping and payed product ads, this information is necessary for Google. It also helps in matching your products. Trusted Shops highly recommends to use this option.</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_attribute_gtin" type="select" translate="label comment" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>GTIN</label>
+                    <tooltip>This is the product identification code for trade items. If you use Google Shopping and want to display your review stars in Shopping and payed product ads, this information is necessary for Google. It also helps in matching your products. Trusted Shops highly recommends to use this option.</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_attribute_brand" type="select" translate="label comment" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand</label>
+                    <tooltip>This is the brand name of the product. By setting this variable you  can improve your data analysis possibilities</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_attribute_brand" type="select" translate="label comment" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand</label>
+                    <tooltip>This is the brand name of the product. By setting this variable you  can improve your data analysis possibilities</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_attribute_mpn" type="select" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MPN</label>
+                    <tooltip>Number that associates the product to its manufacturer</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_attribute_mpn" type="select" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MPN</label>
+                    <tooltip>Number that associates the product to its manufacturer</tooltip>
+                    <source_model>Trustedshops\Trustedshops\Model\System\Attributes</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <!-- Product Review -->
+                <field id="review_header" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Review Sticker</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_header" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Review Sticker</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_active" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Product Reviews on Product Detail page on additional tab "Trusted Shops Reviews"</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_review_active" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Product Reviews on Product Detail page on additional tab "Trusted Shops Reviews"</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_border_color" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Border Colour</label>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                        <field id="review_active">1</field>
+                    </depends>
+                </field>
+                <field id="review_star_color" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Star Colour</label>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                        <field id="review_active">1</field>
+                    </depends>
+                </field>
+
+                <field id="review_code" translate="label" type="textarea" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Code for Product Review Sticker</label>
+                    <backend_model>Trustedshops\Trustedshops\Model\System\Config\Review</backend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                        <field id="expert_review_active">1</field>
+                    </depends>
+                </field>
+
+
+                <!-- Product Widget -->
+                <field id="rating_header" translate="label" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Review Stars</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_rating_header" translate="label" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Review Stars</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="rating_active" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Star ratings on Product Detail Page below your Product Name</label>
+                    <comment>Please note that the Product Review Stars will only appear after the product has received its first review.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                    </depends>
+                </field>
+                <field id="expert_rating_active" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Star ratings on Product Detail Page below your Product Name</label>
+                    <comment>Please note that the Product Review Stars will only appear after the product has received its first review.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                    </depends>
+                </field>
+
+                <field id="rating_star_color" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Star Colour</label>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                        <field id="rating_active">1</field>
+                    </depends>
+                </field>
+                <field id="rating_star_size" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Star Size</label>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                        <field id="rating_active">1</field>
+                    </depends>
+                </field>
+                <field id="rating_font_size" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Font Size</label>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">standard</field>
+                        <field id="collect_reviews">1</field>
+                        <field id="rating_active">1</field>
+                    </depends>
+                </field>
+
+                <field id="rating_code" translate="label" type="textarea" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Code for Product Review Sticker</label>
+                    <backend_model>Trustedshops\Trustedshops\Model\System\Config\Rating</backend_model>
+                    <depends>
+                        <field id="trustedshops_trustedshops/general/mode">expert</field>
+                        <field id="trustedshops_trustedshops/trustbadge/collect_orders">1</field>
+                        <field id="expert_collect_reviews">1</field>
+                        <field id="expert_rating_active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

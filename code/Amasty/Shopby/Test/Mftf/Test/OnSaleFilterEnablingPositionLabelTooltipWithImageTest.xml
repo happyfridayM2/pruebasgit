@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterEnablingPositionLabelTooltipWithImageTest"
+          extends="OnSaleFilterEnablingPositionLabelTooltipTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and displaying of elements"/>
+            <description value="Check of on sale filter enabling position label tooltip  with image in all locations"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNONSALEFILTER-8"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="TooltipEnablingWithImageActionGroup" stepKey="configureTooltip1"/>
+        </before>
+
+        <!--Checking of On Sale Filter elements: check configuration of position, label, tooltip with image/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('21','3.png','3_'))}}"
+                    stepKey="seeTooltipImage1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('2','3.png','3_'))}}"
+                    stepKey="seeTooltipImage2"/>
+
+    </test>
+</tests>

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php $content=$block->getContent(); ?>
+<?php if (substr($content, 0, 6) == "Unable") : ?>
+    <div id="messages">
+        <div class="messages">
+            <div class="message message-error error">
+                <div data-ui-id="messages-message-error">
+                    <?php echo $content; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <?php if ($block->needsCodeMirror()) : ?>
+        <textarea id="preview"><?php echo $content; ?></textarea>
+        <style>
+            .CodeMirror {
+                height: 100%;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                CodeMirrorPattern = CodeMirror.fromTextArea(document.getElementById('preview'), {
+                    matchBrackets: true,
+                    mode: "application/x-httpd-php",
+                    indentUnit: 2,
+                    indentWithTabs: false,
+                    lineWrapping: false,
+                    lineNumbers: true,
+                    styleActiveLine: true,
+                    readOnly: true
+                });
+            };
+        </script>
+    <?php else : ?>
+        <div id="preview-table-area" class="preview-table-area"
+             style="display: block; position: relative !important;top:0">
+            <?php echo $content; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

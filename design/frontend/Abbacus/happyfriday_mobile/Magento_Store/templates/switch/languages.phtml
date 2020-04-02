@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Store\Block\Switcher $block */
+?>
+<?php if (count($block->getStores())>1): ?>
+<ul class="language-swicher">
+    <?php foreach ($block->getStores() as $_lang): ?>
+        <?php $_selected = ($_lang->getId() == $block->getCurrentStoreId()) ? 'selected"selected"' : '' ?>
+        <li><a class="<?php echo $_selected ?>"  href="<?php echo $_lang->getCurrentUrl() ?>"><?php echo $block->escapeHtml($_lang->getCode()) ?></a></li>    
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>

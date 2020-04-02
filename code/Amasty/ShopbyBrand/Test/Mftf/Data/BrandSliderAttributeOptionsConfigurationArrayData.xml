@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="polyesterInSliderYes" type="AttrOptionInBrandSlider1">
+        <data key="OptionName">5465</data>
+        <data key="ShowInBrandSliderSwitcher">1</data>
+        <data key="PositionInSlider">1</data>
+    </entity>
+    <entity name="polyesterInSliderNo" type="AttrOptionInBrandSlider1" extends="polyesterInSliderYes">
+        <data key="ShowInBrandSliderSwitcher">0</data>
+        <data key="PositionInSlider">0</data>
+    </entity>
+    <entity name="organicCottonInSliderYes" type="AttrOptionInBrandSlider2">
+        <data key="OptionName">5580</data>
+        <data key="ShowInBrandSliderSwitcher">1</data>
+        <data key="PositionInSlider">2</data>
+    </entity>
+    <entity name="organicCottonInSliderNo" type="AttrOptionInBrandSlider2" extends="organicCottonInSliderYes">
+        <data key="ShowInBrandSliderSwitcher">0</data>
+        <data key="PositionInSlider">0</data>
+    </entity>
+    <entity name="nylonInSliderYes" type="AttrOptionInBrandSlider3">
+        <data key="AttributeOptionID">5464</data>
+        <data key="ShowInBrandSliderSwitcher">1</data>
+        <data key="PositionInSlider">3</data>
+    </entity>
+    <entity name="nylonInSliderNo" type="AttrOptionInBrandSlider3" extends="nylonInSliderYes">
+        <data key="ShowInBrandSliderSwitcher">0</data>
+        <data key="PositionInSlider">0</data>
+    </entity>
+    <entity name="spandexInSliderYes" type="AttrOptionInBrandSlider4">
+        <data key="AttributeOptionID">5577</data>
+        <data key="ShowInBrandSliderSwitcher">1</data>
+        <data key="PositionInSlider">4</data>
+    </entity>
+    <entity name="spandexInSliderNo" type="AttrOptionInBrandSlider4" extends="spandexInSliderYes">
+        <data key="ShowInBrandSliderSwitcher">0</data>
+        <data key="PositionInSlider">0</data>
+    </entity>
+    <entity name="AddToTheSliderMassAction" type="AttrOptionInBrandSlider5">
+        <data key="MassAction">Add to the slider</data>
+    </entity>
+    <entity name="RemoveFromTheSliderMassAction" type="AttrOptionInBrandSlider5">
+        <data key="MassAction">Remove from the slider</data>
+    </entity>
+
+</entities>

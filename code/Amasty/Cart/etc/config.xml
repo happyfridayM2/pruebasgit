@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_cart>
+            <general>
+                <enable>1</enable>
+                <type_loading>1</type_loading>
+                <show_qty_product>0</show_qty_product>
+            </general>
+
+            <dialog_popup>
+                <confirm_popup>0</confirm_popup>
+            </dialog_popup>
+
+            <confirm_popup>
+                <time>5</time>
+                <use_on_product_page>1</use_on_product_page>
+                <product_button>1</product_button>
+            </confirm_popup>
+
+            <confirm_display>
+                <align>0</align>
+                <display_elements>image,qty,count,subtotal,checkout_button</display_elements>
+            </confirm_display>
+            <selling>
+                <block_title>More choices:</block_title>
+                <block_subtitle>You may be interested in the following items</block_subtitle>
+                <products_qty_limit>2</products_qty_limit>
+            </selling>
+            <visual>
+                <background>FFFFFF</background>
+                <product_name>FF9416</product_name>
+                <text>000000</text>
+                <button_text>FFFFFF</button_text>
+                <left_button>BBBBBB</left_button>
+                <right_button>FF9416</right_button>
+                <redirectToProduct>0</redirectToProduct>
+            </visual>
+        </amasty_cart>
+    </default>
+</config>

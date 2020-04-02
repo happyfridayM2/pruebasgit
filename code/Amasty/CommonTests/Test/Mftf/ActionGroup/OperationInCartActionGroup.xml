@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ChangeQtyProductInCart">
+        <arguments>
+            <argument name="addProductQty"/>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <fillField selector="//div[@class='control qty']//input[@data-cart-item-id='{{products.productSKU}}']"
+                   userInput="{{addProductQty.qty}}" stepKey="changeProductOne"/>
+        <click selector="{{FrontCartSection.UpdateShoppingCart}}" stepKey="updateCart"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitLoadTotals1"/>
+        <wait time="1" stepKey="wait1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="DeleteProductFromTheCart">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="//tr[@class='item-info']//a[contains(@title,'{{products.productName}}')]/following::tr[1]//a[@title='Remove item']"
+               stepKey="deleteBagFromTheCart"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="DeleteProductFromTheCartIfTestWithLoginFailed">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="checkProductInTheCartAndDelete"
+                          selector="//tr[@class='item-info']//a[contains(@title, '{{products.productName}}')]/following::tr[1]//a[@title='Remove item']"
+                          dependentSelector="//tr[@class='item-info']//a[contains(@title, '{{products.productName}}')]"
+                          visible="true"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="ChooseShippingMethod">
+        <arguments>
+            <argument name="shippingMethods"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <click selector="//input[@id='{{shippingMethods.shippingMethodsName}}']" stepKey="chooseShippingMethod"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad3"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="CloseTabWithShippingInCart"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="ChangeQtyConfigurableProductInCart">
+        <arguments>
+            <argument name="products"/>
+            <argument name="addProductQty"/>
+            <argument name="productCustomSKU"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <fillField selector="//div[@class='control qty']//input[@data-cart-item-id='{{productCustomSKU}}']"
+                   userInput="{{addProductQty.qty}}" stepKey="changeProductOne"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad2"/>
+        <click selector="{{FrontCartSection.UpdateShoppingCart}}" stepKey="updateCart"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+</actionGroups>

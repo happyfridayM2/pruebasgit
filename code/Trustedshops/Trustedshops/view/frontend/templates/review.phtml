@@ -1,0 +1,46 @@
+<?php
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+?>
+<?php /** @var \Trustedshops\Trustedshops\Block\Review $block */ ?>
+<?php if ($block->isActive()) : ?>
+    <?php if ($block->isExpert()) : ?>
+        <?php /* @noEscape */ echo $block->getCode() ?>
+    <?php else : ?>
+        <script type="text/javascript">
+            _tsProductReviewsConfig = {
+                tsid: '<?php echo $block->escapeHtml($block->getTsId()) ?>',
+                sku: ['<?php echo $block->escapeHtml($block->getProductSku(true)) ?>'],
+                variant: 'productreviews',
+                borderColor: '<?php echo $block->escapeHtml($block->getBorderColor()) ?>',
+                locale: '<?php echo $block->escapeHtml($block->getLocale()) ?>',
+                backgroundColor: '#ffffff',
+                starColor: '<?php echo $block->escapeHtml($block->getStarColor()) ?>',
+                richSnippets: 'on',
+                starSize: '15px',
+                ratingSummary: 'false',
+                maxHeight: '1200px',
+                'element': '#ts_product_sticker',
+                hideEmptySticker: 'false',
+                introtext: '' /* optional */
+            };
+            var scripts = document.getElementsByTagName('SCRIPT'),
+                me = scripts[scripts.length - 1];
+            var _ts = document.createElement('SCRIPT');
+            _ts.type = 'text/javascript';
+            _ts.async = true;
+            _ts.charset = 'utf-8';
+            _ts.src
+                = '//widgets.trustedshops.com/reviews/tsSticker/tsProductSticker.js';
+            me.parentNode.insertBefore(_ts, me);
+            _tsProductReviewsConfig.script = _ts;
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+

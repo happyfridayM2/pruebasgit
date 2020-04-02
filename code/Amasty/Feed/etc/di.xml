@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Feed
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Feed\Api\ValidProductsRepositoryInterface" type="Amasty\Feed\Model\ValidProduct\Repository" />
+    <preference for="Amasty\Feed\Api\Data\ValidProductsInterface" type="Amasty\Feed\Model\ValidProduct\ValidProduct" />
+    <preference for="Amasty\Feed\Api\CustomFieldsRepositoryInterface" type="Amasty\Feed\Model\Field\Repository" />
+    <preference for="Amasty\Feed\Api\Data\FeedInterface" type="Amasty\Feed\Model\Feed" />
+    <preference for="Amasty\Feed\Api\FeedRepositoryInterface" type="Amasty\Feed\Model\FeedRepository" />
+    <preference for="Amasty\Feed\Api\ScheduleRepositoryInterface" type="Amasty\Feed\Model\Schedule\Repository" />
+
+    <type name="Amasty\Feed\Controller\Adminhtml\Feed\Connection">
+        <arguments>
+            <argument name="ftp" xsi:type="object">Magento\Framework\Filesystem\Io\Ftp\Proxy</argument>
+            <argument name="sftp" xsi:type="object">Magento\Framework\Filesystem\Io\Sftp\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Model\Filesystem\Ftp">
+        <arguments>
+            <argument name="ftp" xsi:type="object">Magento\Framework\Filesystem\Io\Ftp\Proxy</argument>
+            <argument name="sftp" xsi:type="object">Magento\Framework\Filesystem\Io\Sftp\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Model\Filesystem\Compressor">
+        <arguments>
+            <argument name="compressors" xsi:type="array">
+                <item name="zip" xsi:type="object">Magento\Framework\Archive\Zip\Proxy</item>
+                <item name="gz" xsi:type="object">Magento\Framework\Archive\Gz\Proxy</item>
+                <item name="bz2" xsi:type="object">Magento\Framework\Archive\Bz\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="FeedCsvFactory" type="Amasty\Feed\Model\Export\Adapter\DocumentFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">\Amasty\Feed\Model\Export\Adapter\Csv</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="FeedXmlFactory" type="Amasty\Feed\Model\Export\Adapter\DocumentFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">\Amasty\Feed\Model\Export\Adapter\Xml</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\Feed\Model\Export\Adapter\AdapterProvider">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="csv" xsi:type="object">FeedCsvFactory</item>
+                <item name="txt" xsi:type="object">FeedCsvFactory</item>
+                <item name="xml" xsi:type="object">FeedXmlFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Model\Export\RowCustomizer\Composite">
+        <arguments>
+            <argument name="customizers" xsi:type="array">
+                <item name="imagesData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Image</item>
+                <item name="galleryData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Gallery</item>
+                <item name="categoryData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Category</item>
+                <item name="urlData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Url</item>
+                <item name="priceData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Price</item>
+                <item name="relationData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Relation</item>
+                <item name="effectiveData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Effectivedate</item>
+                <item name="taxpercentsData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Taxpercents</item>
+                <item name="customFieldData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\CustomField</item>
+                <item name="advancedData" xsi:type="string">Amasty\Feed\Model\Export\RowCustomizer\Advanced</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="generateFeedCommand" xsi:type="object">Amasty\Feed\Console\Command\Generate</item>
+                <item name="showProfileListCommand" xsi:type="object">Amasty\Feed\Console\Command\ProfileList</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Feed\Console\Command\Generate">
+        <arguments>
+            <argument name="feedRepository" xsi:type="object">Amasty\Feed\Api\FeedRepositoryInterface\Proxy</argument>
+            <argument name="config" xsi:type="object">Amasty\Feed\Model\Config\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Model\Rule\Rule">
+        <arguments>
+            <argument name="combineFactory" xsi:type="object">Amasty\Feed\Model\Rule\Condition\CombineFactory</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Feed\Model\Rule\Condition\CombineFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">\Amasty\Feed\Model\Rule\Condition\Combine</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Feed\Model\Rule\Condition\ProductFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">\Amasty\Feed\Model\Rule\Condition\Product</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SalesRule\Setup\UpgradeData">
+        <plugin name="Amasty_Feed::SetupUpgradeData" type="Amasty\Feed\Plugin\Setup\UpgradeData" />
+    </type>
+
+    <type name="Amasty\Feed\Model\GoogleWizard">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Setup\UpgradeSchema">
+        <arguments>
+            <argument name="upgradeTo160" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo160\Proxy</argument>
+            <argument name="upgradeTo170" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo170\Proxy</argument>
+            <argument name="upgradeTo190" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo190\Proxy</argument>
+            <argument name="upgradeTo191" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo191\Proxy</argument>
+            <argument name="upgradeTo200" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo200\Proxy</argument>
+            <argument name="upgradeTo210" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo210\Proxy</argument>
+            <argument name="upgradeTo220" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo220\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Feed\Setup\UpgradeData">
+        <arguments>
+            <argument name="upgradeTo101" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo101\Proxy</argument>
+            <argument name="upgradeTo114" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo114\Proxy</argument>
+            <argument name="upgradeTo135" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo135\Proxy</argument>
+            <argument name="upgradeTo180" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeTo180\Proxy</argument>
+            <argument name="upgradeDataTo191" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeDataTo191\Proxy</argument>
+            <argument name="upgradeDataTo210" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeDataTo210\Proxy</argument>
+            <argument name="upgradeDataTo220" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeDataTo220\Proxy</argument>
+            <argument name="upgradeDataTo227" xsi:type="object">Amasty\Feed\Setup\Operation\UpgradeDataTo227\Proxy</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <!-- Data For General Settings -->
+    <entity name="SetDefaultOSCGeneralSettings" type="adminSettingOSCGeneral">
+        <data key="IsEnableOneStepCheckout">Yes</data>
+        <data key="AllowToEditProductsInTheOrderSummary">No</data>
+        <data key="AllowGuestCheckout">Yes</data>
+        <data key="LetCustomersCreateAccountAtCheckout">No</data>
+    </entity>
+
+    <entity name="SetOSCGeneralAllowToEditProductQty" type="adminSettingOSCGeneral" extends="SetDefaultOSCGeneralSettings">
+        <data key="AllowToEditProductsInTheOrderSummary">Yes</data>
+    </entity>
+
+    <entity name="SetOSCGeneralDontAllowGuestCheckout" type="adminSettingOSCGeneral" extends="SetDefaultOSCGeneralSettings">
+        <data key="AllowGuestCheckout">No</data>
+    </entity>
+
+    <entity name="SetOSCGeneralOnlyDisableCheckout" type="adminSettingOSCGeneral" extends="SetDefaultOSCGeneralSettings">
+        <data key="IsEnableOneStepCheckout">No</data>
+    </entity>
+
+    <entity name="SetOSCGeneralCreateAccountAfterPlacing" type="adminSettingOSCGeneral" extends="SetDefaultOSCGeneralSettings">
+        <data key="LetCustomersCreateAccountAtCheckout">After Placing an Order</data>
+        <data key="CreateAnAccountCheckbox">Yes</data>
+    </entity>
+
+    <entity name="SetOSCGeneralCreateAccountWhilePlacing" type="adminSettingOSCGeneral" extends="SetDefaultOSCGeneralSettings">
+        <data key="LetCustomersCreateAccountAtCheckout">While Placing an Order</data>
+        <data key="AutomaticallyLogInCustomers">No</data>
+    </entity>
+
+    <!-- Data For Settings Design/Texts and Default Values -->
+    <entity name="SetDefaultOSCDesignTextsSettings" type="adminSettingOSCDesignTexts">
+        <data key="CheckoutPageTitle">Checkout</data>
+        <data key="CheckoutPageDescription">Please enter your details below to complete your purchase</data>
+    </entity>
+
+    <entity name="SetDescription" type="adminSettingOSCDesignTexts" extends="SetDefaultOSCDesignTextsSettings">
+        <data key="CheckoutPageDescription">My Description</data>
+    </entity>
+
+    <entity name="SetTitle" type="adminSettingOSCDesignTexts" extends="SetDefaultOSCDesignTextsSettings">
+        <data key="CheckoutPageTitle">My Title</data>
+    </entity>
+
+    <entity name="SetTitleAndDescription" type="adminSettingOSCDesignTexts" extends="SetDefaultOSCDesignTextsSettings">
+        <data key="CheckoutPageTitle">My Title</data>
+        <data key="CheckoutPageDescription">My Description</data>
+    </entity>
+
+    <entity name="SetDefaultOSCDesignDefaultValuesSettings" type="adminSettingOSCDesignDefaultValues">
+        <data key="DefaultCountry">--Please Select--</data>
+    </entity>
+
+    <entity name="SetAllDefaultValues" type="adminSettingOSCDesignDefaultValues">
+        <data key="DefaultShippingMethod">flatrate_flatrate</data>
+        <data key="DefaultPaymentMethod">cashondelivery</data>
+        <data key="DefaultCountry">AU</data>
+        <data key="DefaultRegion">New South Wales</data>
+        <data key="DefaultPostalCode">11001</data>
+        <data key="DefaultCity">Dubbo</data>
+    </entity>
+
+    <!-- Data For Settings Design/Layout -->
+    <entity name="SetDefaultOSCDesignLayout" type="adminSettingOSCDesignLayout">
+        <data key="CheckoutDesign">Classic</data>
+        <data key="CheckoutPageLayout">2 Columns</data>
+        <data key="DisplayBillingAddressOn">Payment Method</data>
+        <data key="PlaceOrderButtonPosition">Below the Order Total</data>
+    </entity>
+
+    <entity name="SetOSCDesignLayoutButtonPlaceBelowPayment" type="adminSettingOSCDesignLayout" extends="SetDefaultOSCDesignLayout">
+        <data key="PlaceOrderButtonPosition">Below the Selected Payment Method</data>
+    </entity>
+
+    <entity name="SetDesignClassicThreeColumns" type="adminSettingOSCDesignLayout" extends="SetDefaultOSCDesignLayout">
+        <data key="CheckoutPageLayout">3 Columns</data>
+    </entity>
+
+    <entity name="SetDesignModernOneColumn" type="adminSettingOSCDesignLayout" extends="SetDefaultOSCDesignLayout">
+        <data key="CheckoutDesign">Modern</data>
+        <data key="CheckoutPageLayout">1 Column</data>
+    </entity>
+
+    <entity name="SetDesignModernThreeColumn" type="adminSettingOSCDesignLayout" extends="SetDefaultOSCDesignLayout">
+        <data key="CheckoutDesign">Modern</data>
+        <data key="CheckoutPageLayout">3 Columns</data>
+    </entity>
+
+    <entity name="SetDesignModernTwoColumn" type="adminSettingOSCDesignLayout" extends="SetDefaultOSCDesignLayout">
+        <data key="CheckoutDesign">Modern</data>
+    </entity>
+
+    <entity name="SetBlockNamesWithoutDelivery" type="adminSettingOSCDesignLayoutReOrderBlocks">
+        <data key="ShippingAddress">OSC Shipping Address Test Name</data>
+        <data key="ShippingMethod">OSC Shipping Method Test Name</data>
+        <data key="PaymentMethod">OSC Payment Method Test Name</data>
+        <data key="OrderSummary">OSC Order Summary Test Name</data>
+    </entity>
+
+    <entity name="SetIfBlockNamesIsEmpty" type="adminSettingOSCDesignLayoutReOrderBlocks">
+        <data key="ShippingAddress">Shipping Address</data>
+        <data key="ShippingMethod">Shipping Method</data>
+        <data key="PaymentMethod">Payment Method</data>
+        <data key="Delivery">Delivery</data>
+        <data key="OrderSummary">Order Summary</data>
+    </entity>
+
+    <!-- Data For Settings Design/Additional -->
+    <entity name="SetDefaultOSCDesignAdditional" type="adminSettingOSCDesignAdditional">
+        <data key="ShowTaxVATNumber">No</data>
+        <data key="DiscountField">Yes</data>
+        <data key="ReloadShippingMethods">No</data>
+        <data key="NewsletterCheckbox">No</data>
+        <data key="TermsAndCondition">No</data>
+        <data key="OrderComment">No</data>
+    </entity>
+
+    <entity name="SetOSCDesignAdditionalReloadShipping" type="adminSettingOSCDesignAdditional" extends="SetDefaultOSCDesignAdditional">
+        <data key="ReloadShippingMethods">Yes</data>
+    </entity>
+
+    <entity name="SetAdditionalTermsBelowOrder" type="adminSettingOSCDesignAdditional" extends="SetDefaultOSCDesignAdditional">
+        <data key="TermsAndCondition">Yes</data>
+        <data key="TermsAndConditionsCheckboxPositioning">Below the Order Total</data>
+    </entity>
+
+    <entity name="SetAdditionalTermsBelowPayment" type="adminSettingOSCDesignAdditional" extends="SetDefaultOSCDesignAdditional">
+        <data key="TermsAndCondition">Yes</data>
+        <data key="TermsAndConditionsCheckboxPositioning">Below the Selected Payment Method</data>
+    </entity>
+
+    <entity name="SetOSCDesignAdditionalOrderComment" type="adminSettingOSCDesignAdditional" extends="SetDefaultOSCDesignAdditional">
+        <data key="OrderComment">Yes</data>
+    </entity>
+
+    <!-- Data For Settings Optional UI (Only Header and Footer) -->
+    <entity name="SetDefaultOSCDesignOptionalUI" type="adminSettingOSCDesignOptionalUI">
+        <data key="DisplayHeaderAndFooter">No</data>
+    </entity>
+
+    <entity name="SetOSCDesignOptionalUIDisplayHeader" type="adminSettingOSCDesignOptionalUI">
+        <data key="DisplayHeaderAndFooter">Yes</data>
+    </entity>
+
+    <!-- Data For Settings Gift Wrap -->
+    <entity name="SetDefaultOSCGiftWrap" type="adminSettingOSCGiftWrap">
+        <data key="AllowGiftMessagesOnOrderLevel">No</data>
+        <data key="AllowGiftMessagesOnOrderItems">No</data>
+        <data key="GiftWrap">No</data>
+    </entity>
+
+    <entity name="SetAllowGiftMessagesOnlyForOrderItems" type="adminSettingOSCGiftWrap" extends="SetDefaultOSCGiftWrap">
+        <data key="AllowGiftMessagesOnOrderItems">Yes</data>
+    </entity>
+
+    <entity name="SetAllowGiftMessagesOnlyOnOrderLevel" type="adminSettingOSCGiftWrap" extends="SetDefaultOSCGiftWrap">
+        <data key="AllowGiftMessagesOnOrderLevel">Yes</data>
+    </entity>
+
+    <entity name="SetAllowAllGiftMessages" type="adminSettingOSCGiftWrap" extends="SetDefaultOSCGiftWrap">
+        <data key="AllowGiftMessagesOnOrderLevel">Yes</data>
+        <data key="AllowGiftMessagesOnOrderItems">Yes</data>
+    </entity>
+
+    <entity name="SetGiftWrapIsDecimal" type="adminSettingOSCGiftWrap" extends="SetDefaultOSCGiftWrap">
+        <data key="GiftWrap">Yes</data>
+        <data key="GiftWrapFee">1.42</data>
+    </entity>
+
+    <entity name="SetGiftWrapIsInteger" type="adminSettingOSCGiftWrap" extends="SetDefaultOSCGiftWrap">
+        <data key="GiftWrap">Yes</data>
+        <data key="GiftWrapFee">7</data>
+    </entity>
+
+    <entity name="SetDefaultOSCDeliveryDate" type="adminSettingOSCDeliveryDate">
+        <data key="isEnable">No</data>
+    </entity>
+
+    <entity name="SetOSCEnableDeliveryDate" type="adminSettingOSCDeliveryDate">
+        <data key="isEnable">Yes</data>
+    </entity>
+
+    <entity name="OSCStoreView" type="store">
+        <data key="name" unique="suffix">OSCStoreView</data>
+        <data key="code" unique="suffix">osc_st_view_</data>
+    </entity>
+
+</entities>

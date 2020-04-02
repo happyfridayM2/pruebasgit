@@ -1,0 +1,1140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amoptimizer" translate="label" type="text" sortOrder="71516" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Google Page Speed Optimizer</label>
+            <tab>amasty</tab>
+            <resource>Amasty_PageSpeedOptimizer::config</resource>
+            <!--<group id="tutorial" showInDefault="1" showInWebsite="1" showInStore="1">-->
+            <!--<label>Tutorial</label>-->
+            <!--<field id="tutorial" type="button" sortOrder="10" showInDefault="1"-->
+            <!--showInWebsite="1" showInStore="1">-->
+            <!--<frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\Tutorial</frontend_model>-->
+            <!--</field>-->
+            <!--</group>-->
+            <group id="diagnostic" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Diagnostic</label>
+                <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\Diagnostic</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Settings</label>
+
+                <group id="html" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>HTML:</label>
+
+                    <field id="minify_html" translate="label" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Minify HTML</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>dev/template/minify_html</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                </group>
+
+                <group id="javascript" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>JavaScript:</label>
+
+                    <field id="bundling_type" translate="label tooltip" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Amasty JS Optimization</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\BundlingType</source_model>
+                        <config_path>amoptimizer/javascript/bundling_type</config_path>
+                        <tooltip><![CDATA[Amasty JS optimization is a unique process that will significantly optimize JavaScript for your Magento website using Advanced JS Bundling feature and JS Minification.<br><br>You will need to use CLI commands to run through the optimization. Please make sure that you have access to the console and know how to do it.<br><br>Please create a full backup of your Magento instance and follow the instructions that are displayed in the 'Run Optimization" section. ]]></tooltip>
+                    </field>
+                    <field id="is_cloud" translate="label" type="select" sortOrder="11" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Is Magento Cloud</label>
+                        <depends>
+                            <field id="bundling_type">1</field>
+                        </depends>
+                        <config_path>amoptimizer/javascript/is_cloud</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="super_bundling" translate="label" type="button" sortOrder="12" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Run Optimization</label>
+                        <depends>
+                            <field id="bundling_type">1</field>
+                        </depends>
+                        <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\SuperBundling</frontend_model>
+                    </field>
+
+                    <field id="super_bundling_clear" translate="label" type="button" sortOrder="14" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Clear Bundle</label>
+                        <depends>
+                            <field id="bundling_type">1</field>
+                        </depends>
+                        <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\SuperBundlingClear</frontend_model>
+                    </field>
+
+                    <field id="merge_js" translate="label comment" type="select" sortOrder="18" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Merge JavaScript Files</label>
+                        <depends>
+                            <field id="bundling_type">0</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>dev/js/merge_files</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                    <field id="js_bundling" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Enable JavaScript Bundling</label>
+                        <depends>
+                            <field id="bundling_type">0</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>dev/js/enable_js_bundling</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                    <field id="minify_js" translate="label" type="select" sortOrder="30" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Minify JavaScript Files</label>
+                        <depends>
+                            <field id="bundling_type">0</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>dev/js/minify_files</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                    <field id="merge_and_bundle_adminhtml" translate="label tooltip" type="select" sortOrder="32" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Include JS of the Admin Area Pages into Merged JS File</label>
+                        <depends>
+                            <field id="merge_js">1</field>
+                            <field id="js_bundling">1</field>
+                        </depends>
+                        <tooltip>Optimizing the admin area pages sometimes lead to malfunctions and doesn't affect the Google rating</tooltip>
+                        <config_path>amoptimizer/javascript/merge_and_bundle_adminhtml</config_path>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\NoRecommended</source_model>
+                    </field>
+                    <field id="not_merge_and_bundle_urls" translate="label comment" type="textarea" sortOrder="33" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Exclude URLs from JS Bundling and Merge</label>
+                        <depends>
+                            <field id="merge_js">1</field>
+                            <field id="js_bundling">1</field>
+                        </depends>
+                        <comment>Each URL or part of the URL from new line</comment>
+                        <config_path>amoptimizer/javascript/not_merge_and_bundle_urls</config_path>
+                    </field>
+                    <field id="movejs" translate="label" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Move JavaScript To Page Bottom</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                    </field>
+                    <field id="movejs_exclude_url" translate="label comment" type="textarea" sortOrder="50" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Ignore URL List</label>
+                        <depends>
+                            <field id="movejs">1</field>
+                        </depends>
+                        <comment>Each URL or part of the URL from new line</comment>
+                        <config_path>amoptimizer/javascript/movejs_exclude_url</config_path>
+                    </field>
+                    <field id="movejs_exclude_part" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Ignore Scripts that Contain</label>
+                        <depends>
+                            <field id="movejs">1</field>
+                        </depends>
+                        <comment><![CDATA[Example: &lt;script <b>data-template="bundle-</b>option" type="text/x-magento-template"&gt;&lt;div&gt;&lt;%- data._quantity_ %&gt; x &lt;%- data._label_ %&gt;&lt;/div&gt;&lt;/script&gt; will be excluded.]]></comment>
+                        <config_path>amoptimizer/javascript/movejs_exclude_part</config_path>
+                    </field>
+                </group>
+
+                <group id="css" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS:</label>
+
+                    <field id="merge_css" translate="label" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Merge CSS Files</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>dev/css/merge_css_files</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                    <field id="merge_css_adminhtml" translate="label tooltip" type="select" sortOrder="11" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Merge CSS Files in Admin Area</label>
+                        <depends>
+                            <field id="merge_css">1</field>
+                        </depends>
+                        <config_path>amoptimizer/css/merge_css_adminhtml</config_path>
+                        <tooltip>Optimizing the admin area pages sometimes lead to malfunctions and doesn't affect the Google rating</tooltip>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\NoRecommended</source_model>
+                    </field>
+                    <field id="not_merge_css_urls" translate="label comment" type="textarea" sortOrder="12" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Exclude URLs from CSS Merge</label>
+                        <depends>
+                            <field id="merge_css">1</field>
+                        </depends>
+                        <comment>Each URL or part of the URL from new line</comment>
+                        <config_path>amoptimizer/css/not_merge_css_urls</config_path>
+                    </field>
+                    <field id="minify_css" translate="label" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Minify CSS Files</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>dev/css/minify_files</config_path>
+                        <comment>'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                    </field>
+                    <field id="move_font" translate="label" type="select" sortOrder="30" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Defer Fonts Loading</label>
+                        <depends>
+                            <field id="merge_css">1</field>
+                            <field id="minify_css">1</field>
+                        </depends>
+                        <comment>Fonts will be loaded later in a separate css file. 'bin/magento setup:static-content:deploy' command must be run in the console when any of the settings in the field been changed.</comment>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                    </field>
+                    <field id="font_ignore_list" translate="label comment" type="textarea" sortOrder="35" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Do Not Defer Fonts That Contain</label>
+                        <depends>
+                            <field id="move_font">1</field>
+                            <field id="merge_css">1</field>
+                            <field id="minify_css">1</field>
+                        </depends>
+                        <comment>Example: Luma-Icons</comment>
+                    </field>
+                    <field id="move_print_css" translate="label" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Move Print CSS Files to Page Bottom</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/css/move_print</config_path>
+                        <tooltip>These styles are used for printing the page and can be moved to the bottom.</tooltip>
+                    </field>
+                </group>
+
+                <group id="flat_tables" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Flat Tables:</label>
+
+                    <field id="flat_category" translate="label" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Use Flat Catalog Category</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\FlatTableRecommendation</source_model>
+                        <config_path>catalog/frontend/flat_catalog_category</config_path>
+                    </field>
+                    <field id="flat_product" translate="label" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Use Flat Catalog Product</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\FlatTableRecommendation</source_model>
+                        <config_path>catalog/frontend/flat_catalog_product</config_path>
+                    </field>
+                </group>
+
+                <group id="other_settings" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Other Settings:</label>
+
+                    <field id="sign_static_files" translate="label" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Sign Static Files</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>dev/static/sign</config_path>
+                    </field>
+                    <field id="async_indexing" translate="label" type="select" sortOrder="50" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Asynchronous indexing</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\EnableRecommended</source_model>
+                        <config_path>dev/grid/async_indexing</config_path>
+                    </field>
+                </group>
+            </group>
+            <group id="images" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Image Optimization</label>
+
+                <group id="images_general_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>General Settings</label>
+
+                    <field id="optimize_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Optimize Images</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/images/optimize_images</config_path>
+                        <comment><![CDATA[To optimize the existing images, please navigate to the ‘Content>Google Page Speed Optimizer>Image Folder Optimization Settings’ page and create a new pattern for image optimization.]]></comment>
+                    </field>
+                    <field id="multiprocess_enabled" translate="label tooltip" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Enable Multi-Process Generation</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                        </depends>
+                        <config_path>amoptimizer/images/multiprocess_enabled</config_path>
+                        <tooltip><![CDATA[Multi-Process Optimization significantly boosts the image optimization speed. But it generates extra load to the server as well. We recommend first to run the test image optimization process with the 'multi-process' ON and monitor your server performance.
+                        <br/><br/>
+                        The 'Multi-Process Generation' feature needs the php extension 'pcntl' to be installed on the server. If you enable the feature and no performance boost happens, plase ask your hoster/system administrator to check if the 'pcntl' extension installed.]]></tooltip>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="process_count" translate="label tooltip" type="text" sortOrder="50" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Number of Parallels Processes</label>
+                        <tooltip>The more parallel processes are set, the faster is the image optimization process, as well as the higher is the server load</tooltip>
+                        <validate>validate-greater-than-zero</validate>
+                        <config_path>amoptimizer/images/process_count</config_path>
+                        <depends>
+                            <field id="multiprocess_enabled">1</field>
+                            <field id="optimize_images">1</field>
+                        </depends>
+                    </field>
+                    <field id="process_images_per_request" translate="label" type="text" sortOrder="86" showInDefault="1"
+                           showInStore="0" showInWebsite="0">
+                        <label>Process Images per Request</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                        </depends>
+                        <config_path>amoptimizer/images/process_images_per_request</config_path>
+                        <tooltip><![CDATA[The more images are processed per request, the faster the optimization process is. But keep in mind that your server load is higher as well.]]></tooltip>
+                    </field>
+                </group>
+                <group id="images_user_agent" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>User Agent</label>
+
+                    <field id="replace_images_using_user_agent" translate="label" type="select" sortOrder="13" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Use User Agent for Loading Images</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>amoptimizer/images/replace_images_using_user_agent</config_path>
+                        <tooltip><![CDATA[Using user Agent allows to apply such features as WebP+Resize together with the Lazy Load feature for the same image as well as to set the number of preloaded images separately for desktop and mobile views.<br /><br />There could be a situation, when User Agent doesn’t work properly for some reasons and should be switched OFF. In this case only preloaded images can be served with WebP+Resize features while Lazy Load is enabled. And if Lazy Load feature is disabled all images can be served with WebP+Resize features.]]></tooltip>
+                    </field>
+                    <field id="replace_images_using_user_agent_ignore_list" translate="label" type="textarea" sortOrder="14" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Ignore Images that Contain</label>
+                        <depends>
+                            <field id="replace_images_using_user_agent">1</field>
+                        </depends>
+                        <config_path>amoptimizer/images/replace_images_using_user_agent_ignore_list</config_path>
+                        <comment><![CDATA[Example: &lt;img class="testImage <b>lazyOwl</b>" src="http://site.com/1.png"/&gt; OR &lt;img src="http://site.com/<b>lazyOwl</b>>.png"/&gt; will be excluded.]]></comment>
+                    </field>
+                </group>
+
+                <!-- Advanced -->
+                <group id="lazy_advanced" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Lazy Load</label>
+
+                    <field id="image_optimization_type" translate="label" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lazy Load Settings</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\OptimizationSettings</source_model>
+                        <config_path>amoptimizer/images/image_optimization_type</config_path>
+                        <tooltip><![CDATA[Simple - Lazy load settings are applied to all pages of the website.<br /><br />Advanced - It is possible to set separate settings for 4 different page types: Home Page, Category Pages, Product Details Pages and CMS Pages.]]></tooltip>
+                    </field>
+                    <field id="lazy_load" translate="label" type="select" sortOrder="11" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Use Lazy Loading Images</label>
+                        <depends>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/images/lazy_load</config_path>
+                    </field>
+                    <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Disable WebP and Resize Features</label>
+                        <depends>
+                            <field id="lazy_load">0</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>amoptimizer/images/webp_resolutions</config_path>
+                    </field>
+                    <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Ignore Images that Contain</label>
+                        <depends>
+                            <field id="lazy_load">0</field>
+                            <field id="replace_with_webp">0</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/webp_resolutions_ignore</config_path>
+                        <comment><![CDATA[Example: &lt;img class="testImage <b>lazyOwl</b>" src="http://site.com/1.png"/&gt; OR &lt;img src="http://site.com/<b>lazyOwl</b>>.png"/&gt; will be excluded.]]></comment>
+                    </field>
+                    <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lazy Load Script</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/lazy_load_script</config_path>
+                        <comment>Please, try both scripts and choose the one that fits your system best</comment>
+                    </field>
+                    <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Preload Images</label>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/preload_images</config_path>
+                        <tooltip><![CDATA[The feature will skip some number of images and apply the lazy load to the rest of the pictures on a page. It is recommended to skip from Lazy Load those images that are situated on the first screen of the page. The average number of pictures on the first screen is unique for every website.<br>The number of images to skip can be set in the 'Preload Images Number' field.]]></tooltip>
+                    </field>
+                    <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Desktop Preload Images Number</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="preload_images">1</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/skip_images_count_desktop</config_path>
+                    </field>
+                    <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tablet Preload Images Number</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="preload_images">1</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/skip_images_count_tablet</config_path>
+                    </field>
+                    <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Mobile Preload Images Number</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="preload_images">1</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/skip_images_count_mobile</config_path>
+                    </field>
+                    <field id="skip_images_count" translate="label" type="text" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Preload Images Number</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="preload_images">1</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/skip_images_count</config_path>
+                    </field>
+                    <field id="preload_images_strategy" translate="label" type="select" sortOrder="45" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Preload Images Strategy</label>
+                        <depends>
+                            <field id="preload_images">1</field>
+                            <field id="lazy_load">1</field>
+                            <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                        <config_path>amoptimizer/images/preload_images_strategy</config_path>
+                        <tooltip><![CDATA[WebP Format + Image Resolution - The skipped from Lazy Load images will be optimized by WebP and/or Mobile and Tablet Resolutions features if they are enabled. It is a better option from the point of view of optimization and page load speed. But sometimes it can lead to some malfunctions, such as issues with swatches.<br><br>Original Format of Images - The skipped from Lazy Load images will be loaded in the default format. No malfunctions should happen with the selected option.]]></tooltip>
+                    </field>
+                    <field id="ignore_list" translate="label" type="textarea" sortOrder="50" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Ignore Images that Contain</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="image_optimization_type">0</field>
+                        </depends>
+                        <config_path>amoptimizer/images/ignore_list</config_path>
+                        <tooltip>This feature is used when facing problems with image loading due to compatibility with the 3rd party extensions such as implemented into a Magento theme lazy load or carousel banners. Put a part of an image tag content into the field and all images containing the inserted lines in their tags will be excluded from the extension's Lazy Load.</tooltip>
+                        <comment><![CDATA[Example: &lt;img class="testImage <b>lazyOwl</b>" src="http://site.com/1.png"/&gt; OR &lt;img src="http://site.com/<b>lazyOwl</b>>.png"/&gt; will be excluded.]]></comment>
+                    </field>
+                    <group id="lazy_general" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>General</label>
+                        <depends>
+                            <field id="image_optimization_type">1</field>
+                        </depends>
+                        <field id="lazy_load" translate="label" type="select" sortOrder="10" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Use Lazy Loading Images</label>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_general/lazy_load</config_path>
+                        </field>
+                        <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Replace With WebP and Image Resolutions</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <config_path>amoptimizer/lazy_load_general/webp_resolutions</config_path>
+                        </field>
+                        <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="replace_with_webp">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/webp_resolutions_ignore</config_path>
+                        </field>
+                        <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Lazy Load Script</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                            <config_path>amoptimizer/lazy_load_general/lazy_load_script</config_path>
+                        </field>
+                        <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_general/preload_images</config_path>
+                        </field>
+                        <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Desktop Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/skip_images_count_desktop</config_path>
+                        </field>
+                        <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Tablet Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/skip_images_count_tablet</config_path>
+                        </field>
+                        <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Mobile Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/skip_images_count_mobile</config_path>
+                        </field>
+                        <field id="preload_images_strategy" translate="label" type="select" sortOrder="40" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Strategy</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                            <config_path>amoptimizer/lazy_load_general/preload_images_strategy</config_path>
+                        </field>
+                        <field id="skip_images_count" translate="label" type="text" sortOrder="50" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Count</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/skip_images_count</config_path>
+                        </field>
+                        <field id="ignore_list" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_general/ignore_list</config_path>
+                        </field>
+                    </group>
+
+                    <group id="lazy_home" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Home Page</label>
+                        <depends>
+                            <field id="lazy_load">1</field>
+                            <field id="image_optimization_type">1</field>
+                        </depends>
+                        <field id="lazy_load" translate="label" type="select" sortOrder="10" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Use Lazy Loading Images</label>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_home/lazy_load</config_path>
+                        </field>
+                        <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Replace With WebP and Image Resolutions</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <config_path>amoptimizer/lazy_load_home/webp_resolutions</config_path>
+                        </field>
+                        <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="replace_with_webp">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/webp_resolutions_ignore</config_path>
+                        </field>
+                        <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Lazy Load Script</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                            <config_path>amoptimizer/lazy_load_home/lazy_load_script</config_path>
+                        </field>
+                        <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_home/preload_images</config_path>
+                        </field>
+                        <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Desktop Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/skip_images_count_desktop</config_path>
+                        </field>
+                        <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Tablet Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/skip_images_count_tablet</config_path>
+                        </field>
+                        <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Mobile Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/skip_images_count_mobile</config_path>
+                        </field>
+                        <field id="preload_images_strategy" translate="label" type="select" sortOrder="40" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Strategy</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                            <config_path>amoptimizer/lazy_load_home/preload_images_strategy</config_path>
+                        </field>
+                        <field id="skip_images_count" translate="label" type="text" sortOrder="50" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Count</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/skip_images_count</config_path>
+                        </field>
+                        <field id="ignore_list" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_home/ignore_list</config_path>
+                        </field>
+                    </group>
+
+                    <group id="lazy_categories" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Category Pages</label>
+                        <depends>
+                            <field id="image_optimization_type">1</field>
+                        </depends>
+                        <field id="lazy_load" translate="label" type="select" sortOrder="10" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Use Lazy Loading Images</label>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_categories/lazy_load</config_path>
+                        </field>
+                        <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Replace With WebP and Image Resolutions</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <config_path>amoptimizer/lazy_load_categories/webp_resolutions</config_path>
+                        </field>
+                        <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="replace_with_webp">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/webp_resolutions_ignore</config_path>
+                        </field>
+                        <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Lazy Load Script</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                            <config_path>amoptimizer/lazy_load_categories/lazy_load_script</config_path>
+                        </field>
+                        <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_categories/preload_images</config_path>
+                        </field>
+                        <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Desktop Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/skip_images_count_desktop</config_path>
+                        </field>
+                        <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Tablet Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/skip_images_count_tablet</config_path>
+                        </field>
+                        <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Mobile Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/skip_images_count_mobile</config_path>
+                        </field>
+                        <field id="preload_images_strategy" translate="label" type="select" sortOrder="40" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Strategy</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                            <config_path>amoptimizer/lazy_load_categories/preload_images_strategy</config_path>
+                        </field>
+                        <field id="skip_images_count" translate="label" type="text" sortOrder="50" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Count</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/skip_images_count</config_path>
+                        </field>
+                        <field id="ignore_list" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_categories/ignore_list</config_path>
+                        </field>
+                    </group>
+
+                    <group id="lazy_products" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Product Pages</label>
+                        <depends>
+                            <field id="image_optimization_type">1</field>
+                        </depends>
+                        <field id="lazy_load" translate="label" type="select" sortOrder="10" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Use Lazy Loading Images</label>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_products/lazy_load</config_path>
+                        </field>
+                        <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Replace With WebP and Image Resolutions</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <config_path>amoptimizer/lazy_load_products/webp_resolutions</config_path>
+                        </field>
+                        <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="replace_with_webp">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/webp_resolutions_ignore</config_path>
+                        </field>
+                        <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Lazy Load Script</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                            <config_path>amoptimizer/lazy_load_products/lazy_load_script</config_path>
+                        </field>
+                        <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_products/preload_images</config_path>
+                        </field>
+                        <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Desktop Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/skip_images_count_desktop</config_path>
+                        </field>
+                        <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Tablet Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/skip_images_count_tablet</config_path>
+                        </field>
+                        <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Mobile Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/skip_images_count_mobile</config_path>
+                        </field>
+                        <field id="preload_images_strategy" translate="label" type="select" sortOrder="40" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Strategy</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                            <config_path>amoptimizer/lazy_load_products/preload_images_strategy</config_path>
+                        </field>
+                        <field id="skip_images_count" translate="label" type="text" sortOrder="50" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Count</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/skip_images_count</config_path>
+                        </field>
+                        <field id="ignore_list" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_products/ignore_list</config_path>
+                        </field>
+                    </group>
+
+                    <group id="lazy_cms" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>CMS Pages</label>
+                        <depends>
+                            <field id="image_optimization_type">1</field>
+                        </depends>
+                        <field id="lazy_load" translate="label" type="select" sortOrder="10" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Use Lazy Loading Images</label>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_cms/lazy_load</config_path>
+                        </field>
+                        <field id="replace_with_webp" translate="label" type="select" sortOrder="15" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Replace With WebP and Image Resolutions</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <config_path>amoptimizer/lazy_load_cms/webp_resolutions</config_path>
+                        </field>
+                        <field id="replace_with_webp_ignore" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">0</field>
+                                <field id="replace_with_webp">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="lazy_load_script" translate="label" type="select" sortOrder="20" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Lazy Load Script</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\LazyLoadScript</source_model>
+                            <config_path>amoptimizer/lazy_load_cms/lazy_load_script</config_path>
+                        </field>
+                        <field id="preload_images" translate="label" type="select" sortOrder="30" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                            <config_path>amoptimizer/lazy_load_cms/preload_images</config_path>
+                        </field>
+                        <field id="skip_images_count_desktop" translate="label" type="text" sortOrder="32" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Desktop Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_cms/skip_images_count_desktop</config_path>
+                        </field>
+                        <field id="skip_images_count_tablet" translate="label" type="text" sortOrder="33" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Tablet Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_cms/skip_images_count_tablet</config_path>
+                        </field>
+                        <field id="skip_images_count_mobile" translate="label" type="text" sortOrder="34" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Mobile Preload Images Number</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                                <field id="preload_images">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_cms/skip_images_count_mobile</config_path>
+                        </field>
+                        <field id="preload_images_strategy" translate="label" type="select" sortOrder="40" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Strategy</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PreloadStrategy</source_model>
+                            <config_path>amoptimizer/lazy_load_cms/preload_images_strategy</config_path>
+                        </field>
+                        <field id="skip_images_count" translate="label" type="text" sortOrder="50" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Preload Images Count</label>
+                            <depends>
+                                <field id="preload_images">1</field>
+                                <field id="lazy_load">1</field>
+                                <field id="amoptimizer/images/images_user_agent/replace_images_using_user_agent">0</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_cms/skip_images_count</config_path>
+                        </field>
+                        <field id="ignore_list" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>Ignore Images that Contain</label>
+                            <depends>
+                                <field id="lazy_load">1</field>
+                            </depends>
+                            <config_path>amoptimizer/lazy_load_cms/ignore_list</config_path>
+                        </field>
+                    </group>
+                </group>
+                <!-- /Advanced -->
+                <group id="opti" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Automatic Optimization of the Newly Uploaded Images</label>
+
+                    <field id="optimize_automatically" translate="label" type="select" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Automatically Optimize Newly Uploaded Images in Catalog and Wysiwyg folders</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/images/optimize_automatically</config_path>
+                        <tooltip><![CDATA[When you install the extension, you have to optimize all previously uploaded images. It can be done from the Content>Google Page Speed Optimizer>Image Folder Optimization Settings page.<br /><br />But if you upload new images after the optimization (e.g. a new product has been created), use this option to optimize the newly uploaded images on the fly before saving it.<br /><br />Please, make sure that the optimization settings for newly uploaded images and settings for WYSIWYG and Catalog folders on the ‘Content>Google Page Speed Optimizer>Image Folder Optimization Settings’ page are the same.]]></tooltip>
+                        <comment>All images uploaded to the catalog or Wysiwyg folder will be optimized automatically</comment>
+                    </field>
+                    <field id="jpeg_tool" translate="label" type="select" sortOrder="50" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>JPEG Optimization Tool</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\JpegOptimization</source_model>
+                        <config_path>amoptimizer/images/jpeg_tool</config_path>
+                    </field>
+                    <field id="png_tool" translate="label" type="select" sortOrder="60" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>PNG Optimization Tool</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\PngOptimization</source_model>
+                        <config_path>amoptimizer/images/png_tool</config_path>
+                    </field>
+                    <field id="gif_tool" translate="label" type="select" sortOrder="70" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>GIF Optimization Tool</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\GifOptimization</source_model>
+                        <config_path>amoptimizer/images/gif_tool</config_path>
+                    </field>
+                    <field id="webp" translate="label" type="select" sortOrder="75" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Use Webp Image Format</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/images/webp</config_path>
+                        <comment>When WebP format is used the extension will create a copy for every image in the WebP format. Please make sure that you have enough disc space on your server.</comment>
+                        <tooltip><![CDATA[WebP is a modern image format that provides superior lossless and lossy compression for images on the web. Using WebP, webmasters and web developers can create smaller, richer images that make the web faster.<br><br> WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller than comparable JPEG images at equivalent SSIM quality index.]]></tooltip>
+                    </field>
+                    <field id="resolutions" translate="label" type="multiselect" sortOrder="78" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Create Images in Smaller Resolutions</label>
+                        <frontend_class>amoptimizer-select</frontend_class>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\Resolutions</source_model>
+                        <config_path>amoptimizer/images/resolutions</config_path>
+                        <comment>The extension will create a copy of every image in suitable for mobile or tablet size. Please make sure that you have enough disc space on your server.</comment>
+                        <tooltip>When a user uses a mobile or tablet device it's no worth to load a high-resolution image on a small display. Using the feature an image with appropriate size will be uploaded, making the upload process faster and positively impacting the Google rank for mobile.</tooltip>
+                    </field>
+                    <field id="resize_algorithm" translate="label" type="select" sortOrder="79" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Resize Algorithm</label>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="resolutions" separator=",">1,2</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\ResizeAlgorithm</source_model>
+                        <config_path>amoptimizer/images/resize_algorithm</config_path>
+                        <tooltip><![CDATA[Resize - the image will be resized proportionally to the original size. Simply it will be the same picture, but smaller in pixels.<br>Crop - when cropping a photo, you cut the part of an image changing its width. While the height of the image would be the same. In the result the cropped image will look like the part of the original picture]]></tooltip>
+                    </field>
+                    <field id="dump_original" translate="label" type="select" sortOrder="80" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Dump Original Images</label>
+                        <depends>
+                            <field id="optimize_images">1</field>
+                            <field id="optimize_automatically">1</field>
+                        </depends>
+                        <source_model>Amasty\PageSpeedOptimizer\Model\OptionSource\YesRecommended</source_model>
+                        <config_path>amoptimizer/images/dump_original</config_path>
+                        <comment>Original images will be stored in the ‘pub/media/amasty/amoptimizer_dump’ folder</comment>
+                    </field>
+                </group>
+                <group id="delete_previously" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delete Previously Generated WebP &amp; Resized Images</label>
+                    <field id="clear_webp_folder" translate="label" type="button" sortOrder="91" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Clear WebP Images Folder</label>
+                        <frontend_class>amoptimizer-btn</frontend_class>
+                        <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\ClearWebpFolderButton</frontend_model>
+                    </field>
+                    <field id="clear_mobile_folder" translate="label" type="button" sortOrder="92" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Clear Mobile Images Folder</label>
+                        <frontend_class>amoptimizer-btn</frontend_class>
+                        <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\ClearMobileFolderButton</frontend_model>
+                    </field>
+                    <field id="clear_tablet_folder" translate="label" type="button" sortOrder="93" showInDefault="1"
+                           showInWebsite="0" showInStore="0">
+                        <label>Clear Tablet Images Folder</label>
+                        <frontend_class>amoptimizer-btn</frontend_class>
+                        <frontend_model>Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\ClearTabletFolderButton</frontend_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

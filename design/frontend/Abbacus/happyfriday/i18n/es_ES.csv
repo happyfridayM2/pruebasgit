@@ -1,0 +1,23 @@
+Add Review,Añadir comentario,theme,frontend/Abbacus/happyfriday
+Fill in the fields to complete the payment,Rellene los campos para completar el cobro,theme,frontend/Abbacus/happyfriday
+With your credit or debit card,Con su tarjeta de crédito o débito,theme,frontend/Abbacus/happyfriday
+Your order has been successfully completed! Shortly you will  receive a confirmation e-mail.,¡Tu pedido se ha realizado con éxito! En breves recibirás un correo con toda la información.,theme,frontend/Abbacus/happyfriday
+Order number: %1.,Numero de pedido: %1.,theme,frontend/Abbacus/happyfriday
+For any questions you can contact us via:,Para cualquier duda puedes contactar con nosotros:,theme,frontend/Abbacus/happyfriday
+This does not end here,¡Esto no acaba aquí!,theme,frontend/Abbacus/happyfriday
+We give you a %1 discount on your next purchase with the code:,Te regalamos un 1% de descuento adicional para tu próxima compra con el código: ,theme,frontend/Abbacus/happyfriday
+We give you a 5€ discount on your next purchase with the code:,Te regalamos 5€ de descuento adicional para tu próxima compra con el código: ,theme,frontend/Abbacus/happyfriday
+Name,Nombre,theme,frontend/Abbacus/happyfriday
+You are welcome!,¡Bienvenido!,module,Happyfriday_Customerlogin
+Already a customer?,¿Ya eres cliente?,module,Happyfriday_Customerlogin
+You are new?,¿Eres nuevo?,module,Happyfriday_Customerlogin
+ GET IN,ENTRAR,module,Happyfriday_Customerlogin
+I WANT TO JOIN,QUIERO UNIRME,module,Happyfriday_Customerlogin
+Name,Nombre,module,Happyfriday_Customerlogin
+My favourites,Mis favoritos,module,Magento_Wishlist
+Last chance to get yours!,¡Última oportunidad para conseguir el tuyo!,module,Magento_Catalog
+We have a 10% discount. for you! Subscribe and keep informed of all our offers.,Te regalamos un 10% de descuento adicional en tu próxima compra con el código:,module,Magento_Newsletter
+Send,Enviar,module,Magento_Newsletter
+Favourites,Favoritos,module,Magento_Catalog
+Filter,Filtro,module,Magento_Catalog
+Filter,Filtro,module,frontend/Abbacus/happyfriday

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CategoryMetaTagsDefault" type="CategoryMetaTags">
+        <data key="AddFilterTitleToMetaTitle">after</data>
+        <data key="TitleTagSeparator"> - </data>
+        <data key="AddFilterMetaDescription">after</data>
+        <data key="MetaDescriptionTagSeparator">, </data>
+        <data key="AddFilterTitleToMetaKeywords">before</data>
+    </entity>
+    <entity name="CategoryMetaTagsAfterSeparators" type="CategoryMetaTags">
+        <data key="AddFilterTitleToMetaTitle">after</data>
+        <data key="TitleTagSeparator">+meta+</data>
+        <data key="AddFilterMetaDescription">after</data>
+        <data key="MetaDescriptionTagSeparator">+metadesc+</data>
+        <data key="AddFilterTitleToMetaKeywords">after</data>
+    </entity>
+    <entity name="CategoryMetaTagsBefore" type="CategoryMetaTags" extends="CategoryMetaTagsDefault">
+        <data key="AddFilterTitleToMetaTitle">before</data>
+        <data key="AddFilterMetaDescription">before</data>
+        <data key="AddFilterTitleToMetaKeywords">before</data>
+    </entity>
+    <entity name="CategoryMetaTagsReplace" type="CategoryMetaTags" extends="CategoryMetaTagsDefault">
+        <data key="AddFilterTitleToMetaTitle">replace</data>
+        <data key="AddFilterMetaDescription">replace</data>
+        <data key="AddFilterTitleToMetaKeywords">replace</data>
+    </entity>
+    <entity name="CategoryMetaTagsDoNotAdd" type="CategoryMetaTags" extends="CategoryMetaTagsDefault">
+        <data key="AddFilterTitleToMetaTitle">do-not-add</data>
+        <data key="AddFilterMetaDescription">do-not-add</data>
+        <data key="AddFilterTitleToMetaKeywords">do-not-add</data>
+    </entity>
+
+</entities>
+
+

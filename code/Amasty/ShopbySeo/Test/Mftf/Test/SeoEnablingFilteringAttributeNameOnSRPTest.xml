@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringAttributeNameOnSRPTest" extends="SeoEnablingFilteringFullSeoOnSRPTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled SEO and attribute name on Search Result Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-46"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="seoattributename"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoAttrName"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with enabled seo and attribute name on Search Result Page, check the result in url/-->
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,84 @@
+<?php
+	$_config = $this->getConfig();
+	$_optimizeconfig = $this->getOptimizeConfig();
+	$enable_disable = $_config['module_enable_disable'];
+	$groupId = $this->getGroupId();
+	$menu_status = $this->getMenuStatus($groupId);
+	
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$store_url = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue("web/secure/base_url");
+
+
+	if(($enable_disable == "1") && ($menu_status == "1"))
+	{
+		
+		$menu_type = $this->getMenutype($groupId);
+		$responsive_breakpoint = $_config['responsive_break_point'];
+		if(isset($_config['responsive_break_point'])){
+			$responsive_breakpoint = $_config['responsive_break_point'];
+		}else{
+			$responsive_breakpoint = '767px';
+		}
+		if($menu_type!="list-item"){
+			$css_path = $this->getUrl('pub/magebees/navigationmenu/')."css/".$menu_type."-".$groupId.".css";
+			$css_path = $store_url."pub/magebees/navigationmenu/"."css/".$menu_type."-".$groupId.".css";;
+		?>
+		<link rel="stylesheet" type="text/css" href="<?php echo $css_path;?>" />
+	<?php
+		}	
+		$groupId = $this->getGroupId();
+		$developer_mode_enable_disable = $_optimizeconfig['developer_mode_enable_disable'];
+		$helper= $this->helper('Magebees\Navigationmenu\Helper\Data');
+		$temp_dir = $helper->getStaticTemplateDirectoryPath();
+		$customerStatus = $this->getCurrentCustomerDetails();
+		$customerGroupId = $customerStatus['customerGroupId'];
+		$customerStatus = $customerStatus['customerStatus'];
+		$storedetails = $this->getCurrentStoreDetails();
+		
+		$storeId = $storedetails['storeId'];
+        $storeCode = $storedetails['storeCode'];
+        $website_id = $storedetails['website_id'];
+		
+		if($developer_mode_enable_disable == "1") 
+		{
+			$menu_html = $this->generateStaticHtml($groupId,$website_id,$storeId,$storeCode,$customerStatus,$customerGroupId);
+		}
+		else
+		{
+		$static_File = $temp_dir."navigationmenu-w-".$website_id."s-".$storeCode."-g-".$groupId."customer-".
+        $customerGroupId.".phtml";
+			if (!file_exists($static_File)) {
+
+				$menu_html = $this->generateStaticHtml($groupId,$website_id,$storeId,$storeCode,$customerStatus,$customerGroupId);
+				$fh = fopen($static_File, 'w'); // or die("error");
+				$search = [
+				'/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+				'/[^\S ]+\</s',  // strip whitespaces before tags, except space
+				'/(\s)+/s'       // shorten multiple whitespace sequences
+				];
+				$replace = [ '>', '<','\\1'];
+				$menu_compressedhtml = preg_replace($search, $replace, $menu_html);
+				fwrite($fh, $menu_compressedhtml);
+			} else {
+				$menu_file = fopen($static_File, 'r'); // or die("error");
+				$menu_html = fgets($menu_file);
+				fclose($menu_file);
+			}
+		}
+		echo $menu_html;
+		
+		?>
+<script>
+	requirejs(['jquery','domReady!','cwsmenu'], function(jQuery){
+		var gid = '#cwsMenu-<?php echo $groupId;?>';
+		jQuery('#cwsMenu-<?php echo $groupId;?>').cwsmenu({
+				group_id : '#cwsMenu-<?php echo $groupId;?>',
+				menu_type:'<?php echo $menu_type; ?>',
+				responsive_breakpoint:'<?php echo $responsive_breakpoint;?>',
+		});
+});	
+</script>
+<?php
+	}
+	
+?>

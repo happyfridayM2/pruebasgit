@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_PageSpeedOptimizer::optimizer" title="Google Page Speed Optimizer"
+             module="Amasty_PageSpeedOptimizer"
+             sortOrder="120"
+             parent="Magento_Backend::content"
+             resource="Amasty_PageSpeedOptimizer::optimizer"/>
+        <add id="Amasty_PageSpeedOptimizer::image_settings"
+             title="Image Folder Optimization Settings"
+             module="Amasty_PageSpeedOptimizer"
+             sortOrder="30"
+             parent="Amasty_PageSpeedOptimizer::optimizer"
+             action="amoptimizer/image/index"
+             resource="Amasty_PageSpeedOptimizer::image_settings" />
+    </menu>
+</config>

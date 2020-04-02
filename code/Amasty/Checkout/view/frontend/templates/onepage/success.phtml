@@ -1,0 +1,158 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<?php /*
+<div class="checkout-success">
+    <?php if ($block->getOrderId()) :?>
+        <div class="success-messages">
+            <?php if ($block->getCanViewOrder()) :?>
+                <p><?= $block->escapeHtml(__('Your order number is:')) ?>
+                    <a href="<?= /* @noEscape $block->getViewOrderUrl() ?>"
+                       class="order-number">
+                        <strong>
+                            <?= /* @noEscape $block->getOrderId() ?>
+                        </strong>
+                    </a>
+                </p>
+            <?php  else : ?>
+                <p>
+                    <?= $block->escapeHtml(__('Your order # is:')) ?>
+                    <span>
+                        <?= /* @noEscape $block->getOrderId() ?>
+                    </span>
+                </p>
+            <?php endif;?>
+            <p><?= $block->escapeHtml(__('We\'ll email you an order confirmation with details and tracking info.')) ?></p>
+        </div>
+        <?= $block->getChildHtml('details') ?>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+    <?= $block->getChildHtml('cms') ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= /* @noEscape $block->getUrl() ?>">
+                <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        </div>
+    </div>
+</div> */ ?>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()):?>
+        <div class="suceess-container">
+            <div class="success-left">
+                <div class="success-image">
+                    <img src="<?php echo $block->getViewFileUrl('images/Sun-gif.gif')?>" alt="order success">
+                </div>
+            </div>
+            <div class="success-right">
+                <div class="success-messages">
+                    <p><?= __('Your order has been successfully completed!') ?></p><br>
+					<p><?= __('Shortly you will receive a confirmation e-mail.') ?></p>
+					<p><?= __('Have a look at your email spam folder.') ?></p><br>
+                    <?php if ($block->getCanViewOrder()) :?>
+                        <p class="orderno"><?= __('Order number: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+                    <?php  else :?>
+                        <p class="orderno"><?= __('Order number: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+                    <?php endif;?>
+                </div><br>
+                <div class="contact-info">
+                    <p class="info-msg"><?= __('For any questions you can contact us via:') ?></p>
+                    <div class="phone-number"><span class="telephone"></span> <a href="tel:+34 965 59 99 56">+34 965 59 99 56</a></div>
+                    <div class="email-friday"><span class="email"></span> <a href="mailto:bea@happyfriday.es">bea@happyfriday.es</a></div>
+                </div>
+                <!-- <div class="coupen-info">
+                    <p><?= __('This does not end here') ?></p>
+                    <p><?= __('We give you a 5€ discount on your next purchase with the code:') ?></p>
+                    <p class="happy">HLOVERS</p>
+                     <p><img src="<?php echo $mediaUrl.'wysiwyg/happy.png'?>" alt="happy" /></p> 
+                </div> -->
+                <?php echo $this->getLayout()->createBlock('Magento\Checkout\Block\Onepage\Success')->setTemplate('Magento_Checkout::button.phtml')->toHtml(); ?>
+            </div>
+        </div>
+
+        <?= $block->getChildHtml('details') ?>
+    <?php endif;?>
+
+
+
+    <?= $block->getAdditionalInfoHtml() ?>
+    <?= $block->getChildHtml('cms') ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= $block->getUrl() ?>"><span><?= __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+
+    <?php
+    $a = $objectManager->create('\Magento\Checkout\Model\Session')->getLastRealOrder();
+    $orderid = $a->getEntityId();
+
+    $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderid);
+
+    $order_final = $order->getQuoteId();
+    $count =0;
+    $div_principal ="";//Inicio div - unico - hasta cantidades
+    $div_cantidades_calculadas ="";
+    $listado_producto = "";
+    $cierre_div_principal = "</div>";
+    $total_cantidad = 0;
+    $total_precio= 0;
+    $div_cantidad ="";
+    $div_precio ="";
+    //Loop through each item and fetch data
+    foreach ($order->getAllItems() as $item)
+    {
+       //fetch whole item information
+       //print_r($item->getData());
+
+       //Or fetch specific item information
+       //echo $item->getId();
+       //echo $item->getProductType();
+       //echo $item->getQtyOrdered();
+       //echo $item->getPrice();
+      //echo $item['name'] ;
+      //echo $item['item_id'];
+      if($count == 0){
+        $div_principal .="<div class='cn_purchase' style='display:none;'>";
+        $div_principal .="<span class='cart_id'>".$order_final."</span>";
+        $div_principal .="<span class='purchase_id'>".$item['item_id']."</span>";
+        $div_principal .="<span class='purchase_date'>".$item['updated_at']."</span>";
+      }
+      $total_cantidad += $item['qty_ordered'];
+      $total_precio += $item['base_row_total_incl_tax'];
+      //
+      $listado_producto .= "<div class='product_basket_item'>";
+      $listado_producto .= "<span class='quantity'>".number_format($item['qty_ordered'],0)."</span>";
+      $listado_producto .= "<span class='price'>".number_format($item['row_total'],2)."</span>";
+      $listado_producto .= "<span class='product_id'>".$item['product_id']."</span>";//PRecio total
+      $listado_producto .= "<span class='name'>".$item['name']."</span>";
+      $listado_producto .= "<span class='unit_price'>".number_format($item['price'],2)."</span>";//Precio unitario
+      $listado_producto .= "</div>";
+      $count++;
+    }
+    echo $div_principal."<span class='total_quantity'>".$total_cantidad."</span><span class='total_price'>".number_format($total_precio,2)."</span>".$listado_producto.$cierre_div_principal;
+    ?>
+    <div class="cn_client_info" style="display:none">
+        <span class="primary_key"><?=$order->getCustomerEmail()?></span>
+        <span class="_name"><?=$order->getCustomerFirstname()?></span>
+        <span class="_surname"><?=$order->getCustomerLastname()?></span>
+    </div>
+
+</div>
+<?php ?>

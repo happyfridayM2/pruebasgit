@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeEnablingFilteringWithByButtonClickTest" extends="BrandAttributeEnablingFilteringWithAjaxTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering with by button click on all products page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="BRANDATTR-3"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1" ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxByButtonClickOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Brand Attribute (Material): filter All-products Page by Brand Attribute Filter (Material) with by button click/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}" after="selectPolyesterOption1"
+                               stepKey="waitForByButtonClickButton1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}" after="waitForByButtonClickButton1"
+               stepKey="clickOnByButtonClick1"/>
+
+    </test>
+</tests>

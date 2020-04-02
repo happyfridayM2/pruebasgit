@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringSidebarLabelsMSIInteractionScenario2Test"
+          extends="StockFilterEnablingFilteringSidebarLabelsMSIInteractionScenario1Test">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode with MSI mode (scenario 2)"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-21"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="StockFilterEnabling1"
+                         ref="StockFilterEnablingWithMSIActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+                <argument name="filter_selector" value="AdminManageSourcesGridFilterControls.code"/>
+                <argument name="filter_value1" value="$$createTestSourceA1.source[source_code]$$"/>
+                <argument name="filter_value2" value="$$createTestSourceA2.source[source_code]$$"/>
+                <argument name="filter_value3" value="$$createTestSourceA1.source[name]$$"/>
+                <argument name="filter_value4" value="$$createTestSourceA2.source[name]$$"/>
+                <argument name="customFilter4" value="StockFilterMSIQtyScenario2"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('In Stock')}}"
+               stepKey="selectStockOption1"/>
+        <remove keyForRemoval="checkProductStock1"/>
+        <dontSee selector="{{StorefrontProductSection.ProductID}}"
+                 userInput="Out of Stock"
+                 stepKey="checkProductStock2"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="1"
+             stepKey="checkQtyOfProducts1"/>
+        <dontSee selector="{{StorefrontFilterElementsSection.FilterOption('Out of Stock')}}"
+                 userInput="Out of Stock"
+                 stepKey="checkFilterOptions1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('In Stock')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+
+    </test>
+</tests>
+

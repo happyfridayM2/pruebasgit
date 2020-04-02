@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2019 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="ordersexporttool_checkout_submit_all_after" instance="Wyomind\OrdersExportTool\Observer\CheckoutSubmitAllAfter"/>
+    </event>
+    <event name="ordersexporttool_export_order">
+        <observer name="export_order" instance="Wyomind\OrdersExportTool\Observer\OrderExport"/>
+    </event>
+</config>

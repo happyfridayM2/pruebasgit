@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarSearchBoxEnabledTest" extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode with enabled SearchBox"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-11"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeNoDepthTwoActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeNoDepthThreeCurCatLevImagesLabels"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSShowSearchBoxYes"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup"
+                         after="ConfigureCategoryIDSDisplayMode1">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check SearchBox, select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterSearchBox('category_ids')}}"
+                    stepKey="checkSearchBox1"
+                    after="clickOnCategoryFilter1"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Jackets','Hoodies &amp; Sweatshirts','Tees','Bras &amp; Tanks')}}"
+                stepKey="checkCategoryTreeSequence1"
+                after="checkSearchBox1"/>
+        <fillField userInput="n"
+                   selector="{{StorefrontFilterElementsSection.FilterSearchBox('category_ids')}}"
+                   stepKey="fillField1"
+                   after="checkCategoryTreeSequence1"/>
+        <dontSee
+                userInput="Jackets"
+                selector="{{StorefrontFilterElementsSection.FilterOptionLast('Jackets')}}"
+                stepKey="checkCategoryTreeSequence2"
+                after="fillField1"/>
+        <clearField selector="{{StorefrontFilterElementsSection.FilterSearchBox('category_ids')}}"
+                    stepKey="clearField1"
+                    after="checkCategoryTreeSequence2"/>
+        <pressKey selector="{{StorefrontFilterElementsSection.FilterSearchBox('category_ids')}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]"
+                  stepKey="pressKeyEnter1"
+                  after="clearField1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.FilterSearchBox('category_ids')}}"
+                        stepKey="checkSearchBox2"
+                        after="clickOnCategoryFilter2"/>
+
+    </test>
+</tests>
+
+

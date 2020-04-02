@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarCategoryTreeNoDepthOneImagesOnlyTest"
+          extends="CategoryFilterLabelsSidebarCategoryTreeNoDepthOneLabelsOnlyTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and rendering of Category Tree with Children Categories Depth of one, Images only"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-84"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeNoDepthOneActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeNoDepthOneImagesOnly"/>
+            </actionGroup>
+        </before>
+
+        <!--Navigate to All-Products Page and Category Page: check the result of Category Tree Rendering/-->
+
+        <dontSee selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+                 userInput="Women"
+                 stepKey="checkCategoryOptionLabel1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                    stepKey="checkCategoryOptionImage1"/>
+        <dontSee selector="{{StorefrontFilterElementsSection.FilterOption('Jackets')}}"
+                 userInput="Jackets"
+                 stepKey="checkCategoryOptionLabel2"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Jackets','placeholder.jpg','placeholder.jpg')}}"
+                stepKey="checkCategoryOptionImage2"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RTCNoindexMultipleAttributeFiltersAppliedSingleSelectSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Noindex when Multiple Attribute Filters Applied setting enabling"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-18"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="rtcsettings"/>
+            <group value="noindexformultioptions"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SeoEnabling1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="enableNoindexForMultipleOptions"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup" stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowSingleSelection"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling1"
+                         ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check RTC settings: navigate to All-Products Page, check RTC in Page Source, filter Page, check RTC in Page Source/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Solid')}}"
+                        stepKey="waitForFilterOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption1"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource3"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+                        stepKey="waitForFilterOption2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+               stepKey="clickIndoorOption1"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>
+
+

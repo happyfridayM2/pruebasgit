@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="allBrandsPageWidgetCode" type="widgetCode">
+        <data key="CookieUserInput">setAllBrandsPageWidgetCodeInCookie</data>
+        <data key="AmWidgetType">Amasty Brand List</data>
+
+    </entity>
+    <entity name="brandSliderWidgetCode" type="widgetCode">
+        <data key="CookieUserInput">setBrandSliderWidgetCodeInCookie</data>
+        <data key="AmWidgetType">Amasty Brand Slider</data>
+    </entity>
+
+
+
+</entities>

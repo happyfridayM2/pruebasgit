@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterFilteringBrandFilterInteractionTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter filtering in interaction with other filters"/>
+            <description
+                    value="Check of stock filter filtering in interaction with brand attribute"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-11"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by On Stock Filter: select Out of Stock option on sidebar, filter by Brand Attribute Filter (Material), select Out of Stock option on sidebar, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnMaterialFilter1"
+               after="selectStockOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="selectPolyesterOption1"
+               after="clickOnMaterialFilter1"/>
+        <seeInPageSource html="ambrand-"
+                         stepKey="checkIfItBrandPage1"
+                         after="checkProductStock3"/>
+
+    </test>
+</tests>
+
+

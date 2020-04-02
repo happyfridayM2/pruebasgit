@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="AdminILNSeoSettingsPage" url="/admin/system_config/edit/section/amasty_shopby_seo/" area="admin"
+          module="ShopbySeo">
+        <section name="AdminILNSeoSettingsSection"/>
+    </page>
+
+</pages>

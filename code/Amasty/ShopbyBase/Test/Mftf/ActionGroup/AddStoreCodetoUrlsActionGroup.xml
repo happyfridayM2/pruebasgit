@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AddStoreCodeToUrlsActionGroup">
+        <magentoCLI
+                command="config:set {{StorefrontEnableAddStoreCodeToUrls.path}} {{StorefrontEnableAddStoreCodeToUrls.value}}"
+                stepKey="addStoreCodeToUrlEnable"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+    </actionGroup>
+
+    <actionGroup name="DisableAddStoreCodeToUrlsActionGroup">
+        <magentoCLI
+                command="config:set {{StorefrontDisableAddStoreCodeToUrls.path}} {{StorefrontDisableAddStoreCodeToUrls.value}}"
+                stepKey="addStoreCodeToUrlDisable"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+    </actionGroup>
+
+</actionGroups>

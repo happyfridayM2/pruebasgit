@@ -1,0 +1,100 @@
+<?php
+$cart = $this->getCart();
+$escaper = $this->getHtmlEscaper();
+?>
+
+<!-- Connectif Cart Tags -->
+
+<div class="cn_cart" style="display:none">
+<span class="cart_id"><?php echo $escaper->escapeHtml($cart['cartId']); ?></span>
+    <span class="total_quantity"><?php echo $escaper->escapeHtml($cart['totalQuantity']); ?></span>
+    <span class="total_price"><?php echo $escaper->escapeHtml($cart['totalPrice']); ?></span>
+
+    <?php foreach ($cart['products'] as $key => $product): ?>
+        <div class="product_basket_item">
+
+            <?php if (array_key_exists("quantity", $product) && is_numeric($product['quantity'])) {?>
+            <span class="quantity"><?php echo $escaper->escapeHtml($product['quantity']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("price", $product) && is_numeric($product['price'])) {?>
+            <span class="price"><?php echo $escaper->escapeHtml($product['price']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("url", $product)) {?>
+            <span class="url"><?php echo $escaper->escapeHtml($product['url']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("product_id", $product)) {?>
+            <span class="product_id"><?php echo $escaper->escapeHtml($product['product_id']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("name", $product)) {?>
+            <span class="name"><?php echo $escaper->escapeHtml($product['name']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("description", $product) ) {?>
+            <span class="description"><?php echo $escaper->escapeHtml($product['description']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("image_url", $product)) {?>
+            <span class="image_url"><?php echo $escaper->escapeHtml($product['image_url']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("unit_price", $product) && is_numeric($product['unit_price'])) {?>
+            <span class="unit_price"><?php echo $escaper->escapeHtml($product['unit_price']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("availability", $product)) {?>
+            <span class="availability"><?php echo $escaper->escapeHtml($product['availability']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("unit_price_original", $product) && is_numeric($product['unit_price_original'])) {?>
+                <span class="unit_price_original"><?php echo $escaper->escapeHtml($product['unit_price_original']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("unit_price_without_vat", $product) && is_numeric($product['unit_price_without_vat'])) {?>
+                <span class="unit_price_without_vat"><?php echo $escaper->escapeHtml($product['unit_price_without_vat']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("discounted_percentage", $product) && is_numeric($product['discounted_percentage'])) {?>
+                <span class="discounted_percentage"><?php echo $escaper->escapeHtml($product['discounted_percentage']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("discounted_amount", $product) && is_numeric($product['discounted_amount'])) {?>
+                <span class="discounted_amount"><?php echo $escaper->escapeHtml($product['discounted_amount']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("brand", $product) && $product['brand'] != false) {?>
+                <span class="brand"><?php echo $escaper->escapeHtml($product['brand']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("rating_count", $product) && is_numeric($product['rating_count'])) {?>
+                <span class="rating_count"><?php echo $escaper->escapeHtml($product['rating_count']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("rating_value", $product) && is_numeric($product['rating_value'])) {?>
+                <span class="rating_value"><?php echo $escaper->escapeHtml($product['rating_value']); ?></span>
+            <?php }?>
+            <?php if (array_key_exists("review_count", $product) && is_numeric($product['review_count'])) {?>
+                <span class="review_count"><?php echo $escaper->escapeHtml($product['review_count']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("thumbnail_url", $product)) {?>
+                <span class="thumbnail_url"><?php echo $escaper->escapeHtml($product['thumbnail_url']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("relatedProductIds", $product)) {?>
+                <?php foreach ($product['relatedProductIds'] as $key => $relatedProductId): ?>
+                    <span class="related_external_product_id"><?php echo $escaper->escapeHtml($relatedProductId); ?></span>
+                <?php endforeach;?>
+            <?php }?>
+
+            <?php if (array_key_exists("categories", $product)) {?>
+                <?php foreach ($product['categories'] as $key => $value): ?>
+                    <span class="category"><?php echo $escaper->escapeHtml($value); ?></span>
+                <?php endforeach;?>
+            <?php }?>
+        </div>
+    <?php endforeach;?>
+</div>

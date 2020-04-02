@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="TestStockA1" type="am_test_stock">
+        <data key="name">Test Stock A1</data>
+        <data key="websites">Main Website</data>
+        <requiredEntity type="stock_extension_attribute">MsiStockWebsite1</requiredEntity>
+    </entity>
+
+    <entity name="DefaultStock" type="am_test_stock">
+        <data key="name">Default Stock</data>
+        <data key="stock_id">1</data>
+        <data key="websites">Main Website</data>
+        <requiredEntity type="stock_extension_attribute">MsiStockWebsite1</requiredEntity>
+    </entity>
+
+</entities>

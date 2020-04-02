@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterEnablingFilteringSidebarLabelsByButtonClickTest"
+          extends="OnSaleFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and filtering"/>
+            <description
+                    value="Check of on sale filter enabling and filtering on sidebar in labels mode by button click"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNONSALEFILTER-18"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxByButtonClickOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by On Sale Filter: select option on sidebar by button click, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton1"
+                               after="clickOnSaleOption1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick1"
+               after="waitForByButtonClickButton1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"
+                               after="clickOnByButtonClick1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1" after="waitForAjaxLoaderVisible1"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton2"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.ByButtonClickAjaxLoader}}"
+                               stepKey="waitForByButtonClickButton3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick2"/>
+        <waitForElementNotVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                                  stepKey="waitForElementNotVisible1"/>
+        <waitForElementNotVisible selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+                                  stepKey="waitForElementNotVisible2"/>
+
+    </test>
+</tests>
+
+

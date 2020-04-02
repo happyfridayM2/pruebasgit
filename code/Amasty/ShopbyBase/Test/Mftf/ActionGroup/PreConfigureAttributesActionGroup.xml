@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="PreConfigureAttributesActionGroup">
+        <arguments>
+            <argument name="attributeSeoScenario1"/>
+            <argument name="attributeSeoScenario2"/>
+            <argument name="attributeSeoScenario4"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario1.PatternID)}}"
+                  stepKey="navigateToPatternAttributePage1"/>
+        <click selector="{{AttributeProfileSection.SaveAndContinueEdit}}" stepKey="clickOnSaveAndContinueButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForElementVisible selector="{{AttributeProfileSection.IssueMessageBlock}}"
+                               stepKey="waitForElementVisible1"/>
+        <grabTextFrom selector="(\.\s\((.*?)\))"
+                      stepKey="grabDuplicateOptionName1"/>
+        <click selector="{{AttributeProfileSection.PreconfOptionAttributeSettingsDeleteButtonLast('$grabDuplicateOptionName1')}}"
+               stepKey="clickOnDeleteOptionButton1"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario2.StyleGeneralID)}}"
+                  stepKey="navigateToStyleGeneralAttributePage1"/>
+        <click selector="{{AttributeProfileSection.SaveAndContinueEdit}}" stepKey="clickOnSaveAndContinueButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <waitForElementVisible selector="{{AttributeProfileSection.IssueMessageBlock}}"
+                               stepKey="waitForElementVisible2"/>
+        <grabTextFrom selector="(\.\s\((.*?)\))"
+                      stepKey="grabDuplicateOptionName2"/>
+        <click selector="{{AttributeProfileSection.PreconfOptionAttributeSettingsDeleteButtonLast('$grabDuplicateOptionName2')}}"
+               stepKey="clickOnDeleteOptionButton2"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario4.MaterialID)}}"
+                  stepKey="navigateToMaterialAttributePage1"/>
+        <click selector="{{AttributeProfileSection.SaveAndContinueEdit}}" stepKey="clickOnSaveAndContinueButton3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"/>
+        <waitForElementVisible selector="{{AttributeProfileSection.IssueMessageBlock}}"
+                               stepKey="waitForElementVisible3"/>
+        <grabTextFrom selector="(\.\s\((.*?)\))"
+                      stepKey="grabDuplicateOptionName3"/>
+        <click selector="{{AttributeProfileSection.PreconfOptionAttributeSettingsDeleteButtonLast('$grabDuplicateOptionName3')}}"
+               stepKey="clickOnDeleteOptionButton3"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>

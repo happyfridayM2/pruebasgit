@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+?>
+<div id="am-qty" class="amcart-qty-wrap" data-amcart="qty-wrap">
+    <label for="am-input" class="amcart-label"><?= $block->escapeHtml(__('Qty'));?></label>
+    <span class="amcart-control -minus" data-amcart="qty-minus"></span>
+    <span class="amcart-control -plus" data-amcart="qty-plus"></span>
+    <span class="amcart-refresh" title="<?= $block->escapeHtml(__('Update'));?>" data-amcart="qty-refresh"></span>
+    <input class="amcart-input" id="am-input" maxlength="12" title="Qty" size="7" type="number" min="1"
+           value="<?= /* @noEscape */ $block->getQty(); ?>"
+           name="item_qty"
+           data-amcart="qty-input">
+    <input type="hidden" name="form_key" id="form-key"
+           value="<?= /* @noEscape */ $block->getFormKey(); ?>"
+           data-amcart="qty-form-key"/>
+    <input type="hidden" name="item_id" id="quote_id"
+           value="<?= /* @noEscape */ $block->getQuoteItemId(); ?>"
+           data-amcart="qty-quote-id"/>
+</div>

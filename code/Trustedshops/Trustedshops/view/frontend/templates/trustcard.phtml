@@ -1,0 +1,38 @@
+<?php
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+?>
+<?php /** @var Trustedshops\Trustedshops\Block\Trustcard $this */ ?>
+<?php if ($block->collectOrders()) : ?>
+    <div id="trustedShopsCheckout" style="display: none;">
+        <span id="tsCheckoutOrderNr"><?php echo $block->escapeHtml($block->getIncrementId()) ?></span>
+        <span id="tsCheckoutBuyerEmail"><?php echo $block->escapeHtml($block->getCustomerEmail()) ?></span>
+        <span id="tsCheckoutOrderAmount"><?php echo $block->escapeHtml($block->getOrderAmount()) ?></span>
+        <span id="tsCheckoutOrderCurrency"><?php echo $block->escapeHtml($block->getStoreCurrencyCode()) ?></span>
+        <span id="tsCheckoutOrderPaymentType"><?php echo $block->escapeHtml($block->getPaymentMethod()) ?></span>
+        <span id="tsCheckoutOrderEstDeliveryDate"><?php echo $block->escapeHtml($block->getEstimatedDeliveryDate()) ?></span>
+        <?php if ($block->collectReviews()) : ?>
+            <!-- product reviews start -->
+            <!-- for each product in the basket full set of data is required -->
+            <?php /** @var Magento\Sales\Model\Order\Item $item */ ?>
+            <?php foreach ($block->getOrder()->getAllVisibleItems() as $item) : ?>
+                <span class="tsCheckoutProductItem">
+                    <span class="tsCheckoutProductUrl"><?php echo $block->escapeHtml($block->getProductUrl($item)) ?></span>
+                    <span class="tsCheckoutProductImageUrl"><?php echo $block->escapeHtml($block->getProductImage($item)) ?></span>
+                    <span class="tsCheckoutProductName"><?php echo $block->escapeHtml($block->getName($item)) ?></span>
+                    <span class="tsCheckoutProductSKU"><?php echo $block->escapeHtml($block->getProductSkuByItem($item)) ?></span>
+                    <span class="tsCheckoutProductGTIN"><?php echo $block->escapeHtml($block->getProductGTIN($item)) ?></span>
+                    <span class="tsCheckoutProductMPN"><?php echo $block->escapeHtml($block->getProductMPN($item)) ?></span>
+                    <span class="tsCheckoutProductBrand"><?php echo $block->escapeHtml($block->getProductBrand($item)) ?></span>
+                </span>
+            <?php endforeach; ?>
+            <!-- product reviews end -->
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

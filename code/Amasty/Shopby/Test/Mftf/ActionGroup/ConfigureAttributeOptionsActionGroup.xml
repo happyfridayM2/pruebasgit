@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureAttributeOptionPageContent">
+        <arguments>
+            <argument name="Attributes"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(Attributes.Attribute)}}" stepKey="OpenAttributeProfilePagePage"/>
+        <reloadPage stepKey="reloadPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <click selector="{{AttributeProfileSection.OptionAttributeSettingsDeleteButton('settings',Attributes.OptionName)}}"
+               stepKey="clickSettingsButton"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForElement selector="{{AttributeProfileSection.PageTitle}}" stepKey="waitPopup"/>
+        <uncheckOption selector="{{AttributeProfileSection.UseDefaultPageTitle}}" stepKey="UncheckUseDefaultValue"/>
+        <fillField selector="{{AttributeProfileSection.PageTitle}}"
+                   userInput="{{Attributes.PageTitle}}"
+                   stepKey="FillTitle"/>
+        <fillField selector="{{AttributeProfileSection.Description}}"
+                   userInput="{{Attributes.Description}}"
+                   stepKey="FillDescription"/>
+        <attachFile userInput="{{Attributes.Image}}"
+                    selector="{{AttributeProfileSection.Image}}"
+                    stepKey="ConfigureFile1"/>
+        <wait time="3" stepKey="waitSeconds2"/>
+        <selectOption selector="{{AttributeProfileSection.TopCMSBlock}}"
+                      userInput="{{Attributes.TopCMSBlock}}"
+                      stepKey="SetTopCMSBlock"/>
+        <click selector="{{AttributeProfileSection.SaveProperty}}" stepKey="clickSaveButton"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureBrandAttributeOptionPageContent" extends="ConfigureAttributeOptionPageContent">
+        <arguments>
+            <argument name="Attributes"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.BrandShortDescription}}"
+                   userInput="{{Attributes.BrandShortDescription}}"
+                   stepKey="FillShortDescription1"
+                   after="FillDescription"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureDefaultAttributeOptionPageContent" extends="ConfigureAttributeOptionPageContent">
+        <arguments>
+            <argument name="Attributes"/>
+        </arguments>
+        <click selector="{{AttributeProfileSection.DeleteImage}}" stepKey="ConfigureFile1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureDefaultBrandAttributeOptionPageContent" extends="ConfigureAttributeOptionPageContent">
+        <arguments>
+            <argument name="Attributes"/>
+        </arguments>
+        <click selector="{{AttributeProfileSection.DeleteImage}}" stepKey="ConfigureFile1"/>
+        <fillField selector="{{AttributeProfileSection.BrandShortDescription}}"
+                   userInput="{{Attributes.BrandShortDescription}}"
+                   stepKey="FillShortDescription1"
+                   after="FillDescription"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAttributeOptionMetaDataActionGroup">
+        <arguments>
+            <argument name="Attributes"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(Attributes.Attribute)}}" stepKey="OpenAttributeProfilePagePage"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <waitForElement
+                selector="{{AttributeProfileSection.OptionAttributeSettingsDeleteButton('settings',Attributes.OptionName)}}"
+                stepKey="waitForElement1"/>
+        <click selector="{{AttributeProfileSection.OptionAttributeSettingsDeleteButton('settings',Attributes.OptionName)}}"
+               stepKey="clickSettingsButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"/>
+        <waitForElement selector="{{AttributeProfileSection.MetaDescription}}" stepKey="waitPopup2"/>
+        <uncheckOption selector="{{AttributeProfileSection.UseDefaultMetaTitle}}" stepKey="UncheckUseDefaultValue2"/>
+        <fillField selector="{{AttributeProfileSection.MetaTitle}}"
+                   userInput="{{Attributes.MetaTitle}}"
+                   stepKey="FillMetaTitle2"/>
+        <fillField selector="{{AttributeProfileSection.MetaDescription}}"
+                   userInput="{{Attributes.MetaDescription}}"
+                   stepKey="FillMetaDescription2"/>
+        <fillField selector="{{AttributeProfileSection.MetaKeywords}}"
+                   userInput="{{Attributes.MetaKeywords}}"
+                   stepKey="FillMetaKeywords2"/>
+        <click selector="{{AttributeProfileSection.SaveProperty}}" stepKey="clickSaveButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache2"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+

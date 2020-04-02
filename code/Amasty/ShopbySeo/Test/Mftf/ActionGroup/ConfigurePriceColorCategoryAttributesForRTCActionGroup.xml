@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureAttributesForRTCActionGroup">
+        <arguments>
+            <argument name="RTC"/>
+            <argument name="RTC2"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(RTC.ID)}}" stepKey="navigateToColorAttributePage1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.DisplayModeSwitcher}}"
+                      userInput="{{RTC2.DisplayModeSwitcher}}" stepKey="setLabelsMode1"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{RTC2.AllowMultiSelectSwitcher}}" stepKey="allowMultiSelect1"/>
+        <selectOption selector="{{AttributeProfileSection.IndexModeSwitcher}}"
+                      userInput="{{RTC.IndexModeSwitcher}}" stepKey="enableIndexModeSwitcher1"/>
+        <selectOption selector="{{AttributeProfileSection.FollowModeSwitcher}}"
+                      userInput="{{RTC.FollowModeSwitcher}}" stepKey="enableFollowModeSwitcher1"/>
+        <selectOption selector="{{AttributeProfileSection.RelNoFollowSwitcher}}"
+                      userInput="{{RTC.RelNoFollowSwitcher}}" stepKey="enableRelNoFollowSwitcher1"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPages1"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowFilterOnSRPSwitcher}}"
+                      userInput="{{RTC2.ShowFilterOnSRPSwitcher}}" stepKey="enableShowOnSRP1"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigurePriceForRTCActionGroup">
+        <arguments>
+            <argument name="RTC"/>
+            <argument name="RTC2"/>
+        </arguments>
+        <remove keyForRemoval="allowMultiSelect1"/>
+    </actionGroup>
+
+</actionGroups>

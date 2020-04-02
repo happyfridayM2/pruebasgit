@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminIlnBrandsSettingsSection">
+        <element name="GeneralSettingsTab" type="block" selector="#amshopby_brand_general-head"/>
+        <element name="SelectBrandAttributeOption" type="select" selector="#amshopby_brand_general_attribute_code"/>
+        <element name="BrandUrlKeyField" type="select" selector="#amshopby_brand_general_url_key"/>
+        <element name="ChooseCMSPage" type="select" selector="#amshopby_brand_general_brands_page"/>
+        <element name="AddBrandsLinkTopMenu" type="select" selector="#amshopby_brand_general_topmenu_enabled"/>
+        <element name="ShowBrandsList" type="select" selector="#amshopby_brand_general_brands_popup"/>
+        <element name="AddBrandsAccountTopLinks" type="select" selector="#amshopby_brand_general_top_links"/>
+        <element name="BrandsItemLabel" type="select" selector="#amshopby_brand_general_menu_item_label"/>
+        <element name="BrandsItemLabelLocker" type="select" selector="#amshopby_brand_general_menu_item_label_inherit"/>
+        <element name="DisplayTooltip" type="select" selector="#amshopby_brand_general_tooltip_enabled"/>
+        <element name="TooltipContent" type="select" selector="#amshopby_brand_general_tooltip_content"/>
+        <element name="TooltipContentLocker" type="select" selector="#amshopby_brand_general_tooltip_content_inherit"/>
+        <element name="Save" type="button" selector="#save"/>
+    </section>
+
+    <section name="AdminProductPageBrandsSettingsSection">
+        <element name="ProductPageBrandSettingsTab" type="block" selector="#amshopby_brand_product_page-head"/>
+        <element name="DisplayBrandLogoProductPageSwitcher" type="select"
+                 selector="#amshopby_brand_product_page_display_brand_image"/>
+        <element name="DisplayShortDescProductPageSwitcher" type="select"
+                 selector="#amshopby_brand_product_page_display_description"/>
+        <element name="BrandLogoWidth" type="input" selector="#amshopby_brand_product_page_width"/>
+        <element name="BrandLogoHeight" type="input" selector="#amshopby_brand_product_page_height"/>
+    </section>
+
+    <section name="AdminProductListingBrandSettingsSection">
+        <element name="ProductListingBrandSettingsTab" type="block"
+                 selector="#amshopby_brand_product_listing_settings-head"/>
+        <element name="DisplayBrandLogoProductListing" type="select"
+                 selector="#amshopby_brand_product_listing_settings_show_on_listing"/>
+        <element name="BrandLogoWidthOnListing" type="input"
+                 selector="#amshopby_brand_product_listing_settings_listing_brand_logo_width"/>
+        <element name="BrandLogoHeightOnListing" type="input"
+                 selector="#amshopby_brand_product_listing_settings_listing_brand_logo_height"/>
+    </section>
+
+    <section name="AdminAllBrandsPageSettingsSection">
+        <element name="AllBrandsPageSettingsTab" type="block" selector="#amshopby_brand_brands_landing-head"/>
+        <element name="AllBrandsPageWidgetCode" type="textarea" selector="#amshopby_brand_brands_landing_notice"/>
+        <element name="ShowBrandLogoSwitcher" type="select" selector="#amshopby_brand_brands_landing_show_images"/>
+        <element name="ImageMaxWidth" type="input" selector="#amshopby_brand_brands_landing_image_width"/>
+        <element name="ImageMaxHeight" type="input" selector="#amshopby_brand_brands_landing_image_height"/>
+        <element name="EnableSearchSwitcher" type="select" selector="#amshopby_brand_brands_landing_show_search"/>
+        <element name="EnableFilterCharacterSwitcher" type="select"
+                 selector="#amshopby_brand_brands_landing_show_filter"/>
+        <element name="ShowCharactersWithoutBrandsSwitcher" type="select"
+                 selector="#amshopby_brand_brands_landing_filter_display_all"/>
+        <element name="ShowProductsQuantitySwitcher" type="select"
+                 selector="#amshopby_brand_brands_landing_show_count"/>
+        <element name="ShowBrandsWithoutProductsSwitcher" type="select"
+                 selector="#amshopby_brand_brands_landing_display_zero"/>
+    </section>
+
+    <section name="AdminBrandSliderSettingsSection">
+        <element name="BrandSliderSettingsTab" type="block" selector="#amshopby_brand_slider-head"/>
+        <element name="BrandSliderWidgetCode" type="textarea" selector="#amshopby_brand_slider_notice"/>
+        <element name="VisibleItemsQuantity" type="input" selector="#amshopby_brand_slider_items_number"/>
+        <element name="SortBySwitcher" type="select" selector="#amshopby_brand_slider_sort_by"/>
+        <element name="HeaderBackgroundColor" type="input" selector="#amshopby_brand_slider_slider_header_color"/>
+        <element name="HeaderTextColor" type="input" selector="#amshopby_brand_slider_slider_title_color"/>
+        <element name="HeaderTitle" type="input" selector="#amshopby_brand_slider_slider_title"/>
+        <element name="SliderMaxWidth" type="input" selector="#amshopby_brand_slider_slider_width"/>
+        <element name="ImageMaxWidth" type="input" selector="#amshopby_brand_slider_image_width"/>
+        <element name="ImageMaxHeight" type="input" selector="#amshopby_brand_slider_image_height"/>
+        <element name="ShowBrandLabelSwitcher" type="select" selector="#amshopby_brand_slider_show_label"/>
+        <element name="ShowButtonsSwitcher" type="select" selector="#amshopby_brand_slider_buttons_show"/>
+        <element name="InfinityLoopSwitcher" type="select" selector="#amshopby_brand_slider_infinity_loop"/>
+        <element name="SimulateTouchSwitcher" type="select" selector="#amshopby_brand_slider_simulate_touch"/>
+        <element name="ShowPaginationSwitcher" type="select" selector="#amshopby_brand_slider_pagination_show"/>
+        <element name="AutoplaySwitcher" type="select" selector="#amshopby_brand_slider_autoplay"/>
+        <element name="ClickablePaginationSwitcher" type="select"
+                 selector="#amshopby_brand_slider_pagination_clickable"/>
+        <element name="AutoplayDelay" type="input" selector="#amshopby_brand_slider_autoplay_delay"/>
+        <element name="BrandSliderWidgetNumberOfColumnsSwitcher" type="select"
+                 selector="//input[@name='parameters[columns]']"/>
+    </section>
+
+    <section name="AdminIlnBrandManagementGridSection">
+        <element name="BrandAttributeOptionCheckbox" type="button"
+                 selector="//tr[contains(string(), '{{var1}}')]//label[@class='data-grid-checkbox-cell-inner']"
+                 parameterized="true"/>
+        <element name="MassActionsElements" type="button"
+                 selector="//*[@id='container']//*[contains(text(), '{{var1}}')]" parameterized="true"/>
+    </section>
+
+    <section name="MoreFromThisBrandSettingsSection">
+        <element name="MoreFromThisBrandBSettingsTab" type="block" selector="#amshopby_brand_more_from_brand-head"/>
+        <element name="EnableMoreFromThisBrandBlockSwitcher" type="select"
+                 selector="#amshopby_brand_more_from_brand_enable"/>
+        <element name="MoreFromThisBrandBlockTitle" type="input" selector="#amshopby_brand_more_from_brand_title"/>
+        <element name="MaxProductCount" type="input" selector="#amshopby_brand_more_from_brand_count"/>
+    </section>
+
+</sections>

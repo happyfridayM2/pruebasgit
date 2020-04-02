@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <!-- add css and js files -->
+    <head>
+        <css src="Wyomind_OrdersExportTool::css/profiles/edit/blackbox.css"/>
+        <css src="Wyomind_OrdersExportTool::css/profiles/edit/cron.css"/>
+        <css src="Wyomind_OrdersExportTool::css/profiles/edit/template.css"/>
+        <css src="Wyomind_OrdersExportTool::css/profiles/edit/filters.css"/>
+        <css src="Wyomind_OrdersExportTool::css/profiles/edit/global.css"/>
+        <css src="Wyomind_Core::js/codemirror5/lib/codemirror.css"/>
+
+    </head>
+    <body>
+        <!-- main block -->
+        <referenceContainer name="content">
+            <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit" name="ordersexporttool_profile_edit"/>
+            <block class="Magento\Framework\View\Element\Template" name="ordersexporttool_profiles_edit_utils" template="Wyomind_OrdersExportTool::profiles/edit/utils.js.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="ordersexporttool_profiles_edit_blackbox" template="Wyomind_OrdersExportTool::profiles/edit/blackbox.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="ordersexporttool_profiles_edit_configuration" template="Wyomind_OrdersExportTool::profiles/edit/template.phtml"/>
+        </referenceContainer>
+        <!-- left tabs -->
+        <referenceContainer name="left">
+            <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tabs" name="ordersexporttool_ordersexporttool_edit_tabs">
+                <!-- declare blocks to use in the addTab method -->
+                <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tab\Configuration" name="ordersexporttool_profiles_edit_tab_configuration"/>
+                <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tab\Filters" name="ordersexporttool_profiles_edit_tab_filters"/>
+                <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tab\Cron" name="ordersexporttool_profiles_edit_tab_cron"/>
+                <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tab\Output" name="ordersexporttool_profiles_edit_tab_output"/>
+                <block class="Wyomind\OrdersExportTool\Block\Adminhtml\Profiles\Edit\Tab\Template" name="ordersexporttool_profiles_edit_tab_template"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">configuration_section</argument>
+                    <argument name="block" xsi:type="string">ordersexporttool_profiles_edit_tab_configuration</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">filters_section</argument>
+                    <argument name="block" xsi:type="string">ordersexporttool_profiles_edit_tab_filters</argument>
+                    <argument name="after" xsi:type="string">configuration_section</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">template_section</argument>
+                    <argument name="block" xsi:type="string">ordersexporttool_profiles_edit_tab_template</argument>
+                </action>
+
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">categories_section</argument>
+                    <argument name="block" xsi:type="string">ordersexporttool_profiles_edit_tab_output</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">cron_section</argument>
+                    <argument name="block" xsi:type="string">ordersexporttool_profiles_edit_tab_cron</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

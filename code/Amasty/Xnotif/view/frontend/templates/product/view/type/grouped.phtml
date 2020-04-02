@@ -1,0 +1,148 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * Grouped product data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Magento\GroupedProduct\Block\Product\View\Type\Grouped
+ */
+?>
+<?php $block->setPreconfiguredValue(); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_associatedProducts = $block->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php $amastyHelper = $this->helper('Amasty\Xnotif\Helper\Data'); ?>
+
+<div class="table-wrapper grouped">
+    <table class="table data grouped" id="super-product-table">
+        <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Grouped product items') ?></caption>
+        <thead>
+        <tr>
+            <th class="col item" scope="col"><?php /* @escapeNotVerified */ echo __('Product Name') ?></th>
+            <?php if ($_product->isSaleable()): ?>
+                <th class="col qty" scope="col"><?php /* @escapeNotVerified */ echo __('Qty') ?></th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+
+        <?php if ($_hasAssociatedProducts): ?>
+            <?php foreach ($_associatedProducts as $_item): ?>
+                <tbody>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>" class="col item">
+                        <strong class="product-item-name"><?php echo $block->escapeHtml($_item->getName()) ?></strong>
+                        <?php if ($block->getCanShowProductPrice($_product)): ?>
+                            <?php if ($block->getCanShowProductPrice($_item)): ?>
+                                <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item) ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php
+                        /*Amasty block start*/
+                        if (!$amastyHelper->isItemSalable($_item)) {
+                            echo $amastyHelper->getGroupedAlert($_item);
+                        }
+                        /*Amasty block end*/
+                        ?>
+                    </td>
+                    <?php if ($_product->isSaleable()): ?>
+                        <td data-th="<?php echo $block->escapeHtml(__('Qty')); ?>" class="col qty">
+                            <?php if ($amastyHelper->isItemSalable($_item)) : ?>
+                                <div class="control qty">
+                                    <input type="number" name="super_group[<?php /* @escapeNotVerified */ echo $_item->getId() ?>]"
+                                           data-selector="super_group[<?php /* @escapeNotVerified */ echo $_item->getId() ?>]"
+                                           maxlength="12"
+                                           value="<?php /* @escapeNotVerified */ echo $_item->getQty() * 1 ?>"
+                                           title="<?php /* @escapeNotVerified */ echo __('Qty') ?>"
+                                           class="input-text qty"
+                                           data-validate="{'validate-grouped-qty':'#super-product-table'}"
+                                           data-errors-message-box="#validation-message-box"/>
+                                </div>
+                            <?php else: ?>
+                                <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                                    <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+                <?php if ($block->getCanShowProductPrice($_product)
+                    && $block->getCanShowProductPrice($_item)
+                    && trim($block->getProductPriceHtml(
+                        $_item,
+                        \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                    ))): ?>
+                    <tr class="row-tier-price">
+                        <td colspan="2">
+                            <?php echo $block->getProductPriceHtml(
+                                $_item,
+                                \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                            ) ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tbody>
+            <tr>
+                <td class="unavailable"
+                    colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>">
+                    <?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?>
+                </td>
+            </tr>
+            </tbody>
+        <?php endif; ?>
+    </table>
+</div>
+<div id="validation-message-box"></div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Catalog/product/view/validation'
+    ], function ($, validation) {
+        "use strict";
+        $('.grouped .amxnotif-block .amxnotif-guest-email').attr('data-validate', "");
+        $('.grouped .amxnotif-block .amxnotif_guest_action button').click(function(event) {
+            event.preventDefault();
+            var parent = $(this).parents('.amxnotif-block').first();
+            if (parent) {
+                var actionUrl = parent.attr('data-action');
+            }
+
+            if (!actionUrl) {
+                return;
+            }
+
+            var f = $("<form/>",
+                { action: actionUrl }
+            );
+
+            var email = parent.find('.amxnotif-guest-email');
+            email.attr('data-validate', "{required:true, 'validate-email':true}");
+
+            parent.children().each(function (child) {
+                $(this).clone().prependTo( f );
+            });
+
+            f.hide().appendTo('body');
+            var validator = $(email).validation({});
+
+            if (validator.valid()) {
+                f.submit();
+            }
+            f.remove();
+
+            email.attr('data-validate', "");
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,83 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php /** @var \Amasty\Shopby\Block\Navigation\State $block */?>
+<?php
+$filters = $block->getActiveFilters();
+$value = [];
+?>
+<?php if (!empty($filters)): ?>
+    <div id="am-shopby-container" class="amshopby-filter-current filter-current" data-am-js="shopby-container"
+         data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": false }}'>
+        <span class="block-subtitle filter-current-subtitle"
+                role="heading"
+                aria-level="2"
+                data-role="title"
+                data-count="<?= /* @noEscape */ count($filters); ?>">
+            <?= $block->escapeHtml(__('Now Shopping by')) ?>
+        </span>
+        <ol class="amshopby-items items">
+            <?php foreach ($filters as $filter): ?>
+                <?php
+                    /** @var \Magento\Catalog\Model\Layer\Filter\Item $filter */
+                    $filterSetting = $block->getFilterSetting($filter->getFilter());
+                    $value = $value ?: $filter->getValue();
+                    $resultValue = $block->getFilterValue($value, $filter);
+                    $clearLinkUrl = $filter->getClearLinkUrl();
+                    $currentFilterName = __('Remove') . " " . __($filter->getName())
+                        . " " . $block->stripTags($filter->getLabel());
+                ?>
+                <li class="item amshopby-item"
+                    data-am-js="shopby-item"
+                    data-container="<?= /* @noEscape */ $filter->getFilter()->getRequestVar() ?>"
+                    data-value="<?= /* @noEscape */ $block->getDataValue($resultValue) ?>">
+                    <?php if ($clearLinkUrl): ?>
+                        <a class="action previous"
+                           href="<?= $block->escapeUrl($filter->getRemoveUrl()) ?>"
+                           title="<?= $block->escapeHtml(__('Previous')) ?>">
+                            <span><?= $block->escapeHtml(__('Previous')) ?></span>
+                        </a>
+                        <a class="action remove"
+                           title="<?= $block->escapeHtml($filter->getFilter()->getClearLinkText()) ?>"
+                           href="<?= $block->escapeUrl($clearLinkUrl) ?>">
+                            <span><?= $block->escapeHtml($filter->getFilter()->getClearLinkText()) ?></span>
+                        </a>
+                    <?php else: ?>
+                        <a class="amshopby-remove"
+                           href="<?= $block->escapeUrl($filter->getRemoveUrl($resultValue)) ?>"
+                           title="<?= $block->escapeHtml($currentFilterName);?>">
+                        </a>
+                    <?php endif; ?>
+                    <span class="amshopby-filter-name">
+                        <?= $block->escapeHtml(__($filter->getName())); ?>
+                    </span>
+                    <div class="amshopby-filter-value">
+                        <?= /* @noEscape */ $block->viewLabel($filter);?>
+                    </div>
+                </li>
+
+                <?php $value = $block->changeValueForMultiselect($filter->getFilter(), $value); ?>
+            <?php endforeach; ?>
+            <li class="amshopby-button">
+                <?php if ($block->getUnfoldedCount() && $block->getUnfoldedCount() < count($filters)): ?>
+                    <?= /* @noEscape */ $block->createShowMoreButtonBlock() ?>
+                <?php endif; ?>
+            </li>
+        </ol>
+
+        <script type="text/x-magento-init">
+            {
+                "[data-am-js='shopby-container']": {
+                    "amShopbyFilterContainer": {
+                            "collectFilters": <?= /* @noEscape */ $block->collectFilters(); ?>,
+                            "numberOfUnfoldedOptions": <?= $block->escapeHtml($block->getUnfoldedCount()) ?>
+                       }
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>

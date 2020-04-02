@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterDropdownSidebarCategoryTreeAllTest" extends="CategoryFilterDropdownSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in dropdown mode and rendering of All Category Tree"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CATEGORYFILTER-47"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDropdownDefaultActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDropdownDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup"
+                         after="ConfigureCategoryIDSDisplayMode1">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <amOnPage url="{{CategoryPage.url('women','tops-women')}}"
+                  stepKey="navigateToAllProducts1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Women','Men','Gear','Training')}}"
+                    stepKey="checkCategoryTreeSequence1"
+                    after="clickCategoryFilterDropdown1"/>
+
+    </test>
+</tests>
+
+

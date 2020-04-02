@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandsLinkLastAndLinkInAccountTopTest" extends="BrandsLinkFirstAndLinkInAccountTopTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page linkschecking"/>
+            <title value="Check of brand link is displayed and redirects"/>
+            <description
+                    value="Check of brand link is displayed on last position in Top Menu and Account Top Links and redirects to Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandlink"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkLastAddToAccountLinks"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that brand link is displayed in Top Menu on last position, Account Top Links displayed and all appropriate links redirect to Brand Page-->
+
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('7')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+
+    </test>
+</tests>

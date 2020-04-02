@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="AdminIlnBrandsSettingsPage" url="/admin/system_config/edit/section/amshopby_brand/" area="admin"
+          module="ShopbyBrand">
+        <section name="AdminIlnBrandsSettingsSection"/>
+    </page>
+
+</pages>

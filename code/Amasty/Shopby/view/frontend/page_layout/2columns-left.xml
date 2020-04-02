@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <move element="amasty.shopby.applybutton.sidebar" destination="sidebar.main" after="catalog.leftnav"/>
+    <move element="catalogsearch.leftnav" destination="sidebar.main" before="-"/>
+    <referenceContainer name="content">
+        <referenceBlock name="amasty.shopby.applybutton.topnav" display="true"/>
+        <referenceBlock name="amshopby.catalog.topnav" display="true"/>
+    </referenceContainer>
+</layout>

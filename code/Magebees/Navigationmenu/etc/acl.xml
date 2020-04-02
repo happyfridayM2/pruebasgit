@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+		<resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+				<resource id="Magebees_Navigationmenu::Heading" title="Navigation Menu" sortOrder="0">
+				<resource id="Magebees_Navigationmenu::menugroup" title="Manage Menu Groups" sortOrder="10" />
+                <resource id="Magebees_Navigationmenu::manageitems" title="Manage Menu Items" sortOrder="20" />
+				</resource>
+				</resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Magebees_Navigationmenu::navigationmenusetting" title="Navigation Menu Setting"  />
+                
+                    </resource>
+                    </resource>
+                </resource>
+				
+             </resource>
+        </resources>
+    </acl>
+</config>
+
+
+
+
+
+
+

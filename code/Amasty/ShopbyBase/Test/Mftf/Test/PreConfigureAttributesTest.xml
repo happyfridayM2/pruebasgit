@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PreConfigureAttributesTest">
+
+        <annotations>
+            <features value="Magento bugs"/>
+            <stories value="Magento bugs adjustment"/>
+            <title value="Adjust Magento bug with duplicate options"/>
+            <description value="Adjust Magento bug with duplicate options on Attribute Profile Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="SHOPBYBASE-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="preconfigurationgroup"/>
+        </annotations>
+
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        <actionGroup stepKey="preConfigureAttributes1"
+                     ref="PreConfigureAttributesActionGroup">
+            <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+            <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+            <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+        </actionGroup>
+        <actionGroup ref="logout" stepKey="logout"/>
+
+    </test>
+</tests>
+
+

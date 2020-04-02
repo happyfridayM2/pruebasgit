@@ -1,0 +1,106 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var Magento\Review\Block\Product\View\ListView $block */
+
+$_items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->create('Magento\Store\Model\StoreManagerInterface');
+$reviewFactory = $objectManager->create('Magento\Review\Model\ReviewFactory');
+
+//$product = $objectManager->create('Magento\Catalog\Model\Product')->load($block->getProduct()->getId());
+$product = $block->getProduct();
+$productId = $block->getProduct()->getId();
+$storeId = $storeManager->getStore()->getId();
+
+$ratingCollection = $reviewFactory->create()->getResourceCollection()->addStoreFilter(
+$storeId)->addStatusFilter(\Magento\Review\Model\Review::STATUS_APPROVED)->addEntityFilter('product', $productId);
+$review_count = count($ratingCollection); // How many review in that specific product
+
+// $totalReview = $reviewFactory->create()->getTotalReviews(
+//     $productId,
+//     false,
+//     $storeId
+// );
+
+$reviewRenderer = $objectManager->create('Magento\Review\Block\Product\ReviewRenderer');
+$ratingSummary = $reviewRenderer->getReviewsSummaryHtml($product);
+
+?>
+
+<div class="customizedreview">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Customer Reviews')) . ' (' . $review_count . ')' ?></strong>
+        <div class="average-rating h"><?php echo $ratingSummary ?></div>
+    </div>
+    <div class="review-form-wrapper">
+        <div class="add-review"><button type="button" class="review-form-toggle">Add Review</button></div>
+        <div class="review-form">
+            <?php echo $this->getLayout()->createBlock('Magento\Review\Block\Form')->setTemplate('Magento_Review::form.phtml')->toHtml() ?>
+        </div>
+    </div>
+</div>
+
+<?php if (count($_items)):?>
+<div class="block review-list customizedreview" id="customer-reviews">
+ 
+    <div class="block-content">
+        <div class="toolbar review-toolbar">
+            <?= $block->getChildHtml('toolbar') ?>
+        </div>
+        <ol class="items review-items">
+        <?php foreach ($_items as $_review):?>
+            <li class="item review-item" itemscope itemprop="review" itemtype="http://schema.org/Review">
+                <?php if (count($_review->getRatingVotes())): ?>
+                    <div class="review-ratings">
+                    <?php foreach ($_review->getRatingVotes() as $_vote): ?>
+
+                    <div class="rating-summary item" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                        <span class="label rating-label"><span><?= $block->escapeHtml($_vote->getRatingCode()) ?></span></span>
+                        <div class="rating-result" title="<?= $block->escapeHtmlAttr($_vote->getPercent()) ?>%">
+                            <meta itemprop="worstRating" content = "1"/>
+                            <meta itemprop="bestRating" content = "100"/>
+                            <span style="width:<?= $block->escapeHtmlAttr($_vote->getPercent()) ?>%">
+                                <span itemprop="ratingValue"><?= $block->escapeHtml($_vote->getPercent()) ?>%</span>
+                            </span>
+                        </div>
+                        <span class="ratingcount"><?php echo ' ('. $_vote->getValue() .')'; ?></span> 
+                    </div>
+                    <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="review-leftside">
+                    <div class="review-title" itemprop="name"><?= $block->escapeHtml($_review->getTitle()) ?></div>
+                    <div class="review-content" itemprop="description">
+                        <?= nl2br($block->escapeHtml($_review->getDetail())) ?>
+                    </div>
+                </div>
+                <div class="review-rightside">
+                    <div class="review-details">
+                    <p class="review-author">
+                        <span class="review-details-label"><?= $block->escapeHtml(__('Review by')) ?></span>
+                        <strong class="review-details-value" itemprop="author"><?= $block->escapeHtml($_review->getNickname()) ?></strong>
+                    </p>
+                    <p class="review-date">
+                        <span class="review-details-label"><?= $block->escapeHtml(__('Posted on')) ?></span>
+                        <time class="review-details-value" itemprop="datePublished" datetime="<?= $block->escapeHtmlAttr($block->formatDate($_review->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_review->getCreatedAt(), $format)) ?></time>
+                    </p>
+                </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+        </ol>
+        <div class="toolbar review-toolbar">
+            <?= $block->getChildHtml('toolbar') ?>
+        </div>
+    </div>
+</div>
+<?php endif;?>

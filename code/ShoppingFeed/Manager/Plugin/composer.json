@@ -1,0 +1,19 @@
+{
+    "name": "shoppingfeed/magento2-manager",
+    "type": "magento2-module",
+    "version": "0.13.1",
+    "license": "OSL-3.0",
+    "description": "Official module for Shopping Feed integration.",
+    "require": {
+        "shoppingfeed/php-sdk": "0.2.4",
+        "shoppingfeed/php-feed-generator": "1.0.2"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "ShoppingFeed\\Manager\\": ""
+        }
+    }
+}

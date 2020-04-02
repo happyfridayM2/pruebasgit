@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="low_stock_alert" label="Low Stock Alert" file="low_stock_alert.html" type="html" module="Amasty_Xnotif" area="frontend"/>
+    <template id="amxnotif_admin_notifications_notify_admin_template" label="Admin Notifications" file="amxnotif_admin_notifications_notify_admin_template.html" type="html" module="Amasty_Xnotif" area="frontend"/>
+</config>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminShippingAreaGridSection">
+        <element name="AddShippingAreaButton" type="button" selector="//button[@id='add']"/>
+        <element name="EmptyGrid" type="block" selector="//table[@data-role='grid']//tr[@class='data-grid-tr-no-data']"/>
+        <element name="MassActionSelectAllShipRule" type="select" selector="//div[@class='action-multicheck-wrap']/input[@class='admin__control-checkbox']/following-sibling::label"/>
+        <element name="ActionsButton" type="button" selector="//button[@title='Select Items']"/>
+        <element name="ActionsDelete" type="button" selector="//div[@class='action-menu-items']//span[contains(text(), 'Delete')]"/>
+        <element name="ConfirmAction" type="button" selector="//button[@class='action-primary action-accept']"/>
+        <!-- Filters -->
+        <element name="FiltersButton" type="button" selector="//button[@data-action='grid-filter-expand']"/>
+        <element name="FiltersNameInput" type="button" selector="//input[@name='name']"/>
+        <element name="FiltersApplyButton" type="button" selector="//button[@data-action='grid-filter-apply']" timeout="10"/>
+        <element name="FiltersClearAll" type="button" selector="//button[@data-action='grid-filter-reset']" timeout="10"/>
+        <!-- Table -->
+        <element name="TableRowOne" type="text" selector="tr[data-repeat-index='0']"/>
+        <element name="SuccessMessageDeletedRule" type="block"
+                 selector="//div[@id='messages']//div[contains(string(), 'You deleted the Shipping Area.')]"/>
+    </section>
+
+    <section name="AdminShippingAreaRuleSection">
+        <element name="Delete" type="button" selector="//button[@id='delete']" timeout="10"/>
+        <element name="ModalAcceptButton" type="button" selector="button.action-accept" timeout="10"/>
+        <element name="ShippingAreaName" type="input" selector="//input[@name='name']"/>
+        <element name="ShippingAreaStatus" type="checkbox" selector="//div[@data-index='is_enabled']//label[@class='admin__actions-switch-label']"/>
+        <element name="ShippingAreaStatusDisable" type="block" selector="//div[@data-index='is_enabled']//div[@class='admin__actions-switch']/input[@type='checkbox'][@value='0']"/>
+        <element name="ShippingAreaStatusEnable" type="block" selector="//div[@data-index='is_enabled']//div[@class='admin__actions-switch']/input[@type='checkbox'][@value='1']"/>
+        <element name="ShippingAreaDescription" type="input" selector="//textarea[@name='description']"/>
+        <element name="GeneralTab" type="button" selector="//div[@data-index='general']/div[@class='fieldset-wrapper-title']"/>
+        <element name="GeneralTabOpen" type="block" selector="//div[@data-index='general']/div[@data-state-collapsible='open']"/>
+        <element name="GeneralTabClosed" type="block" selector="//div[@data-index='general']/div[@data-state-collapsible='closed']"/>
+        <!-- Conditions Tab-->
+        <element name="AreaConditionsTab" type="button" selector="//div[@data-index='conditions']/div[@class='fieldset-wrapper-title']"/>
+        <element name="AreaConditionsTabOpen" type="block" selector="//div[@data-index='conditions']/div[@data-state-collapsible='open']"/>
+        <element name="AreaConditionsTabClosed" type="block" selector="//div[@data-index='conditions']/div[@data-state-collapsible='closed']"/>
+        <element name="ForCountries" type="select" selector="//select[@name='country_condition']"/>
+        <element name="CountriesSelectForClick" type="button" selector="//div[@data-index='country_set']//div[@data-role='advanced-select']"/>
+        <element name="CountriesInputInSelectForSearch" type="input" selector="//div[@data-index='country_set']//input[@data-role='advanced-select-text']"/>
+        <element name="CountriesFoundInSelect" type="button" selector="//div[@data-index='country_set']//li[@data-role='option-group']/div"/>
+        <element name="ForStateRegions" type="select" selector="//select[@name='state_condition']"/>
+        <element name="StateRegions" type="select" selector="//select[@name='state_set_listing']"/>
+        <element name="ForCities" type="select" selector="//select[@name='city_condition']"/>
+        <element name="Cities" type="input" selector="//textarea[@name='city_set']"/>
+        <element name="ForZipPostcode" type="select" selector="//select[@name='postcode_condition']"/>
+        <element name="ZipPostcodeFrom" type="input" selector="//div[@data-index='zip_from']//input"/>
+        <element name="ZipPostcodeTo" type="input" selector="//div[@data-index='zip_to']//input"/>
+        <element name="ForShippingAddressLine" type="select" selector="//select[@name='address_condition']"/>
+        <element name="ShippingAddressLine" type="input" selector="//textarea[@name='address_set']"/>
+        <element name="SaveAndContinueEdit" type="button" selector="//button[@id='save_and_continue']"/>
+    </section>
+
+</sections>

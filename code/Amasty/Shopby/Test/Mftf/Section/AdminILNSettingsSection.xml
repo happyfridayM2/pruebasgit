@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminILNSettingsSection">
+
+        <element name="GeneralSettingsTab" type="button" selector="#amshopby_general-head"/>
+        <element name="AjaxSwitcher" type="select" selector="#amshopby_general_ajax_enabled"/>
+        <element name="AjaxScrollUpSwitcher" type="select"
+                 selector="#amshopby_general_ajax_scroll_up"/>
+        <element name="AddVerticalScrollingToFilterBlockAfter" type="text"
+                 selector="#amshopby_general_enable_overflow_scroll"/>
+        <element name="SubmitFilterOnDesktopSwitcher" type="select"
+                 selector="#amshopby_general_submit_filters_on_desktop"/>
+        <element name="SubmitFilterOnMobileSwitcher" type="select"
+                 selector="#amshopby_general_submit_filters_on_mobile"/>
+        <element name="LeaveSingleSelectFilterVisibleSwitcher" type="select"
+                 selector="#amshopby_general_keep_single_choice_visible"/>
+        <element name="NumberOfUnfoldedOptionsInState" type="text"
+                 selector="#amshopby_general_unfolded_options_state"/>
+        <element name="ByButtonClick" type="select"
+                 selector="//button[contains(string(), 'Show')]"/>
+
+        <element name="CatTitleAndDescrSettingsTab" type="button" selector="#amshopby_heading-head"/>
+        <element name="AddTitleAndDescriptionOfTheSelectedFilters" type="select"
+                 selector="#amshopby_heading_apply_to_chosen > ul > li > input"/>
+        <element name="SelectTitleAndDescriptionOfTheSelectedFilters" type="select"
+                 selector="//*[@class='chosen-results']//li[contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="UnSelectTitleAndDescriptionOfTheSelectedFilters" type="select"
+                 selector="//*[@id='amshopby_heading_apply_to_chosen']/ul/li[1]/a"/>
+        <element name="AddFilterTitle" type="select"
+                 selector="//*[@id='amshopby_heading_add_title']"/>
+        <element name="SeparateCategoryNameAndTitleWith" type="text"
+                 selector="#amshopby_heading_title_separator"/>
+        <element name="AddFilterDescription" type="select"
+                 selector="#amshopby_heading_add_description"/>
+        <element name="ReplaceCategoryImage" type="select"
+                 selector="#amshopby_heading_replace_image"/>
+        <element name="ReplaceCategoryCMSBlock" type="select"
+                 selector="#amshopby_heading_replace_cms_block"/>
+
+        <element name="ChildrenCategoriesTab" type="button"
+                 selector="#amshopby_children_categories-head"/>
+        <element name="DisplayMode" type="select"
+                 selector="#amshopby_children_categories_display_mode"/>
+        <element name="CategoryThumbnailImageSize" type="text"
+                 selector="#amshopby_children_categories_image_size"/>
+        <element name="ShowImageLabels" type="select"
+                 selector="#amshopby_children_categories_show_labels"/>
+        <element name="EnableSlider" type="select"
+                 selector="#amshopby_children_categories_slider_enabled"/>
+        <element name="ItemsPerSlide" type="text"
+                 selector="#amshopby_children_categories_items_per_slide"/>
+        <element name="CategoriesSelection" type="select"
+                 selector="//*[@id='amshopby_children_categories_categories']"/>
+
+        <element name="CategoryMetaTagsTab" type="button" selector="#amshopby_meta-head"/>
+        <element name="AddMetaDataOfSelectedFilters" type="select"
+                 selector="//*[@id='amshopby_meta_apply_to_chosen']"/>
+        <element name="SelectMetaDataOfSelectedFilters" type="select"
+                 selector="//*[@class='chosen-results']//li[contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="UnSelectMetaDataOfSelectedFilters" type="select"
+                 selector="//*[@id='amshopby_meta_apply_to_chosen']/ul/li[1]/a"/>
+        <element name="AddFilterTitleToMetaTitle" type="select" selector="#amshopby_meta_add_title"/>
+        <element name="TitleTagSeparator" type="text" selector="#amshopby_meta_title_separator"/>
+        <element name="AddFilterMetaDescription" type="select" selector="#amshopby_meta_add_description"/>
+        <element name="MetaDescriptionTagSeparator" type="text" selector="#amshopby_meta_description_separator"/>
+        <element name="AddFilterTitleToMetaKeywords" type="text" selector="#amshopby_meta_add_keywords"/>
+
+        <element name="CustomFilterSettingsTab" type="block" selector="#amshopby_{{var1}}_filter-head" parameterized="true"/>
+        <element name="CustomFilterEnableSwitcher" type="select" selector="#amshopby_{{var1}}_filter_enabled"
+                 parameterized="true"/>
+        <element name="CustomFilterBlockPositionSwitcher" type="select"
+                 selector="#amshopby_{{var1}}_filter_block_position" parameterized="true"/>
+        <element name="CustomFilterDisplayModeSwitcher" type="select"
+                 selector="#amshopby_{{va1}}_filter_display_mode" parameterized="true"/>
+        <element name="CustomFilterPositionField" type="select" selector="#amshopby_{{var1}}_filter_position"
+                 parameterized="true"/>
+        <element name="CustomFilterTooltipField" type="input" selector="#amshopby_{{var1}}_filter_tooltip"
+                 parameterized="true"/>
+        <element name="CustomFilterLabelField" type="input" selector="#amshopby_{{var1}}_filter_label"
+                 parameterized="true"/>
+        <element name="CustomFilterExpandSwitcher" type="select" selector="#amshopby_{{var1}}_filter_is_expanded"
+                 parameterized="true"/>
+        <element name="CatalogPriceRuleEnablingSwitcher" type="select" selector="//label[@class='admin__actions-switch-label']"/>
+        <element name="DependentToggle" type="select" selector="input[name='is_active'][value='{{var1}}']"
+                 parameterized="true"/>
+
+        <element name="TooltipTab" type="button" selector="#amshopby_tooltips-head"/>
+        <element name="TooltipImageUploader" type="button" selector="#amshopby_tooltips_image"/>
+        <element name="TooltipImageDelete" type="checkbox" selector="#amshopby_tooltips_image_delete"/>
+
+        <element name="Save" type="button" selector="#save"/>
+
+    </section>
+
+</sections>

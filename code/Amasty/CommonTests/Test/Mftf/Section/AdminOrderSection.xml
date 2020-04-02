@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminOrdersGridSection">
+        <element name="AddNewOrderButton" type="button" selector="//button[@id='add']" timeout="30"/>
+        <element name="LastOrder" type="button" selector="//tr[@data-repeat-index='0']"/>
+        <element name="PenultimateOrder" type="button" selector="//tr[@data-repeat-index='1']"/>
+    </section>
+
+    <section name="AdminOpenOrder">
+        <element name="ShippingMethodName" type="block" selector="//div[@class='admin__page-section-item order-shipping-method']//strong"/>
+        <element name="ShippingMethodPrice" type="block" selector="//div[@class='admin__page-section-item order-shipping-method']//span[@class='price']"/>
+        <element name="Tax" type="block" selector="//td[contains(string(), 'Tax')]/parent::tr//span[@class='price']"/>
+        <element name="PaymentMethodName" type="block" parameterized="true"
+                 selector="//div[@class='admin__page-section-item-content'][contains(string(), '{{paymentMethods.paymentName}}')]"/>
+    </section>
+
+    <section name="AdminCreateOrderSection">
+        <element name="AddProductBySkuButton" type="button" selector="//section[@id='order-items']//button/span[contains(string(),'SKU')]"/>
+        <element name="AddBySkuToOrder" type="button" selector="//div[@id='order-additional_area']//div[@class='actions']/button"/>
+        <element name="AddProductsButton" type="button" selector="//button[@id='add_products']"/>
+        <element name="TableProductsSearchSkuField" type="input" selector="//table[@id='sales_order_create_search_grid_table']//input[@name='sku']"/>
+        <element name="TableProductsSearchButton" type="button" selector="//div[@id='sales_order_create_search_grid']//button[@data-action='grid-filter-apply']"/>
+        <element name="TableProductsCheckbox" type="button" selector="//label[@class='data-grid-checkbox-cell-inner']//input[@type='checkbox']"/>
+        <element name="TableProductsQty" type="input" selector="//table[@id='sales_order_create_search_grid_table']//input[@name='qty']"/>
+        <element name="AddSelectedProductsButton" type="button" selector="//div[@id='order-search']//div[@class='actions']/button"/>
+        <element name="FiltersBySkuField" type="input" selector="//table[@id='sales_order_create_search_grid_table']//input[@name='sku']"/>
+        <element name="SkuFieldForAddProduct" type="input" selector="//table[@id='sku_table']//input[@name='sku']"/>
+        <element name="QtyFieldForAddProduct" type="input" selector="//table[@id='sku_table']//input[@name='qty']"/>
+        <element name="GetShippingMethodsButton" type="button" selector="//div[@id='order-shipping_method']//a[@class='action-default']"/>
+        <element name="SubmitOrderButton" type="button" selector="//button[@data-ui-id='widget-button-0']"/>
+        <element name="PaymentAndShippingSection" type="block" selector="//section[@id='order-methods']"/>
+    </section>
+
+</sections>

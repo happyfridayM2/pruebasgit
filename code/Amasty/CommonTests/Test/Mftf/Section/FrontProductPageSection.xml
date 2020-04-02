@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontProductPageSection">
+        <element name="QtyInput" type="input" selector="//input[@name='qty']"/>
+        <element name="SelectAttributeOption" type="select" selector="//div[@class='product-add-form']//div//select[contains(@name, 'attribute')]"/>
+        <element name="QtyLabel" type="block" selector="//label[@for='qty']"/>
+        <element name="AddToCartBtn" type="button" selector="//button[@id='product-addtocart-button']"/>
+        <element name="SuccessMsg" type="text" selector="//div[@data-ui-id='message-success']"/>
+        <element name="AddToWishList" type="button" selector="//a[@data-action='add-to-wishlist']"/>
+    </section>
+
+    <section name="StorefrontProductPageWithPromoSection">
+        <element name="TopPromoBanner" type="block" selector="//div[@class='column main']/div[@data-role='am-banners-lite']//img"/>
+        <element name="AfterBannerLite" type="block" selector="//div[@class='product-info-main']/div[@data-role='am-banners-lite']//img"/>
+        <element name="LabelBannerLite" type="block" selector="//div[@class='product media']/img[@class='am-banners-lite-label']"/>
+    </section>
+
+</sections>

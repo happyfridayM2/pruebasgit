@@ -1,0 +1,162 @@
+"Save Group","Save Group"
+"Delete Group","Delete Group"
+"Save and Continue Edit","Save and Continue Edit"
+"Edit Group '%1'","Edit Group '%1'"
+"New Group","New Group"
+"Group Information","Group Information"
+"General Information","General Information"
+"Group Title","Group Title"
+"Group Code","Group Code"
+Status,Status
+Enabled,Enabled
+Disabled,Disabled
+Swatch,Swatch
+Position,Position
+Attribute,Attribute
+"Attribute Options","Attribute Options"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+Share,Share
+COPY,COPY
+"You have deleted the group.","You have deleted the group."
+"We can't find a group to delete.","We can't find a group to delete."
+"This group no longer exists.","This group no longer exists."
+Groups,Groups
+"Edit Group","Edit Group"
+"Manage Group Attributes","Manage Group Attributes"
+"Please correct the data sent.","Please correct the data sent."
+"Something went wrong while saving the group.","Something went wrong while saving the group."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"This group code already exists.","This group code already exists."
+"You have saved the group.","You have saved the group."
+"Unable to save group with ID %1. Error: %2","Unable to save group with ID %1. Error: %2"
+"Unable to save new group. Error: %1","Unable to save new group. Error: %1"
+"Unable to remove group with ID %1. Error: %2","Unable to remove group with ID %1. Error: %2"
+"Unable to remove group. Error: %1","Unable to remove group. Error: %1"
+"Under the main image","Under the main image"
+"To the left of the main image","To the left of the main image"
+"Don`t Show Price","Don`t Show Price"
+"Show Price Difference","Show Price Difference"
+"Show Actual Price","Show Actual Price"
+No,No
+"On Mouse Hover","On Mouse Hover"
+"On Click","On Click"
+None,None
+Disappearance,Disappearance
+Zoom,Zoom
+Zoom-in-out,Zoom-in-out
+Slide,Slide
+Tube,Tube
+Circular,Circular
+Rotate,Rotate
+"For Specified Products","For Specified Products"
+"Yes for All Products","Yes for All Products"
+"The First Options","The First Options"
+"The Cheapest Product","The Cheapest Product"
+Name,Name
+Description,Description
+"Short Description","Short Description"
+"Attributes block","Attributes block"
+SKU,SKU
+Float,Float
+Inside,Inside
+Outside,Outside
+Over,Over
+Lens,Lens
+"Please specify the quantity of product(s).","Please specify the quantity of product(s)."
+"Specify child product SKU","Specify child product SKU"
+"""%1"" SKU isn't associated with this configurable product","""%1"" SKU isn't associated with this configurable product"
+"Please enter valid product SKU into preselect field","Please enter valid product SKU into preselect field"
+Option,Option
+Price,Price
+Available,Available
+Qty,Qty
+Subtotal,Subtotal
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Are you sure you wan't to delete a ""${ $.$data.name }"" record?"
+Selected,Selected
+"Select options for this attribute group","Select options for this attribute group"
+"Sort Option","Sort Option"
+"Choose a color","Choose a color"
+"Upload a file","Upload a file"
+Clear,Clear
+Loading...,Loading...
+Select,Select
+From,From
+To,To
+"Out of stock","Out of stock"
+"Color Swatches Pro","Color Swatches Pro"
+Information,Information
+General,General
+"Enable Using Share Link","Enable Using Share Link"
+"Display Price of Simple Products in Swatch Title","Display Price of Simple Products in Swatch Title"
+"Display Price of Simple Products in Drop-Downs","Display Price of Simple Products in Drop-Downs"
+"Prices are displayed only if 'Dropdown' input type is set for all attributes represented on product page.","Prices are displayed only if 'Dropdown' input type is set for all attributes represented on product page."
+"Show Selected Option Swatch in Cart and Checkout","Show Selected Option Swatch in Cart and Checkout"
+"Change Main Product Image on Mouse Hover","Change Main Product Image on Mouse Hover"
+"Show Out of Stock Configurable Attributes","Show Out of Stock Configurable Attributes"
+"Set 'No' to hide a simple option when all combinations of this option are out of stock, e.g. hide 'Red' option when all 'Size' combinations for 'Red' are out of stock. 'Yes' option works only if Stores - Catalog - Inventory - Stock Options: Display Out of Stock Products = Yes","Set 'No' to hide a simple option when all combinations of this option are out of stock, e.g. hide 'Red' option when all 'Size' combinations for 'Red' are out of stock. 'Yes' option works only if Stores - Catalog - Inventory - Stock Options: Display Out of Stock Products = Yes"
+"Enable Zoom","Enable Zoom"
+"Set 'No' to keep using the default zoom. Choose 'Yes' to get Zoom, Lightbox and Carousel functionality. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled.","Set 'No' to keep using the default zoom. Choose 'Yes' to get Zoom, Lightbox and Carousel functionality. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled."
+"Enable Product Image Flipper","Enable Product Image Flipper"
+"Works on the category list and catalog search list","Works on the category list and catalog search list"
+"Enable slider for the swatches","Enable slider for the swatches"
+"Visible Items Quantity","Visible Items Quantity"
+"Keep empty to manage items quantity automatically","Keep empty to manage items quantity automatically"
+"Reloadable Information","Reloadable Information"
+"Reload Product Information","Reload Product Information"
+"Note. Please enable ""Used in Product Listing"" setting for reloadable attribute.","Note. Please enable ""Used in Product Listing"" setting for reloadable attribute."
+"Name Dom-Selector","Name Dom-Selector"
+"Description Dom-Selector","Description Dom-Selector"
+"Short Description Dom-Selector","Short Description Dom-Selector"
+"Attributes Block Dom-Selector","Attributes Block Dom-Selector"
+"SKU Dom-Selector","SKU Dom-Selector"
+"Product Matrix","Product Matrix"
+"Display Last Attribute in Rows","Display Last Attribute in Rows"
+"Display SKU Column","Display SKU Column"
+"Display Available Qty Column","Display Available Qty Column"
+"Display Subtotal Column","Display Subtotal Column"
+Preselect,Preselect
+"Preselect for All Configurable Products","Preselect for All Configurable Products"
+"Preselect on Category Page","Preselect on Category Page"
+"Zoom Type","Zoom Type"
+"Choose 'Outside' to show the zoomed product image in a separate window. Choose 'Inside' to display the zoomed elements of product right in the main product image window. On Mobile 'Zoom Type' = 'Lens' is used only.","Choose 'Outside' to show the zoomed product image in a separate window. Choose 'Inside' to display the zoomed elements of product right in the main product image window. On Mobile 'Zoom Type' = 'Lens' is used only."
+"Zoom Window Position","Zoom Window Position"
+"Horizontal Offset, px","Horizontal Offset, px"
+"Vertical Offset, px","Vertical Offset, px"
+"Zoom Window Width, px","Zoom Window Width, px"
+"Zoom Window Height, px","Zoom Window Height, px"
+"Tint Color","Tint Color"
+"Lens Size","Lens Size"
+Lightbox,Lightbox
+"Enable Lightbox","Enable Lightbox"
+"Set ‘Yes’ to enable the Lightbox effect when opening full-size images. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled.","Set ‘Yes’ to enable the Lightbox effect when opening full-size images. On Mobile 'Zoom' feature is inactive if 'Lightbox' effect is enabled."
+"Enable Thumbnail Lightbox","Enable Thumbnail Lightbox"
+"Endless Lightbox","Endless Lightbox"
+"Choose 'Yes' to show the non-stop circle of images","Choose 'Yes' to show the non-stop circle of images"
+"Transition Effect between Slides","Transition Effect between Slides"
+"Open/close Animation Effect","Open/close Animation Effect"
+"Display Thumbnail Helper","Display Thumbnail Helper"
+"Set to 'Yes' to show the thumbnail helper in the lightbox.","Set to 'Yes' to show the thumbnail helper in the lightbox."
+Carousel,Carousel
+"Enable Carousel","Enable Carousel"
+"Set ‘Yes’ to show product thumbnails in the carousel","Set ‘Yes’ to show product thumbnails in the carousel"
+"Main Image Change","Main Image Change"
+"Enable Swipe Effect for Main Image in Mobile","Enable Swipe Effect for Main Image in Mobile"
+"Zoom effect will be disabled on mobile view","Zoom effect will be disabled on mobile view"
+"Carousel position","Carousel position"
+"Qty of Visible Items","Qty of Visible Items"
+"Set how many items should be visible in the carousel at the same time. On mobile this setting is ignored and 3 items are visible.","Set how many items should be visible in the carousel at the same time. On mobile this setting is ignored and 3 items are visible."
+"Items Qty to Scroll","Items Qty to Scroll"
+"Endless Carousel","Endless Carousel"
+"Set ‘Yes’ to endlessly list the product thumbnails in the carousel","Set ‘Yes’ to endlessly list the product thumbnails in the carousel"
+"Enable Pagination","Enable Pagination"
+"Set ‘Yes’ to display the pagination and arrows for the thumbnail carousel","Set ‘Yes’ to display the pagination and arrows for the thumbnail carousel"
+"Automatic Scrolling","Automatic Scrolling"
+"Add New Group","Add New Group"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+ID,ID
+Title,Title
+Options,Options

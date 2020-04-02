@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <amOnPage url="{{ProductProfilePage.url('4')}}" stepKey="amOnProductPage1"/>
+        <waitForElement selector="{{AdminProductProfileSection.StockStatus}}" stepKey="waitForElement1"/>
+        <selectOption selector="{{AdminProductProfileSection.StockStatus}}"
+                      userInput="0"
+                      stepKey="switchToOutOfStockSelectedProduct1"/>
+        <waitForElement selector="{{AdminProductProfileSection.Save}}" stepKey="waitForElement2"/>
+        <click selector="{{AdminProductProfileSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <magentoCLI
+                command="config:set cataloginventory/options/show_out_of_stock 1"
+                stepKey="configureAllPerPageSetting1"/>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandStockFilterOption1"
+                          selector="{{AdminILNSettingsSection.CustomFilterSettingsTab('stock')}}"
+                          dependentSelector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('stock')}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('stock')}}"
+                      stepKey="enableDisableStockFilter1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterBlockPositionSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterBlockPositionSwitcher('stock')}}"
+                      stepKey="selectBlockPosition1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterDisplayModeSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterDisplayModeSwitcher('stock')}}"
+                      stepKey="selectDisplayMode1"/>
+        <fillField userInput="{{customFilter.CustomFilterPositionField('stock')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterPositionField('stock')}}"
+                   stepKey="fillStockFilterPositionField1"/>
+        <fillField userInput="{{customFilter.CustomFilterTooltipField('stock')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterTooltipField('stock')}}"
+                   stepKey="fillTooltipField1"/>
+        <fillField userInput="{{customFilter3.CustomFilterLabelField('stock')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterLabelField('stock')}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+    </actionGroup>
+
+    <actionGroup name="StockFilterDisablingActionGroup" extends="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminProductProfileSection.StockStatus}}"
+                      userInput="1"
+                      stepKey="switchToOutOfStockSelectedProduct1"/>
+        <magentoCLI
+                command="config:set cataloginventory/options/show_out_of_stock 0"
+                stepKey="configureAllPerPageSetting1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('stock')}}"
+                      stepKey="enableDisableStockFilter1"
+                      after="fillLabelField1"/>
+    </actionGroup>
+
+    <actionGroup name="StockFilterExpandActionGroup" extends="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('stock')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('stock')}}"
+                      stepKey="ExpandstockFilter1"
+                      after="selectDisplayMode1"/>
+    </actionGroup>
+
+    <actionGroup name="StockFilterDisablingForExpandedActionGroup" extends="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminProductProfileSection.StockStatus}}"
+                      userInput="1"
+                      stepKey="switchToOutOfStockSelectedProduct1"/>
+        <magentoCLI
+                command="config:set cataloginventory/options/show_out_of_stock 0"
+                stepKey="configureAllPerPageSetting1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('stock')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('stock')}}"
+                      stepKey="ExpandStockFilter1"
+                      after="selectDisplayMode1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('stock')}}"
+                      stepKey="enableDisableStockFilter1"
+                      after="clickSaveConfig2"/>
+        <click selector="{{AdminILNSettingsSection.Save}}"
+               stepKey="clickSaveConfig3"
+               after="enableDisableStockFilter1"/>
+    </actionGroup>
+
+    <actionGroup name="StockFilterEnablingWithMSIActionGroup" extends="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+            <argument name="customFilter4"/>
+            <argument name="filter_selector"/>
+            <argument name="filter_value1"/>
+            <argument name="filter_value2"/>
+            <argument name="filter_value3"/>
+            <argument name="filter_value4"/>
+        </arguments>
+        <waitForElement selector="{{AdminProductSourcesSection.assignSources}}" stepKey="waitForElement1"/>
+        <click selector="{{AdminProductSourcesSection.assignSources}}"
+               stepKey="clickOnAssignSources1"
+               after="waitForElement1"/>
+        <waitForPageLoad time="30"
+                         stepKey="waitForPageLoad3"
+                         after="clickOnAssignSources1"/>
+        <conditionalClick selector="{{AdminGridFilterControls.clearAll}}"
+                          dependentSelector=".admin__data-grid-header[data-bind='afterRender: \$data.setToolbarNode'] .admin__data-grid-filters-current._show"
+                          visible="true"
+                          stepKey="clearTheFiltersIfPresent1"
+                          after="waitForPageLoad3"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"
+                         after="clearTheFiltersIfPresent1"/>
+        <click selector="{{AdminGridFilterControls.filters}}"
+               stepKey="clickOnFilters1"
+               after="waitForPageLoad4"/>
+        <fillField userInput="{{filter_value1}}"
+                   selector="{{filter_selector}}"
+                   stepKey="fillCodeField1"
+                   after="clickOnFilters1"/>
+        <click selector="{{AdminGridFilterControls.applyFilters}}"
+               stepKey="clickOnApplyFilters1"
+               after="fillCodeField1"/>
+        <waitForPageLoad stepKey="waitForPageLoad5"
+                         after="clickOnApplyFilters1"/>
+        <click selector="{{AdminAssignSourcesSlideOutGridSection.checkboxByCode(filter_value1)}}"
+               stepKey="clickOnCheckbox1"
+               after="waitForPageLoad5"/>
+        <wait time="3" stepKey="wait1" after="clickOnCheckbox1"/>
+        <click selector="{{AdminAssignSourcesSlideOutSection.done}}"
+               stepKey="clickOnDone1"
+               after="wait1"/>
+        <click selector="{{AdminProductSourcesSection.assignSources}}"
+               stepKey="clickOnAssignSources2"
+               after="clickOnDone1"/>
+        <waitForPageLoad time="30"
+                         stepKey="waitForPageLoad6"
+                         after="clickOnAssignSources2"/>
+        <conditionalClick selector="{{AdminGridFilterControls.clearAll}}"
+                          dependentSelector=".admin__data-grid-header[data-bind='afterRender: \$data.setToolbarNode'] .admin__data-grid-filters-current._show"
+                          visible="true"
+                          stepKey="clearTheFiltersIfPresent2"
+                          after="waitForPageLoad6"/>
+        <waitForPageLoad stepKey="waitForPageLoad7"
+                         after="clearTheFiltersIfPresent2"/>
+        <click selector="{{AdminGridFilterControls.filters}}"
+               stepKey="clickOnFilters2"
+               after="waitForPageLoad7"/>
+        <fillField userInput="{{filter_value2}}"
+                   selector="{{filter_selector}}"
+                   stepKey="fillCodeField3"
+                   after="clickOnFilters2"/>
+        <click selector="{{AdminGridFilterControls.applyFilters}}"
+               stepKey="clickOnApplyFilters2"
+               after="fillCodeField3"/>
+        <waitForPageLoad stepKey="waitForPageLoad8"
+                         after="clickOnApplyFilters2"/>
+        <click selector="{{AdminAssignSourcesSlideOutGridSection.checkboxByCode(filter_value2)}}"
+               stepKey="clickOnCheckbox2"
+               after="waitForPageLoad8"/>
+        <wait time="3" stepKey="wait2" after="clickOnCheckbox2"/>
+        <click selector="{{AdminAssignSourcesSlideOutSection.done}}"
+               stepKey="clickOnDone2"
+               after="wait2"/>
+        <selectOption selector="{{AdminProductProfileSection.StockStatusMSI(filter_value3)}}"
+                      userInput="{{customFilter4.Stock1}}"
+                      stepKey="switchToOutOfStockSelectedProduct1"
+                      after="clickOnDone1"/>
+        <selectOption selector="{{AdminProductProfileSection.StockStatusMSI(filter_value4)}}"
+                      userInput="{{customFilter4.Stock2}}"
+                      stepKey="switchToOutOfStockSelectedProduct2"
+                      after="switchToOutOfStockSelectedProduct1"/>
+        <fillField userInput="100"
+                   selector="{{AdminProductProfileSection.QtyMSIField(filter_value3)}}"
+                   stepKey="fillMSIQtyField1"
+                   after="switchToOutOfStockSelectedProduct2"/>
+        <fillField userInput="100"
+                   selector="{{AdminProductProfileSection.QtyMSIField(filter_value4)}}"
+                   stepKey="fillMSIQtyField2"
+                   after="fillMSIQtyField1"/>
+    </actionGroup>
+
+    <actionGroup name="StockFilterDisablingMSIActionGroup" extends="StockFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+            <argument name="filter_value1"/>
+            <argument name="filter_value2"/>
+        </arguments>
+        <waitForElement selector="{{AdminProductProfileSection.UnassignMSISource(filter_value1)}}"
+                        stepKey="waitForElement1"/>
+        <remove keyForRemoval="switchToOutOfStockSelectedProduct1"/>
+        <click selector="{{AdminProductProfileSection.UnassignMSISource(filter_value1)}}"
+               stepKey="clickOnUnassign1"
+               after="waitForElement1"/>
+        <waitForElement selector="{{AdminProductProfileSection.UnassignMSISource(filter_value2)}}"
+                        stepKey="waitForElement3"
+                        after="clickOnUnassign1"/>
+        <click selector="{{AdminProductProfileSection.UnassignMSISource(filter_value2)}}"
+               stepKey="clickOnUnassign2"
+               after="waitForElement3"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('stock')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('stock')}}"
+                      stepKey="enableDisableStockFilter1"
+                      after="fillLabelField1"/>
+        <magentoCLI
+                command="config:set cataloginventory/options/show_out_of_stock 0"
+                stepKey="configureAllPerPageSetting1"/>
+    </actionGroup>
+
+</actionGroups>

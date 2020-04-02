@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageShowProductQtyEmptyBrandsDisabledTest"
+          extends="AllBrandsPageShowProductQtyEmptyBrandsTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check of Products Quantity/Brands Without Products isn't displayed on All Brands Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-13"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="ShowProductQtyEmptyBrandsDisabled"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Products Quantity/Brands Without Products isn't displayed on All Brands Page-->
+
+        <wait time="3" stepKey="waitSeconds4" after="clickOnBrandsPageLink1"/>
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandItemWithCont('=','0')}}"
+                        stepKey="seeBrandsWithNoProducts1"/>
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandItemWithCont('&gt;','0')}}"
+                        stepKey="seeBrandsWithAnyQtyOfProducts1"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandItemWithCont('=',{$grabQtyOfPolyesterProducts1})}}"
+                stepKey="checkQtyOfPolyesterProducts1"/>
+
+    </test>
+</tests>

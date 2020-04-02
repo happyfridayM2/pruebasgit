@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CMTMetaTitleDescriptionKeywordsDoNotAddCheckingTest" extends="CMTMetaTitleCheckingTest">
+
+        <annotations>
+            <features value="Category Meta Tags"/>
+            <stories value="Category Meta Tags checking"/>
+            <title value="Check Category Meta Tags"/>
+            <description
+                    value="Check that Attribute Option Meta Title/Description/Keywords isn't added to Category Meta Data"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATMETATAGS-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catmetatags"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SetFilterMetaData1"
+                         ref="CategoryMetaTagsActionGroup">
+                <argument name="CategoryMetaTags" value="CategoryMetaTagsDoNotAdd"/>
+            </actionGroup>
+        </before>
+
+        <!-- Check Attribute Option Meta Title/Description/Keywords in Page Source/-->
+
+        <seeInSource
+                html="meta name=&quot;title&quot; content=&quot;Default Category Meta Title TST&quot;"
+                stepKey="checkMetaTitle1"/>
+        <seeInSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST&quot;"
+                stepKey="seeInSource1"/>
+        <seeInSource
+                html="meta name=&quot;keywords&quot; content=&quot;Default Category Meta Keywords TST&quot;"
+                stepKey="seeInSource2"/>
+
+    </test>
+</tests>
+
+

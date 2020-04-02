@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amoptimizer_image_form.amoptimizer_image_form_data_source</item>
+            <item name="deps" xsi:type="string">amoptimizer_image_form.amoptimizer_image_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amoptimizer_image_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Edit Item Reason</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Amasty\PageSpeedOptimizer\Block\Adminhtml\Buttons\Image\Delete</item>
+            <item name="saveandoptimize" xsi:type="string">Amasty\PageSpeedOptimizer\Block\Adminhtml\Buttons\Image\SaveAndOptimize</item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save</item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save_and_continue</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="amoptimizer_image_form.amoptimizer_image_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\PageSpeedOptimizer\Model\Image\DataProvider\Form</argument>
+            <argument name="name" xsi:type="string">amoptimizer_image_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">image_setting_id</argument>
+            <argument name="requestFieldName" xsi:type="string">image_setting_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Image Optimization Settings</item>
+            </item>
+        </argument>
+        <container name="comment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="componentType" xsi:type="string">html</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/html</item>
+                    <item name="template" xsi:type="string">Amasty_PageSpeedOptimizer/image-optimization-comment</item>
+                </item>
+            </argument>
+        </container>
+        <field name="is_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Enabled</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">is_enabled</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">title</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="folders">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="label" xsi:type="string" translate="true">Folders for Optimization</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Amasty_PageSpeedOptimizer/js/form/element/ui-select</item>
+                    <item name="foldersUrl" xsi:type="url" path="amoptimizer/image/folders" />
+                    <item name="elementTmpl" xsi:type="string">Amasty_PageSpeedOptimizer/grid/filters/elements/ui-select</item>
+                    <item name="optgroupTmpl" xsi:type="string">Amasty_PageSpeedOptimizer/grid/filters/elements/ui-select-optgroup</item>
+                    <item name="source" xsi:type="string">folders</item>
+                    <item name="breakLine" xsi:type="boolean">true</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="visibleValue" xsi:type="string">3</item>
+                    <item name="levelsVisibility" xsi:type="number">0</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_create_mobile_resolution">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Create Image for Mobile</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">is_create_mobile_resolution</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">When a user uses a mobile or tablet device it's no worth to load a high-resolution image on a small display. Using the feature an image with appropriate size will be uploaded, making the upload process faster and positively impacting the Google rank for mobile.</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_create_tablet_resolution">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Create Image for Tablet</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">is_create_tablet_resolution</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">The extension will create a copy of every image in suitable for mobile or tablet size. Please make sure that you have enough disc space on your server.</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">When a user uses a mobile or tablet device it's no worth to load a high-resolution image on a small display. Using the feature an image with appropriate size will be uploaded, making the upload process faster and positively impacting the Google rank for mobile.</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="resize_algorithm">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\PageSpeedOptimizer\Model\OptionSource\ResizeAlgorithm</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Resize Algorithm</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">resize_algorithm</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Resize - the image will be resized proportionally to the original size. Simply it will be the same picture, but smaller in pixels. Crop - when cropping a photo, you cut the part of an image changing its width. While the height of the image would be the same. In the result the cropped image will look like the part of the original picture</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_create_webp">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Create WebP Copy</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">is_create_webp</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">When WebP format is used the extension will create a copy for every image in the WebP format. Please make sure that you have enough disc space on your server.</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">WebP is a modern image format that provides superior lossless and lossy compression for images on the web. Using WebP, webmasters and web developers can create smaller, richer images that make the web faster. WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller than comparable JPEG images at equivalent SSIM quality index.</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_create_dump">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Create Image Dump</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">is_create_dump</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Original images will be stored in the ‘pub/media/amasty/amoptimizer_dump’ folder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="jpeg_tool">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\PageSpeedOptimizer\Model\OptionSource\JpegOptimization</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">JPEG Optimization Tool</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">jpeg_tool</item>
+                </item>
+            </argument>
+        </field>
+        <field name="png_tool">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\PageSpeedOptimizer\Model\OptionSource\PngOptimization</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">PNG Optimization Tool</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">png_tool</item>
+                </item>
+            </argument>
+        </field>
+        <field name="gif_tool">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\PageSpeedOptimizer\Model\OptionSource\GifOptimization</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">GIF Optimization Tool</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">gif_tool</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <container name="modal">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="componentType" xsi:type="string">modal</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                <item name="options" xsi:type="array">
+                    <item name="type" xsi:type="string">popup</item>
+                    <item name="title" xsi:type="string" translate="true">Images Optimization</item>
+                    <item name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string" translate="true">Close</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">closeModal</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <container name="optimization">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="startUrl" xsi:type="url"  path="*/*/start"/>
+                    <item name="processUrl" xsi:type="url"  path="*/*/process"/>
+                    <item name="template" xsi:type="string">Amasty_PageSpeedOptimizer/image-optimization</item>
+                    <item name="component" xsi:type="string">Amasty_PageSpeedOptimizer/js/image-optimization</item>
+                </item>
+            </argument>
+        </container>
+    </container>
+</form>

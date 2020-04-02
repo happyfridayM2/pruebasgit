@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="GroupAttributeOptionConfigurationActionGroup">
+        <arguments>
+            <argument name="gaoValues"/>
+        </arguments>
+        <amOnPage url="{{GroupAttributeOptionProfilePage.url('group','new')}}"
+                  stepKey="navigateToGroupAttributeOptionProfilePage1"/>
+        <fillField userInput="{{gaoValues.GroupTitleField}}"
+                   selector="{{GroupAttributeOptionProfileSection.GroupTitleField}}"
+                   stepKey="fillGroupTitleField1"/>
+        <fillField userInput="{{gaoValues.GroupCodeField}}"
+                   selector="{{GroupAttributeOptionProfileSection.GroupCodeField}}"
+                   stepKey="fillGroupCodeField1"/>
+        <selectOption selector="{{GroupAttributeOptionProfileSection.StatusSwitcher}}"
+                      userInput="{{gaoValues.StatusSwitcher}}"
+                      stepKey="SetStatus1"/>
+        <attachFile userInput="{{gaoValues.SwatchSwitcher}}"
+                    selector="{{GroupAttributeOptionProfileSection.UploadSwatch}}"
+                    stepKey="AttachImage1"/>
+        <fillField userInput="{{gaoValues.AliasField}}"
+                   selector="{{GroupAttributeOptionProfileSection.AliasField}}"
+                   stepKey="fillAliasField1"/>
+        <fillField userInput="{{gaoValues.PositionField}}"
+                   selector="{{GroupAttributeOptionProfileSection.PositionField}}"
+                   stepKey="fillPositionField1"/>
+        <selectOption selector="{{GroupAttributeOptionProfileSection.AttributeTriggerSelect}}"
+                      userInput="{{gaoValues.AttributeTriggerSelect}}"
+                      stepKey="SelectAttribute1"/>
+        <checkOption selector="{{GroupAttributeOptionProfileSection.AttributeOptionCheckbox(gaoValues.ID1)}}"
+                     stepKey="selectOption1"/>
+        <checkOption selector="{{GroupAttributeOptionProfileSection.AttributeOptionCheckbox(gaoValues.ID2)}}"
+                     stepKey="selectOption2"/>
+        <checkOption selector="{{GroupAttributeOptionProfileSection.AttributeOptionCheckbox(gaoValues.ID3)}}"
+                     stepKey="selectOption3"/>
+        <click selector="{{CustomPageProfileSection.SaveAndContinue}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <grabFromCurrentUrl regex="~/group_id/(\d+)/~" stepKey="grabFromCurrentUrl1"/>
+        <setCookie userInput="setGAOIDInCookie" value="{$grabFromCurrentUrl1}"
+                   stepKey="setGAOIDInCookie1"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteGroupAttributeOptionActionGroup">
+        <grabCookie userInput="setGAOIDInCookie" stepKey="grabCookie1"/>
+        <amOnPage url="{{GroupAttributeOptionProfilePage.url('group/edit/group_id','{$grabCookie1}')}}"
+                  stepKey="navigateToGAOProfilePage2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForElement selector="{{CustomPageProfileSection.DeleteButton}}" stepKey="waitForElement3"/>
+        <click selector="{{CustomPageProfileSection.DeleteButton}}" stepKey="clickOnDeleteButton1"/>
+        <waitForElement selector="{{CustomPageProfileSection.OkButton('8')}}" stepKey="waitForElement4"/>
+        <wait time="2" stepKey="wait1"/>
+        <pressKey selector="{{CustomPageProfileSection.OkButton('8')}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]" stepKey="pressEnter"/>
+        <waitForPageLoad time="25" stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+

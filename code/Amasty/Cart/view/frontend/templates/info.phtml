@@ -1,0 +1,45 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+?>
+<?php
+    /** \Amasty\Cart\Block\Config $block */
+    $helper = $block->getHelper();
+?>
+
+<?php if ($helper->isShowProductQty()) : ?>
+    <script type="text/x-magento-init">
+        <?= /* @noEscape */
+        $helper->encode(
+            [
+                "[data-block=\"minicart\"]" => [
+                    'Amasty_Cart/js/amcartinfo' => [
+                        'infoMessage' => $block->escapeHtml($helper->getInfoMessage()),
+                        'section' => 'cart'
+                    ]
+                ]
+            ]
+        );
+        ?>
+    </script>
+
+    <?php if ($helper->isRequestQuoteEnabled()) : ?>
+        <script type="text/x-magento-init">
+            <?= /* @noEscape */
+            $helper->encode(
+                [
+                    "[data-block=\"quotecart\"]" => [
+                        'Amasty_Cart/js/amcartinfo' => [
+                            'infoMessage' => $block->escapeHtml($helper->getInfoMessageForQuote()),
+                            'section' => 'quotecart'
+                        ]
+                    ]
+                ]
+            );
+            ?>
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeMultiSelectLSSFVInteractionOnCategoryPageTest"
+          extends="BrandAttributeSingleSelectLSSFVInteractionOnCategoryPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering on Category Page in Multi Select Mode and in interaction with Leave Single Select Filter Visible setting"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-30"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="attributeSeoScenario4" value="seoFriendlyMultiSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup"
+                         before="logout"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Brand Attribute (Material): filter Category Page by Brand Attribute Filter (Material), check the result/-->
+
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Organic Cotton')}}"
+                        after="selectPolyesterOption1"
+                        stepKey="waitForElement2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Organic Cotton')}}"
+               after="waitForElement2"
+               stepKey="selectPolyesterOption2"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Organic Cotton')}}"
+               after="removeSelectedFilterOptionFromState1"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.Filter('Material')}}" stepKey="dontSeeFilter1"/>
+        <see userInput="39"
+             selector=" {{StorefrontProductSection.ItemsCountLast}}"
+             stepKey="checkQtyOfProductsAfterFiltration1"/>
+
+    </test>
+</tests>
+
+

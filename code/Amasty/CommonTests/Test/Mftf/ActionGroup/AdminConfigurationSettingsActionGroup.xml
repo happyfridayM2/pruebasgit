@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ChooseCurrencyInConfigurations">
+        <arguments>
+            <argument name="currenciesConfigurations"/>
+        </arguments>
+        <amOnPage url="{{AdminConfigurationsCurrencyPage.url}}" stepKey="navigateConfigurationCurrencyPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="openCurrencyInConfigurationsTab"
+                          selector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTab}}"
+                          dependentSelector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTabOpen}}"
+                          visible="false"/>
+        <selectOption stepKey="selectCurrencies" parameterArray= "['{{currenciesConfigurations.currencyCodeOne}}','{{currenciesConfigurations.currencyCodeTwo}}']"
+                      selector="{{AdminConfigurationsCurrencySection.CurrencySelectOptions}}"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="saveChange"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="ChooseDefaultCurrencyInConfigurations">
+        <amOnPage url="{{AdminConfigurationsCurrencyPage.url}}" stepKey="navigateConfigurationCurrencyPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="openCurrencyInConfigurationsTab"
+                          selector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTab}}"
+                          dependentSelector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTabOpen}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminConfigurationsCurrencySection.CurrencySelectOptions}}" userInput="USD" stepKey="selectCurrencies"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="saveChange"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="OpenCurrenciesRates">
+        <amOnPage url="{{AdminCurrencyRatesPage.url}}" stepKey="navigateCurrenciesRatesPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+    <actionGroup name="InputRateUSDAndEUR" extends="OpenCurrenciesRates">
+        <arguments>
+            <argument name="cartRule"/>
+        </arguments>
+        <fillField selector="{{AdminCurrencyRatesSection.Rate_USD_EUR}}"
+                   userInput="{{cartRule}}" stepKey="inputRate"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminCurrencyRatesSection.Save}}" stepKey="saveChangeInRates"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+    <!-- Left For Backward Compatibility. Delete after 11.06.2020 -->
+    <actionGroup name="AdminConfigurationSettingCalculationTax">
+        <amOnPage url="{{AdminConfigurationsTaxPage.url}}" stepKey="navigateAdminOSCConfiguration"/>
+    </actionGroup>
+
+    <!-- Action Groups For Configuration Main Tax Setting -->
+    <actionGroup name="AdminConfigurationSettingsForCalculationTax">
+        <arguments>
+            <argument name="calculationTax"/>
+        </arguments>
+        <amOnPage url="{{AdminConfigurationsTaxPage.url}}" stepKey="navigateAdminOSCConfiguration"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="openTaxClassesTab"
+                          selector="{{AdminConfigurationsTaxSection.TaxClassesTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.TaxClassesTabOpen}}"
+                          visible="false"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForShippingSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassShipping"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForShipping}}"
+                      userInput="{{calculationTax.taxClassForShipping}}" stepKey="selectTaxClassForShipping"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForProductSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassProduct"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForProduct}}"
+                      userInput="{{calculationTax.taxClassForProduct}}" stepKey="selectTaxClassForProduct"/>
+        <conditionalClick stepKey="openCalculationSettingsTab"
+                          selector="{{AdminConfigurationsTaxSection.CalculationSettingsTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.CalculationSettingsTabOpen}}"
+                          visible="false"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForCatalogPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPrices}}"
+                      userInput="{{calculationTax.calculationCatalogPrices}}" stepKey="selectTaxClassForCatalogPrices"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPrices}}"
+                      userInput="{{calculationTax.calculationShippingPrices}}" stepKey="selectTaxClassForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationEnableCrossBorderTrade}}"
+                      userInput="1" stepKey="enableCrossBorderTrade"/>
+        <click selector="{{AdminConfigurationsTaxSection.Save}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminDefaultConfigurationSettingCalculationTax">
+        <amOnPage url="{{AdminConfigurationsTaxPage.url}}" stepKey="navigateAdminOSCConfiguration"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="openTaxClassesTab"
+                          selector="{{AdminConfigurationsTaxSection.TaxClassesTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.TaxClassesTabOpen}}"
+                          visible="false"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForShippingSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassShipping"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForShipping}}"
+                      userInput="0" stepKey="selectTaxClassForShipping"/>
+        <checkOption selector="{{AdminConfigurationsTaxSection.TaxClassForShippingSystemValue}}"
+                     stepKey="checkUseSystemValueForClassShipping"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForProductSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassProduct"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForProduct}}"
+                      userInput="2" stepKey="selectTaxClassForProduct"/>
+        <checkOption selector="{{AdminConfigurationsTaxSection.TaxClassForProductSystemValue}}"
+                     stepKey="checkUseSystemValueForClassProduct"/>
+        <conditionalClick stepKey="openCalculationSettingsTab"
+                          selector="{{AdminConfigurationsTaxSection.CalculationSettingsTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.CalculationSettingsTabOpen}}"
+                          visible="false"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForCatalogPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPrices}}"
+                      userInput="0" stepKey="selectTaxClassForCatalogPrices"/>
+        <checkOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPricesSystemValue}}"
+                     stepKey="checkUseSystemValueForCatalogPrices"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPrices}}"
+                      userInput="0" stepKey="selectTaxClassForShippingPrices"/>
+        <checkOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPricesSystemValue}}"
+                     stepKey="checkUseSystemValueForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationEnableCrossBorderTrade}}"
+                      userInput="0" stepKey="disableCrossBorderTrade"/>
+        <click selector="{{AdminConfigurationsTaxSection.Save}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+
+</actionGroups>

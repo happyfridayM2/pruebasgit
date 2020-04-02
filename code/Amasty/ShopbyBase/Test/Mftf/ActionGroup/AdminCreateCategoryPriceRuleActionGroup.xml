@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateCatalogPriceRuleActionGroup">
+        <arguments>
+            <argument name="catalogRule1"/>
+            <argument name="catalogRule2"/>
+            <argument name="catalogRule3"/>
+        </arguments>
+        <amOnPage url="{{AdminNewCatalogRulePage.url}}"
+                  stepKey="openNewCatalogPriceRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <fillField selector="{{AdminNewCatalogPriceRule.ruleName}}"
+                   userInput="{{catalogRule1.name}}"
+                   stepKey="fillName"/>
+        <conditionalClick stepKey="defineStatus1"
+                          selector="{{AdminILNSettingsSection.CatalogPriceRuleEnablingSwitcher}}"
+                          dependentSelector="{{AdminILNSettingsSection.DependentToggle('0')}}"
+                          visible="true"/>
+        <selectOption stepKey="selectSite"
+                      selector="{{AdminNewCatalogPriceRule.websites}}"
+                      userInput="{{catalogRule1.website_ids}}"/>
+        <selectOption selector="{{AdminNewCatalogPriceRule.customerGroups}}"
+                      userInput="{{catalogRule1.customer_group_ids}}"
+                      stepKey="selectCustomerGroup"/>
+        <click stepKey="clickFromCalender" selector="{{AdminNewCatalogPriceRule.fromDateButton}}"/>
+        <click stepKey="clickFromToday" selector="{{AdminNewCatalogPriceRule.todayDate}}"/>
+        <click selector="{{AdminNewCatalogPriceRule.conditionsTab}}" stepKey="openConditionsTab"/>
+        <waitForPageLoad stepKey="waitForConditionTabOpened"/>
+        <click selector="{{AdminNewCatalogPriceRuleConditions.newCondition}}" stepKey="addNewCondition"/>
+        <selectOption selector="{{AdminNewCatalogPriceRuleConditions.conditionSelect('1')}}"
+                      userInput="{{catalogRule2.conditionSelect('1')}}"
+                      after="addNewCondition"
+                      stepKey="selectTypeCondition"/>
+        <waitForPageLoad stepKey="waitForConditionChosed"/>
+        <click selector="{{AdminNewCatalogPriceRuleConditions.targetEllipsis('1')}}" stepKey="clickEllipsis"/>
+        <fillField selector="{{AdminNewCatalogPriceRuleConditions.targetInput('1', '1')}}"
+                   userInput="{{catalogRule2.targetInput('1', '1')}}"
+                   stepKey="fillCategoryId"/>
+        <click selector="{{AdminNewCatalogPriceRuleConditions.applyButton('1', '1')}}" stepKey="clickApply"/>
+        <click stepKey="openActionDropdown" selector="{{AdminNewCatalogPriceRule.actionsTab}}"/>
+        <selectOption stepKey="discountType"
+                      selector="{{AdminNewCatalogPriceRuleActions.apply}}"
+                      userInput="{{catalogRule3.simple_action}}"/>
+        <fillField stepKey="fillDiscountValue"
+                   selector="{{AdminNewCatalogPriceRuleActions.discountAmount}}"
+                   userInput="{{catalogRule3.discount_amount}}"/>
+        <click selector="{{AdminNewCatalogPriceRule.saveAndApply}}" stepKey="saveAndApply"/>
+        <see selector="{{AdminCategoryMessagesSection.SuccessMessage}}"
+             userInput="You saved the rule."
+             stepKey="seeSuccess"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex2"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteCatPriceRule">
+        <arguments>
+            <argument name="searchInput" type="string"/>
+        </arguments>
+        <amOnPage url="{{CatalogRulePage.url}}"
+                  stepKey="navigateToCatPriceRuleGridPage1"/>
+        <fillField stepKey="fillIdentifier"
+                   selector="{{searchInput}}"
+                   userInput="{{ruleInformation.name}}"/>
+        <click stepKey="searchForName" selector="{{AdminSecondaryGridSection.searchButton}}"/>
+        <click stepKey="clickResult" selector="{{AdminSecondaryGridSection.firstRow}}"/>
+        <waitForPageLoad stepKey="waitForTaxRateLoad"/>
+        <click stepKey="clickDelete" selector="{{AdminStoresMainActionsSection.deleteButton}}"/>
+        <click stepKey="clickOk" selector="{{AdminConfirmationModalSection.ok}}"/>
+        <see stepKey="seeSuccess"
+             selector="{{AdminCategoryMessagesSection.SuccessMessage}}"
+             userInput="deleted"/>
+    </actionGroup>
+
+</actionGroups>

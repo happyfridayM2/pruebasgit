@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterFilteringLSSFVInteractionTest" extends="NewFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and filtering"/>
+            <description
+                    value="Check of new filter enabling and filtering in sidebar position and labels mode in interaction with leave single select filter visible setting"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNNEWFILTER-14"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="DisableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="dontLeaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="EnableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="leaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by New Filter: select option on sidebar, check the result, remove selected options from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('New')}}"
+                        stepKey="dontSeeFilter1"
+                        after="checkProductName1"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,9 @@
+<?php
+$subscriptionEmail = $this->getSubscriptionEmail();
+$escaper = $this->getHtmlEscaper();
+?>
+<?php if ($subscriptionEmail) { ?>
+    <div class="cn_newsletter_subscribe" style="display:none">
+        <span class="email"><?php echo $this->escapeHtml($subscriptionEmail); ?></span>
+    </div>
+<?php } ?>

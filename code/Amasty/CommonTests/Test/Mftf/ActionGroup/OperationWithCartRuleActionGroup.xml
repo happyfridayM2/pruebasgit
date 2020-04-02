@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="EditRuleAddActionsConditions">
+        <arguments>
+            <argument name="actionsConditionOptions"/>
+            <argument name="actionsConditionOptionsParamIs"/>
+            <argument name="conditionsData"/>
+            <argument name="ruleName"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminRuleGridActionSection.ResetFilter}}" stepKey="resetFilter"/>
+        <fillField selector="{{AdminRuleGridActionSection.FilterByNameInput}}" userInput="{{ruleName}}" stepKey="FilterByName"/>
+        <click selector="{{AdminRuleGridActionSection.SearchButton}}" stepKey="doFilter"/>
+        <click selector="{{AdminRuleGridActionSection.TableRowOne}}" stepKey="goToEditRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <conditionalClick stepKey="openActionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.ActionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.ActionTabOpen}}"
+                          visible="false"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.ButtonConditions}}" stepKey="clickButtonCondition"/>
+        <waitForElementVisible selector="//div[@data-index='actions']//select[@id='actions__1__new_child']//option[text()='{{actionsConditionOptions.optionsText}}']"
+                               stepKey="waitForElementVisible1"/>
+        <click selector="//div[@data-index='actions']//select[@id='actions__1__new_child']//option[text()='{{actionsConditionOptions.optionsText}}']"
+               stepKey="selectConditionOptions"/>
+        <waitForElementVisible selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='is']"
+                               stepKey="waitForElementVisible2"/>
+        <click selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='is']"
+               stepKey="clickChooseParamData"/>
+        <waitForElementVisible selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//option[@value='{{actionsConditionOptionsParamIs.optionsValue}}']"
+                               stepKey="waitForElementVisible3"/>
+        <click selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//option[@value='{{actionsConditionOptionsParamIs.optionsValue}}']"
+               stepKey="chooseFirstParamIsOneOf"/>
+        <waitForElementVisible selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='...']"
+                               stepKey="waitForElementVisible4"/>
+        <click selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='...']"
+               stepKey="clickForInputData"/>
+        <waitForElementVisible selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//input"
+                               stepKey="waitForElementVisible5"/>
+        <fillField selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//input"
+                   userInput="{{conditionsData}}" stepKey="enterConditions"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad6"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleAddGlobalConditions">
+        <arguments>
+            <argument name="actionsConditionOptions"/>
+            <argument name="actionsConditionOptionsParamIs"/>
+            <argument name="conditionsData"/>
+            <argument name="ruleName"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminRuleGridActionSection.ResetFilter}}" stepKey="resetFilter"/>
+        <fillField selector="{{AdminRuleGridActionSection.FilterByNameInput}}" userInput="{{ruleName}}" stepKey="FilterByName"/>
+        <click selector="{{AdminRuleGridActionSection.SearchButton}}" stepKey="doFilter"/>
+        <click selector="{{AdminRuleGridActionSection.TableRowOne}}" stepKey="goToEditRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <conditionalClick stepKey="openConditionsTab"
+                          selector="{{AdminActionsCartPriceRuleSection.ConditionsTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.ConditionsTabOpen}}"
+                          visible="false"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.Priority}}" stepKey="GoToConditions"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.ButtonGlobalConditions}}" stepKey="clickButtonGlobalCondition"/>
+        <waitForElementVisible selector="//div[@data-index='conditions']//select[@id='conditions__1__new_child']//option[text()='{{actionsConditionOptions.optionsText}}']"
+                               stepKey="waitForElementVisible1"/>
+        <click selector="//div[@data-index='conditions']//select[@id='conditions__1__new_child']//option[text()='{{actionsConditionOptions.optionsText}}']"
+               stepKey="selectConditionOptions"/>
+        <waitForElementVisible selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='is']"
+                               stepKey="waitForElementVisible2"/>
+        <click selector="//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='is']"
+               stepKey="clickChooseParamData"/>
+        <waitForElementVisible selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//option[@value='{{actionsConditionOptionsParamIs.optionsValue}}']"
+                               stepKey="waitForElementVisible3"/>
+        <click selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//option[@value='{{actionsConditionOptionsParamIs.optionsValue}}']"
+               stepKey="chooseFirstParam"/>
+        <waitForElementVisible selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='...']"
+                               stepKey="waitForElementVisible4"/>
+        <click selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param']/a[text()='...']"
+               stepKey="clickForInputData"/>
+        <waitForElementVisible selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//input"
+                               stepKey="waitForElementVisible5"/>
+        <fillField selector="//div[@data-index='conditions']//input[@value='{{actionsConditionOptions.optionsValue}}']/following::span[@class='rule-param rule-param-edit']//input"
+                   userInput="{{conditionsData}}" stepKey="enterConditions"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad3"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+    <!-- Left for Backward Compatibility. Delete after 02.06.2020 -->
+    <actionGroup name="DeleteAllCartRules">
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage1"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="OpenCartPriceRule">
+        <arguments>
+            <argument name="cartRuleName"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminRuleGridActionSection.ResetFilter}}" stepKey="resetFilter"/>
+        <fillField selector="{{AdminRuleGridActionSection.FilterByNameInput}}" userInput="{{cartRuleName}}" stepKey="FilterByName"/>
+        <click selector="{{AdminRuleGridActionSection.SearchButton}}" stepKey="doFilter"/>
+        <click selector="{{AdminRuleGridActionSection.TableRowOne}}" stepKey="goToEditRulePage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditCartPriceRuleAddCouponCode" extends="OpenCartPriceRule">
+        <arguments>
+            <argument name="couponCode"/>
+        </arguments>
+        <click selector="{{AdminActionsCartPriceRuleSection.CouponsYes}}" stepKey="clickOnYes"/>
+        <fillField selector="{{AdminActionsCartPriceRuleSection.CouponsCode}}" userInput="{{couponCode}}"
+                   stepKey="enterCouponCode"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditCartPriceRuleFreeShipping" extends="OpenCartPriceRule">
+        <conditionalClick stepKey="openConditionsTab"
+                          selector="{{AdminActionsCartPriceRuleSection.ActionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.FreeShippingForMatchingItemsOnly}}"
+                          visible="false"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.FreeShippingForMatchingItemsOnly}}"
+               stepKey="clickFreeShippingForMatchingItemsOnly"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleShowBannerForCategories" extends="OpenCartPriceRule">
+        <arguments>
+            <argument name="category"/>
+        </arguments>
+        <conditionalClick stepKey="openHighlightPromotionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTabOpen}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}"
+                      userInput="2"
+                      stepKey="selectShowBannerForCategories"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.CategoriesSelectForClick}}" stepKey="OpenMultiSelect"/>
+        <fillField selector="{{AdminActionsCartPriceRuleSection.CategoriesInputForSearch}}"
+                   userInput="{{category}}" stepKey="enterCategory"/>
+        <wait time="4" stepKey="wait"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.CategoriesFoundCategory}}" stepKey="chooseFoundCategory"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleShowBannerForProductSKU" extends="OpenCartPriceRule">
+        <arguments>
+            <argument name="productSKU"/>
+        </arguments>
+        <conditionalClick stepKey="openHighlightPromotionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTabOpen}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}"
+                      userInput="1"
+                      stepKey="selectShowBannerForProductSKU"/>
+        <fillField selector="{{AdminActionsCartPriceRuleSection.ProductSKUs}}"
+                   userInput="{{productSKU}}" stepKey="enterSKU"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleAddTopBanner" extends="OpenCartPriceRule">
+        <conditionalClick stepKey="openHighlightPromotionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTopBannerTab}}"
+                          visible="false"/>
+        <conditionalClick stepKey="openTopBannerTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTopBannerTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.TopBannerUpload}}"
+                          visible="false"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}" stepKey="scrollToShowBannerFor"/>
+        <attachFile userInput="magento.jpg" selector="{{AdminActionsCartPriceRuleSection.TopBannerUpload}}"
+                    stepKey="uploadFileForTopBanner"/>
+        <wait time="2" stepKey="waitTwoSecondForAddImage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddBanner"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleAddAfterBanner" extends="OpenCartPriceRule">
+        <conditionalClick stepKey="openHighlightPromotionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionAfterBannerTab}}"
+                          visible="false"/>
+        <conditionalClick stepKey="openAfterBannerTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionAfterBannerTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.AfterBannerUpload}}"
+                          visible="false"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}" stepKey="scrollToShowBannerFor"/>
+        <attachFile userInput="magento.jpg" selector="{{AdminActionsCartPriceRuleSection.AfterBannerUpload}}"
+                    stepKey="uploadFileForAfterBanner"/>
+        <wait time="2" stepKey="waitTwoSecondForAddImage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddBanner"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+
+
+    <actionGroup name="EditRuleAddLabelBanner" extends="OpenCartPriceRule">
+        <conditionalClick stepKey="openHighlightPromotionTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionLabelBannerTab}}"
+                          visible="false"/>
+        <conditionalClick stepKey="openLabelBannerTab"
+                          selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionLabelBannerTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.LabelBannerUpload}}"
+                          visible="false"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}" stepKey="scrollToShowBannerFor"/>
+        <attachFile userInput="magento.jpg" selector="{{AdminActionsCartPriceRuleSection.LabelBannerUpload}}"
+                    stepKey="uploadFileForLabel"/>
+        <wait time="2" stepKey="waitTwoSecondForAddImage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddBanner"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+
+
+    <!-- Apply Sales Rule Coupon to the Checkout -->
+    <actionGroup name="StorefrontApplyCouponCodeOnTheCheckout">
+        <arguments>
+            <argument name="coupon"/>
+        </arguments>
+        <waitForElement selector="{{CheckoutPaymentAddressSection.couponHeader}}" time="30" stepKey="waitForCouponHeader" />
+        <conditionalClick selector="{{CheckoutPaymentAddressSection.couponHeader}}"
+                          dependentSelector="{{StorefrontSalesRuleCartCouponSection.discountBlockActive}}"
+                          visible="false" stepKey="clickCouponHeader" />
+        <waitForElementVisible selector="{{CheckoutPaymentAddressSection.couponField}}" stepKey="waitForCouponField" />
+        <fillField userInput="{{coupon.code}}" selector="{{CheckoutPaymentAddressSection.couponField}}" stepKey="fillCouponField"/>
+        <click selector="{{CheckoutPaymentAddressSection.applyButton}}" stepKey="clickApplyButton"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+
+    <!-- Cancel Sales Rule Coupon Applied to the Checkout -->
+    <actionGroup name="StorefrontCancelCouponCodeOnTheCheckout">
+        <waitForElement selector="{{CheckoutPaymentAddressSection.couponHeader}}" time="30" stepKey="waitForCouponHeader" />
+        <conditionalClick selector="{{CheckoutPaymentAddressSection.couponHeader}}"
+                          dependentSelector="{{CheckoutPaymentAddressSection.discountBlockActive}}"
+                          visible="false" stepKey="clickCouponHeader" />
+        <waitForElementVisible selector="{{CheckoutPaymentAddressSection.couponField}}" stepKey="waitForCouponField" />
+        <click selector="{{CheckoutPaymentAddressSection.cancelButton}}" stepKey="clickCancelButton"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+</actionGroups>

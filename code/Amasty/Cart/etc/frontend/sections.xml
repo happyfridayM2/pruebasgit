@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="amasty_cart/cart/add">
+        <section name="cart"/>
+        <section name="messages"/>
+    </action>
+    <action name="amasty_cart/cart/UpdateItemOptions">
+        <section name="cart"/>
+        <section name="messages"/>
+    </action>
+    <action name="amasty_cart/wishlist/cart">
+        <section name="cart"/>
+        <section name="wishlist"/>
+        <section name="messages"/>
+    </action>
+    <action name="amasty_cart/cart/update">
+        <section name="cart"/>
+    </action>
+
+    <action name="amasty_cart/quote/add">
+        <section name="quotecart"/>
+        <section name="messages"/>
+    </action>
+    <action name="amasty_cart/quote/update">
+        <section name="quotecart"/>
+        <section name="messages"/>
+    </action>
+    <action name="amasty_cart/quote/UpdateItemOptions">
+        <section name="quotecart"/>
+        <section name="messages"/>
+    </action>
+</config>

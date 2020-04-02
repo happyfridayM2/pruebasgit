@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringCategoryURLSuffixInteractionTest" extends="SeoEnablingFilteringTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled SEO in interaction with Category URL Suffix setting"/>
+            <severity value="MINOR"/>
+            <testCaseId value="SEOSETTINGS-78"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="configureCategoryURLSuffix1"
+                         ref="ConfigureCategoryURLSuffixActionGroup">
+                <argument name="magurlsuffix" value="magentoURLSuffixEmpty"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="configureCategoryURLSuffix1"
+                         ref="ConfigureCategoryURLSuffixActionGroup"
+                         before="logout">
+                <argument name="magurlsuffix" value="magentoURLSuffixDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters, check the result in url/-->
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextTagsEnablingFilterInteractionTest" extends="PrevNextTagsEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description
+                    value="Check of Use Prev/Next Tags for Improved Navigation Pages setting enabling after filtration by Attribute"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="PNTSETTINGS-6"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="pntsettings"/>
+            <group value="pntags"/>
+        </annotations>
+
+        <!--Check Prev/Next Tags settings: navigate to All-products Page, check Prev/Next Tags in Page Source, activate pagination, check Prev/Next Tags in Page Source/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter1" after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption1" after="clickPatternFilter1"/>
+
+    </test>
+</tests>

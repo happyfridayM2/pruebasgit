@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2019 Wyomind. All rights reserved.
+  ~ See LICENSE.txt for license details.
+  -->
+<!-- configuration file used for the Wyomind's demo store: https://demo2.wyomind.com -->
+<config>
+    <login>OrdersExportTool</login>
+    <password>OrdersExportTool123</password>
+    <acl>
+        Wyomind_OrdersExportTool::main
+        Wyomind_OrdersExportTool::profiles
+        Wyomind_OrdersExportTool::variables
+        Wyomind_OrdersExportTool::functions
+        Wyomind_OrdersExportTool::orders
+        {{system/config}}
+        Wyomind_OrdersExportTool::config
+        Magento_Sales::sales
+        Magento_Sales::sales_operation
+        Magento_Sales::sales_order
+        Magento_Sales::sales_actions
+        Magento_Sales::actions_view
+    </acl>
+</config>

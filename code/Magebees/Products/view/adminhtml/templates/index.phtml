@@ -1,0 +1,117 @@
+<div class="admin__old">
+	<div class="main-cols" id="containers">
+	<div id="result"></div><br/>
+		<div id="messages">
+			<div class="messages">
+				<div class="message message-notice notice">
+					<div> <?php echo __("Your server max_execution_time is") ?> <?php echo ini_get("max_execution_time"); ?> <?php echo __("sec. and memory_limit is") ?> <?php echo ini_get("memory_limit"); ?>.
+					<br/><?php echo __("Your server PHP settings allow you to upload files not more than") ?> <?php echo min(ini_get('post_max_size'), ini_get('upload_max_filesize')); ?> <?php echo __("at a time. Please modify post_max_size (currently is") ?> <?php echo ini_get('post_max_size'); ?>) <?php echo __("and upload_max_filesize (currently is") ?> <?php echo ini_get('upload_max_filesize'); ?>) <?php echo __("values in php.ini if you want to upload larger files.") ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="messages">
+			<div class="messages">
+				<div class="message message-notice notice">
+					<div>
+						<?php echo __("Make sure that data encoding in the file is consistent and saved in CSV (comma separated only) with supported encodings (UTF-8)."); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="entry-edit form-inline mbBackground">
+			<form method="post" action="<?php //echo $block->getUrl('*/*/import') ?>" id="import_edit_form" enctype="multipart/form-data">
+				<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+				<div class="entry-edit form-inline">
+					<fieldset id="import_form" class="fieldset admin__fieldset ">
+						<legend class="admin__legend legend">
+							<span><?php echo __("Upload CSV (comma separated) file only") ?></span>
+						</legend>
+						<br>
+						<input type="file" class="input-file required-entry _required" title="Select File to Import" value=""  name="filename" id="filename" >		
+						<div class="admin__field field field-filename"></div>
+					</fieldset>
+					 <!--<button type="button" style="" class="scalable primary save" title="Run Profile in Popup" id="import_product" ><span>Upload File</span></button>-->
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php $import_url = $block->getUrl('*/*/import'); ?>
+<script type="text/javascript">
+ 	 require([
+		'jquery'
+	],
+	 function(jQuery) {
+		var formkey = "<?php echo $block->getFormKey() ?>";
+		var importurl = "<?php echo $import_url ?>";
+			//jQuery('#import_edit_form').on('click', '#import_product', function(event){
+			jQuery( "#import_product" ).click(function() {
+			var file = document.getElementById("filename");
+			var formData = new FormData();
+			formData.append("filename", file.files[0]);
+			formData.append('form_key', formkey);
+			var filename = jQuery('#filename').val();
+			if(filename) {
+				jQuery.ajax({
+					url : importurl,
+					showLoader:true,
+					contentType: false,
+					processData: false,
+					data: formData,                         
+					type: 'post',
+					success: function(data){
+						jQuery('#result').html(data+'<img class="mbindexLoader" src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" />');
+						window.setTimeout(function(){window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'runprofule_section'));?>';}, 3000);
+					}
+				});
+			}else{
+				alert('<?php echo __("Please Upload CSV File First.") ?>');
+			}
+		});
+		
+		jQuery("#import_tabs_import_section").click(function() {
+			//jQuery("#import_product").show("swing");
+			jQuery("#import_product").attr('style','display:block !important');
+			jQuery("#validatebutton").hide("swing");
+			//jQuery("#importbutton").hide();
+			
+		});
+		jQuery("#import_tabs_runprofule_section").click(function() {
+			jQuery("#import_product").hide("swing");
+			jQuery("#validatebutton").show("swing");
+			//jQuery("#importbutton").hide();
+		});
+		
+		 jQuery("#import_tabs_validationlog").click(function() {
+			jQuery("#import_product").show("swing");
+			jQuery("#validatebutton").hide("swing");
+		});
+		jQuery("#import_tabs_importlog").click(function() {
+			jQuery("#import_product").show("swing");
+			jQuery("#validatebutton").hide("swing");
+		});
+
+		jQuery(".cwsFiles").change(function() {
+			jQuery("#import_product").hide("swing");
+			jQuery("#validatebutton").show("swing");
+			//jQuery("#importbutton").hide();
+		});
+	}
+);
+</script>
+
+<?php 
+$params = $block->getRequest()->getParam('show_import_button');
+if(isset($params) && $params == true){ ?>
+<style>
+#importbutton{display:block !important;}
+#import_product{display:none !important;}
+</style>
+<?php }?>
+
+<style>
+#validatecontent {font-size: 1.2em;font-weight: bold;margin-top: 21px;text-align: center;}
+#importbutton{display:none;}
+#validatebutton{display:none;}
+</style>

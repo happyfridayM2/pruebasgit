@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head><css src="jquery/colorpicker/css/colorpicker.css"/></head>
+	<body>
+	     <referenceContainer name="content">
+            <block class="Magebees\Navigationmenu\Block\Adminhtml\Menucreatorgroup\Edit" name="menucreatorgroup_edit"/>
+         </referenceContainer>
+       <referenceContainer name="left">
+     		<block class="Magebees\Navigationmenu\Block\Adminhtml\Menucreatorgroup\Edit\Tabs" name="menucreatorgroup_edit_tabs">
+                <block class="Magebees\Navigationmenu\Block\Adminhtml\Menucreatorgroup\Edit\Tab\Form" 				name="menucreatorgroup_edit_tab_form"/>
+				<block class="Magebees\Navigationmenu\Block\Adminhtml\Menucreatorgroup\Edit\Tab\Codesnipet" 				name="menucreatorgroup_edit_tab_codesnipet"/>
+				</block>
+		</referenceContainer> 
+    </body>
+</page>

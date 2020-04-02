@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarDisablingTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of disabled Category filter"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CATEGORYFILTER-24"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="catfilter"/>
+            <group value="catfilterdisabled"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <magentoCLI
+                    command="config:set amshopby/category_filter/enabled 0"
+                    stepKey="disableCategoryIDS1"/>
+            <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+        </before>
+
+        <after>
+            <magentoCLI
+                    command="config:set amshopby/category_filter/enabled 1"
+                    stepKey="enableCategoryIDS1"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+            <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Default Category"
+             stepKey="checkPageTitle1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.FilterWithException('Category','Cardio')}}"
+                        stepKey="checkCategoryFilterAvailability1"/>
+        <amOnPage url="{{CategoryPage.url('women','tops-women')}}"
+                  stepKey="navigateCategoryPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle2"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.FilterWithException('Category','Cardio')}}"
+                        stepKey="checkCategoryFilterAvailability2"/>
+        <amOnPage url="{{CategoryPage.url('gear','bags')}}"
+                  stepKey="navigateCategoryPage2"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Bags"
+             stepKey="checkPageTitle3"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.FilterWithException('Category','Cardio')}}"
+                        stepKey="checkCategoryFilterAvailability3"/>
+
+    </test>
+</tests>
+
+

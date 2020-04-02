@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarCategoryTreeNoDepthTwoFlyOutDOCurCatChildImagesOnlyTest"
+          extends="CategoryFilterLabelsSidebarCategoryTreeAllTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and with Category Tree created from Current Category Children and Fly-out effect, Images only"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-79"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeNoDepthTwoFlyOutActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeNoDepthTwoCurCatChildFlyOutDOImagesOnly"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                    stepKey="checkCategoryOptionImage1"
+                    after="clickOnCategoryFilter1"/>
+        <dontSee selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+                 userInput="Women"
+                 stepKey="checkCategoryOptionLabel1"
+                 after="checkCategoryOptionImage1"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+                       stepKey="hoverOverOption1"
+                       after="checkCategoryOptionLabel1"/>
+        <wait time="2" stepKey="wait1" after="hoverOverOption1"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterOption('Tops')}}"
+                       stepKey="hoverOverOption3"
+                       after="grabQtyOfProducts1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                        stepKey="checkCategoryOptionImage2"
+                        after="clickOnCategoryFilter2"/>
+        <dontSee selector="{{StorefrontFilterElementsSection.FilterOption('Tops')}}"
+                 userInput="Tops"
+                 stepKey="checkCategoryOptionLabel2"
+                 after="checkCategoryOptionImage2"/>
+        <remove keyForRemoval="checkQtyOfProducts1"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Jackets','Hoodies &amp; Sweatshirts','Tees','Bras &amp; Tanks')}}"
+                stepKey="checkCategoryTreeSequence1"/>
+
+    </test>
+</tests>
+
+

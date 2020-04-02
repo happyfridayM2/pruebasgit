@@ -1,0 +1,109 @@
+<?php 
+$helper = $this->helper('Magebees\Navigationmenu\Helper\Data');
+$customerGroups = $helper->getCustomerGroupList();
+$stores = $helper->getStoreList();
+$storeList = array();
+foreach ($stores as $store) {
+	if($store->getIsActive()):
+	$storeList[] = $store->getData();
+	endif;
+}
+$menu_groups = $helper->getAllGroup();
+
+$dir = $helper->getStaticTemplateDirectoryPath();
+$developer_mode = $this->isDeveloperModeEnable();
+?>
+<script type="text/javascript">
+    //<![CDATA[
+	 function publishMenu() {
+		// getStaticfilesList();
+		
+		 var developermodeStatus = <?php echo $developer_mode['developer_mode_enable_disable'];?>;
+		 if(!developermodeStatus){
+			var customergroups = <?php echo json_encode($customerGroups); ?>;
+			var storelists = <?php echo json_encode($storeList); ?>;
+			var menu_groups = <?php echo json_encode($menu_groups); ?>;
+			var dir = '<?php echo $dir;?>';
+			var file_list = new Array() ; 
+			jQuery.each(menu_groups, function(idx, menugroup) {
+			
+			var menuGroupId = menugroup.value;
+			if(menuGroupId){
+				jQuery.each(storelists, function(idx, obj) {
+				var storeCode = obj.code;
+				var storeId = obj.store_id;
+				var websiteId = obj.website_id;
+				
+				if(storeCode!='admin'){
+					jQuery.each(customergroups, function(idx, obj) {
+					var temp = new Array() ;
+					var customerGroupId = obj.value;
+					var customerStatus = null;
+					if(customerGroupId){
+						customerStatus = 'login';
+					}else{
+						customerStatus = 'guest';	
+					}
+						var myFile = dir+"navigationmenu-w-"+websiteId+"s-"+storeCode+"-g-"+menuGroupId+"-customer-"+customerGroupId+".phtml";
+						temp[0] = menuGroupId;
+						temp[1] = storeId;
+						temp[2] = storeCode;
+						temp[3] = websiteId;
+						temp[4] = customerGroupId;
+						temp[5] = customerStatus;
+						temp[6] = myFile;
+						file_list.push(temp);
+						});	
+						}
+				
+					});
+				}
+			});	 
+		 }
+		
+		new Ajax.Request('<?php echo $this->getAjaxCheckUrl() ?>', {
+            method:     'get',
+            onSuccess: function(transport){
+	            if (transport.responseText){
+						if(!developermodeStatus){
+						generateStaticMenuHtml(file_list);
+						}else{
+						alert(transport.responseText);
+					}
+				}
+            }
+        });
+    }
+	function generateStaticMenuHtml(file_list)
+	{
+		jQuery.ajax({
+			url : '<?php echo $this->getGenerateStaticMenuUrl() ?>',
+			data: { 
+			'file_list' :JSON.stringify(file_list),
+				form_key: FORM_KEY
+			} ,
+			dataType: 'json',
+			type: 'post',
+			showLoader:true,
+			success: function(response){
+				try {
+					file_list.shift();
+					if(response.next==true){ 
+						generateStaticMenuHtml(file_list);
+					}else{
+						location.reload();
+					}
+					if(response.error_message){
+						alert(response.error_message);
+					}
+					}catch(e){
+						if(response.error_message){
+							alert(response.error_message);
+						}
+					}
+		}
+		});
+	}
+    //]]>
+</script>
+<?php echo $this->getButtonHtml() ?>

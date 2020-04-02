@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amxnotif" translate="label" type="text" sortOrder="152115" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Out of Stock Notifications</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Xnotif::xnotif</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Xnotif\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="account_image" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Configurable Image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use configurable product image for simple product subscriptions on account page</comment>
+                </field>
+
+                <field id="customer_name" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Greeting Text for Email</label>
+                </field>
+
+                <field id="min_qty" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Minimum Stock Quantity</label>
+                    <comment>Minimum stock quantity before the email is triggered.</comment>
+                </field>
+
+                <field id="test_notification_email" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test Stock Notification Email</label>
+                    <validate>validate-email</validate>
+                    <comment>Please go to the Reports > Stock Alerts to send it.</comment>
+                </field>
+            </group>
+
+            <group id="stock" translate="label" type="text" sortOrder="20" showInDefault="5" showInWebsite="1"
+                   showInStore="1">
+                <label>Stock Subscribtion</label>
+                <field id="customer_group" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow Subscription for Selected Group(s)</label>
+                    <source_model>Amasty\Xnotif\Model\Source\Group</source_model>
+                </field>
+
+                <field id="email_limit" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Limit Emails by Product Qty</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Note! Emails will be sent once a day</comment>
+                </field>
+
+                <field id="subscribe_category" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Subscribe from Category Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="with_popup" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Popup for Guests on Category</label>
+                    <depends>
+                        <field id="subscribe_category">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="placeholder" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Placeholder for the Subscription Field</label>
+                    <comment>Specify the placeholder to be displayed inside the subscription field by default</comment>
+                </field>
+            </group>
+
+            <group id="price" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Price Subscribtion</label>
+                <field id="customer_group" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow Subscription for Selected Group(s)</label>
+                    <source_model>Amasty\Xnotif\Model\Source\Group</source_model>
+                    <comment>Please Enable Default Price Alerts in Configuration - Catalog - Product Alerts</comment>
+                </field>
+            </group>
+
+            <group id="admin_notifications" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Notifications</label>
+
+                <field id="notify_admin" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Email Reports for New Subscriptions (Daily)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set 'Yes' to receive daily emails with a list of all products to which the customers have subscribed.</comment>
+                </field>
+
+                <field id="notify_admin_template" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template to Notify Admin</label>
+                    <source_model>Amasty\Xnotif\Model\Source\Email\AdminTemplate</source_model>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                </field>
+
+                <field id="low_stock_alert" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Admin about Inventory Low in Stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set 'Yes' to get email alert when product is about to go out-of-stock. It works based on Notify for Quantity Below setting.</comment>
+                </field>
+
+                <field id="notify_low_stock_template" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template to Notify Low in Stock</label>
+                    <source_model>Amasty\Xnotif\Model\Source\Email\LowStockTemplate</source_model>
+                    <depends>
+                        <field id="low_stock_alert">1</field>
+                    </depends>
+                </field>
+
+                <field id="qty_below" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Notify for Quantity Below</label>
+                    <validate>validate-number</validate>
+                    <depends>
+                        <field id="low_stock_alert">1</field>
+                    </depends>
+                </field>
+
+                <field id="stock_alert_email_secondary" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Email Address</label>
+                    <comment>Comma-separated emails, no spaces.</comment>
+                    <depends>
+                        <field id="notify_admin">0</field>
+                        <field id="low_stock_alert">1</field>
+                    </depends>
+                </field>
+
+                <field id="stock_alert_email" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Email Address</label>
+                    <comment>Comma-separated emails, no spaces.</comment>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                </field>
+
+                <field id="sender_email_identity_secondary" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="notify_admin">0</field>
+                        <field id="low_stock_alert">1</field>
+                    </depends>
+                </field>
+
+                <field id="sender_email_identity" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="gdrp" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GDPR Consent</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="text" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Сonsent Text</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

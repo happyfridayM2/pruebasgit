@@ -1,0 +1,104 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+?>
+<?php
+/** @var \Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\Diagnostic $block */
+?>
+<div class="amoptimizer-diagnostic-container">
+    <div class="amoptimizer-checkbox-block">
+        <label for="amoptimizer-homepage" class="amoptimizer-label">
+            <?= $block->escapeHtml(__('Homepage')); ?>
+        </label>
+        <input type="checkbox" id="amoptimizer-homepage" class="amoptimizer-checkbox" />
+        <label for="amoptimizer-catalog" class="amoptimizer-label">
+            <?= $block->escapeHtml(__('Category Page')); ?>
+        </label>
+        <input type="checkbox" id="amoptimizer-catalog" class="amoptimizer-checkbox" />
+        <label for="amoptimizer-product" class="amoptimizer-label">
+            <?= $block->escapeHtml(__('Product Page')); ?>
+        </label>
+        <input type="checkbox" id="amoptimizer-product" class="amoptimizer-checkbox" />
+    </div>
+    <input class="amoptimizer-btn"
+           value="<?= $block->escapeHtml(__('Diagnostic')) ?>"
+           type="button"
+           data-amoptimizer-js="diagnostic" />
+</div>
+<div class="amoptimizer-main-container" data-amoptimizer-js="main">
+    <div class="amoptimizer-total-valuation">
+        <div class="amoptimizer-total-chart" data-amoptimizer-js="chart-container">
+            <h2 class="amoptimizer-valuation" data-amoptimizer-js="valuation"></h2>
+            <svg width="110" height="110" class="amoptimizer-circle-svg" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <circle id="circle" class="amoptimizer-circle"
+                            data-amoptimizer-js="circle"
+                            r="50" cy="55" cx="55"
+                            stroke-width="7"></circle>
+                </g>
+            </svg>
+        </div>
+        <div class="amoptimizer-hint-container">
+            <p class="amoptimizer-url" data-amoptimizer-js="url"></p>
+            <div class="amoptimizer-hint-block">
+                <div class="amoptimizer-hint -red">0-49</div>
+                <div class="amoptimizer-hint -orange">50-89</div>
+                <div class="amoptimizer-hint -green">90-100</div>
+            </div>
+        </div>
+    </div>
+    <div class="amoptimizer-info-tabs" data-mage-init='{"mage/tabs":{"openedState": "-active"}}'>
+        <div class="amoptimizer-tabs-container">
+            <div class="amoptimizer-tab"
+                 data-role="collapsible"
+                 data-amoptimizer-tab="mobile"
+                 data-amoptimizer-js="tab">
+                <?= $block->escapeHtml(__('Mobile')); ?>
+            </div>
+            <div class="amoptimizer-tab"
+                 data-role="collapsible"
+                 data-amoptimizer-tab="desktop"
+                 data-amoptimizer-js="tab">
+                <?= $block->escapeHtml(__('Desktop')); ?>
+            </div>
+        </div>
+        <div class="amoptimizer-tab-content -mobile"
+             data-role="content"
+             data-bind='scope:"render_mobile"'>
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+        <div class="amoptimizer-tab-content -desktop"
+             data-role="content"
+             data-bind="scope:'render_desktop'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "diagnostic": {
+                            "component": "Amasty_PageSpeedOptimizer/js/diagnostic",
+                            "baseUrl": "<?= $block->escapeHtml($block->getBaseUrl()); ?>",
+                            "locale": "<?= $block->escapeHtml($block->getLocale()); ?>",
+                            "imageFolderOptimization": "<?= $block->escapeUrl($block->getUrl("amoptimizer/image/index")); ?>"
+                        },
+                        "render_mobile": {
+                            "component": "render_mobile",
+                            "device": "mobile"
+                        },
+                        "render_desktop": {
+                            "component": "render_desktop",
+                            "device": "desktop"
+                        }
+                    }
+                }
+            }
+        }
+</script>

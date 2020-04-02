@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+
+    <page name="AdminOSCConfigurationPage" url="/admin/system_config/edit/section/amasty_checkout/" area="admin" module="Amasty_Checkout">
+        <section name="AdminConfigurationsOSCSection"/>
+    </page>
+
+    <page name="AdminStoresTermsAndConditionsPage" url="/checkout/agreement/" area="admin" module="Magento_Store">
+        <section name="AdminStoresTermsAndConditionsSection"/>
+    </page>
+
+    <page name="AdminCheckoutAnalyticsPage" url="/amasty_checkout/reports/" area="admin" module="Amasty_Checkout">
+        <section name="AdminCheckoutAnalyticsSection"/>
+    </page>
+
+</pages>

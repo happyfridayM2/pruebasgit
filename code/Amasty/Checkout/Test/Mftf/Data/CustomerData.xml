@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="defaultCustomerOSCData" type="customer">
+        <data key="email">test@amasty.com</data>
+        <data key="firstName">FirstCustName</data>
+        <data key="lastName">LastCustName</data>
+        <data key="street">Cust street</data>
+        <data key="city">London</data>
+        <data key="postcode">12345</data>
+        <data key="telephone">1234567</data>
+        <data key="region">Alabama</data>
+        <data key="country">United States</data>
+    </entity>
+
+    <entity name="customerOSCCheckCreateAccountAfterOrder" type="customer" extends="defaultCustomerOSCData">
+        <data key="email" unique="prefix">createafterorder@test.com</data>
+    </entity>
+
+    <entity name="customerOSCCheckCreateAccountWhilePlacingOrder" type="customer" extends="defaultCustomerOSCData">
+        <data key="email" unique="prefix">createwhileplacingorder@test.com</data>
+        <data key="password">Password123</data>
+    </entity>
+
+    <entity name="customerOSCCheckEWay" type="customer">
+        <data key="email">test@amasty.com</data>
+        <data key="firstName">FirstCustName</data>
+        <data key="lastName">LastCustName</data>
+        <data key="street">Block Arcade, 282 Collins St</data>
+        <data key="city">Melbourne</data>
+        <data key="postcode">3000</data>
+        <data key="telephone">+61 3 9654 5244</data>
+        <data key="region">Australian Capital Territory</data>
+        <data key="country">Australia</data>
+    </entity>
+
+    <entity name="customerOSCCheckPayPalAndBraintree" type="customer">
+        <data key="email">test@amasty.com</data>
+        <data key="firstName">FirstCustName</data>
+        <data key="lastName">LastCustName</data>
+        <data key="street">Cust street</data>
+        <data key="city">San Jose</data>
+        <data key="postcode">95131</data>
+        <data key="telephone">1234567</data>
+        <data key="region">California</data>
+        <data key="country">United States</data>
+    </entity>
+
+    <entity name="OSCCustomerArizona" type="customer">
+        <data key="group_id">3</data>
+        <data key="default_billing">false</data>
+        <data key="default_shipping">false</data>
+        <data key="email" unique="prefix">OSCTest@example.com</data>
+        <data key="firstname">FirstOSC</data>
+        <data key="lastname">LastOSC</data>
+        <data key="password">aA111111</data>
+        <data key="store_id">0</data>
+        <data key="website_id">0</data>
+        <requiredEntity type="address">OSC_Address_AZ</requiredEntity>
+    </entity>
+
+    <entity name="OSC_Address_AZ" type="address">
+        <data key="firstname">FirstOSC</data>
+        <data key="lastname">LastOSC</data>
+        <data key="company">Company</data>
+        <array key="street">
+            <item>298-218 N Central Ave</item>
+        </array>
+        <data key="city">Phoenix</data>
+        <data key="state">Arizona</data>
+        <data key="country_id">US</data>
+        <data key="country">United States</data>
+        <data key="postcode">85004</data>
+        <data key="telephone">(555) 229-3326</data>
+        <data key="default_billing">Yes</data>
+        <data key="default_shipping">Yes</data>
+        <requiredEntity type="region">OSCRegionAZ</requiredEntity>
+    </entity>
+
+    <entity name="OSCRegionAZ" type="region">
+        <data key="region">Arizona</data>
+        <data key="region_code">AZ</data>
+        <data key="region_id">4</data>
+    </entity>
+
+    <entity name="OSCCustomerCalifornia" type="customer">
+        <data key="group_id">3</data>
+        <data key="default_billing">false</data>
+        <data key="default_shipping">false</data>
+        <data key="email" unique="prefix">OSCTest@example.com</data>
+        <data key="firstname">FirstOSC</data>
+        <data key="lastname">LastOSC</data>
+        <data key="password">aA111111</data>
+        <data key="store_id">0</data>
+        <data key="website_id">0</data>
+        <requiredEntity type="address">OSC_Address_CA</requiredEntity>
+    </entity>
+
+    <entity name="OSC_Address_CA" type="address">
+        <data key="firstname">FirstOSC</data>
+        <data key="lastname">LastOSC</data>
+        <data key="company">Company</data>
+        <array key="street">
+            <item>Cust street</item>
+        </array>
+        <data key="city">San Jose</data>
+        <data key="state">California</data>
+        <data key="country_id">US</data>
+        <data key="country">United States</data>
+        <data key="postcode">95131</data>
+        <data key="telephone">1234567</data>
+        <data key="default_billing">Yes</data>
+        <data key="default_shipping">Yes</data>
+        <requiredEntity type="region">OSCRegionCA</requiredEntity>
+    </entity>
+
+    <entity name="OSCRegionCA" type="region">
+        <data key="region">California</data>
+        <data key="region_code">CA</data>
+        <data key="region_id">12</data>
+    </entity>
+
+</entities>

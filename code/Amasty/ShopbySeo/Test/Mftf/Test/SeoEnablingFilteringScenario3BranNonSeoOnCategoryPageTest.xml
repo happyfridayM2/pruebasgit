@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringScenario3BranNonSeoOnCategoryPageTest"
+          extends="SeoEnablingFilteringFullSeoOnCategoryPageTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled SEO in scenario 3 with non seo-friendly brand attribute with no brand url key"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-31"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="seoscenario2-3"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoDefault3"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with enabled seo in scenario 3 with non seo-friendly brand attribute with no brand url key, check the result in url/-->
+
+        <seeInCurrentUrl url="/solid--all-weather--indoor.html?material=5465&amp;style_general=5561%2C5552"
+                         stepKey="seeInCurrentUrl1"/>
+        <dontSeeInCurrentUrl url="testfilterkey" stepKey="dontSeeInCurrentUrl3"/>
+        <dontSeeInCurrentUrl url="testbrandurlkey" stepKey="dontSeeInCurrentUrl4"/>
+
+    </test>
+</tests>
+
+

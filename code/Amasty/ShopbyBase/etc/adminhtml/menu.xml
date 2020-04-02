@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ShopbyBase::layered_navigation" title="Layered Navigation" module="Amasty_ShopbyBase" parent="Magento_Backend::content" sortOrder="30" resource="Amasty_ShopbyBase::layered_navigation"/>
+    </menu>
+</config>

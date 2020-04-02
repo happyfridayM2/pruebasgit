@@ -1,0 +1,130 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+?>
+<?php
+    /* @var $block \Amasty\Conf\Block\Adminhtml\Group\Edit\Renderer\Options */
+    $element = $block->getElement();
+    $htmlId = $element->getHtmlId();
+    $note = $element->getNote() ? '<div class="note admin__field-note" id="' . $element->getId() . '-note">'
+        . $element->getNote() . '</div>' : '';
+
+    $elementBeforeLabel = $element->getExtType() == 'checkbox admin__control-checkbox'
+        || $element->getExtType() == 'radio admin__control-radio';
+    $addOn = ($element->getBeforeElementHtml() || $element->getAfterElementHtml()) && !$element->getNoWrapAsAddon();
+    $fieldId = ($element->getHtmlContainerId()) ? ' id="' . $element->getHtmlContainerId() . '"' : '';
+
+    $fieldClass = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+    $fieldClass .= ($elementBeforeLabel) ? ' choice' : '';
+    $fieldClass .= ($addOn) ? ' with-addon' : '';
+    $fieldClass .= ($element->getRequired()) ? ' required _required' : '';
+    $fieldClass .= ($note) ? ' with-note' : '';
+    $fieldClass .= (!$element->getLabelHtml()) ? ' no-label' : '';
+
+    $fieldAttributes = $fieldId . ' class="' . $fieldClass . '" '
+        . $block->getUiId('form-field', $element->getId())
+        . ($element->getFieldExtraAttributes() ? ' ' . $element->getFieldExtraAttributes() : '');
+?>
+
+<?php if (!$element->getNoDisplay()) : ?>
+    <?php if ($element->getType() == 'hidden') : ?>
+        <?= $element->getElementHtml() ?>
+    <?php else : ?>
+        <div <?= /* @noEscape */ $fieldAttributes ?>>
+        <?php if ($elementBeforeLabel) : ?>
+            <?= $element->getElementHtml() ?>
+            <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+        <?php else : ?>
+            <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+            <div class="admin__field-control control">
+                <div class="admin__field">
+                    <?= /* @noEscape */ $note ?>
+                    <div id="manage-options-panel" data-index="dispatch_options_select_container">
+                        <table class="admin__control-table" data-index="dispatch_options_select">
+                            <thead>
+                            <tr id="dispatch_options-table">
+                                <th class="col-draggable"></th>
+                                <th class="col-short">
+                                    <span><?= /* @noEscape */ __('Selected') ?></span>
+                                </th>
+                                <th>
+                                    <span><?= /* @noEscape */ __('Select options for this attribute group') ?></span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody data-role="options-container" class="ignore-validate"></tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="4" class="validation">
+                                    <input type="hidden" class="required-dropdown-dispatch-entry"
+                                           name="dropdown_dispatch_validation"/>
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <table class="admin__control-table" data-index="dispatch_values_select">
+                            <tbody><tr data-role="values-container"></tr></tbody>
+                        </table>
+                    </div>
+                    <script id="row-template" type="text/x-magento-template">
+                        <tr>
+                            <td class="col-draggable">
+                                <div data-role="draggable-handle" class="draggable-handle"
+                                     title="<?= /* @noEscape */ __('Sort Option'); ?>"></div>
+                                <input data-role="options" type="hidden"
+                                       name="attribute_options[<%- data.id %>][sort_order][value]"
+                                       data-ui-id="text-attribute_options-<%- data.id %>-sort_order-value"
+                                       id="<?= /* @noEscape */ $htmlId ?>_<%- data.id %>_sort_order"
+                                       value="<%- data.sort_order %>"/>
+                            </td>
+                            <td class="col-<%- data.id %> col-option">
+                                <input data-role="options" type="checkbox"
+                                       class="input-checkbox"
+                                       name="attribute_options[<%- data.id %>][is_active][value]"
+                                       data-ui-id="text-attribute_options-<%- data.id %>-is_active-value"
+                                       id="<?= /* @noEscape */ $htmlId ?>_<%- data.id %>_is_active"
+                                <%- data.checked %>
+                                value="<%- data.is_active %>"/>
+                            </td>
+                            <td class="col-default">
+                                <div class="option_value"><%- data.value %></div>
+                                <div class="swatch_option"<%- data.swatch %>></div>
+                            </td>
+                        </tr>
+                    </script>
+
+                    <script id="value-template" type="text/x-magento-template">
+                            <td class="col-<%- data.id %> col-value">
+                                <input type="hidden"
+                                       name="attribute_values[<%- data.id %>][sort_order][value]"
+                                       data-ui-id="text-attribute_options-<%- data.id %>-sort_order-value"
+                                       id="<?= /* @noEscape */ $htmlId ?>_<%- data.id %>_sort_order"
+                                       value="<%- data.sort_order %>"/>
+                                <div class="option_value"><%- data.text %></div>
+                                <input type="text"
+                                       name="attribute_values[<%- data.id %>][is_active][value]"
+                                       data-ui-id="text-attribute_options-<%- data.id %>-is_active-value"
+                                       id="<?= /* @noEscape */ $htmlId ?>_<%- data.id %>_is_active"
+                                       value="<%- data.value %>"/>
+                            </td>
+                    </script>
+                    <script type="text/javascript">
+                        require(
+                            ['Amasty_Conf/js/group-visual-options'],
+                            function (Options) {
+                                Options.init(
+                                    <?= /* @noEscape */ $block->getJsonOptions() ?>,
+                                    '<?= /* @noEscape */ $element->getValue() ?>'
+                                );
+                            }
+                        );
+                    </script>
+                </div>
+                <?= /* @noEscape */ $note ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

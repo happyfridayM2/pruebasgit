@@ -1,0 +1,5 @@
+<div class="mgz-element-list-inner" ng-class="{'mgz-empty-component': !element.elements || element.elements.length==0}">
+	<i class="mgz-icon mgz-icon-add" ng-if="element.elements.length==0" ng-click="addChildComponent(element)"></i>
+	HELLO123213213
+	<magezon-builder-component-list templateUrl="{{ $root.magezonBuilderService.getViewFileUrl('Magezon_Builder/js/templates/builder/tab1.html') }}" element="element" parentElement="parentElement"></magezon-builder-component-list>
+</div>

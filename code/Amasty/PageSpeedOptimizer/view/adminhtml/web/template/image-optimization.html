@@ -1,0 +1,41 @@
+<div class="amoptimizer-steps-container">
+    <ul class="amsteps-icons-wrapper">
+        <li class="amsteps-icon" data-bind="css: {'-active': isGeneration(), '-done': isDone() || inProgress()}"></li>
+        <li class="amsteps-icon" data-bind="css: {'-active': inProgress(), '-done': isDone()}"></li>
+        <li class="amsteps-icon" data-bind="css: {'-done': isDone()}"></li>
+    </ul>
+    <ul class="amsteps-titles-wrapper">
+        <li class="amsteps-title" data-bind="i18n: 'Images Queue Generation', css: {'-active': isGeneration()}"></li>
+        <li class="amsteps-title" data-bind="css: {'-active': inProgress()}">
+            <span data-bind="i18n: 'Image Optimization Progress:'"></span>
+            <span data-bind="text: currentFiles()"></span>/<span data-bind="text: filesCount()"></span>
+        </li>
+        <li class="amsteps-title" data-bind="css: {'-active': isDone()}">
+            <span data-bind="i18n: 'Image Optimization Finished'"></span>
+        </li>
+    </ul>
+</div>
+<!-- ko if: inProgress() -->
+<div class="amoptimizer-progress-bar">
+    <div class="amprogressbar-progress-timer">
+        <div class="amprogressbar-progress-container">
+            <div class="amprogressbar-progress-wrapper">
+                <progress max="100" value="0" class="amprogressbar-progress" data-bind="value: percentage()"></progress>
+            </div>
+            <span class="amprogressbar-value"><span data-bind="text: percentage()"></span>%</span>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+<!-- ko if: isGeneration() -->
+<div class="amloader-spinner-container">
+    <div class="amloader-spinner">
+        <!-- ko foreach: new Array(dotCount()) -->
+        <div class="amloader-dot-container" data-bind="css:'dot-' + ($index()+1) + '-container'">
+            <div class="amloader-dot" data-bind="css:'dot-' + ($index()+1)"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <p class="amloader-title" data-bind="i18n: 'Please wait...'"></p>
+</div>
+<!-- /ko -->

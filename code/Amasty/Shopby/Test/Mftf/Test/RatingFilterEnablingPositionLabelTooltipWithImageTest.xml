@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingPositionLabelTooltipWithImageTest"
+          extends="RatingFilterEnablingPositionLabelTooltipTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and displaying of elements"/>
+            <description value="Check of rating filter enabling, position, label and tooltip with image"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-8"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="TooltipEnablingWithImageActionGroup" stepKey="configureTooltip1"/>
+        </before>
+
+        <!--Checking of Rating Filter elements: check configuration of position, label, tooltip with image/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('21','3.png','3_'))}}"
+                    stepKey="seeTooltipImage1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('2','3.png','3_'))}}"
+                    stepKey="seeTooltipImage2"/>
+
+    </test>
+</tests>

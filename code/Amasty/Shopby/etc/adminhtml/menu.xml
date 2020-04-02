@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_Shopby::layered_navigation_stores" title="Layered Navigation" module="Amasty_Shopby"  parent="Magento_Backend::stores" sortOrder="50"  resource="Amasty_Shopby::layered_navigation_stores"/>
+        <add id="Amasty_Shopby::group_attributes"   title="Manage Group Attributes"   module="Amasty_Shopby" parent="Amasty_Shopby::layered_navigation_stores" sortOrder="1" action="amshopby_option/group/index" resource="Amasty_Shopby::group_attributes"/>
+    </menu>
+</config>

@@ -1,0 +1,157 @@
+"Save and Continue Edit","Save and Continue Edit"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"More from this Brand","More from this Brand"
+"Manage Brand Slider","Manage Brand Slider"
+"Edit Improved Navigation Brand Slider","Edit Improved Navigation Brand Slider"
+"Improved Navigation Brand Slider","Improved Navigation Brand Slider"
+"Something went wrong while editing the brand.","Something went wrong while editing the brand."
+CMS,CMS
+"Manage Layered Navigation: Brand Management","Manage Layered Navigation: Brand Management"
+"Brand Management","Brand Management"
+"A total of %1 brand(s) have been added to slider.","A total of %1 brand(s) have been added to slider."
+"A total of %1 brand(s) have been removed from slider.","A total of %1 brand(s) have been removed from slider."
+"Make sure that the root category for current store is anchored","Make sure that the root category for current store is anchored"
+"Make sure that ""%1"" attribute can be used in layered navigation","Make sure that ""%1"" attribute can be used in layered navigation"
+"-- Empty --","-- Empty --"
+Disabled,Disabled
+Name,Name
+Position,Position
+No,No
+"All Brands page","All Brands page"
+"Product page","Product page"
+"Listing page","Listing page"
+"Display First","Display First"
+"Display Last","Display Last"
+"Meta Data","Meta Data"
+"Meta Title","Meta Title"
+"Meta Description","Meta Description"
+"Meta Keywords","Meta Keywords"
+"Page Content","Page Content"
+"Page Title","Page Title"
+Title,Title
+Description,Description
+"Short Description","Short Description"
+"Delete Image","Delete Image"
+Image,Image
+"Top CMS Block","Top CMS Block"
+"Bottom CMS Block","Bottom CMS Block"
+"Please make sure the attribute is selected in the following setting: STORES -> 
+                Configuration -> Improved Layered Navigation -> Category Title and Description -> 
+                'Add the title & description of the selected filters'","Please make sure the attribute is selected in the following setting: STORES -> 
+                Configuration -> Improved Layered Navigation -> Category Title and Description -> 
+                'Add the title & description of the selected filters'"
+"Used in Brands Slider, Product Page Icon & Swatch for Multiselect Attribute","Used in Brands Slider, Product Page Icon & Swatch for Multiselect Attribute"
+"Page content image is used.","Page content image is used."
+Other,Other
+"Small Image","Small Image"
+"Small Image Alt","Small Image Alt"
+"Show in Brand Slider","Show in Brand Slider"
+"Please kindly keep in mind, that if ‘Yes’ is chosen, the current attribute’s 
+                        option will be considered as Featured and displayed at the top of attribute’s filter in 
+                        layered navigation","Please kindly keep in mind, that if ‘Yes’ is chosen, the current attribute’s 
+                        option will be considered as Featured and displayed at the top of attribute’s filter in 
+                        layered navigation"
+"Position in Slider","Position in Slider"
+"Please make sure Sort By ""Position"" is selected in the following setting group:
+                                  STORES -> Configuration -> Improved Layered Navigation: Brands -> Brand Slider","Please make sure Sort By ""Position"" is selected in the following setting group:
+                                  STORES -> Configuration -> Improved Layered Navigation: Brands -> Brand Slider"
+Edit,Edit
+"Search Brands","Search Brands"
+"Search Brand","Search Brand"
+Brands,Brands
+"All Brands","All Brands"
+"Please select brand attribute in Stores -> Configuration -> Amasty Extensions -> Improved Layered Navigation:
+                    Brands.","Please select brand attribute in Stores -> Configuration -> Amasty Extensions -> Improved Layered Navigation:
+                    Brands."
+"Add to Cart","Add to Cart"
+"In stock","In stock"
+"Out of stock","Out of stock"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Improved Layered Navigation: Brands","Improved Layered Navigation: Brands"
+Information,Information
+General,General
+"Brand Attribute","Brand Attribute"
+"Creates SEO-friendly brand pages. Every page contains all your products filtered by particular brand and contains unique content that you assigned for the option of brand attribute.","Creates SEO-friendly brand pages. Every page contains all your products filtered by particular brand and contains unique content that you assigned for the option of brand attribute."
+"URL Key","URL Key"
+"Adds a key before brand name in URL like /[key]/brand-name.html.","Adds a key before brand name in URL like /[key]/brand-name.html."
+"Choose CMS Page","Choose CMS Page"
+"Please make sure the CMS page is enabled (Content -> Elements -> Pages).","Please make sure the CMS page is enabled (Content -> Elements -> Pages)."
+"Add Brands Link to Top Menu","Add Brands Link to Top Menu"
+"Display Link to All Brands Page in Top Menu","Display Link to All Brands Page in Top Menu"
+"Show Brands List","Show Brands List"
+"Displays Brands List and Filter By Character in Top Menu Item.","Displays Brands List and Filter By Character in Top Menu Item."
+"Add Brands to Account Top Links","Add Brands to Account Top Links"
+"Display Link to All Brands Page in Account Top Links.","Display Link to All Brands Page in Account Top Links."
+"Brands Item Label","Brands Item Label"
+"Used in top menu and account links","Used in top menu and account links"
+"Display tooltip","Display tooltip"
+"Tooltip content","Tooltip content"
+"Possible variables: {title}, {small_image}, {image}, {description}, {short_description}.","Possible variables: {title}, {small_image}, {image}, {description}, {short_description}."
+"All Brands Page","All Brands Page"
+"Widget Code","Widget Code"
+"Show Brand Logo","Show Brand Logo"
+"Image Max Width, px","Image Max Width, px"
+"Image Max Height, px","Image Max Height, px"
+Optional.,Optional.
+"Enable Search","Enable Search"
+"Enable Filter by Character","Enable Filter by Character"
+"Show Characters without Brands","Show Characters without Brands"
+"in a Filter by Character.","in a Filter by Character."
+"Show Products Quantity","Show Products Quantity"
+"Show Brands without Products","Show Brands without Products"
+"Please note that this setting may affect performance.","Please note that this setting may affect performance."
+"Brand Slider","Brand Slider"
+"Visible Items Quantity","Visible Items Quantity"
+"Sort By","Sort By"
+"Header Background Color","Header Background Color"
+"Default is #F58C12","Default is #F58C12"
+"Header Text Color","Header Text Color"
+"Header Title","Header Title"
+"Slider Max Width, px","Slider Max Width, px"
+"Show Brand Label","Show Brand Label"
+"Show Buttons","Show Buttons"
+"Display Prev/Next buttons.","Display Prev/Next buttons."
+"Infinity Loop","Infinity Loop"
+"Enable continuous loop mode.","Enable continuous loop mode."
+"Simulate Touch","Simulate Touch"
+"Click and drag to change slides.","Click and drag to change slides."
+"Show Pagination","Show Pagination"
+"Clickable Pagination","Clickable Pagination"
+Autoplay,Autoplay
+"Autoplay Delay","Autoplay Delay"
+"In milliseconds.","In milliseconds."
+Enable,Enable
+"Displays the random products of the same brand at the bottom of the Product page. Note. Please enable ""Used in Product Listing"" setting for brand attribute.","Displays the random products of the same brand at the bottom of the Product page. Note. Please enable ""Used in Product Listing"" setting for brand attribute."
+"Max Product Count","Max Product Count"
+"Please set the quantity of the products displayed. Default value is 7.","Please set the quantity of the products displayed. Default value is 7."
+"Product Page Brand Settings","Product Page Brand Settings"
+"Display Brand Logo on Product Page","Display Brand Logo on Product Page"
+"Display Short Description on Product Page","Display Short Description on Product Page"
+"Displays Brand short description together with the Brand logo on the product page","Displays Brand short description together with the Brand logo on the product page"
+"Brand Logo Width, px","Brand Logo Width, px"
+"If the field is left empty, the default image size (30px) will be used.","If the field is left empty, the default image size (30px) will be used."
+"Brand Logo Height, px","Brand Logo Height, px"
+"Product Listing Brand Settings","Product Listing Brand Settings"
+"Display Brand Logo on Product Listing","Display Brand Logo on Product Listing"
+"Note. Please enable ""Used in Product Listing"" setting for brand attribute.","Note. Please enable ""Used in Product Listing"" setting for brand attribute."
+"Brand Logo Width","Brand Logo Width"
+"Please specify the value in pixels (e.g. 10) or percent (e.g. 10%). If the field is left empty, the default image size (30px) will be used.","Please specify the value in pixels (e.g. 10) or percent (e.g. 10%). If the field is left empty, the default image size (30px) will be used."
+"Brand Logo Height","Brand Logo Height"
+"Amasty Brand List","Amasty Brand List"
+"List of your brand attribute options. Links lead to Brand Pages.","List of your brand attribute options. Links lead to Brand Pages."
+"Number of Columns","Number of Columns"
+Template,Template
+Index,Index
+"Amasty Brand Slider","Amasty Brand Slider"
+"Slider Max Width","Slider Max Width"
+"Leave blank to use the value from the configuration.","Leave blank to use the value from the configuration."
+"Image Width","Image Width"
+"Image Max Height","Image Max Height"
+Slider,Slider
+"Store View","Store View"
+"Add to the slider","Add to the slider"
+"Remove from the slider","Remove from the slider"
+"Slider Image","Slider Image"
+"Show in Slider","Show in Slider"
+"URL alias","URL alias"

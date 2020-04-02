@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CustomPageConfigurationActionGroup">
+        <arguments>
+            <argument name="customPage"/>
+            <argument name="customPage2"/>
+        </arguments>
+        <amOnPage url="{{AdminCustomPagesProfilePage.url('new','?123')}}"
+                  stepKey="navigateToNewCustomPageProfilePage1"/>
+        <fillField userInput="{{customPageBasicConfiguration.CustomPageTitleField}}"
+                   selector="{{CustomPageProfileSection.CustomPageTitleField}}" stepKey="fillPageTitleField"/>
+        <click selector="{{CustomPageProfileSection.CategoriesStoreViewTab}}" stepKey="clickOnTab1"/>
+        <selectOption selector="{{CustomPageProfileSection.StoreViewField}}"
+                      userInput="{{customPage.StoreViewField}}"
+                      stepKey="configureStoreViewField1"/>
+        <selectOption selector="{{CustomPageProfileSection.CategoriesField}}"
+                      userInput="{{customPage.CategoriesField}}"
+                      stepKey="configureCategory1"/>
+        <click selector="{{CustomPageProfileSection.FilterSelectionsTab}}" stepKey="clickOnTab2"/>
+        <selectOption selector="{{CustomPageProfileSection.SelectAttributeDropdown}}"
+                      userInput="{{customPage2.SelectAttributeDropdown}}"
+                      stepKey="configureTriggerAttribute1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForElement selector="{{CustomPageProfileSection.SelectAttributeValueDropdown}}" stepKey="waitForElement2"/>
+        <selectOption selector="{{CustomPageProfileSection.SelectAttributeValueDropdown}}"
+                      userInput="{{customPage2.SelectAttributeValueDropdown}}"
+                      stepKey="configureTriggerAttributeValue1"/>
+        <click selector="{{CustomPageProfileSection.SaveAndContinue}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <grabFromCurrentUrl regex="~/id/(\d+)/~" stepKey="grabFromCurrentUrl1"/>
+        <setCookie userInput="setCustomPageIDInCookie" value="{$grabFromCurrentUrl1}"
+                   stepKey="setCustomPageIDInCookie1"/>
+        <click selector="{{CustomPageProfileSection.Save}}" stepKey="clickSaveConfig2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteCustomPage">
+        <grabCookie userInput="setCustomPageIDInCookie" stepKey="grabCookie1"/>
+        <amOnPage url="{{AdminCustomPagesProfilePage.url('edit/id',{$grabCookie1}/)}}"
+                  stepKey="navigateToCustomPageProfilePage2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForElement selector="{{CustomPageProfileSection.DeleteButton}}" stepKey="waitForElement3"/>
+        <click selector="{{CustomPageProfileSection.DeleteButton}}" stepKey="clickOnDeleteButton1"/>
+        <waitForElement selector="{{CustomPageProfileSection.OkButton('4')}}" stepKey="waitForElement4"/>
+        <wait time="2" stepKey="wait1"/>
+        <pressKey selector="{{CustomPageProfileSection.OkButton('4')}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]" stepKey="pressEnter"/>
+        <waitForPageLoad time="25" stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+</actionGroups>

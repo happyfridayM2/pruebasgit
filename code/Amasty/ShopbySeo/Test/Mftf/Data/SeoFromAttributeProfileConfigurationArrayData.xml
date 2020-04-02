@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="SeoFriendlySingleSelect" type="attributeSeoScenario1">
+        <data key="PatternID">155</data>
+        <data key="AllowMultiSelectSwitcher">0</data>
+        <data key="enableSeoSwitcher">1</data>
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+    <entity name="nonSeoFriendlySingleSelect1" type="attributeSeoScenario1" extends="SeoFriendlySingleSelect">
+        <data key="enableSeoSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">0</data>
+    </entity>
+    <entity name="nonSeoFriendlyMultiSelect" type="attributeSeoScenario2">
+        <data key="StyleGeneralID">152</data>
+        <data key="AllowMultiSelectSwitcher">1</data>
+        <data key="enableSeoSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+    <entity name="nonSeoFriendlySingleSelect2" type="attributeSeoScenario2" extends="nonSeoFriendlyMultiSelect">
+        <data key="AllowMultiSelectSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">0</data>
+    </entity>
+    <entity name="SeoFriendlyAllowMultiSelect" type="attributeSeoScenario3">
+        <data key="ClimateID">156</data>
+        <data key="AllowMultiSelectSwitcher">1</data>
+        <data key="enableSeoSwitcher">1</data>
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+    <entity name="nonSeoFriendlySingleSelect3" type="attributeSeoScenario3" extends="SeoFriendlyAllowMultiSelect">
+        <data key="AllowMultiSelectSwitcher">0</data>
+        <data key="enableSeoSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">0</data>
+    </entity>
+    <entity name="nonSeoFriendlySingleSelectBrand" type="attributeSeoScenario4">
+        <data key="MaterialID">139</data>
+        <data key="AllowMultiSelectSwitcher">0</data>
+        <data key="enableSeoSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">0</data>
+    </entity>
+    <entity name="seoFriendlyMultiSelectBrand" type="attributeSeoScenario4" extends="nonSeoFriendlySingleSelectBrand">
+        <data key="AllowMultiSelectSwitcher">1</data>
+        <data key="enableSeoSwitcher">1</data>
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+    <entity name="nonSeoFriendlyMultiSelectBrand" type="attributeSeoScenario4"
+            extends="nonSeoFriendlySingleSelectBrand">
+        <data key="AllowMultiSelectSwitcher">1</data>
+    </entity>
+    <entity name="nonSeoFriendlySingleSelectBrand2" type="attributeSeoScenario4"
+            extends="nonSeoFriendlySingleSelectBrand">
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+
+    <entity name="IndexFollowRelNoFollowDefault" type="RTC">
+        <data key="ID">93</data>
+        <data key="IndexModeSwitcher">0</data>
+        <data key="FollowModeSwitcher">0</data>
+        <data key="RelNoFollowSwitcher">1</data>
+    </entity>
+    <entity name="IndexFollowRelNoFollowDefaultCategory" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="ID">105</data>
+    </entity>
+    <entity name="IndexFollowRelNoFollowDefaultSize" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="ID">144</data>
+    </entity>
+    <entity name="IndexFollowRelNoFollowDefaultPrice" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="ID">77</data>
+    </entity>
+
+    <entity name="IndexFollowRelNoFollowDefault" type="RTC">
+        <data key="ColorID">93</data>
+        <data key="IndexModeSwitcher">0</data>
+        <data key="FollowModeSwitcher">0</data>
+        <data key="RelNoFollowSwitcher">1</data>
+    </entity>
+    <entity name="IndexFollowSingleSelection" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="IndexModeSwitcher">1</data>
+        <data key="FollowModeSwitcher">1</data>
+    </entity>
+    <entity name="IndexFollowAlways" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="IndexModeSwitcher">2</data>
+        <data key="FollowModeSwitcher">2</data>
+    </entity>
+    <entity name="disableRelNoFollow" type="RTC" extends="IndexFollowRelNoFollowDefault">
+        <data key="RelNoFollowSwitcher">0</data>
+    </entity>
+    <entity name="AllowMultiSelectLabelsMode" type="RTC2">
+        <data key="AllowMultiSelectSwitcher">1</data>
+        <data key="DisplayModeSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">1</data>
+    </entity>
+    <entity name="SingleSelectDefault" type="RTC2" extends="AllowMultiSelectLabelsMode">
+        <data key="AllowMultiSelectSwitcher">0</data>
+        <data key="showFilterOnSRPSwitcher">0</data>
+    </entity>
+    <entity name="DropdownMode" type="RTC2" extends="AllowMultiSelectLabelsMode">
+        <data key="DisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="ImagesMode" type="RTC2" extends="AllowMultiSelectLabelsMode">
+        <data key="DisplayModeSwitcher">4</data>
+    </entity>
+    <entity name="ImagesLabelsMode" type="RTC2" extends="AllowMultiSelectLabelsMode">
+        <data key="DisplayModeSwitcher">5</data>
+    </entity>
+    <entity name="TextSwatchesMode" type="RTC2" extends="AllowMultiSelectLabelsMode">
+        <data key="DisplayModeSwitcher">5</data>
+    </entity>
+
+</entities>
+

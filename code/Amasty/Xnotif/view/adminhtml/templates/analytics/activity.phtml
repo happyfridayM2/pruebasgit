@@ -1,0 +1,36 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/** @var Amasty\Xnotif\Block\Adminhtml\Analytics\Activity\ProductList $block */
+?>
+<div class="amxnotif-2column">
+    <p class="amxnotif-title"><?= $block->escapeHtml(__('Recent Activity (Subscriptions)')); ?></p>
+
+    <table class="amxnotif-table">
+        <thead class="amxnotif-thead">
+        <tr>
+            <th class="amxnotif-cell"><?= $block->escapeHtml(__('Customer')); ?></th>
+            <th class="amxnotif-cell"><?= $block->escapeHtml(__('Product Name')); ?></th>
+            <th class="amxnotif-cell"><?= $block->escapeHtml(__('Date & Time')); ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($block->getLastSubscribers() as $product) : ?>
+            <tr class="amxnotif-row">
+                <td class="amxnotif-cell"><?= $block->escapeHtml($product->getEmail()); ?></td>
+                <td class="amxnotif-cell"><?= $block->escapeHtml($product->getProductName()); ?></td>
+                <td class="amxnotif-cell"><?= $block->escapeHtml($product->getAddDate()); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <a href="<?= $block->escapeUrl($block->getMoreUrl()); ?>"
+       class="amxnotif-more-link"
+       title="<?= $block->escapeHtml(__("View more")) ?>"
+       target="_blank"><?= $block->escapeHtml(__("View more")) ?></a>
+</div>

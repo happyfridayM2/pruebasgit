@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php $order = $block->getOrder() ?>
+<div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary edit-order-table">
+        <thead>
+            <tr class="headings">
+                <th class="col-product"><span><?php echo __('Product') ?></span></th>
+                <th class="col-status"><span><?php echo __('Item Status') ?></span></th>
+                <th><span class="nobr"><?php echo __('Export to') ?></span></th>
+                <th class="col-price-original"><span><?php echo __('Original Price') ?></span></th>
+                <th class="col-price"><span><?php echo __('Price') ?></span></th>
+                <th class="col-ordered-qty"><span><?php echo __('Qty') ?></span></th>
+                <th class="col-subtotal"><span><?php echo __('Subtotal') ?></span></th>
+                <th class="col-tax-amount"><span><?php echo __('Tax Amount') ?></span></th>
+                <th class="col-tax-percent"><span><?php echo __('Tax Percent') ?></span></th>
+                <th class="col-discount"><span><?php echo __('Discount Amount') ?></span></th>
+                <th class="col-total last"><span><?php echo __('Row Total') ?></span></th>
+            </tr>
+        </thead>
+        <?php $items = $block->getItemsCollection(); ?>
+        <?php
+        $i = 0;
+        foreach ($items as $item) :
+            if ($item->getParentItem()) {
+                continue;
+            } else {
+                $i++;
+            }
+            ?>
+            <tbody class="<?php echo $i % 2 ? 'even' : 'odd' ?>">
+                <?php echo $block->getItemHtml($item) ?>
+                <?php echo $block->getItemExtraInfoHtml($item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

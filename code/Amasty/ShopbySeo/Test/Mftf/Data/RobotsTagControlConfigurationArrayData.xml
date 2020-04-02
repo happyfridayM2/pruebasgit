@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="robotsTagControlDefault" type="rtcscenario">
+        <data key="AllowModifyRobotsMetaTagSwitcher">1</data>
+        <data key="NoindexMultipleAttributeFiltersSwitcher">0</data>
+        <data key="AddRelNofollowSwitcher">1</data>
+        <data key="NoindexForPaginatedPagesSwitcher">0</data>
+    </entity>
+
+    <entity name="disableRMTSwitcher" type="rtcscenario" extends="robotsTagControlDefault">
+        <data key="AllowModifyRobotsMetaTagSwitcher">0</data>
+    </entity>
+    <entity name="enableNoindexForMultipleOptions" type="rtcscenario" extends="robotsTagControlDefault">
+        <data key="NoindexMultipleAttributeFiltersSwitcher">1</data>
+    </entity>
+    <entity name="disableAddRelNofollowSwitcher" type="rtcscenario" extends="robotsTagControlDefault">
+        <data key="AddRelNofollowSwitcher">0</data>
+    </entity>
+    <entity name="enableNoindexForPaginatedPagesSwitcher" type="rtcscenario" extends="robotsTagControlDefault">
+        <data key="NoindexForPaginatedPagesSwitcher">1</data>
+    </entity>
+
+</entities>
+

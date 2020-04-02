@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationAllowToEditProductAsGuest">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Setting Allow to Edit Products in the Order Summary"/>
+            <title value="Check Setting Allow to Edit Products in the Order Summary"/>
+            <description value="Check Setting Allow to Edit Products in the Order Summary on the OSC As Guest"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-19"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationGeneral"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <actionGroup ref="AdminCreateConfigurableProductWithCategory" stepKey="CreateConfigurableProduct"/>
+            <createData entity="SimpleProductByJoustDuffleBag" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategoryCreateConfigurableProduct"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOSCGeneralAllowToEditProductQty"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createFirstChildProdCreateConfigurableProduct" stepKey="deleteFirstSimpleChildProduct"/>
+            <deleteData createDataKey="createSecondChildProdCreateConfigurableProduct" stepKey="deleteSecondSimpleChildProduct"/>
+            <deleteData createDataKey="createConfigProdAttrCreateConfigurableProduct" stepKey="deleteConfigProductAttribute"/>
+            <deleteData createDataKey="createCategoryCreateConfigurableProduct" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminDefaultConfigOSCGeneral" stepKey="ReturnDefaultGeneralSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Products to Cart-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddCreatedConfigurableProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+            <argument name="optionValue" value="OSCConfigurationAllowToEditProductAsGuestOne.configOption"/>
+        </actionGroup>
+        <!-- Go To Checkout and Check First Totals -->
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping1">
+            <argument name="oneStepCheckoutData" value="OSCConfigurationAllowToEditProductAsGuestOne"/>
+        </actionGroup>
+        <!-- Change Qty First Products and Check Second Totals -->
+        <actionGroup ref="StorefrontOSCChangeQtyProduct" stepKey="changeQtyFirstProduct">
+            <argument name="valueQty" value="_enterQty3"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping2">
+            <argument name="oneStepCheckoutData" value="OSCConfigurationAllowToEditProductAsGuestTwo"/>
+        </actionGroup>
+        <!-- Change Qty Second Products, Check Third Totals and Place Order -->
+        <actionGroup ref="StorefrontOSCChangeQtyProduct" stepKey="changeQtySecondProduct">
+            <argument name="valueQty" value="_enterQty2"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping3">
+            <argument name="oneStepCheckoutData" value="OSCConfigurationAllowToEditProductAsGuestThree"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumberGuest" stepKey="PlaceOrderWithCheckMoney"/>
+        <!-- Check Products Qty and Totals In Order -->
+        <actionGroup ref="AdminCheckQtyProductInOrder" stepKey="CheckQtyFirstProduct">
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+            <argument name="valueQty" value="_enterQty3"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckQtyProductInOrder" stepKey="CheckQtySecondProduct">
+            <argument name="product" value="$$createFirstChildProdCreateConfigurableProduct$$"/>
+            <argument name="valueQty" value="_enterQty2"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createShipment"/>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCConfigurationAllowToEditProductAsGuestThree"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+
+    </test>
+</tests>

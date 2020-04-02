@@ -1,0 +1,112 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+
+<div data-block="minicart" class="minicart-wrapper">
+    <a class="action showcart" href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
+       data-bind="scope: 'minicart_content'">
+        <span class="text"><?= /* @escapeNotVerified */ __('My Cart') ?></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+            <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <div class="block block-minicart empty"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=minicart]",
+                "triggerTarget":".showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <?= $block->getChildHtml('minicart.addons') ?>
+        </div>
+    <?php endif ?>
+    <script>
+        window.checkout = <?= /* @escapeNotVerified */ $block->getSerializedConfig() ?>;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+        },
+        "[data-block='cn_cart']": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        }
+    }
+    </script>
+
+    <div class="cn_cart" style="display:none" data-block="cn_cart">
+      <?php
+      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+      $cart = $objectManager->get('\Magento\Checkout\Helper\Cart');
+      //PROBAR CON EL HELPER
+
+      // $product = $objectManager->get('\Magento\Catalog\Model\ProductFactory');
+
+      $quote = $cart->getQuote();
+      // This will return the current quote
+      $quoteId = $quote->getId();
+
+      // get array of all items what can be display directly
+      $itemsVisible = $cart->getQuote()->getAllVisibleItems();
+
+      // retrieve quote items array
+      $items = $cart->getQuote()->getAllItems();
+
+      $count =0;
+      $div_principal ="";//Inicio div - unico - hasta cantidades
+      $div_cantidades_calculadas ="";
+      $listado_producto = "";
+      $cierre_div_principal = "</div>";
+      $total_cantidad = 0;
+      $total_precio= 0;
+      $div_cantidad ="";
+      $div_precio ="";
+
+      $prod_call = $objectManager->get('\Magento\Catalog\Model\Product');
+
+      foreach($items as $item) {
+        $prod = $prod_call->load($item->getSKU());
+
+        /*if($count == 0){
+          $div_principal .="<div class='cn_cart' style='display:none;'>";
+        }*/
+        $total_cantidad += $item->getQty();
+        $total_precio += number_format($item->getPrice()*$item->getQty(),2);
+        //
+        $listado_producto .= "<div class='product_basket_item'>";
+        $listado_producto .= "<span class='quantity'>".$item->getQty()."</span>";
+        $listado_producto .= "<span class='price'>".number_format($item->getPrice()*$item->getQty(),2)."</span>";
+        $listado_producto .= "<span class='product_id'>".$item->getProductId()."</span>";//Precio total
+        $listado_producto .= "<span class='name'>".$item->getName()."</span>";
+        $listado_producto .= "<span class='unit_price'>".number_format($item->getPrice(),2)."</span>";//Precio unitario
+        $listado_producto .= "<span class='url'>".$item->getProduct()->getProductUrl()."</span>";//Url
+        $listado_producto .= "</div>";
+        $count++;
+      }
+      echo $div_principal."<span class='cart_id'>".$quoteId."</span><span class='total_quantity'>".$total_cantidad."</span><span class='total_price'>".$total_precio."</span>".$listado_producto.$cierre_div_principal;
+      ?>

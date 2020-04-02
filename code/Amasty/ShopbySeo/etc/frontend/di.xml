@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Controller\Category\View">
+        <plugin name="amasty_shopby_page_view" type="\Amasty\ShopbySeo\Plugin\CategoryViewPlugin" sortOrder="1"/>
+    </type>
+    <type name="Amasty\Shopby\Controller\Index\Index">
+        <plugin name="amasty_shopby_page_view" type="\Amasty\ShopbySeo\Plugin\CategoryViewPlugin" sortOrder="1"/>
+    </type>
+    <type name="Amasty\ShopbyBrand\Controller\Index\Index">
+        <plugin name="amasty_shopby_page_view" type="\Amasty\ShopbySeo\Plugin\CategoryViewPlugin" sortOrder="1"/>
+    </type>
+    <type name="Magento\Framework\View\Page\Config">
+        <plugin name="Amasty_ShopbySeo::change_meta_data" type="Amasty\ShopbySeo\Plugin\Framework\View\Page\Config" />
+    </type>
+
+    <type name="Magento\Framework\App\FrontController">
+        <plugin name="Amasty_ShopbySeo::SeoRedirect" type="Amasty\ShopbySeo\Plugin\Framework\App\FrontController" />
+    </type>
+
+    <type name="Magento\Framework\App\Action\Forward">
+        <plugin name="Amasty_ShopbySeo::SeoRedirect" type="Amasty\ShopbySeo\Plugin\Framework\App\Action\Forward" />
+    </type>
+
+    <type name="Amasty\Shopby\Controller\Router">
+        <plugin name="Amasty_ShopbySeo::SeofyAllProductsUrl" type="Amasty\ShopbySeo\Plugin\Shopby\Controller\Router" />
+    </type>
+
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="amasty_seo_router" xsi:type="array">
+                    <item name="class" xsi:type="string">\Amasty\ShopbySeo\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">15</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ShopbyBase\Model\Customizer\Category">
+        <arguments>
+            <argument name="customizers" xsi:type="array">
+                <item name="seo" xsi:type="string">Amasty\ShopbySeo\Model\Customizer\Category\Seo</item>
+                <item name="seoLast" xsi:type="string">Amasty\ShopbySeo\Model\Customizer\Category\SeoLast</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ShopbyBase\Model\UrlBuilder">
+        <arguments>
+            <argument name="urlModifiers" xsi:type="array">
+                <item name="seo" xsi:type="array">
+                    <item name="adapter" xsi:type="object">Amasty\ShopbySeo\Model\UrlModifier</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Shopby\Model\UrlBuilder\Adapter">
+        <plugin name="Amasty_ShopbySeo::AddSeoSuffix" type="Amasty\ShopbySeo\Plugin\Shopby\Model\UrlBuilder\Adapter" />
+    </type>
+
+    <type name="Amasty\ShopbyBrand\Model\UrlBuilder\Adapter">
+        <plugin name="Amasty_ShopbySeo::AddSeoSuffix" type="Amasty\ShopbySeo\Plugin\ShopbyBrand\Model\UrlBuilder\Adapter" />
+    </type>
+</config>

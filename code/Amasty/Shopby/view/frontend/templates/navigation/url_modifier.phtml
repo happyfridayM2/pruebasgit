@@ -1,0 +1,16 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php /** @var \Amasty\Shopby\Block\Navigation\UrlModifier $block */?>
+<?php if ($block->replaceUrl()) :?>
+    <script>
+        window.history.replaceState({url: '<?= $block->escapeUrl($block->getCurrentUrl());?>'},
+            '',
+            '<?= $block->escapeUrl($block->getCurrentUrl());?>'
+        );
+    </script>
+<?php endif;?>

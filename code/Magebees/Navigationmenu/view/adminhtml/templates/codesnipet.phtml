@@ -1,0 +1,48 @@
+<?php $group_id = $this->getRequest()->getParam('id');?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo __('Embeded Information') ?></h4>
+    </div>
+	<fieldset id="xml-info">
+		<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><p><?php echo __('Insert Into Static Block Or CMS Page') ?></p></h4>
+	</div>
+		
+	<fieldset id="template-tag">
+<textarea id="navigationmenupro-template-tag" rows="2" cols="85" onclick="this.focus();this.select()" readonly="readonly">
+&#123;&#123;block class="Magebees\Navigationmenu\Block\Menucreator" name="menucreator_group_<?php echo $group_id;?>"  group_id="<?php  echo $group_id ?>" template="menucreator.phtml"&#125;&#125;
+</textarea>
+
+		
+	</fieldset>
+</div>
+
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo __('Reference Via XML Layout File') ?></h4>
+	</div>
+		
+	<fieldset id="xml-code">
+		
+		
+<textarea id="navigationmenupro-code" rows="6" cols="85" onclick="this.focus();this.select()" readonly="readonly">
+&lt;block class="Magebees\Navigationmenu\Block\Menucreator" name="menucreator" template="menucreator.phtml"&gt;
+&lt;action method="setGroupId"&gt;&lt;argument name="groupid" xsi:type="string"&gt;<?php  echo $group_id; ?>&lt;/argument&gt;&lt;/action&gt;&lt;/block&gt;
+</textarea>
+
+		
+	</fieldset>
+</div>
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo __('Call Via Frontend Template File ') ?></h4>
+	</div>
+<fieldset id="xml-code">
+<textarea id="navigationmenupro-template-code" rows="2" cols="85" onclick="this.focus();this.select()" readonly="readonly">
+&lt;?php echo $this->getLayout()->createBlock("Magebees\Navigationmenu\Block\Menucreator")->setGroup_id(<?php echo $group_id;?>)->setTemplate("menucreator.phtml")->toHtml();?&gt;
+</textarea>
+</fieldset>
+</div>
+	</fieldset>
+</div>

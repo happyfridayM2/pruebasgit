@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="BrandManagementGridPage" url="/amasty_shopbybrand/slider/" area="admin"
+          module="ShopbyBrand">
+        <section name="AttributeProfileSection"/>
+    </page>
+    <page name="BrandManagementAttributeOptionProfilePage" url="/amasty_shopbybrand/slider/edit/filter_code/attr_material/option_id/{{var1}}/" area="admin"
+          module="ShopbyBrand" parameterized="true">
+        <section name="AttributeProfileSection"/>
+    </page>
+
+</pages>

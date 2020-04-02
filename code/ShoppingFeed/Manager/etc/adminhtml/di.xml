@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="ShoppingFeed\Manager\Block\Adminhtml\Account\Store\Edit\CreateButton" type="ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\SaveButton">
+        <arguments>
+            <argument name="label" xsi:type="string" translate="true">Create Account</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\Block\Adminhtml\Account\Store\Edit\ImportButton" type="ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\SaveButton">
+        <arguments>
+            <argument name="label" xsi:type="string" translate="true">Import Account</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\Block\Adminhtml\Account\Store\Edit\SaveButton" type="ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\SaveButton">
+        <arguments>
+            <argument name="label" xsi:type="string" translate="true">Save Account</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\Block\Adminhtml\Cron\Task\Edit\SaveButton" type="ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\SaveButton">
+        <arguments>
+            <argument name="label" xsi:type="string" translate="true">Save Task</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\Block\Adminhtml\Shipping\Method\Rule\Edit\SaveButton" type="ShoppingFeed\Manager\Block\Adminhtml\Base\Edit\SaveButton">
+        <arguments>
+            <argument name="label" xsi:type="string" translate="true">Save Rule</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\Ui\Component\Listing\Column\Account\Store\BaseStore" type="Magento\Store\Ui\Component\Listing\Column\Store">
+        <arguments>
+            <argument name="storeKey" xsi:type="string">base_store_id</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="sfm-shopping-feed-attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">ShoppingFeed\Manager\Ui\DataProvider\Catalog\Product\Form\Modifier\FeedAttributes</item>
+                    <item name="sortOrder" xsi:type="number">1000000</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="ShoppingFeed\Manager\Plugin\Sales\Order\Grid\CollectionPlugin" shared="true"/>
+    <type name="ShoppingFeed\Manager\Plugin\Sales\Order\Grid\FulltextFilterPlugin" shared="true"/>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="sfm_sales_order_grid_collection_plugin" type="ShoppingFeed\Manager\Plugin\Sales\Order\Grid\CollectionPlugin" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter">
+        <plugin name="sfm_sales_order_grid_fulltext_filter_plugin" type="ShoppingFeed\Manager\Plugin\Sales\Order\Grid\FulltextFilterPlugin" sortOrder="0"/>
+    </type>
+</config>

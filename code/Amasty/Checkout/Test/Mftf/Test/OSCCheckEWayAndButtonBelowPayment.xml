@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckEWayAndButtonBelowPayment" extends="OSCCheckAmazonAndButtonBelowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With eWay via the storefront"/>
+            <title value="Check Place Order with eWay And Button Below the Payment Methods on the Checkout"/>
+            <description value="Check Place Order with eWay And Button Below the Payment Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-42"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsEWay"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createCustomer"/>
+            <remove keyForRemoval="loginAsCustomer"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByFitnessSpriteFoamYogaBrick" stepKey="createSecondSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteCustomer"/>
+        </after>
+
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckEWay"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentEWay"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckEWayAndButtonBelowPayment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowPaymentWithEWayGrabNumberGuest" stepKey="PlaceOrderWithEWay">
+            <argument name="creditCard" value="creditCardVisaTwo"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentEWay"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithEWay}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckEWayAndButtonBelowPayment"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithEWay}"/>
+        </actionGroup>
+
+    </test>
+</tests>

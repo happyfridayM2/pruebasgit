@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Swatches\Block\Product\Renderer\Configurable">
+        <plugin name="Amasty_Conf::configurable" type="Amasty\Conf\Plugin\Product\Renderer\Configurable"/>
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Amasty_Conf::configurable-reload-information" type="Amasty\Conf\Plugin\Product\View\Type\Configurable"/>
+    </type>
+
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="Amasty_Conf:show_images_in_minicart" type="Amasty\Conf\Plugin\Checkout\CustomerData\Cart" />
+    </type>
+
+    <type name="Magento\ConfigurableProduct\CustomerData\ConfigurableItem">
+        <plugin name="Amasty_Conf:show_on_checkout" type="Amasty\Conf\Plugin\ConfigurableProduct\CustomerData\ConfigurableItem" />
+    </type>
+
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="Amasty_Conf:show_swatch_on_checkout" type="Amasty\Conf\Plugin\Catalog\Helper\Product\Configuration" />
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Ui\DataProvider\Product\Form\Modifier\ConfigurablePanel">
+        <plugin name="Amasty_Conf:change_ui_component" type="Amasty\Conf\Plugin\ConfigurableProduct\Ui\DataProvider\Product\Form\Modifier\ConfigurablePanel" />
+    </type>
+
+    <type name="Magento\ConfigurableProductStaging\Ui\DataProvider\Product\Form\Modifier\ConfigurablePanel">
+        <plugin name="Amasty_Conf:change_ui_component_staging" type="Amasty\Conf\Plugin\ConfigurableProduct\Ui\DataProvider\Product\Form\Modifier\ConfigurablePanel" />
+    </type>
+
+    <type name="Magento\Eav\Model\Entity\Attribute\Backend\DefaultBackend">
+        <plugin name="Amasty_Conf:validate_preselect_attr" type="Amasty\Conf\Plugin\Eav\Model\Entity\Attribute\Backend\DefaultBackend" />
+    </type>
+
+    <type name="Magento\InventoryConfigurableProduct\Plugin\Model\ResourceModel\Attribute\IsSalableOptionSelectBuilder">
+        <plugin name="Amasty_Conf::out-of-stock-options-msi" type="Amasty\Conf\Plugin\InventoryConfigurableProduct\Plugin\Model\ResourceModel\Attribute\IsSalableOptionSelectBuilderPlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\Indexer\Product\Eav\Action\Full">
+        <plugin name="Amasty_Conf::EavReindexGroupOption"
+                type="Amasty\Conf\Plugin\Catalog\Model\Indexer\Product\Eav\Action\Full"/>
+    </type>
+</config>

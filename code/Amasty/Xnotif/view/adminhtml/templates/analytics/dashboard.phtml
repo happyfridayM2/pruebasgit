@@ -1,0 +1,16 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/** @var Magento\Backend\Block\Template $block */
+?>
+
+<?= $block->getChildHtml('chart_stock') ?>
+<div class="amxnotif-table-wrap">
+    <?= $block->getChildHtml('wanted_products') ?>
+    <?= $block->getChildHtml('last_activity') ?>
+</div>

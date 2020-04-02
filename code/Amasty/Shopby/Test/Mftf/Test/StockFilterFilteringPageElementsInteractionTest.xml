@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterFilteringPageElementsInteractionTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter filtering in interaction with page elements"/>
+            <description
+                    value="Check of stock filter filtering in list mode, sorted by price, in descending direction, on second page with  15 per page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-10"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <!--Filter by Stock Filter: select list configuration, sort by price in descending direction, select option on sidebar, select in stock option, check the result/-->
+
+        <click selector="{{StorefrontPageElementsSection.GridListMode('list')}}"
+               stepKey="clickOnListConfiguration1"
+               after="navigateToAllProducts1"/>
+        <selectOption userInput="Product Name"
+                      selector="{{StorefrontPageElementsSection.SortBy}}"
+                      stepKey="selectPrice1"
+                      after="clickOnListConfiguration1"/>
+        <click selector="{{StorefrontPageElementsSection.AscDescDirectionSwitcher}}"
+               stepKey="setDescendingConfiguration1"
+               after="selectPrice1"/>
+        <selectOption userInput="15"
+                      selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"
+                      after="setDescendingConfiguration1"/>
+        <click selector="{{StorefrontPageElementsSection.NextPreviousPage('next')}}"
+               stepKey="clickOnNextPageButton1"
+               after="selectProductQuantity1"/>
+
+        <!--Filter by Stock Filter: select 15 products per page, select second page, select out of stock option, check the result, remove selected option from state/-->
+
+        <seeInCurrentUrl
+                url="{{ListGridSortingAscDescProductLimitInURL.url('dir=desc','limit=15','mode=list','order=name')}}"
+                stepKey="seeInCurrentUrlPageElements1"
+                after="checkProductStock3"/>
+        <dontSeeInCurrentUrl url="{{SpecifiedPaginationInURL.url('2')}}"
+                             stepKey="seeInCurrentUrlPageElements2"
+                             after="seeInCurrentUrlPageElements1"/>
+
+    </test>
+</tests>
+
+

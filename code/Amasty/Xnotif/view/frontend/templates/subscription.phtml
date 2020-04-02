@@ -1,0 +1,65 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+
+<?php
+    /** @var Amasty\Xnotif\Block\AbstractBlock $block */
+    $subscriptions = $block->getSubscriptions();
+?>
+<?php if ($subscriptions->getSize()) : ?>
+    <table class="table table-wrapper data-table" id="my-subscriptions-table">
+        <thead>
+        <tr>
+            <th width="50"><?= $block->escapeHtml(__('Image')) ?></th>
+            <th><?= $block->escapeHtml(__('Product')) ?></th>
+            <th><?= $block->escapeHtml(__('Subscribed On')) ?></th>
+            <th><?= $block->escapeHtml(__('Stock Status')) ?></th>
+            <th><?= $block->escapeHtml(__('Price')) ?></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($subscriptions as $product) :?>
+            <?php $productUrl = $block->getUrlProduct($product);?>
+            <tr>
+                <td>
+                    <a href="<?= $block->escapeUrl($productUrl) ?>">
+                        <img src="<?= $block->escapeUrl($block->getImageSrc($product)); ?>"
+                             alt="<?= $block->escapeHtml($product->getName()) ?>"
+                             width="45" height="45"/>
+                    </a>
+                </td>
+                <td>
+                    <a title="<?= $block->escapeHtml($product->getName()) ?>"
+                       href="<?= $block->escapeUrl($productUrl) ?>">
+                        <?= $block->escapeHtml($product->getName()) ?>
+                    </a>
+                </td>
+                <td>
+                    <span class="nobr">
+                        <?= $block->escapeHtml(
+                            $block->formatDate($product->getAddDate(), \IntlDateFormatter::LONG)
+                        ) ?>
+                    </span>
+                </td>
+                <td><span class="nobr"><?= $block->escapeHtml($block->getStockStatus($product)) ?></span></td>
+                <td><span class="nobr"><?= /* @noEscape */ $block->getPriceBlock($product) ?></span></td>
+                <td>
+                    <a href="<?= $block->escapeUrl($block->getRemoveUrl($product)); ?>"
+                       title="<?= $block->escapeHtml(__('Remove This Item')); ?>"
+                       onclick="return confirm('<?= $block->escapeHtml($block->getConfirmationText()) ?>');"
+                       class="btn-remove btn-remove2"><?= $block->escapeHtml(__('Remove This Item')) ?></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else : ?>
+    <div class="message info empty">
+        <span><?= $block->escapeHtml(__('There are no active subscriptions.')); ?></span>
+    </div>
+<?php endif ?>

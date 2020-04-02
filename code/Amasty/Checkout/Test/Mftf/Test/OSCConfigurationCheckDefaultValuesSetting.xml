@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckDefaultValuesSetting">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Default Address Values"/>
+            <title value="Check Default Values Setting on the Checkout"/>
+            <description value="Check Default Values Setting on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-01"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationDefaultValues"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <!-- Login As Admin and Configuration setting -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCDesignDefaultValues" stepKey="ConfigurationDefaultValuesSetting">
+                <argument name="adminSettingOSCDesignDefaultValues" value="SetAllDefaultValues"/>
+            </actionGroup>
+            <actionGroup ref="AdminActivateCashOnDeliveryPayment" stepKey="ActivateCashOnDeliveryPayment"/>
+        </before>
+
+        <after>
+            <!-- Delete Created Data after Test and Return Default Setting -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminDefaultConfigOSCDesignDefaultValues" stepKey="ReturnDefaultOSCDefaultValuesSetting"/>
+            <actionGroup ref="AdminReturnDefaultSettingCashOnDeliveryPayment" stepKey="ReturnDefaultPaymentSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Product to Cart-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <!--Check Default Address-->
+        <actionGroup ref="StorefrontOSCCheckDefaultValues" stepKey="checkDefaultValues">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+            <argument name="paymentMethods" value="paymentCashOnDeliveryPayment"/>
+            <argument name="adminSettingOSCDefaultValues" value="SetAllDefaultValues"/>
+        </actionGroup>
+
+    </test>
+</tests>

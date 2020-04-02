@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandSliderElementsFullyDisabledTest" extends="BrandSliderElementsFullyEnabledTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brands Slider elements checking"/>
+            <title value="Check of Brands Slider elements"/>
+            <description
+                    value="Check that specified Brands Slider elements isn't displayed on All Brands Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-19"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandslider"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureBrandSliderElementsActionGroup"
+                         stepKey="configureBrandSliderElements1">
+                <argument name="brandSlider2" value="brandSliderConfigurationFullyDisabled"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Brands Slider Elements isn't displayed on All Brands Page/-->
+
+        <!--Check Show Brand Label setting: shouldn't be displayed Brand Item Labels.-->
+
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandSliderItemsLabel}}"
+                        stepKey="seeBrandLabels1"/>
+
+        <!--Check Show Buttons/Infinity Loop settings: it is shouldn't be displayed Prev and Next Buttons.-->
+
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPrevNextButton('next')}}"
+                stepKey="seeBrandSliderNextButton1"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPrevNextButton('prev')}}"
+                stepKey="seeBrandSliderPrevButton1"/>
+
+        <!--Check Show Pagination setting: it is shouldn't be displayed 6 "bullets".-->
+
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBullet}}"
+                        stepKey="seePagination1"/>
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBulletActive}}"
+                        stepKey="seePagination2"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderPaginationBulletClickable}}"
+                stepKey="seeClickablePagination1"/>
+
+        <!--Check Autoplay/Autoplay Delay settings: check that Brand Slider Items sequence has not been changing in time. Don't see Autoplay Delay in Source Code.-->
+
+        <wait time="4"
+              stepKey="wait1"
+              after="seeClickablePagination1"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','next','polyester')}}"
+                stepKey="waitForElementVisible1"/>
+        <wait time="3"
+              stepKey="wait2"
+              after="waitForElementVisible1"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','active','polyester')}}"
+                stepKey="waitForElementVisible2"/>
+        <wait time="3"
+              stepKey="wait3"
+              after="waitForElementVisible2"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('organic_cotton','prev','polyester')}}"
+                stepKey="waitForElementVisible3"/>
+        <dontSeeInSource html="autoplay:2000,"
+                         stepKey="checkBrandSliderAutoplayDelay1"/>
+
+        <!--Check Clickable Pagination setting: Click on Pagination Bullet. Check Brand Slider Items sequence.-->
+
+        <remove keyForRemoval="clickOnPagination1"/>
+        <remove keyForRemoval="seeBrandSliderSequence1"/>
+
+        <!--Check Simulate Touch setting: Drag and Drop defined Brand Slider Item. Check Brand Slider Items sequence.-->
+
+        <dragAndDrop
+                selector1="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('burlap','active','cocona_reg_performance_fabric')}}"
+                selector2="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('cocona_reg_performance_fabric','next','nylon')}}"
+                stepKey="checkSimulateTouch1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequenceAutoplayCheck('burlap','active','cocona_reg_performance_fabric')}}"
+                stepKey="seeBrandSliderSequence2"/>
+
+    </test>
+</tests>

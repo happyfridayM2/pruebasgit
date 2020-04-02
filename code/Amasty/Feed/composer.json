@@ -1,0 +1,22 @@
+{
+    "name": "amasty/feed",
+    "description": "Product Feed by Amasty",
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|^7.1.0",
+        "amasty/base": ">=1.10.0",
+        "amasty/cron-schedule-list": ">=1.0.5"
+    },
+    "type": "magento2-module",
+    "version": "2.6.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Feed\\": ""
+        }
+    }
+}

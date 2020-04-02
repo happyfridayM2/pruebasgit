@@ -1,0 +1,50 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+?>
+<?php
+/** @var \Magento\Backend\Block\Template $block */
+
+$beforeUrl = 'Amasty_PageSpeedOptimizer/images/tutorial/slide0/before.png';
+$afterUrl = 'Amasty_PageSpeedOptimizer/images/tutorial/slide0/after.png';
+?>
+
+<div class="amoptimizer_tutorial">
+    <div class="amoptimizer_slide" data-slide="0">
+        <h1 style="text-align:center">Welcome to Google Page Speed Optimizer tutorial</h1>
+        <div>
+            <p style="font-size:16px">This extension can help you with website optimization to improve something.</p>
+            <ul style="margin-left:40px;font-weight:bold">
+                <li>HTML</li>
+                <li>JavaScript</li>
+                <li>Performance things</li>
+                <li>Images Optimization</li>
+                <li>...</li>
+            </ul>
+            <div style="margin: 0 auto">
+                <div style="width:49%;display:inline-block">
+                    <h1>Before:</h1>
+                    <img src="<?= $block->escapeUrl($block->getViewFileUrl($beforeUrl)); ?>">
+                </div>
+                <div style="width:49%;display:inline-block;">
+                    <h1>After:</h1>
+                    <img src="<?= $block->escapeUrl($block->getViewFileUrl($afterUrl)); ?>">
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:20px">
+            <button type="button" class="primary" role="button"><span>Next Slide</span></button>
+        </div>
+    </div>
+
+    <div class="amoptimizer_slide" data-slide="1" style="display:none">
+        <h2 style="text-align:center">HTML</h2>
+        <div>
+
+        </div>
+    </div>
+</div>

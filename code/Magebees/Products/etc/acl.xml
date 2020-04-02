@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+				<resource id="Magento_Backend::system">
+					<resource id="Magebees_Products::Heading" title="MageBees - Import/Export Products" sortOrder="30">
+						<resource id="Magebees_Products::import" title="Import Products"  sortOrder="10" />
+						<resource id="Magebees_Products::export" title="Export Products" sortOrder="20" />
+						<resource id="Magebees_Products::downloadimg" title="Download Images From Live URL" sortOrder="30" />
+					</resource>
+				</resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

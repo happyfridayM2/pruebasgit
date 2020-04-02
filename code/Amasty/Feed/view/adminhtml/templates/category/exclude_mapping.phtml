@@ -1,0 +1,53 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Feed
+ */
+?>
+<?php
+/** @var \Amasty\Feed\Block\Adminhtml\Category\Edit\Tab\ExcludeMapping $block */
+$value = $block->getElement()->getValue();
+$htmlId = $block->getElement()->getHtmlId();
+?>
+<div class="field" id="attribute-<?= $block->escapeHtml($htmlId) ?>-container">
+    <label class="label"><?= $block->escapeHtml($block->getElement()->getLabel()); ?></label>
+    <div class="control">
+        <ul class="amfeed-exclude-categories">
+            <?php foreach ($block->getCategoriesList() as $category) : ?>
+                <li class="amfeed-category" style="padding-left: <?= ((int)$category['level'] * 30) ?>px;">
+                    <input  class="amfeed-checkbox"
+                            data-amfeed-js="category-<?= $block->escapeHtml($category['id']) ?>"
+                            type="checkbox"
+                            title="<?= $block->escapeHtml(__('Ignore category')) ?>"
+                            name="mapping[<?= $block->escapeHtml($category['id']) ?>][skip]"
+                            value="1"
+                            id="exclude-category-<?= $block->escapeHtml($category['id']) ?>"
+                            <?php if (!empty($value[$category['id']]['skip'])) : ?>
+                                checked="checked"
+                            <?php endif; ?>
+                            onclick="mappingControl.disableCategory(this)" />
+                    <label class="amfeed-label" for="exclude-category-<?= $block->escapeHtml($category['id']) ?>">
+                        <?= $block->escapeHtml($category['name']); ?>
+                    </label>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        window.mappingControl = {
+            disableCategory: function (elem) {
+                var input = $('[data-amfeed-js="amfeed-taxonomy-input"].' + elem.getAttribute('data-amfeed-js'));
+                if (elem.checked) {
+                    input.parents('[data-amfeed-js="category-item"]').hide();
+                    input.removeClass('required-entry _required')
+                } else {
+                    input.parents('[data-amfeed-js="category-item"]').show();
+                    input.addClass('required-entry _required');
+                }
+            }
+        };
+    });
+</script>

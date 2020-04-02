@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCFunctionalCheckInclCatalogAndShippingTax" extends="OSCFunctionalCheckTotals">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Calculation Including Price Tax"/>
+            <title value="Check Calculation Tax"/>
+            <description value="Check Calculation Including Shipping And Catalog Prices Tax on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-11"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCFunctional"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createDownloadableProduct"/>
+            <remove keyForRemoval="CreateCartPriceRule"/>
+            <remove keyForRemoval="addDownloadableLink"/>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createSecondSimpleProduct" after="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="AdminConfigurationSettingsForCalculationTax" stepKey="ConfigurationSettingTax">
+                <argument name="calculationTax" value="taxIncludeCatalogAndShipping"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteDownloadableProduct"/>
+            <remove keyForRemoval="deleteCreatedCartPriceRule"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondSimpleProduct" after="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminDefaultConfigurationSettingCalculationTax" stepKey="ReturnDefaultTaxSetting" after="deleteTaxRate"/>
+        </after>
+
+        <remove keyForRemoval="checkDiscountAmount"/>
+        <remove keyForRemoval="CheckDiscountInAdminOrder"/>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart" after="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingWithTax" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCFunctionalCheckInclCatalogAndShippingTax"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrderWithTax" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totalsWithTax" value="OSCFunctionalCheckInclCatalogAndShippingTax"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+
+    </test>
+</tests>

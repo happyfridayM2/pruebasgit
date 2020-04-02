@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<referenceContainer name="header.container" htmlClass="page-header sticky">
+			<container name="new.header.wrapper" as="new-container" before="-" htmlClass="headerwrapper" htmlTag="div" />
+			 <!-- <block class="Magento\Framework\View\Element\Template" name="custom.top.search" as="topSearch" template="Magento_Search::form.mini.phtml" after="-" /> -->
+		</referenceContainer>
+		<referenceContainer name="header.panel">
+            <container name="header.panel.top" label="Page Header Panel Top" htmlTag="div" htmlClass="panel header top" />
+			<container name="header.panel.bottom" label="Page Header Panel Bottom" htmlTag="div" htmlClass="panel header bottom">
+				<container name="header.panel.bottom.wishlist" label="Page Header Panel Bottom Whislist" htmlTag="div" htmlClass="panel header bottom wishlist">
+				</container>
+				<block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+	                <arguments>
+	                    <argument name="css_class" xsi:type="string">header links</argument>
+	                </arguments>
+            	</block>
+			</container>
+		</referenceContainer>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">328</argument>
+                <argument name="logo_img_height" xsi:type="number">35</argument>
+            </arguments>
+        </referenceBlock>
+		<referenceContainer name="page.wrapper">
+			<block class="Magento\Cms\Block\Block" name="top_flicker_menu" before="-">
+				<arguments>
+					<argument name="block_id" xsi:type="string">top_flicker_menu</argument>
+				</arguments>
+			</block>
+			<container name="header.containertwo" as="header_containertwo" label="Page Header Container"  htmlTag="div" htmlClass="header-bottom-line" after="header.container"/>
+		</referenceContainer>
+		<referenceContainer name="header.containertwo">
+			<block class="Magento\Framework\View\Element\Template" name="header.mini.container" template="Magento_Theme::html/header-line.phtml"/>
+		</referenceContainer>
+		<referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+        </referenceContainer>
+		<referenceContainer name="footer-container">
+			<container name="footer-bottom" as="footer-bottom" label="Page Footer Bottom" htmlTag="div" htmlClass="footer content footer-bottom">
+				<container name="footer-bottom-container" as="footer-bottom-container" label="Page Footer Bottom Container" htmlTag="div" htmlClass="container">
+					<block class="Magento\Cms\Block\Block" name="footer_links_company">
+						<arguments>
+							<argument name="block_id" xsi:type="string">footer_links_company</argument>
+						</arguments>
+					</block>
+				</container>
+			</container>
+		</referenceContainer>
+		<referenceBlock name="navigation.sections">
+			<block class="Magento\Framework\View\Element\Template" name="store.menu.mobile" group="navigation-sections" template="Magento_Theme::html/container.phtml">
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">Menu</argument>
+                    </arguments>
+                    <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav.mobile" template="Magento_Theme::html/topmenu.phtml" before="-"/>
+            </block>
+		</referenceBlock>
+		<referenceBlock name="report.bugs" remove="true"/>
+        <move element="copyright" destination="before.body.end"/>
+		<move element="header-wrapper" destination="new.header.wrapper" before="-" />
+		<move element="header.panel.wrapper" destination="new.header.wrapper" after="header-wrapper" />
+		<move element="store.menu" destination="header-wrapper" after="logo"/>
+		<move element="top.search" destination="header.panel.top" before="-" />
+		<move element="minicart" destination="header.panel.bottom" after="store_language" />
+		<move element="store_language" destination="top_flicker_menu" after="-" />
+		<move element="wishlist-link" destination="header.panel.bottom.wishlist" after="minicart" />
+		<referenceBlock name="faq-header-link" remove="true"/>
+		<referenceBlock name="footer_links" remove="true"/>
+		<referenceBlock name='customer-account-navigation-wish-list-link' remove='true'/>
+		<referenceBlock name='customer-account-navigation-downloadable-products-link' remove='true'/>
+		<referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+		<referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
+		<referenceBlock name="catalog.compare.sidebar" remove="true"/>
+		<referenceBlock name="wishlist_sidebar" remove="true" />
+		<referenceBlock name="wishlist-link" remove="true" />
+		<referenceBlock name="checkout.cart.crosssell" remove="true"/>
+        <!-- <referenceBlock name="reviews.tab" remove="true" />
+        <referenceBlock name="product.review.form" remove="true" />
+        <referenceBlock name="product.info.review" remove="true" /> -->
+		<move element="wish-list-link" destination="header.panel.bottom.wishlist" after="minicart" />	
+		<!-- <move element="header.links" destination="header.panel.bottom" after="-" /> -->
+		<move element="header.panel.bottom" destination="header.panel" after="header.panel.top" />
+		<referenceContainer name="content">
+      <!-- <referenceBlock name="sales.order.info.links" remove="true" /> -->
+      <!-- <referenceBlock name="sales.order.info.links.information" remove="true" /> -->
+      <referenceBlock name="sales.order.info.links.invoice" remove="true" />
+      <referenceBlock name="sales.order.info.links.creditmemo" remove="true" />
+	  <referenceBlock name="sales.order.info.links.shipment" remove="true" />
+	</referenceContainer>
+	</body>
+</page>

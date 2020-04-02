@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ProductsInBrandSliderConfigurationActionGroup">
+        <arguments>
+            <argument name="AttrOptionInBrandSlider1"/>
+            <argument name="AttrOptionInBrandSlider2"/>
+            <argument name="AttrOptionInBrandSlider3"/>
+            <argument name="AttrOptionInBrandSlider4"/>
+            <argument name="AttrOptionInBrandSlider5"/>
+            <argument name="attributeSeoScenario4"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario4.MaterialID)}}"
+                  stepKey="OpenAttributeProfilePagePage1"/>
+        <reloadPage stepKey="reloadPage1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AttributeProfileSection.OptionAttributeSettingsDeleteButton('settings',AttrOptionInBrandSlider1.OptionName)}}"
+               stepKey="clickSettingsButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForElement selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}" stepKey="waitForElement1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}"
+                      userInput="{{AttrOptionInBrandSlider1.ShowInBrandSliderSwitcher}}"
+                      stepKey="SetShowInBrandSlider1"/>
+        <fillField selector="{{AttributeProfileSection.PositionInSlider}}"
+                   userInput="{{AttrOptionInBrandSlider1.PositionInSlider}}"
+                   stepKey="SetPositionInSlider1"/>
+        <click selector="{{AttributeProfileSection.SaveProperty}}" stepKey="clickSaveButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario4.MaterialID)}}"
+                  stepKey="OpenAttributeProfilePagePage2"/>
+        <reloadPage stepKey="reloadPage2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <click selector="{{AttributeProfileSection.OptionAttributeSettingsDeleteButton('settings',AttrOptionInBrandSlider2.OptionName)}}"
+               stepKey="clickSettingsButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"/>
+        <waitForElement selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}" stepKey="waitForElement3"/>
+        <selectOption selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}"
+                      userInput="{{AttrOptionInBrandSlider2.ShowInBrandSliderSwitcher}}"
+                      stepKey="SetShowInBrandSlider2"/>
+        <fillField selector="{{AttributeProfileSection.PositionInSlider}}"
+                   userInput="{{AttrOptionInBrandSlider2.PositionInSlider}}"
+                   stepKey="SetPositionInSlider2"/>
+        <click selector="{{AttributeProfileSection.SaveProperty}}" stepKey="clickSaveButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"/>
+        <amOnPage url="{{BrandManagementAttributeOptionProfilePage.url(AttrOptionInBrandSlider3.AttributeOptionID)}}"
+                  stepKey="OpenAttributeOptionProfilePagePage1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}"
+                      userInput="{{AttrOptionInBrandSlider3.ShowInBrandSliderSwitcher}}"
+                      stepKey="SetShowInBrandSlider3"/>
+        <fillField selector="{{AttributeProfileSection.PositionInSlider}}"
+                   userInput="{{AttrOptionInBrandSlider3.PositionInSlider}}"
+                   stepKey="SetPositionInSlider3"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad7"/>
+        <amOnPage url="{{BrandManagementAttributeOptionProfilePage.url(AttrOptionInBrandSlider4.AttributeOptionID)}}"
+                  stepKey="OpenAttributeOptionProfilePagePage2"/>
+        <selectOption selector="{{AttributeProfileSection.ShowInBrandSliderSwitcher}}"
+                      userInput="{{AttrOptionInBrandSlider4.ShowInBrandSliderSwitcher}}"
+                      stepKey="SetShowInBrandSlider4"/>
+        <fillField selector="{{AttributeProfileSection.PositionInSlider}}"
+                   userInput="{{AttrOptionInBrandSlider4.PositionInSlider}}"
+                   stepKey="SetPositionInSlider4"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad8"/>
+        <amOnPage url="{{BrandManagementGridPage.url}}" stepKey="OpenAttributeOptionProfilePagePage3"/>
+        <waitForElement
+                selector="{{AdminIlnBrandManagementGridSection.BrandAttributeOptionCheckbox('Burlap')}}"
+                stepKey="waitForCheckBox1"/>
+        <click selector="{{AdminIlnBrandManagementGridSection.BrandAttributeOptionCheckbox('Cocona')}}"
+               stepKey="clickOnAttributeOptionCheckBox1"/>
+        <click selector="{{AdminIlnBrandManagementGridSection.BrandAttributeOptionCheckbox('Burlap')}}"
+               stepKey="clickOnAttributeOptionCheckBox2"/>
+        <click selector="{{AdminIlnBrandManagementGridSection.MassActionsElements('Actions')}}"
+               stepKey="clickOnActionsDropDown1"/>
+        <click selector="{{AdminIlnBrandManagementGridSection.MassActionsElements(AttrOptionInBrandSlider5.MassAction)}}"
+               stepKey="clickOnMassAction1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad9"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>

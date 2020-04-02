@@ -1,0 +1,261 @@
+//
+//  Amasty Page Speed Optimizer Configuration
+//  ____________________________________________
+
+//
+//  Variables
+//  _____________________________________________
+
+@amoptimizer__border-gray: 1px solid #ebeef5;
+@amoptimizer__medium-speed__color: #ffa400;
+@amoptimizer__low-speed__color: #f27061;
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amoptimizer-tabs-container {
+        & {
+            display: flex;
+        }
+
+        .amoptimizer-tab {
+            margin-bottom: -1px;
+            padding: 13px 32px;
+            border-left: @amoptimizer__border-gray;
+            background: #f1f1f1;
+            cursor: pointer;
+        }
+
+        .amoptimizer-tab.-active {
+            border-top: 2px solid #eb5202;
+            border-bottom: 1px solid #fff;
+            border-right: @amoptimizer__border-gray;
+            background: #fff;
+        }
+
+        .amoptimizer-tabs-container {
+            border-left: @amoptimizer__border-gray;
+            border-right: @amoptimizer__border-gray;
+        }
+    }
+
+    .amoptimizer-total-chart {
+        & {
+            position: relative;
+            display: inline-block;
+            font-size: 0;
+        }
+
+        .amoptimizer-circle {
+            fill: #fff;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 314;
+            stroke-linecap: round;
+            transition: all 1s linear;
+        }
+
+        .amoptimizer-valuation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: 0;
+            font-size: 42px;
+            font-weight: 600;
+            transform: translate(-50%, -50%);
+        }
+
+        &.-green .amoptimizer-valuation {
+            color: #48b75f;
+        }
+
+        &.-orange .amoptimizer-valuation {
+            color: @amoptimizer__medium-speed__color;
+        }
+
+        &.-red .amoptimizer-valuation {
+            color: @amoptimizer__low-speed__color;
+        }
+
+        &.-green .amoptimizer-circle {
+            stroke: #48b75f;
+            fill: rgba(72, 183, 95, .2);
+        }
+
+        &.-orange .amoptimizer-circle {
+            stroke: @amoptimizer__medium-speed__color;
+            fill: rgba(255, 164, 0, .2);
+        }
+
+        &.-red .amoptimizer-circle {
+            stroke: @amoptimizer__low-speed__color;
+            fill: rgba(242, 112, 97, .2);
+        }
+    }
+
+    .amoptimizer-circle-svg {
+        transform: rotate(-90deg);
+    }
+
+    .amoptimizer-total-valuation {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .amoptimizer-tab-content {
+        box-sizing: border-box;
+        border: @amoptimizer__border-gray;
+    }
+
+    .amoptimizer-tab-container {
+        & {
+            display: flex;
+        }
+
+        .amoptimizer-time {
+            font-weight: bold;
+        }
+
+        .amoptimizer-time.-red {
+            color: @amoptimizer__low-speed__color;
+        }
+
+        .amoptimizer-time.-yellow {
+            color: #eca254;
+        }
+    }
+
+    .amoptimizer-recommendation-block {
+        & {
+            flex-basis: 75%;
+            padding: 20px;
+            border-left: @amoptimizer__border-gray;
+            background: #f7f8fa;
+        }
+
+        &.-hide {
+            display: none;
+        }
+    }
+
+    .amoptimizer-links-container {
+        flex-basis: 25%;
+        margin: 20px 10px 10px;
+        list-style-type: none;
+    }
+
+    .amoptimizer-link-block {
+        & {
+            padding: 5px 10px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        &:hover {
+            background: #f5f7fa;
+        }
+
+        &.-active {
+            background: #f5f7fa;
+        }
+    }
+
+    .amoptimizer-title-container {
+        & {
+            margin-bottom: 15px;
+        }
+
+        .amoptimizer-name,
+        .amoptimizer-time {
+            font-weight: bold;
+        }
+    }
+
+    .amoptimizer-google-recommendation .amoptimizer-recommendation {
+        margin-bottom: 10px;
+    }
+
+    .amoptimizer-hint-container .amoptimizer-url {
+        margin-left: 15px;
+    }
+
+    .amoptimizer-hint-block {
+        & {
+            display: flex;
+        }
+
+        .amoptimizer-hint {
+            & {
+                position: relative;
+                margin: 0 15px;
+                padding-left: 30px;
+                font-size: 17px;
+                font-weight: 600;
+            }
+
+            &:before {
+                position: absolute;
+                top: calc(50% - 3px);
+                left: 0;
+                width: 18px;
+                height: 6px;
+                border-radius: 3px;
+                content: '';
+            }
+        }
+
+        .amoptimizer-hint.-green:before {
+            background: #48b75f;
+        }
+
+        .amoptimizer-hint.-red:before {
+            background: @amoptimizer__low-speed__color;
+        }
+
+        .amoptimizer-hint.-orange:before {
+            background: #eca254;
+        }
+    }
+
+    .amoptimizer-main-container {
+        display: none;
+        margin-bottom: 40px;
+    }
+
+    .amoptimizer-diagnostic-container {
+        & {
+            margin-bottom: 40px;
+        }
+
+        .amoptimizer-btn {
+            padding: 7px 35px;
+            min-width: auto;
+            border: 0;
+            border-radius: 2px;
+            font-weight: 600;
+            background: #828282;
+            color: #fff;
+        }
+
+        & .amoptimizer-checkbox-block .amoptimizer-checkbox {
+            margin-left: 5px;
+        }
+    }
+
+    .amoptimizer-checkbox-block {
+        & {
+            display: none;
+            margin-bottom: 40px;
+        }
+
+        .amoptimizer-label {
+            cursor: pointer;
+        }
+
+        .amoptimizer-label:not(:first-child) {
+            margin-left: 30px;
+        }
+    }
+}

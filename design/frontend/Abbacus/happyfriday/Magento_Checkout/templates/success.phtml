@@ -1,0 +1,92 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="hola"></div>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()):?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+        <?php  else :?>
+            <p><?= __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+        <?php endif;?>
+            <p><?= /* @escapeNotVerified */ __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
+    <?php endif;?>
+
+    <?php
+    //$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+    //          $orderData = $objectManager->create('Magento\Sales\Model\Order')->loadByIncrementId($block->getOrderId());
+//echo "<pre>";print_r($orderData);
+
+
+    ?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= /* @escapeNotVerified */ $block->getContinueUrl() ?>"><span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+    <?php
+    $orderid = $block->getOrderId();
+    ?>
+    <div class="cn_client_info" style="display:none">
+        <span class="primary_key"><?=$order->getCustomerEmail()?></span>
+        <span class="_name"><?=$order->getCustomerFirstname()?></span>
+        <span class="_surname"><?=$order->getCustomerLastname()?></span>
+    </div>
+    <?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderid);
+    $order_final = $order->getQuoteId();
+    $count =0;
+    $div_principal ="";//Inicio div - unico - hasta cantidades
+    $div_cantidades_calculadas ="";
+    $listado_producto = "";
+    $cierre_div_principal = "</div>";
+    $total_cantidad = 0;
+    $total_precio= 0;
+    $div_cantidad ="";
+    $div_precio ="";
+    //Loop through each item and fetch data
+    foreach ($order->getAllItems() as $item)
+    {
+       //fetch whole item information
+       //print_r($item->getData());
+
+       //Or fetch specific item information
+       //echo $item->getId();
+       //echo $item->getProductType();
+       //echo $item->getQtyOrdered();
+       //echo $item->getPrice();
+      //echo $item['name'] ;
+      //echo $item['item_id'];
+      if($count == 0){
+        $div_principal .="<div class='cn_purchase' style='display:none;'>";
+        $div_principal .="<span class='cart_id'>".$order_final."</span>";
+        $div_principal .="<span class='purchase_id'>".$item['item_id']."</span>";
+        $div_principal .="<span class='purchase_date'>".$item['updated_at']."</span>";
+      }
+      $total_cantidad += $item['qty_ordered'];
+      $total_precio += $item['base_row_total_incl_tax'];
+      //
+      $listado_producto .= "<div class='product_basket_item'>";
+      $listado_producto .= "<span class='quantity'>".number_format($item['qty_ordered'],0)."</span>";
+      $listado_producto .= "<span class='price'>".number_format($item['row_total'],2)."</span>";
+      $listado_producto .= "<span class='product_id'>".$item['product_id']."</span>";//PRecio total
+      $listado_producto .= "<span class='name'>".$item['name']."</span>";
+      $listado_producto .= "<span class='unit_price'>".number_format($item['price'],2)."</span>";//Precio unitario
+      $listado_producto .= "</div>";
+      $count++;
+    }
+    echo $div_principal."<span class='total_quantity'>".$total_cantidad."</span><span class='total_price'>".number_format($total_precio,2)."</span>".$listado_producto.$cierre_div_principal;
+    ?>
+
+</div>

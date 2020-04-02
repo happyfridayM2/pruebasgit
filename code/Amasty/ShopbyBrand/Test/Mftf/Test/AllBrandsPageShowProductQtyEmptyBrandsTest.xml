@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageShowProductQtyEmptyBrandsTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check of Show Products Quantity/Show Brands Without Products	settings on All Brands Page in enabled condition"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-12"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="noBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that Show Products Quantity/Show Brands Without Products settings work correctly on All Brands Page-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}"
+                  stepKey="navigateToBrandPage1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.ItemsCountLast}}"
+                      stepKey="grabQtyOfPolyesterProducts1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontBrandElementsSection.BrandItemWithCont('=','0')}}"
+                             stepKey="seeBrandsWithNoProducts1"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontBrandElementsSection.BrandItemWithCont('&gt;','0')}}"
+                             stepKey="seeBrandsWithAnyQtyOfProducts1"/>
+        <seeElement selector="{{StorefrontBrandElementsSection.BrandItemWithCont('=',{$grabQtyOfPolyesterProducts1})}}"
+                    stepKey="checkQtyOfPolyesterProducts1"/>
+
+    </test>
+</tests>

@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amoptimizer_empty_event">
+        <!-- Prevent fatal for non composer update -->
+        <observer name="amoptimizer_empty_event" instance="Amasty\PageSpeedOptimizer\Observer\EmptyEvent" />
+    </event>
+</config>

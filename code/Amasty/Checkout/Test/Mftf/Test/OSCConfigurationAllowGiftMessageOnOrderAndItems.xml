@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationAllowGiftMessageOnOrderAndItems">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Setting Allow Gift Messages For Order Level And Order Items"/>
+            <title value="Check Gift Messages"/>
+            <description value="Check Setting Allow Gift Messages For Order Level, Order Items and Place Order With Message"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-27"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationGifts"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="OSCCustomerArizona" stepKey="createCustomer"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByBagImpulseDuffle" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWayfarerMessenger" stepKey="createSecondSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCGiftWrap" stepKey="ConfigurationGiftsSetting">
+                <argument name="adminSettingOSCGiftWrap" value="SetAllowAllGiftMessages"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondSimpleProduct"/>
+            <actionGroup ref="AdminConfigOSCGiftWrap" stepKey="ReturnDefaultGiftsSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Login to Storefront and Add Products to Cart-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogInToStorefront">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <!-- Go To Checkout and  Check Gift Options on OSC -->
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckHaveGiftMessageCheckbox" stepKey="checkHaveAddMessageCheckbox"/>
+        <actionGroup ref="StorefrontOSCCheckHaveGiftMessageForOrder" stepKey="checkGiftMessageForOrder"/>
+        <actionGroup ref="StorefrontOSCCheckHaveGiftMessageForItems" stepKey="CheckGiftMessageForFirstProduct">
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckHaveGiftMessageForItems" stepKey="CheckGiftMessageForSecondProduct">
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <!-- Fill Gift Options on OSC and Place Order -->
+        <actionGroup ref="StorefrontOSCFillGiftMessageForOrder" stepKey="fillGiftMessageForOrder">
+            <argument name="OSCGiftMessageOrderData" value="giftMessageForOrderOSC"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCFillGiftMessageForItem" stepKey="fillGiftMessageForItemOne">
+            <argument name="OSCGiftMessageForItemData" value="giftMessageForItemOSCImpulseDuffle"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCFillGiftMessageForItem" stepKey="fillGiftMessageForItemTwo">
+            <argument name="OSCGiftMessageForItemData" value="giftMessageForItemOSCWayfarerMessenger"/>
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumber" stepKey="PlaceOrderWithCheckMoney"/>
+        <!-- Check Gift Message in Admin Area Order-->
+        <actionGroup ref="AdminCheckGiftMessageForOrderInOrder" stepKey="checkOrderMessageInAdminOrder">
+            <argument name="OSCGiftMessageOrderData" value="giftMessageForOrderOSC"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckGiftMessageForItemInOrder" stepKey="checkMessageFirstProductInOrder">
+            <argument name="OSCGiftMessageForItemData" value="giftMessageForItemOSCImpulseDuffle"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckGiftMessageForItemInOrder" stepKey="checkMessageSecondProductInOrder">
+            <argument name="OSCGiftMessageForItemData" value="giftMessageForItemOSCWayfarerMessenger"/>
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <!-- Check totals in admin area order-->
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCConfigurationCheckGiftMessages"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+
+    </test>
+</tests>

@@ -1,0 +1,31 @@
+//
+//  Mixins
+//  ____________________________________________
+
+.am-flex(
+    @horiz-pos: none,
+    @vert-pos: none,
+    @wrap: none,
+    @inline: none
+) {
+
+    & when (@inline = none) {
+        display: flex;
+    }
+
+    & when not (@inline = none) {
+        display: @inline;
+    }
+
+    & when not (@horiz-pos = none) {
+        justify-content: @horiz-pos;
+    }
+
+    & when not (@vert-pos = none) {
+        align-items: @vert-pos;
+    }
+
+    & when not (@wrap = none) {
+        flex-wrap: @wrap;
+    }
+}

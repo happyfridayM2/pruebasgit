@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <head>
+        <css src="Amasty_ShopbyBase::css/chosen/chosen.css"/>
+        <css src="Amasty_ShopbyBase::css/fields.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\ShopbyBase\Block\Adminhtml\Catalog\Product\Attribute\Edit" before="-" name="amasty_shopby_option_js" template="Amasty_ShopbyBase::attribute/options_content_js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringSidebarLabelsCategoryAttributeInteractionTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode in interaction with Category Attribute"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNRATINGFILTER-19"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <!--Filter by Rating Filter on All-products Page: select 5 stars option on sidebar in labels, check the result, filter page by Category Attribute, check the result, remove selected options from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickCategoryFilter1"
+               after="selectRatingOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Fitness Equipment')}}"
+               stepKey="clickOnCategoryOption1"
+               after="clickCategoryFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Fitness Equipment"
+             stepKey="checkTitle1"
+             after="clickOnCategoryOption1"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickCategoryFilter2"
+               after="selectRatingOption2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Bags')}}"
+               stepKey="clickOnCategoryOption2"
+               after="clickCategoryFilter2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Bags"
+             stepKey="checkTitle2"
+             after="clickOnCategoryOption2"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+    </test>
+</tests>

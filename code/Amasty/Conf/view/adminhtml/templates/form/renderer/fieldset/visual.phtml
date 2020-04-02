@@ -1,0 +1,72 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+?>
+<?php
+    /* @var $block \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Element */
+    $element = $block->getElement();
+    $note = $element->getNote() ? '<div class="note admin__field-note" id="' . $element->getId() . '-note">'
+        . $element->getNote() . '</div>' : '';
+
+    $elementBeforeLabel = $element->getExtType() == 'checkbox admin__control-checkbox'
+        || $element->getExtType() == 'radio admin__control-radio';
+    $addOn = ($element->getBeforeElementHtml() || $element->getAfterElementHtml()) && !$element->getNoWrapAsAddon();
+    $fieldId = ($element->getHtmlContainerId()) ? ' id="' . $element->getHtmlContainerId() . '"' : '';
+
+    $fieldClass = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+    $fieldClass .= ($elementBeforeLabel) ? ' choice' : '';
+    $fieldClass .= ($addOn) ? ' with-addon' : '';
+    $fieldClass .= ($element->getRequired()) ? ' required _required' : '';
+    $fieldClass .= ($note) ? ' with-note' : '';
+    $fieldClass .= (!$element->getLabelHtml()) ? ' no-label' : '';
+
+    $fieldAttributes = $fieldId . ' class="' . $fieldClass . '" '
+        . $block->getUiId('form-field', $element->getId())
+        . ($element->getFieldExtraAttributes() ? ' ' . $element->getFieldExtraAttributes() : '');
+?>
+
+<?php if (!$element->getNoDisplay()) : ?>
+    <?php if ($element->getType() == 'hidden') : ?>
+        <?= $element->getElementHtml() ?>
+    <?php else : ?>
+        <div <?= /* @noEscape */ $fieldAttributes ?>>
+            <?php if ($elementBeforeLabel) : ?>
+                <?= $element->getElementHtml() ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <?= /* @noEscape */ $note ?>
+            <?php else : ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <div class="admin__field-control control">
+                   <div class="admin__field"><?= $element->getElementHtml() ?>
+                    <script id="swatch-visual-row-template" type="text/x-magento-template">
+                        <div class="swatch_window_unvailable" style="display:<%- data.display %>"></div>
+                        <div class="swatch_window" id="swatch_window_option" style="<%- data.swatch %>"></div>
+                        <div class="swatch_sub-menu_container" id="swatch_container_option">
+                            <div class="swatch_row position-relative">
+                                <div class="swatch_row_name colorpicker_handler">
+                                    <p><?= $block->escapeHtml(__('Choose a color')) ?></p>
+                                </div>
+                            </div>
+                            <div class="swatch_row">
+                                <div class="swatch_row_name btn_choose_file_upload"
+                                     id="swatch_choose_file_option>">
+                                    <p><?= $block->escapeHtml(__('Upload a file')) ?></p>
+                                </div>
+                            </div>
+                            <div class="swatch_row">
+                                <div class="swatch_row_name btn_remove_swatch">
+                                    <p><?= $block->escapeHtml(__('Clear')) ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </script>
+                    <?= /* @noEscape */ $note ?>
+                   </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

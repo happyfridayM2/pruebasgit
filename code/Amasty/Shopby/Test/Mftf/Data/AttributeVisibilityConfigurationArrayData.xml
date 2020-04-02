@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CategoryIDSVisibilityDefault" type="attributeVisibility">
+        <data key="AttributeID">105</data>
+        <data key="VisibleInCategoriesSwitcher">visible_everywhere</data>
+    </entity>
+    <entity name="CategoryIDSVisibilityOnly" type="attributeVisibility" extends="CategoryIDSVisibilityDefault">
+        <data key="VisibleInCategoriesSwitcher">only_in_selected_categories</data>
+        <data key="ShowOnCategories">2</data>
+    </entity>
+    <entity name="CategoryIDSVisibilityHide" type="attributeVisibility" extends="CategoryIDSVisibilityDefault">
+        <data key="VisibleInCategoriesSwitcher">hide_in_selected_categories</data>
+        <data key="ShowOnCategories">2</data>
+    </entity>
+    <entity name="CategoryIDSVisibilityClimate" type="attributeVisibility">
+        <data key="AttributeID">105</data>
+        <data key="AttributeName">Climate</data>
+    </entity>
+    <entity name="CategoryIDSVisibilityClimateAllWeather" type="attributeVisibility" extends="CategoryIDSVisibilityClimate">
+        <data key="AttributeOption">All-Weather</data>
+    </entity>
+
+</entities>
+
+
+

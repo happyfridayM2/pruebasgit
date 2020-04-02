@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2017 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+
+
+    <!-- LOGGER CONFIGURATION STARTS -->
+    <virtualType name="Wyomind\Core\Logger\Logger" type="\Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Core</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="core" xsi:type="object">Wyomind\Core\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Wyomind\Core\Logger\Handler" type="Wyomind\Core\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/Wyomind_Core.log</argument>
+            <argument name="filePath" xsi:type="string"></argument>
+        </arguments>
+    </virtualType>
+
+    <!-- LOGGER CONFIGURATION ENDS -->
+
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="wyomind_core_license_activate" xsi:type="object">Wyomind\Core\Console\Command\License\Activate</item>
+                <item name="wyomind_core_license_status" xsi:type="object">Wyomind\Core\Console\Command\License\Status</item>
+                <item name="wyomind_core_license_request" xsi:type="object">Wyomind\Core\Console\Command\License\Request</item>
+                <item name="wyomind_core_license_insertcode" xsi:type="object">Wyomind\Core\Console\Command\License\InsertCode</item>
+                <item name="wyomind_core_license_insertkey" xsi:type="object">Wyomind\Core\Console\Command\License\InsertKey</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

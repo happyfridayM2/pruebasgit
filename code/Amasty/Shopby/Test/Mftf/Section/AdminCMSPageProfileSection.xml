@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminCMSPageProfileSection">
+        <element name="AllBrandsPageSwitcher" type="select" selector="//*[@class='admin__actions-switch-label']"/>
+        <element name="EnabledAllBrandsPageSwitcher" type="select" selector="//*[@class='admin__actions-switch-checkbox'][@value='1']"/>
+        <element name="Save" type="button" selector="#save-button"/>
+    </section>
+
+</sections>

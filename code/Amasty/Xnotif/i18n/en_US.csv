@@ -1,0 +1,157 @@
+"In Stock","In Stock"
+"Out of Stock","Out of Stock"
+"Back in Stock Requests","Back in Stock Requests"
+"First Name","First Name"
+"Last Name","Last Name"
+Email,Email
+Price,Price
+"Date Subscribed","Date Subscribed"
+"Last Notification","Last Notification"
+"Send Count","Send Count"
+Guest,Guest
+Action,Action
+Remove,Remove
+Websites,Websites
+Name,Name
+SKU,SKU
+Count,Count
+"First Subscription","First Subscription"
+"Last Subscription","Last Subscription"
+EMAIL,EMAIL
+"Subscription Date","Subscription Date"
+"Total Number of Subscriptions","Total Number of Subscriptions"
+"Customers Awaiting Notification","Customers Awaiting Notification"
+CSV,CSV
+"Excel XML","Excel XML"
+"Test Notification","Test Notification"
+"Test notification will be sent to the following email address: %1","Test notification will be sent to the following email address: %1"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Delete,Delete
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"An error occurred while deleting the item from Subscriptions: %s","An error occurred while deleting the item from Subscriptions: %s"
+"No cron job ""amasty_xnotif_product_alert"" found. Please check your cron configuration.","No cron job ""amasty_xnotif_product_alert"" found. Please check your cron configuration."
+"Analytics Dashboard","Analytics Dashboard"
+Notifications,Notifications
+Alerts,Alerts
+"Price Alerts","Price Alerts"
+"An error occurred while deleting the item from Subscriptions.","An error occurred while deleting the item from Subscriptions."
+"The item has been deleted from Subscriptions.","The item has been deleted from Subscriptions."
+"Stock Alerts","Stock Alerts"
+"Stock Alerts ","Stock Alerts "
+"Please select the item(s).","Please select the item(s)."
+"Test notification has been successfully sent.","Test notification has been successfully sent."
+"We can't change item right now. Please review the log and try again.","We can't change item right now. Please review the log and try again."
+"A total of %1 record(s) have been changed.","A total of %1 record(s) have been changed."
+"No records have been changed.","No records have been changed."
+"You deleted the subscription.","You deleted the subscription."
+"We can't delete item right now. Please review the log and try again.","We can't delete item right now. Please review the log and try again."
+"This subscription no longer exists.","This subscription no longer exists."
+"Out of Stock Subscriptions","Out of Stock Subscriptions"
+"Edit Subscription","Edit Subscription"
+"New Subscription","New Subscription"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"No records have been deleted.","No records have been deleted."
+"You saved the item.","You saved the item."
+"Please enter a valid Product SKU","Please enter a valid Product SKU"
+"Please agree to the Privacy Policy","Please agree to the Privacy Policy"
+"Please enter a valid email address.","Please enter a valid email address."
+"Thank you! You are already subscribed to this product.","Thank you! You are already subscribed to this product."
+"Alert subscription has been saved.","Alert subscription has been saved."
+"Unable to update the alert subscription.","Unable to update the alert subscription."
+"Not enough parameters.","Not enough parameters."
+"My Price Subscriptions","My Price Subscriptions"
+"My Back in Stock Subscriptions","My Back in Stock Subscriptions"
+"Sign up to get notified when this configuration is back in stock","Sign up to get notified when this configuration is back in stock"
+"Notify me when the price drops","Notify me when the price drops"
+"Please specify email address: Store -> Configuration -> Amasty Out of Stock Notification -> Test Stock Notification","Please specify email address: Store -> Configuration -> Amasty Out of Stock Notification -> Test Stock Notification"
+"Please enable stock notifications: Store -> Configuration -> Catalog -> Alert","Please enable stock notifications: Store -> Configuration -> Catalog -> Alert"
+"Unable to save stock with ID %1. Error: %2","Unable to save stock with ID %1. Error: %2"
+"Unable to save new stock. Error: %1","Unable to save new stock. Error: %1"
+"Stock with specified ID ""%1"" not found.","Stock with specified ID ""%1"" not found."
+"Unable to remove stock with ID %1. Error: %2","Unable to remove stock with ID %1. Error: %2"
+"Unable to remove stock. Error: %1","Unable to remove stock. Error: %1"
+"%1 (Default)","%1 (Default)"
+"All Groups","All Groups"
+"Not Logged In","Not Logged In"
+"You will no longer receive stock alerts.","You will no longer receive stock alerts."
+"You will no longer receive stock alerts for this product.","You will no longer receive stock alerts for this product."
+"The product was not found.","The product was not found."
+"All Store Views","All Store Views"
+Edit,Edit
+"Recent Activity (Subscriptions)","Recent Activity (Subscriptions)"
+Customer,Customer
+"Product Name","Product Name"
+"Date & Time","Date & Time"
+"View more","View more"
+"Subscriptions created","Subscriptions created"
+"Alerts sent","Alerts sent"
+"Orders made","Orders made"
+"Most Wanted Products","Most Wanted Products"
+Qty,Qty
+Quantity,Quantity
+"Subscribe to back in stock","Subscribe to back in stock"
+"Subscribe to back in stock notification","Subscribe to back in stock notification"
+GDRP,GDRP
+Subscribe,Subscribe
+"There are no notifications.","There are no notifications."
+"Sign up for price alert","Sign up for price alert"
+Image,Image
+Product,Product
+"Subscribed On","Subscribed On"
+"Stock Status","Stock Status"
+"Remove This Item","Remove This Item"
+"There are no active subscriptions.","There are no active subscriptions."
+"Email alert for new out of stock subscriptions","Email alert for new out of stock subscriptions"
+"Hello,","Hello,"
+"This is an automatic notification about a new out of stock subscription(s) made today. ","This is an automatic notification about a new out of stock subscription(s) made today. "
+Products:,Products:
+"Thank you!","Thank you!"
+"Low stock notification","Low stock notification"
+"This is an automatic notification about the low stock of the following product(s)","This is an automatic notification about the low stock of the following product(s)"
+"Out of Stock Notifications","Out of Stock Notifications"
+Information,Information
+General,General
+"Use Configurable Image","Use Configurable Image"
+"Use configurable product image for simple product subscriptions on account page","Use configurable product image for simple product subscriptions on account page"
+"Greeting Text for Email","Greeting Text for Email"
+"Minimum Stock Quantity","Minimum Stock Quantity"
+"Minimum stock quantity before the email is triggered.","Minimum stock quantity before the email is triggered."
+"Test Stock Notification Email","Test Stock Notification Email"
+"Please go to the Reports > Stock Alerts to send it.","Please go to the Reports > Stock Alerts to send it."
+"Stock Subscribtion","Stock Subscribtion"
+"Allow Subscription for Selected Group(s)","Allow Subscription for Selected Group(s)"
+"Limit Emails by Product Qty","Limit Emails by Product Qty"
+"Note! Emails will be sent once a day","Note! Emails will be sent once a day"
+"Enable Subscribe from Category Page","Enable Subscribe from Category Page"
+"Use Popup for Guests on Category","Use Popup for Guests on Category"
+"Placeholder for the Subscription Field","Placeholder for the Subscription Field"
+"Specify the placeholder to be displayed inside the subscription field by default","Specify the placeholder to be displayed inside the subscription field by default"
+"Price Subscribtion","Price Subscribtion"
+"Please Enable Default Price Alerts in Configuration - Catalog - Product Alerts","Please Enable Default Price Alerts in Configuration - Catalog - Product Alerts"
+"Admin Notifications","Admin Notifications"
+"Send Email Reports for New Subscriptions (Daily)","Send Email Reports for New Subscriptions (Daily)"
+"Set 'Yes' to receive daily emails with a list of all products to which the customers have subscribed.","Set 'Yes' to receive daily emails with a list of all products to which the customers have subscribed."
+"Email Template to Notify Admin","Email Template to Notify Admin"
+"Notify Admin about Inventory Low in Stock","Notify Admin about Inventory Low in Stock"
+"Set 'Yes' to get email alert when product is about to go out-of-stock. It works based on Notify for Quantity Below setting.","Set 'Yes' to get email alert when product is about to go out-of-stock. It works based on Notify for Quantity Below setting."
+"Email Template to Notify Low in Stock","Email Template to Notify Low in Stock"
+"Notify for Quantity Below","Notify for Quantity Below"
+"Admin Email Address","Admin Email Address"
+"Comma-separated emails, no spaces.","Comma-separated emails, no spaces."
+"Email Sender","Email Sender"
+"GDPR Consent","GDPR Consent"
+Enabled,Enabled
+"Сonsent Text","Сonsent Text"
+Back,Back
+Store,Store
+"Product SKU","Product SKU"
+"Add New Subscription","Add New Subscription"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+Pending,Pending
+Sent,Sent
+Status,Status
+"Price Subscriptions","Price Subscriptions"
+"Back in Stock Subscriptions","Back in Stock Subscriptions"

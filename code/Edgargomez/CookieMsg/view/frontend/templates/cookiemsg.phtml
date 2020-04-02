@@ -1,0 +1,74 @@
+<?php
+/**
+ * @author Edgar J. Gómez
+ * @copyright Copyright (c) 2017 Edgargomez (http://www.edgargomez.es)
+ * @package Edgargomez_CookieMsg
+ */
+?>
+<?php
+$helper = $this->helper('Edgargomez\CookieMsg\Helper\Data');
+if ($helper->getConfig('edgargomez_cookiemsg/general/enable')) {
+
+    //General options
+    $lifeTime        = $helper->getConfig('edgargomez_cookiemsg/general/lifetime');
+    $privacyUrl      = $helper->getConfig('edgargomez_cookiemsg/general/privacy_url');
+    $privacyLinkText = $helper->getConfig('edgargomez_cookiemsg/general/privacy_link_text');
+    $privacyTitle    = $helper->getConfig('edgargomez_cookiemsg/general/privacy_title');
+    $message         = $helper->getConfig('edgargomez_cookiemsg/general/privacy_message');
+    $showAccept      = $helper->getConfig('edgargomez_cookiemsg/general/showaccept');
+    $acceptText      = $helper->getConfig('edgargomez_cookiemsg/general/depends_accepttext');
+    $msgPosition     = $helper->getConfig('edgargomez_cookiemsg/general/msg_position');
+    $showCross       = $helper->getConfig('edgargomez_cookiemsg/general/showcross');
+    $crossPosition   = $helper->getConfig('edgargomez_cookiemsg/general/depends_showcross');
+    //Dev options
+    $devMode         = $helper->getConfig('edgargomez_cookiemsg/developer/devmode');
+    $custom_css      = $helper->getConfig('edgargomez_cookiemsg/developer/css_styling'); 
+
+?>
+    
+    <div id="eg-cm-wrap" class="<?php echo $msgPosition; ?>">
+        <?php if($showCross): ?>
+            <span id="eg-cm-cc" class="<?php echo $crossPosition; ?>">X</span>
+        <?php endif; ?>
+        <span><?php echo $message; ?><a href="<?php echo $privacyUrl; ?>" id="eg-cm-ll"><?php echo $privacyLinkText; ?></a>
+        <br/>
+        <?php if ($showAccept): ?>
+            <a href="#" id="eg-cm-hide"><?php echo $acceptText ?></a></span>
+        <?php endif; ?>
+    </div>
+    <script type="text/javascript">
+        requirejs(['jquery','jquery.cookie'],function(jQuery){
+            (function($) {
+                // Show cookie bar
+                if ($.cookie('eg_cookiemsg') != "true") {
+                    $('#eg-cm-wrap').show();
+                }
+                // Handle hide button and cross
+                $('#eg-cm-hide').click(function(event) {
+                    event.preventDefault();
+                    $('#eg-cm-wrap').hide();
+                    // SET COOKIE
+                    $.cookie('eg_cookiemsg', "true", { expires: <?php echo $lifeTime; ?>, path: '/' });
+                })
+                $('#eg-cm-cc').click(function(event) {
+                    event.preventDefault();
+                    $('#eg-cm-wrap').hide();
+                    // SET COOKIE
+                    $.cookie('eg_cookiemsg', "true", { expires: <?php echo $lifeTime; ?>, path: '/' });
+                })
+            })(jQuery);
+        });
+    </script>
+    <?php if($devMode): ?> 
+        <style type="text/css">
+            #eg-cm-wrap {display: block !important;}
+        </style> 
+    <?php endif; ?>
+    <?php if (strlen($custom_css) > 0) { ?>
+    <style type="text/css">
+        <?php echo $custom_css; ?>
+    </style>
+    <?php } ?>
+<?php
+
+} ?>

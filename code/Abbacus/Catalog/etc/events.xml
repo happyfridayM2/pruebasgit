@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="currency_display_options_forming">
+        <observer name="abbacus_catalog_currency_display_options" instance="Abbacus\Catalog\Observer\CurrencyDisplayOptions" />
+    </event>
+</config>

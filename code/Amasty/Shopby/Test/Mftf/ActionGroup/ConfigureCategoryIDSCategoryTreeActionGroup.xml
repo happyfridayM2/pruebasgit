@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(categoryIDS3.CategoryIDSID)}}"
+                  stepKey="navigateToCategoryIDSSettingsPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}"
+               stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.RenderAllCategoriesTreeSwitcher}}"
+                      userInput="{{categoryIDS3.RenderAllCategoriesTreeSwitcher}}"
+                      stepKey="SetRenderAllCategoryTree1"/>
+        <selectOption selector="{{AttributeProfileSection.SubcategoriesViewSwitcher}}"
+                      userInput="{{categoryIDS3.SubcategoriesViewSwitcher}}"
+                      stepKey="SetSubcategoriesView1"/>
+        <selectOption selector="{{AttributeProfileSection.CategoryTreeDisplayModeSwitcher}}"
+                      userInput="{{categoryIDS3.CategoryTreeDisplayModeSwitcher}}"
+                      stepKey="SetDisplayMode1"/>
+        <selectOption selector="{{AttributeProfileSection.ExpandSubcategoriesSwitcher}}"
+                      userInput="{{categoryIDS3.ExpandSubcategoriesSwitcher}}"
+                      stepKey="SetExpandSubcategories1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeFlyOutActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <remove keyForRemoval="SetExpandSubcategories1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeNoDepthOneActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                   userInput="{{categoryIDS3.CategoryTreeDepthField}}"
+                   stepKey="SetCategoryTreeDepth1"
+                   after="SetRenderAllCategoryTree1"/>
+        <remove keyForRemoval="SetSubcategoriesView1"/>
+        <remove keyForRemoval="SetExpandSubcategories1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeNoDepthTwoActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                   userInput="{{categoryIDS3.CategoryTreeDepthField}}"
+                   stepKey="SetCategoryTreeDepth1"
+                   after="SetRenderAllCategoryTree1"/>
+        <pressKey selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]"
+                  stepKey="pressEnter1"
+                  after="SetCategoryTreeDepth1"/>
+        <waitForElement selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                        stepKey="waitForElement1"
+                        after="pressEnter1"/>
+        <selectOption selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                      userInput="{{categoryIDS3.RenderCategoriesLevelSwitcher}}"
+                      stepKey="SetRenderCategoriesLevel1"
+                      after="waitForElement1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeNoDepthTwoFlyOutActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                   userInput="{{categoryIDS3.CategoryTreeDepthField}}"
+                   stepKey="SetCategoryTreeDepth1"
+                   after="SetRenderAllCategoryTree1"/>
+        <pressKey selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]"
+                  stepKey="pressEnter1"
+                  after="SetCategoryTreeDepth1"/>
+        <waitForElement selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                        stepKey="waitForElement1"
+                        after="pressEnter1"/>
+        <selectOption selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                      userInput="{{categoryIDS3.RenderCategoriesLevelSwitcher}}"
+                      stepKey="SetRenderCategoriesLevel1"
+                      after="waitForElement1"/>
+        <remove keyForRemoval="SetExpandSubcategories1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeDropdownDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(categoryIDS3.CategoryIDSID)}}"
+                  stepKey="navigateToCategoryIDSSettingsPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}"
+               stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.RenderAllCategoriesTreeSwitcher}}"
+                      userInput="{{categoryIDS3.RenderAllCategoriesTreeSwitcher}}"
+                      stepKey="SetRenderAllCategoryTree1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeDropdownDepthOneActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDropdownDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                   userInput="{{categoryIDS3.CategoryTreeDepthField}}"
+                   stepKey="SetCategoryTreeDepth1"
+                   after="SetRenderAllCategoryTree1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategoryIDSCategoryTreeDropdownDepthTwoActionGroup"
+                 extends="ConfigureCategoryIDSCategoryTreeDropdownDefaultActionGroup">
+        <arguments>
+            <argument name="categoryIDS3"/>
+        </arguments>
+        <fillField selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                   userInput="{{categoryIDS3.CategoryTreeDepthField}}"
+                   stepKey="SetCategoryTreeDepth1"
+                   after="SetRenderAllCategoryTree1"/>
+        <pressKey selector="{{AttributeProfileSection.CategoryTreeDepthField}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]"
+                  stepKey="pressEnter1"
+                  after="SetCategoryTreeDepth1"/>
+        <waitForElement selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                        stepKey="waitForElement1"
+                        after="pressEnter1"/>
+        <selectOption selector="{{AttributeProfileSection.RenderCategoriesLevelSwitcher}}"
+                      userInput="{{categoryIDS3.RenderCategoriesLevelSwitcher}}"
+                      stepKey="SetRenderCategoriesLevel1"
+                      after="waitForElement1"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+

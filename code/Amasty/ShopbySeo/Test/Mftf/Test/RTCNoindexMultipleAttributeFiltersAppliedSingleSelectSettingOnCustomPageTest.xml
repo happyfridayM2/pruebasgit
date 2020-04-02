@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RTCNoindexMultipleAttributeFiltersAppliedSingleSelectSettingOnCustomPageTest"
+          extends="RTCNoindexMultipleAttributeFiltersAppliedSingleSelectSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Noindex when Multiple Attribute Filters Applied setting enabling on Custom Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-26"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="rtcsettings"/>
+            <group value="noindexformultioptions"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1" ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario2"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="configureAttributesForSeo1"/>
+        </after>
+
+        <!--Check RTC settings: navigate to Custom Page, check RTC in Page Source, filter Page, check RTC in Page Source/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1" after="seeInSource1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1" after="clickClimateFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1" after="clickAllWeatherOption1"/>
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource2"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource3"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>

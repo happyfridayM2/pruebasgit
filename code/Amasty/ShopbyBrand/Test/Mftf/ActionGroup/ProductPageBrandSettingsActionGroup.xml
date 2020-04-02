@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureProductPageBrandActionGroup">
+        <arguments>
+            <argument name="brandLogoShortDescOnPDP1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandProductPageBrandSettingsTab1"
+                          selector="{{AdminProductPageBrandsSettingsSection.ProductPageBrandSettingsTab}}"
+                          dependentSelector="{{AdminProductPageBrandsSettingsSection.DisplayBrandLogoProductPageSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminProductPageBrandsSettingsSection.DisplayBrandLogoProductPageSwitcher}}"
+                      userInput="{{brandLogoShortDescOnPDP1.DisplayBrandLogoProductPageSwitcher}}"
+                      stepKey="setDisplayBrandLogoOnPDP1"/>
+        <selectOption selector="{{AdminProductPageBrandsSettingsSection.DisplayShortDescProductPageSwitcher}}"
+                      userInput="{{brandLogoShortDescOnPDP1.DisplayShortDescProductPageSwitcher}}"
+                      stepKey="setDisplayShortDescOnPDP1"/>
+        <fillField selector="{{AdminProductPageBrandsSettingsSection.BrandLogoWidth}}"
+                   userInput="{{brandLogoShortDescOnPDP1.BrandLogoWidth}}"
+                   stepKey="setBradLogoWidth1"/>
+        <fillField selector="{{AdminProductPageBrandsSettingsSection.BrandLogoHeight}}"
+                   userInput="{{brandLogoShortDescOnPDP1.BrandLogoHeight}}"
+                   stepKey="setBradLogoHeight1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureProductPageBrandDefaultActionGroup" extends="ConfigureProductPageBrandActionGroup">
+        <arguments>
+            <argument name="brandLogoShortDescOnPDP1"/>
+        </arguments>
+        <remove keyForRemoval="setDisplayShortDescOnPDP1"/>
+        <remove keyForRemoval="setBradLogoWidth1"/>
+        <remove keyForRemoval="setBradLogoHeight1"/>
+    </actionGroup>
+
+</actionGroups>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterFilteringCustomPageInteractionTest" extends="NewFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and filtering"/>
+            <description
+                    value="Check of new filter enabling and filtering in sidebar position and labels mode in interaction with custom page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNNEWFILTER-13"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1"
+                         ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario1"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage"
+                         stepKey="deleteCustomPage1"
+                         before="logout"/>
+        </after>
+
+        <!--Filter by New Filter: trigger custom page, select option on sidebar, check the result, remove selected options from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickColorFilter1"
+               after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Black')}}"
+               stepKey="selectBlackOption1"
+               after="clickColorFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1"
+             after="checkProductName1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Black')}}"
+               stepKey="removeSelectedFilterOptionFromState2"
+               after="removeSelectedFilterOptionFromState1"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,71 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+    /** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+    /** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+    /** @var \Amasty\Shopby\Model\Layer\Filter\CategoryItems $filterItems */
+    /** @var \Amasty\Shopby\Model\Layer\Filter\Item $filterItem */
+    $filterUniqId = $block->escapeId(uniqid());
+    $filterCode = $block->escapeHtml($filterSetting->getFilterCode());
+?>
+<div class="am-category-wrapper am-category-dropdown-<?= /* @noEscape */ $filterUniqId; ?>">
+    <div class="amshopby-category-dropdown">
+        <?php foreach ($filterItems->getAllItems() as $filterItem): ?>
+            <?php if ($block->checkedFilter($filterItem)): ?>
+                <div class="am-multiselect-crumb">
+                    <?= $block->escapeHtml($filterItem->getOptionLabel()); ?>
+                    <button data-remove-url="<?= $block->escapeUrl($filterItem->getUrl()); ?>"
+                            class="am-category-remove action-close"
+                            data-mage-init='{"amShopbyFilterCategoryDropdown":{}}'
+                            type="button"
+                            title="<?= $block->escapeHtml(__('Remove')); ?>"></button>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+    <form data-amshopby-filter="<?= /* @noEscape */ $filterCode; ?>"
+          data-amshopby-filter-request-var="<?= /* @noEscape */ $block->getFilter()->getRequestVar(); ?>">
+        <ol class="items am-filter-items-<?= /* @noEscape */ $filterCode; ?> am-category-view">
+            <?= /* @noEscape */ $categoryTreeHtml; ?>
+        </ol>
+    </form>
+</div>
+<script>
+    require(["jquery"], function ($) {
+        var currentCategoryId = "<?= /* @noEscape */ (int) $block->getCurrentCategoryId(); ?>";
+
+        if (currentCategoryId) {
+            $(window).on('load', function () {
+                $(document).trigger('baseCategory', currentCategoryId);
+            });
+            $(document).ajaxComplete(function () {
+                $(document).trigger('baseCategory', currentCategoryId);
+            });
+        }
+
+        $(".am-category-dropdown-<?= /* @noEscape */ $filterUniqId; ?> .amshopby-category-dropdown").click(function (e) {
+            $(this).parent().toggleClass('_active');
+            $(this).parent().find(".am-filter-items-<?= /* @noEscape */ $filterCode; ?>").toggle();
+        });
+        var collapseSelector = "<?= /* @noEscape */ ($block->isTopNav() ? '.amasty-catalog-topnav' : '.sidebar'); ?>"
+            + " .am-collapse-icon";
+        $(collapseSelector).nextAll('ol').each(function () {
+            if ($(this).find('input[checked]').length == 0) {
+                $(this).hide();
+            } else {
+                $(this).prevAll('.am-collapse-icon').toggleClass('_active');
+            }
+        });
+        $(collapseSelector).click(function (e) {
+            $(this).nextAll('ol').toggle();
+            $(this).toggleClass('_active');
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    });
+</script>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterFilteringLSSVFInteractionTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode in interaction with leave single select filter visible setting"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-16"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="DisableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="dontLeaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="EnableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="leaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option, check the result, remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter1"
+                        after="checkProductStock2"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option, check the result, remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter2"
+                        after="checkProductStock3"/>
+
+    </test>
+</tests>
+

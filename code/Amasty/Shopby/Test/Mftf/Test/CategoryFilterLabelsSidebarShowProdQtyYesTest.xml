@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarShowProdQtyYesTest" extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode with enabled Product counter"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-9"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSShowProdQtyYes"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check product counter, select option on sidebar, check the result/-->
+
+    </test>
+</tests>
+
+

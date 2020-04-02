@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPayPalAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With PayPal via the storefront"/>
+            <title value="Check Place Order with PayPal And Button Below Order Methods on the Checkout"/>
+            <description value="Check Place Order with PayPal And Button Below Order Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-29"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsPayPal"/>
+        </annotations>
+
+        <before>
+            <!-- Login as admin -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <!-- Configuration setting -->
+            <actionGroup ref="AdminConfigurationSettingOSCGeneral" stepKey="ConfigurateGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOnlyEnableCheckout"/>
+            </actionGroup>
+            <actionGroup ref="AdminConfigurationSettingOSCPlaceButtonDesign" stepKey="ConfiguratePlaceButtonDesignSetting">
+                <argument name="adminSettingOSCPlaceButtonDesign" value="BelowTheOrderTotalAndTurquoise"/>
+            </actionGroup>
+            <!-- Activate Payment Method -->
+            <actionGroup ref="AdminActivatePayPalPaymentWithDisableInContext" stepKey="ActivatePayPal">
+                <argument name="paymentMethodsAccess" value="paymentMethodCredentialsPayPal"/>
+            </actionGroup>
+            <!--Login As Customer And Add New Address -->
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogIn">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+            <actionGroup ref="StorefrontAddNewCustomerAddress" stepKey="AddNewAddress">
+                <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Return default setting -->
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCGeneral" stepKey="ReturnDefaultGeneralSetting"/>
+            <actionGroup ref="AdminDefaultConfigurationSettingOSCPlaceButtonDesign" stepKey="ReturnDefaultPlaceButtonDesignSetting"/>
+            <actionGroup ref="AdminReturnDefaultSettingPayPalPayment" stepKey="ReturnDefaultSetting"/>
+            <!-- Delete Product from cart if test failed -->
+            <actionGroup ref="DeleteProductFromTheCartIfTestWithLoginFailed" stepKey="DeleteProductIfTestFailed1">
+                <argument name="products" value="_theBagWayfarerMessenger"/>
+            </actionGroup>
+            <actionGroup ref="DeleteProductFromTheCartIfTestWithLoginFailed" stepKey="DeleteProductIfTestFailed2">
+                <argument name="products" value="_theBagStriveShoulderPackData"/>
+            </actionGroup>
+            <!-- Delete Created Customer Address -->
+            <actionGroup ref="StorefrontDeleteLastCustomerAddress" stepKey="DeleteLastAddress"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add First product to cart-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagWayfarerMessenger"/>
+        </actionGroup>
+
+        <!--Add Second product to cart-->
+        <actionGroup ref="AddProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagStriveShoulderPackData"/>
+        </actionGroup>
+
+        <actionGroup ref="GoToOSCAsCustomerChooseAddressAndShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+
+        <!-- Check Payment method -->
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePayPalExpressCheckout">
+            <argument name="paymentMethods" value="paymentPaypalExpressCheckout"/>
+        </actionGroup>
+
+        <!-- Check totals -->
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPayPalAndButtonBelowOrder"/>
+        </actionGroup>
+
+        <!-- Place Order -->
+        <actionGroup ref="StorefrontOSCPlaceOrderBellowOrderWithPayPalExpress" stepKey="placeOrderWithPayPal">
+            <argument name="customerCredentialsData" value="customerPayPalAccount"/>
+            <argument name="orderTotalForCheck" value="OSCCheckPayPalAndButtonBelowOrder.orderTotal"/>
+        </actionGroup>
+
+        <!-- Check Payment method in order-->
+        <actionGroup ref="AdminCheckPaymentMethodInLastOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentPaypalExpressCheckout"/>
+        </actionGroup>
+
+        <!-- Check totals in order-->
+        <actionGroup ref="AdminCheckTotalsInLastOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="subtotal" value="OSCCheckPayPalAndButtonBelowOrder.cartSubtotal"/>
+            <argument name="grandTotal" value="OSCCheckPayPalAndButtonBelowOrder.orderTotal"/>
+        </actionGroup>
+
+    </test>
+</tests>

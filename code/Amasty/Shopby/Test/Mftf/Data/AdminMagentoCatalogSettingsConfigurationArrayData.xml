@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="enableAllowAllProductsPerPage" type="AllPerPage">
+        <data key="Value">1</data>
+    </entity>
+    <entity name="disableAllowAllProductsPerPage" type="AllPerPage">
+        <data key="Value">0</data>
+    </entity>
+
+</entities>

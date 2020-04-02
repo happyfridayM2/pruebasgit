@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationAllowGiftMessagesOnOrder" extends="OSCConfigurationAllowGiftMessageOnOrderAndItems">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Setting Allow Gift Messages On Order Level"/>
+            <title value="Check Gift Messages"/>
+            <description value="Check Setting Allow Gift Messages On Order Level and Place Order With Message"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-13"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationGifts"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createCustomer"/>
+            <actionGroup ref="AdminConfigOSCGiftWrap" stepKey="ConfigurationGiftsSetting">
+                <argument name="adminSettingOSCGiftWrap" value="SetAllowGiftMessagesOnlyOnOrderLevel"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteCustomer"/>
+        </after>
+
+        <remove keyForRemoval="LogInToStorefront"/>
+        <remove keyForRemoval="fillGiftMessageForItemOne"/>
+        <remove keyForRemoval="fillGiftMessageForItemTwo"/>
+        <remove keyForRemoval="checkMessageFirstProductInOrder"/>
+        <remove keyForRemoval="checkMessageSecondProductInOrder"/>
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="defaultCustomerOSCData"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckNoGiftMessageForItems" stepKey="CheckGiftMessageForFirstProduct">
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckNoGiftMessageForItems" stepKey="CheckGiftMessageForSecondProduct">
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumberGuest" stepKey="PlaceOrderWithCheckMoney"/>
+
+    </test>
+</tests>

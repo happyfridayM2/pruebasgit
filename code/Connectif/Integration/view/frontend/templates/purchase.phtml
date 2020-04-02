@@ -1,0 +1,105 @@
+<?php
+$order = $this->getLastOrder();
+$escaper = $this->getHtmlEscaper();  
+?>
+
+<?php if ($this->isOrderAsGuest()) { ?> 
+    <?php
+    $customer = $this->getCustomerInfoFromOrder();
+    ?>
+    <div class="cn_client_info" style="display:none">
+        <span class="primary_key"><?php echo $escaper->escapeHtml($customer['primary_key']); ?></span>
+        <span class="_name"><?php echo $escaper->escapeHtml($customer['_name']); ?></span>
+        <span class="_surname"><?php echo $escaper->escapeHtml($customer['_surname']); ?></span>
+        <span class="_newsletter_subscription_status"><?php echo $escaper->escapeHtml($customer['_emailStatus']); ?></span>
+        <?php if (array_key_exists("country", $customer) && !empty($customer['country'])) {?>
+            <span class="country"><?php echo $escaper->escapeHtml($customer['country']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("city", $customer) && !empty($customer['city'])) {?>
+            <span class="city"><?php echo $escaper->escapeHtml($customer['city']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("street", $customer) && !empty($customer['street'])) {?>
+            <span class="street"><?php echo $escaper->escapeHtml($customer['street']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("zip", $customer) && !empty($customer['zip'])) {?>
+            <span class="zip"><?php echo $escaper->escapeHtml($customer['zip']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("company", $customer) && !empty($customer['company'])) {?>
+            <span class="company"><?php echo $escaper->escapeHtml($customer['company']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("telephone", $customer) && !empty($customer['telephone'])) {?>
+            <span class="_mobilePhone"><?php echo $escaper->escapeHtml($customer['telephone']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("fax", $customer) && !empty($customer['fax'])) {?>
+            <span class="fax"><?php echo $escaper->escapeHtml($customer['fax']); ?></span>
+        <?php }?>
+    </div>
+<?php } ?>
+
+<!-- Connectif Order Tags -->
+<div class="cn_purchase" style="display:none">
+    <span class="cart_id"><?php echo $escaper->escapeHtml($order['cartId']); ?></span>
+    <span class="purchase_id"><?php echo $escaper->escapeHtml($order['purchaseId']); ?></span>
+    <span class="purchase_date"><?php echo $escaper->escapeHtml($order['purchaseDate']); ?></span>
+    <span class="total_quantity"><?php echo $escaper->escapeHtml($order['totalQuantity']); ?></span>
+    <span class="total_price"><?php echo $escaper->escapeHtml($order['totalPrice']); ?></span>
+    <span class="payment_method"><?php echo $escaper->escapeHtml($order['paymentMethod']); ?></span>
+
+    <?php foreach ($order['products'] as $key => $product): ?>
+        <div class="product_basket_item">
+            <span class="quantity"><?php echo $escaper->escapeHtml($product['quantity']); ?></span>
+            <span class="price"><?php echo $escaper->escapeHtml($product['price']); ?></span>
+            <span class="url"><?php echo $escaper->escapeHtml($product['url']); ?></span>
+            <span class="product_id"><?php echo $escaper->escapeHtml($product['product_id']); ?></span>
+            <span class="name"><?php echo $escaper->escapeHtml($product['name']); ?></span>
+            <span class="description"><?php echo $escaper->escapeHtml($product['description']); ?></span>
+            <span class="image_url"><?php echo $escaper->escapeHtml($product['image_url']); ?></span>
+            <span class="unit_price"><?php echo $escaper->escapeHtml($product['unit_price']); ?></span>
+            <span class="availability"><?php echo $escaper->escapeHtml($product['availability']); ?></span>
+
+            <?php if (array_key_exists("unit_price_original", $product) && is_numeric($product['unit_price_original'])) {?>
+                <span class="unit_price_original"><?php echo $escaper->escapeHtml($product['unit_price_original']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("unit_price_without_vat", $product) && is_numeric($product['unit_price_without_vat'])) {?>
+                <span class="unit_price_without_vat"><?php echo $escaper->escapeHtml($product['unit_price_without_vat']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("discounted_percentage", $product) && is_numeric($product['discounted_percentage'])) {?>
+                <span class="discounted_percentage"><?php echo $escaper->escapeHtml($product['discounted_percentage']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("discounted_amount", $product) && is_numeric($product['discounted_amount'])) {?>
+                <span class="discounted_amount"><?php echo $escaper->escapeHtml($product['discounted_amount']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("brand", $product) && $product['brand'] != false) {?>
+                <span class="brand"><?php echo $escaper->escapeHtml($product['brand']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("rating_count", $product) && is_numeric($product['rating_count'])) {?>
+                <span class="rating_count"><?php echo $escaper->escapeHtml($product['rating_count']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("rating_value", $product) && is_numeric($product['rating_value'])) {?>
+                <span class="rating_value"><?php echo $escaper->escapeHtml($product['rating_value']); ?></span>
+            <?php }?>
+            <?php if (array_key_exists("review_count", $product) && is_numeric($product['review_count'])) {?>
+                <span class="review_count"><?php echo $escaper->escapeHtml($product['review_count']); ?></span>
+            <?php }?>
+
+            <?php if (array_key_exists("thumbnail_url", $product)) {?>
+                <span class="thumbnail_url"><?php echo $escaper->escapeHtml($product['thumbnail_url']); ?></span>
+            <?php }?>
+
+            <?php foreach ($product['relatedProductIds'] as $key => $relatedProductId): ?>
+                <span class="related_external_product_id"><?php echo $escaper->escapeHtml($relatedProductId); ?></span>
+            <?php endforeach;?>
+
+            <?php foreach ($product['categories'] as $key => $value): ?>
+                <span class="category"><?php echo $escaper->escapeHtml($value); ?></span>
+            <?php endforeach;?>
+        </div>
+    <?php endforeach;?>
+
+</div>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterExpandingSidebarBothLocationTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and expanding"/>
+            <description value="Check of stock filter enabling expanding in Sidebar and Both Location"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-7"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="StockFilterEnabling1"
+                         ref="StockFilterExpandActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup stepKey="StockFilterDisabling1"
+                         ref="StockFilterDisablingForExpandedActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter2" value="CustomFilterExpandAuto"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Checking of Stock Filter elements: check expanded Stock Filter in Sidebar position/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Stock"
+             stepKey="checkIfFilterExpand1"/>
+
+        <actionGroup stepKey="StockFilterEnabling2"
+                     ref="StockFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="StockFilterLabel"/>
+        </actionGroup>
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Stock"
+             stepKey="checkIfFilterExpand2"/>
+
+        <!--Checking of Stock Filter elements: check expanded Stock Filter in Both position/-->
+
+        <actionGroup stepKey="StockFilterEnabling3"
+                     ref="StockFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="StockFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts3"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Stock"
+             stepKey="checkIfFilterExpand3"/>
+        <actionGroup stepKey="StockFilterEnabling4"
+                     ref="StockFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+            <argument name="customFilter3" value="StockFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts4"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Stock"
+             stepKey="checkIfFilterExpand4"/>
+
+    </test>
+</tests>

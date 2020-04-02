@@ -1,0 +1,41 @@
+<?php
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+?>
+<?php /** @var Trustedshops\Trustedshops\Block\Trustbadge $block */ ?>
+<?php if ($block->isActive()) : ?>
+    <?php if ($block->isExpert()) : ?>
+        <?php /* @noEscape */ echo $block->getCode() ?>
+    <?php else : ?>
+        <script type="text/javascript">
+            (function () {
+                var _tsid = '<?php echo $block->escapeHtml($block->getTsId()) ?>';
+                _tsConfig = {
+                    'yOffset': '<?php echo $block->escapeHtml($block->getOffset()) ?>', /* offset from page bottom */
+                    'variant': '<?php echo $block->escapeHtml($block->getVariant()) ?>', /* text, default, small, reviews, custom, custom_reviews */
+                    'customElementId': '', /* required for variants custom and custom_reviews */
+                    'trustcardDirection': '', /* for custom variants: topRight, topLeft, bottomRight, bottomLeft */
+                    'customBadgeWidth': '', /* for custom variants: 40 - 90 (in pixels) */
+                    'customBadgeHeight': '', /* for custom variants: 40 - 90 (in pixels) */
+                    'disableResponsive': 'false', /* deactivate responsive behaviour */
+                    'disableTrustbadge': '<?php echo $block->escapeHtml($block->getDisplayTrustbadge()) ?>', /* deactivate trustbadge */
+                    'trustCardTrigger': 'mouseenter', /* set to 'click' if you want the trustcard to be opened on click instead */
+                    'customCheckoutElementId': '' /* required for custom trustcard */
+                };
+                var _ts = document.createElement('script');
+                _ts.type = 'text/javascript';
+                _ts.charset = 'utf-8';
+                _ts.async = true;
+                _ts.src = '//widgets.trustedshops.com/js/' + _tsid + '.js';
+                var __ts = document.getElementsByTagName('script')[0];
+                __ts.parentNode.insertBefore(_ts, __ts);
+            })();
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

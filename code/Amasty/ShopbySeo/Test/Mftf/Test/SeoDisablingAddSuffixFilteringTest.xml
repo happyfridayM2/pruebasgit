@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoDisablingAddSuffixFilteringTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description value="Check of url configuration after filtering with disabled SEO and added suffix"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-3"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="seodisabling"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SeoEnabling1" ref="ConfigureSeoAndSuffixActionGroup">
+                <argument name="seoScenario" value="disableSeoEnableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup" stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup" stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoDefault"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters, check the result in url/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+               stepKey="clickIndoorOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Style')}}"
+               stepKey="clickStyleFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionWithException('Tank','Tanks')}}"
+               stepKey="clickTankOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Windbreaker')}}"
+               stepKey="clickWindbreakerOption1"/>
+        <seeInCurrentUrl url="all-products.html?climate=5628%2C5631&amp;pattern=5623&amp;style_general=5561%2C5552"
+                         stepKey="seeInCurrentUrl1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+
+    </test>
+</tests>
+
+

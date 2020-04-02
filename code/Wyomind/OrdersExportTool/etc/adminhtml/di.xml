@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\View">
+        <plugin name="ordersexporttool_order_view" type="Wyomind\OrdersExportTool\Block\Adminhtml\Order\View" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer">
+        <plugin name="ordersexporttool_order_view" type="Wyomind\OrdersExportTool\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer" sortOrder="1"/>
+    </type>
+</config>

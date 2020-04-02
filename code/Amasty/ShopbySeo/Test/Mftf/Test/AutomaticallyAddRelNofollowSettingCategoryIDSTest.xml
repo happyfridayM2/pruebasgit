@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AutomaticallyAddRelNofollowSettingCategoryIDSTest" extends="AutomaticallyAddRelNofollowSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Automatically Add relnofollow to Filter Links when Required setting enabling in case of Category Filter"/>
+            <severity value="MINOR"/>
+            <testCaseId value="RTCSETTINGS-55"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="relnofollow"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefaultCategory"/>
+                <argument name="RTC2" value="AllowMultiSelectLabelsMode"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefaultCategory"/>
+                <argument name="RTC2" value="SingleSelectDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check RTC settings: navigate to All-Products Page, check Nofollow in Category Filter Option in Page Source/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickPatternFilter1"/>
+<!--        <seeElement selector="{{StorefrontFilterElementsSection.FilterOptionWithNofollow('Bags')}}"
+                    stepKey="seeNofollowInOption1"/>-->
+
+    </test>
+</tests>

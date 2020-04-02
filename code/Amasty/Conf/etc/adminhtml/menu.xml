@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_Conf::color_swatches_store"
+             title="Color Swatches Pro"
+             module="Amasty_Conf"
+             parent="Magento_Backend::stores"
+             sortOrder="60"
+             resource="Amasty_Conf::group_attributes"
+        />
+        <add id="Amasty_Conf::group_attributes"
+             title="Manage Group Attributes"
+             module="Amasty_Conf"
+             parent="Amasty_Conf::color_swatches_store"
+             sortOrder="1"
+             action="amconf/group/index"
+             resource="Amasty_Conf::group_attributes"
+        />
+    </menu>
+</config>

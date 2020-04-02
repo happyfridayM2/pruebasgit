@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="RobotsTagControlConfigurationActionGroup">
+        <arguments>
+            <argument name="rtcscenario"/>
+        </arguments>
+        <amOnPage url="{{AdminILNSeoSettingsPage.url}}" stepKey="navigateToSeoSettingsPage1"/>
+        <conditionalClick stepKey="expandGeneralSettingsTab1"
+                          selector="{{AdminILNSeoSettingsSection.RTCSettingsTab}}"
+                          dependentSelector="{{AdminILNSeoSettingsSection.AllowModifyRobotsMetaTagSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.AllowModifyRobotsMetaTagSwitcher}}"
+                      userInput="{{rtcscenario.AllowModifyRobotsMetaTagSwitcher}}"
+                      stepKey="configureRMTSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.NoindexMultipleAttributeFiltersSwitcher}}"
+                      userInput="{{rtcscenario.NoindexMultipleAttributeFiltersSwitcher}}"
+                      stepKey="configureNoindexSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.AddRelNofollowSwitcher}}"
+                      userInput="{{rtcscenario.AddRelNofollowSwitcher}}"
+                      stepKey="configureAddRelNofollowSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.NoindexForPaginatedPagesSwitcher}}"
+                      userInput="{{rtcscenario.NoindexForPaginatedPagesSwitcher}}"
+                      stepKey="ConfigureNoindexForPaginatedPages1"/>
+        <click selector="{{AdminILNSeoSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>

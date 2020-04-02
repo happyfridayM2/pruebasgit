@@ -1,0 +1,77 @@
+
+/* =========== Configurations ========= */
+
+div.field-body div.CodeMirror {
+    border: 1px solid #ADA89E;
+    border-radius: 2px;
+    height:auto;
+}
+div.field-header div.CodeMirror {
+    border: 1px solid #ADA89E;
+    border-radius: 2px;
+    height:auto;
+}
+div.field-footer div.CodeMirror {
+    border: 1px solid #ADA89E;
+    border-radius: 2px;
+    height:auto;
+}
+
+.field-description {
+    margin-bottom: 0px !important;
+}
+
+#fields-list input{
+    height:33px;
+    text-overflow: ellipsis;
+}
+
+#fields-list li{
+    margin:0px;
+    list-style: none;
+}
+#fields-list li:before{
+    content:'\21C5'; 
+    font-size: 30px;
+    vertical-align: middle;
+    cursor:ns-resize;
+    color:#EE6125;
+}
+
+
+.overlay-txtTemplate{ 
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display:none;
+
+}
+.overlay-txtTemplate .container-txtTemplate{ 
+    position: absolute;
+    left: 50%;
+    width: 502px;
+    background: #808080 none repeat scroll 0% 0%;
+    border: 5px solid #808080;
+    margin-left: -84px;
+    top: 250px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+}
+.overlay-txtTemplate #codemirror-txtTemplate, .overlay-txtTemplate .CodeMirror{ 
+    width: 100%;
+    height: 200px;
+    margin:0 0 38px 0;
+}
+.overlay-txtTemplate BUTTON{
+    position:absolute;
+    bottom:0;  
+}
+.overlay-txtTemplate BUTTON.validate{
+    right:0px;
+}
+.overlay-txtTemplate BUTTON.cancel{
+    right:90px;
+}

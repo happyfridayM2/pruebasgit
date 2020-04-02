@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_ShopbyBase::css/chosen/chosen.css"/>
+    </head>
+    <body>
+        <referenceContainer name="category.view.container">
+            <block class="Amasty\Shopby\Block\Product\ProductList\ChildrenCategoryList" name="category.amshopby.children.list" template="Amasty_Shopby::product/productlist/children_category_list.phtml" after="-" />
+        </referenceContainer>
+        <referenceBlock name="catalog.leftnav">
+            <block class="Amasty\Shopby\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="Magento_LayeredNavigation::layer/filter.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="sidebar.main">
+            <block class="Amasty\Shopby\Block\Navigation\FilterCollapsing\Category" name="catalog.navigation.collapsing" after="catalog.leftnav" template="Amasty_Shopby::layer/filter_collapsing.phtml"/>
+            <block class="Amasty\Shopby\Block\Navigation\SwatchesChoose\Category" name="catalog.navigation.swatches.choose" after="catalog.navigation.collapsing" template="Amasty_Shopby::layer/filter_swatches_choose.phtml"/>
+            <block
+                    class="Amasty\Shopby\Block\Navigation\ApplyButton"
+                    name="amasty.shopby.applybutton.sidebar"
+                    after="catalog.leftnav"
+            >
+                <action method="setNavigationSelector">
+                    <argument name="selector" xsi:type="string">.sidebar</argument>
+                </action>
+                <action method="setButtonPosition">
+                    <argument name="position" xsi:type="string">sidebar</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="category.product.list.additional">
+            <container name="amshopby.catalog.topnav.container" htmlTag="div" htmlClass="catalog-topnav amasty-catalog-topnav" before="-">
+                <block class="Amasty\Shopby\Block\Navigation\CategoryTop" name="amshopby.catalog.topnav" template="Magento_LayeredNavigation::layer/view.phtml">
+                    <block class="Amasty\Shopby\Block\Navigation\Top\State" name="amshopby.catalog.topnav.state" as="state" />
+                    <block class="Amasty\Shopby\Block\Navigation\FilterRenderer" name="amshopby.catalog.topnav.renderer" as="renderer" template="Magento_LayeredNavigation::layer/filter.phtml"/>
+                </block>
+                <container name="amshopby.catalog.topnav.container.last" htmlTag="div" htmlClass="catalog-topnav-last-item" after="amshopby.catalog.topnav"></container>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Amasty\Shopby\Block\Product\ProductList\Ajax" name="category.amshopby.ajax" template="Amasty_Shopby::product/productlist/ajax.phtml" after="-"/>
+            <block
+                class="Amasty\Shopby\Block\Navigation\Sync"
+                name="Amasty.shopby.navigation.sync"
+            />
+            <block
+                class="Amasty\Shopby\Block\Navigation\UrlModifier"
+                name="Amasty.shopby.navigation.urlmodifier"
+            />
+            <block
+                    class="Amasty\Shopby\Block\Navigation\JsInit"
+                    name="amasty.shopby.jsinit"
+                    after="-"
+            />
+            <block class="Amasty\ShopbyBase\Block\Product\ProductList\Bottom" name="amshopby.bottom" after="-" template="Amasty_ShopbyBase::product/productlist/bottom.phtml" />
+        </referenceContainer>
+    </body>
+</page>

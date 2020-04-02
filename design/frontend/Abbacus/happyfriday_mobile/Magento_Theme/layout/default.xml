@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+	<referenceContainer name="header.container">
+            <container name="header.panel.mobile.top" label="Page Header Panel Mobile Top" htmlTag="div" htmlClass="mobile-top" before="-">
+				<block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+					<arguments>
+						<argument name="css_class" xsi:type="string">header links</argument>
+					</arguments>
+				</block>
+			</container>
+		</referenceContainer>
+		<move element="store_language" destination="store.menu.mobile" after="-"/>
+		<move element="header.links" destination="store.menu.mobile" before="catalog.topnav.mobile"/>
+		<move element="header-wrapper" destination="header.container" after="header.panel.mobile.top"/>
+		
+		<referenceContainer name="page.top">
+		   <referenceBlock name="store.links" remove="true" />
+		   <referenceBlock name="store.settings" remove="true" />
+		</referenceContainer>
+		<referenceBlock name="navigation.sections">
+			<block class="Magento\Framework\View\Element\Template" name="store.menu.mobile" group="navigation-sections" template="Magento_Theme::html/container.phtml">
+                    <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav.mobile" template="Magento_Theme::html/topmenu.phtml" before="-"/>
+            </block>
+		</referenceBlock>
+		<referenceBlock name="catalog.compare.link" remove="true"/>
+		<!-- <move element="store.menu.mobile" destination="header-wrapper" after="logo"/> -->
+	</body>
+</page>

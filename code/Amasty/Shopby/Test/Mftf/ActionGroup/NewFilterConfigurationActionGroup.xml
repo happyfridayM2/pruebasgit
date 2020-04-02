@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="NewFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <amOnPage url="{{ProductProfilePage.url('1')}}" stepKey="amOnProductProfilePage1"/>
+        <waitForElement selector="{{AdminProductProfileSection.NewFromInputField}}" stepKey="waitForElement1"/>
+        <generateDate date="Now"
+                      format="m/j/Y"
+                      stepKey="generateDate1"/>
+        <fillField userInput="{$generateDate1}"
+                   selector="{{AdminProductProfileSection.NewFromInputField}}"
+                   stepKey="fillNewFromField1"/>
+        <selectOption parameterArray="['Polyester','Microfiber']"
+                      selector="{{AdminProductProfileSection.SelectMaterialOption}}"
+                      stepKey="selectPolyesterOption1"/>
+        <wait time="1" stepKey="waitSeconds2"/>
+        <click selector="{{AdminProductProfileSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandNewFilterOption1"
+                          selector="{{AdminILNSettingsSection.CustomFilterSettingsTab('am_is_new')}}"
+                          dependentSelector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_is_new')}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_is_new')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_is_new')}}"
+                      stepKey="enableDisableNewFilter1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterBlockPositionSwitcher('am_is_new')}}"
+                      userInput="{{customFilter.CustomFilterBlockPositionSwitcher('am_is_new')}}"
+                      stepKey="selectBlockPosition1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterDisplayModeSwitcher('am_is_new')}}"
+                      userInput="{{customFilter.CustomFilterDisplayModeSwitcher('am_is_new')}}"
+                      stepKey="selectDisplayMode1"/>
+        <fillField userInput="{{customFilter.CustomFilterPositionField('am_is_new')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterPositionField('am_is_new')}}"
+                   stepKey="fillNewFilterPositionField1"/>
+        <fillField userInput="{{customFilter.CustomFilterTooltipField('am_is_new')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterTooltipField('am_is_new')}}"
+                   stepKey="fillTooltipField1"/>
+        <fillField userInput="{{customFilter3.CustomFilterLabelField('am_is_new')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterLabelField('am_is_new')}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <!--After fix of CAT-6267 this piece should be deleted/-->
+        <amOnPage url="{{AttributeProfilePage.url('148')}}" stepKey="navigateToMagentoNewAttributePage1"/>
+        <fillField userInput="Ne1w"
+                   selector="{{AttributeProfileSection.AttributeNameLabel}}"
+                   stepKey="fillNewAttributeNameField1"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="NewFilterDisablingActionGroup" extends="NewFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <clearField selector="{{AdminProductProfileSection.NewFromInputField}}" stepKey="fillNewFromField1"/>
+        <unselectOption parameterArray="['Polyester','Microfiber']"
+                        selector="{{AdminProductProfileSection.SelectMaterialOption}}"
+                        stepKey="selectPolyesterOption1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_is_new')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_is_new')}}"
+                      stepKey="enableDisableNewFilter1"
+                      after="fillLabelField1"/>
+        <fillField userInput="New"
+                   selector="{{AttributeProfileSection.AttributeNameLabel}}"
+                   stepKey="fillNewAttributeNameField1"/>
+    </actionGroup>
+
+    <actionGroup name="NewFilterExpandActionGroup" extends="NewFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('am_is_new')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('am_is_new')}}"
+                      stepKey="ExpandNewFilter1"
+                      after="selectDisplayMode1"/>
+    </actionGroup>
+
+    <actionGroup name="NewFilterDisablingForExpandedActionGroup" extends="NewFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <clearField selector="{{AdminProductProfileSection.NewFromInputField}}" stepKey="fillNewFromField1"/>
+        <unselectOption parameterArray="['Polyester','Microfiber']"
+                        selector="{{AdminProductProfileSection.SelectMaterialOption}}"
+                        stepKey="selectPolyesterOption1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('am_is_new')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('am_is_new')}}"
+                      stepKey="ExpandNewFilter1"
+                      after="selectDisplayMode1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_is_new')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_is_new')}}"
+                      stepKey="enableDisableNewFilter1"
+                      after="clickSaveConfig2"/>
+        <click selector="{{AdminILNSettingsSection.Save}}"
+               stepKey="clickSaveConfig3"
+               after="enableDisableNewFilter1"/>
+        <fillField userInput="New"
+                   selector="{{AttributeProfileSection.AttributeNameLabel}}"
+                   stepKey="fillNewAttributeNameField1"/>
+    </actionGroup>
+
+</actionGroups>

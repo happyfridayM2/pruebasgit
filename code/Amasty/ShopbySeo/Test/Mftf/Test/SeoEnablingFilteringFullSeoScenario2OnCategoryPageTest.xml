@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringFullSeoScenario2OnCategoryPageTest"
+          extends="SeoEnablingFilteringFullSeoOnCategoryPageTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering on other pages "/>
+            <description
+                    value="Check of url configuration after filtering with enabled full SEO settings in scenario 2 on category page with seo-friendly brand attribute and brand url key"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="fullseo"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableFullSeo2"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+        </before>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters (brand attribute too) with full seo in scenario 2 on category page, check the result in url/-->
+
+        <seeInCurrentUrl
+                url="/testfilterkey/pattern_solid_material_polyester_climate_all_weather_indoor.html?style_general=5561%2C5552"
+                stepKey="seeInCurrentUrl1"/>
+
+    </test>
+</tests>
+
+

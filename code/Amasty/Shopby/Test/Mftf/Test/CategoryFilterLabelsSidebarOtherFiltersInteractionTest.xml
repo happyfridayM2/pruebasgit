@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarOtherFiltersInteractionTest" extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode in interaction with other Filters"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-29"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1"
+                         before="logout">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter Brand Page by Category Filter: select option on sidebar, check the result/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter1"
+               after="waitForPageLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption1"
+               after="clickPatternFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"
+               after="clickSolidOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"
+               after="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+               stepKey="clickIndoorOption1"
+               after="clickAllWeatherOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Style')}}"
+               stepKey="clickStyleFilter1"
+               after="clickIndoorOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Full Zip')}}"
+               stepKey="clickTankOption1"
+               after="clickStyleFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Windbreaker')}}"
+               stepKey="clickWindbreakerOption1"
+               after="clickTankOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+                      stepKey="grabQtyOfBagsProducts1"/>
+        <click selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+               stepKey="clickOnBagsOption1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle1"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+             userInput="{$grabQtyOfBagsProducts1}"
+             stepKey="checkQtyOfBagsProducts1"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="7"
+             stepKey="checkQtyOfBagsProducts2"/>
+
+    </test>
+</tests>
+
+

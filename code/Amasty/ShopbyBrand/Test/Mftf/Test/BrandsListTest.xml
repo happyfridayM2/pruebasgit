@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandsListTest" extends="BrandsLinkFirstAndLinkInAccountTopTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page links checking"/>
+            <title value="Check of Brand List is displayed and clickable"/>
+            <description value="Check of Brands list is displayed, clickable and redirects to brand page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-6"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandlink"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureShowBrandsListActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="showBrandsList"/>
+            </actionGroup>
+        </before>
+
+        <!--Check of Brand Page is opened, brands list is appeared, clickable and redirects to brand page-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <moveMouseOver selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+                       stepKey="hoverOverBrandsTab"/>
+        <waitForElement selector="{{StorefrontBrandElementsSection.FirstBrandLetter('C')}}" stepKey="waitForBrandListElements1"/>
+        <click selector="{{StorefrontBrandElementsSection.FirstBrandLetter('C')}}"
+               stepKey="clickBrandFirstLetterC"/>
+        <click selector="{{StorefrontBrandElementsSection.BrandListItem('Canvas')}}"
+               stepKey="clickOnBrandCanvas"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage2"/>
+        <dontSee userInput="We're sorry, an error has occurred while generating this content." stepKey="dontSeeGenerationContentError2"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage2"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+
+    </test>
+</tests>

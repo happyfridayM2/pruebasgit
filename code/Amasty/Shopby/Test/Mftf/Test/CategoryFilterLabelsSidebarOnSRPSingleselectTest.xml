@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarOnSRPSingleSelectTest"
+          extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of Category filter filtering on sidebar in labels mode on SRP Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-33"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <!--Filter Search Result Page by Category Filter: select option on sidebar, check the result/-->
+
+        <amOnPage url="{{SearchResultPage.url('black')}}"
+                  stepKey="navigateToAllProducts1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+                      stepKey="grabQtyOfBagsProducts1"/>
+        <click selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+               stepKey="clickOnBagsOption1"/>
+        <seeInSource html="catalogsearch-result"
+                     stepKey="checkPageTitle1"/>
+        <remove keyForRemoval="clickOnCategoryFilter2"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+             userInput="{$grabQtyOfBagsProducts1}"
+             stepKey="checkQtyOfBagsProducts1"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="12"
+             stepKey="checkQtyOfBagsProducts2"/>
+        <seeInCurrentUrl url="?cat=21"
+                         stepKey="seeInCurrentUrlSelectedCategories1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Tops')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.FilterState('Tops')}}"
+                        stepKey="dontSeeFilter1"/>
+
+    </test>
+</tests>
+
+

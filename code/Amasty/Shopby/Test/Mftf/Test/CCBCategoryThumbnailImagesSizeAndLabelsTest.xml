@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CCBCategoryThumbnailImagesSizeAndLabelsTest" extends="CCBCategoryThumbnailImagesDisplayModeTest">
+
+        <annotations>
+            <features value="Children Categories Block"/>
+            <stories value="Children Categories Block checking"/>
+            <title value="Check Children Categories Block"/>
+            <description value="Check Category Thumbnail Images Size setting and enabling of Labels on the Storefront"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CHILDCATBLOCK-3"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="childcatblock"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryThumbImg"
+                         ref="ConfigureCategoryThumbImgWithoutSliderActionGroup">
+                <argument name="ChildrenCategories1" value="CategoryThumbnailImagesSizeAndLabels"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryContent"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="MenTopsJacketsCategoryDataDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SetCategoryContentDefault"
+                         ref="ClearCategoryContent"
+                         before="logout">
+                <argument name="Category" value="MenTopsJacketsCategoryDataDefault"/>
+            </actionGroup>
+        </after>
+
+        <!-- Check that Category Thumbnail Images Size and Show Image Labels settings work correctly on the Storefront/-->
+
+        <seeElement selector="{{StorefrontPageElementsSection.ChildrenCategoryWithImages('200','200','1.jpg','1_')}}"
+                    stepKey="CheckCCBElements1"/>
+        <seeNumberOfElements selector="{{StorefrontPageElementsSection.ChildrenCategoryWithoutIMGorLabel}}"
+                             userInput="4"
+                             stepKey="CheckCCBElements2"/>
+
+    </test>
+</tests>
+
+
+
+

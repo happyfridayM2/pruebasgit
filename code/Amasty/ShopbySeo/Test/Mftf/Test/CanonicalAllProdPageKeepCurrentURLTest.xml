@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CanonicalAllProdPageKeepCurrentURLTest" extends="CanonicalAllProdPageURLKeyOnlyTest">
+
+        <annotations>
+            <features value="Canonical URL settings"/>
+            <stories value="Canonical URL settings checking"/>
+            <title value="Check Canonical URL settings configuration before/after filtering"/>
+            <description
+                    value="Check of Keep current URL setting configuration on the storefront for All-products Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CANONICALSETTINGS-27"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="canonicalsettings"/>
+            <group value="allprodpagecanonical"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCanonicalURL1" ref="CanonicalURLConfigurationActionGroup">
+                <argument name="canonicalscenario2" value="allProdPageCanonKeepCurrentURL"/>
+                <argument name="canonicalscenario" value="enableCanonical"/>
+            </actionGroup>
+        </before>
+
+        <!--Check Canonical URL settings: navigate to All-products Page, check Canonical URL in Page Source, filter Page, check Canonical URL/-->
+
+        <seeInSource
+                html="/testfilterkey/pattern-solid-climate-all-weather-indoor.html?style_general=5561%2C5552&quot;&gt;"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>

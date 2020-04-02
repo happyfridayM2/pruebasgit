@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckBraintreeAndButtonBelowOrder" extends="OSCCheckAmazonAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Braintree via the storefront"/>
+            <title value="Check Place Order with Braintree And Button Below the Order Total on the Checkout"/>
+            <description value="Check Place Order with Braintree And Button Below the Order Total on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-33"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsBraintree"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="createSecondSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="OSCCustomerCalifornia" after="createSecondSimpleProduct" stepKey="createCustomer"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" after="ConfigurationPlaceButtonDesignSetting" stepKey="loginAsCustomer">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createCustomer" after="deleteSecondSimpleProduct" stepKey="deleteCustomer"/>
+        </after>
+
+
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHaveBraintree">
+            <argument name="paymentMethods" value="paymentBraintree"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckBraintreeAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderBraintreeGrabNumber" stepKey="PlaceOrderWithBraintree">
+            <argument name="creditCard" value="creditCardVisa"/>
+        </actionGroup>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentBraintree"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithBraintree}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckBraintreeAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithBraintree}"/>
+        </actionGroup>
+
+    </test>
+</tests>

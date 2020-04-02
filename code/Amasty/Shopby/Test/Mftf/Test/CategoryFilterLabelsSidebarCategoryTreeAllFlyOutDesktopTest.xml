@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarCategoryTreeAllFlyOutDesktopTest"
+          extends="CategoryFilterLabelsSidebarCategoryTreeAllTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and rendering of All Category Tree and Fly-out effect for Desktop only"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-61"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeFlyOutActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeFlyOutDesktop"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+                       stepKey="hoverOverOption1"
+                       after="clickOnCategoryFilter1"/>
+        <wait time="2" stepKey="wait1" after="hoverOverOption1"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterOption('Tops')}}"
+                       stepKey="hoverOverOption3"
+                       after="grabQtyOfProducts1"/>
+        <moveMouseOver selector="{{StorefrontFilterElementsSection.FilterOption('Women')}}"
+                       stepKey="hoverOverOption2"
+                       after="clickOnCategoryFilter2"/>
+        <wait time="2" stepKey="wait2" after="hoverOverOption2"/>
+
+    </test>
+</tests>
+
+

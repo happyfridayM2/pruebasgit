@@ -1,0 +1,132 @@
+<div id="iwd-support-form">
+    <h1><?php echo __('Support Form') ?></h1>
+
+    <form id="support-form" action="<?php echo $block->getFormUrl() ?>" method="post" enctype="multipart/form-data">
+        <div class="fieldset-wrapper-content admin__fieldset-wrapper-content in collapse">
+            <fieldset class="fieldset admin__fieldset user-defined">
+                <div class="messages"></div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label" for="type"><span><?php echo __('Comment Type') ?></span></label>
+                    <div class="control">
+                        <select id="type" name="type" class="required-entry select">
+                            <option value="New feature request" selected="selected"><?php echo __('Feature Request') ?></option>
+                            <option value="Report An Issue" selected="selected"><?php echo __('Report An Issue') ?></option>
+                            <option value="Other"><?php echo __('Other') ?></option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name required extensions">
+                    <label class="label admin__field-label" for="extension"><span><?php echo __('Extension') ?></span></label>
+                    <div class="control">
+                        <select id="extension" name="extension" class="required-entry select">
+                            <?php echo $block->getIwdExtensions() ?>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label description-label-request" for="description"><span><?php echo __('Request') ?></span></label>
+                    <label class="label admin__field-label description-label-issue" for="description" style="display:none;"><span><?php echo __('Issue') ?></span></label>
+                    <label class="label admin__field-label description-label-comment" for="description" style="display:none;"><span><?php echo __('Comment') ?></span></label>
+                    <div class="control">
+                        <textarea id="description" name="description" rows="2" cols="15" class=" required-entry textarea"></textarea>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name">
+                    <label class="label admin__field-label" for="attachments"><span><?php echo __('Attachment') ?></span></label>
+                    <div class="control">
+                        <input id="attachments" name="attachments[]" value="" type="file" multiple="true">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label" for="email"><span><?php echo __('Email') ?></span></label>
+                    <div class="control">
+                        <input id="email" name="email" value="<?php echo $block->getAdminEmail() ?>" type="email" class=" input-text required-entry">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label" for="name"><span><?php echo __('Name') ?></span></label>
+                    <div class="control">
+                        <input id="name" name="name" value="<?php echo $block->getAdminName() ?>" type="text" class=" input-text required-entry">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="field field-name required">
+                    <label class="label admin__field-label"></label>
+                    <div class="control">
+                        <input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+                        <button type="submit" class="save submit" name="submit"><span><?php echo __('Submit') ?></span></button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>
+
+<style>
+    #config-edit-form, .page-actions{display:none !important;}
+    #iwd-support-form .label {width:20%; float:left; color:#303030; font-size:14px; font-weight:600; line-height:3.2rem; padding:0 30px 0 0; word-wrap:break-word;}
+    #iwd-support-form .control {width:75%; float:left; font-size:14px;}
+    #iwd-support-form .field {clear:both;}
+    #iwd-support-form label.error {border:1px solid #e22626; display:block; margin:2px 0 15px 0; padding:6px 10px 10px; background:#fff8d6; color:#555; font-size:12px; font-weight:500; box-sizing:border-box;}
+    #iwd-support-form .fieldset .field {margin: 0 0 19px;}
+</style>
+
+<script type="application/javascript">
+    require([
+        'jquery',
+        'jquery/validate'
+    ],
+    function ($) {
+        'use strict';
+
+        $(document).ready(function(){
+            $(document).on('change', '#type', function(){
+                var type = $(this).val();
+                switch (type){
+                    case 'New feature request':
+                        $('#iwd-support-form .description-label-request').show();
+                        $('#iwd-support-form .description-label-issue').hide();
+                        $('#iwd-support-form .description-label-comment').hide();
+                        $('#iwd-support-form .extensions').addClass('required').show();
+                        $('#iwd-support-form #extension').addClass('required-entry');
+                        $('#iwd-support-form #extension').removeAttr('disabled');
+                        break;
+                    case 'Report An Issue':
+                        $('#iwd-support-form .description-label-request').hide();
+                        $('#iwd-support-form .description-label-issue').show();
+                        $('#iwd-support-form .description-label-comment').hide();
+                        $('#iwd-support-form .extensions').addClass('required').show();
+                        $('#iwd-support-form #extension').addClass('required-entry');
+                        $('#iwd-support-form #extension').removeAttr('disabled');
+                        break;
+                    case 'Other':
+                        $('#iwd-support-form .description-label-request').hide();
+                        $('#iwd-support-form .description-label-issue').hide();
+                        $('#iwd-support-form .description-label-comment').show();
+                        $('#iwd-support-form .extensions').removeClass('required').hide();
+                        $('#iwd-support-form #extension').removeClass('required-entry');
+                        $('#iwd-support-form #extension').attr('disabled', 'disabled');
+                        break;
+                }
+            });
+
+            $('#type').change();
+
+            var validator = $('form#support-form').validate();
+            return validator.form();
+        });
+    });
+</script>

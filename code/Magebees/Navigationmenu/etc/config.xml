@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<navigationmenu>
+			<general>
+				<module_enable_disable>1</module_enable_disable>
+				<responsive_break_point>767px</responsive_break_point>
+			</general>
+			<optimize_performance>
+				<developer_mode_enable_disable>1</developer_mode_enable_disable>
+			</optimize_performance>
+		</navigationmenu>
+    </default>
+</config>

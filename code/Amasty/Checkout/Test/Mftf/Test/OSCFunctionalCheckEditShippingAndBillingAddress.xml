@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCFunctionalCheckEditShippingAndBillingAddress">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Edit Shipping And Billing Address"/>
+            <title value="Check Edit Address"/>
+            <description value="Check Edit Shipping And Billing Address on the OSC"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-52"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCFunctional"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="OSCCustomerArizona" stepKey="createCustomer"/>
+            <actionGroup ref="AdminCreateConfigurableProductWithCategory" stepKey="CreateConfigurableProduct"/>
+            <createData entity="SimpleProductByStriveShoulderPack" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategoryCreateConfigurableProduct"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createFirstChildProdCreateConfigurableProduct" stepKey="deleteFirstSimpleChildProduct"/>
+            <deleteData createDataKey="createSecondChildProdCreateConfigurableProduct" stepKey="deleteSecondSimpleChildProduct"/>
+            <deleteData createDataKey="createConfigProdAttrCreateConfigurableProduct" stepKey="deleteConfigProductAttribute"/>
+            <deleteData createDataKey="createCategoryCreateConfigurableProduct" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!-- Login As Customer and Add Products to Cart-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogIn">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddCreatedConfigurableProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+            <argument name="optionValue" value="OSCFunctionalCheckEditShippingAndBillingAddress.configOption"/>
+        </actionGroup>
+        <!-- Go To Checkout, Edit Shipping And Billing Address and Check Totals -->
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckoutFromCart">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCAddNewShippingAddressAsCustomer" stepKey="AddNewShippingAddressAndShipHere">
+            <argument name="newShippingAddress" value="customerOSCCheckPayPalAndBraintree"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCEditBillingAddressAsCustomer" stepKey="AddNewBillingAddressAndShipHere">
+            <argument name="newBillingAddress" value="defaultCustomerOSCData"/>
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCFunctionalCheckEditShippingAndBillingAddress"/>
+        </actionGroup>
+        <!-- Create Order and Check Totals, Shipping, Billing Address In Order -->
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumber" stepKey="PlaceOrderWithCheckMoney"/>
+        <actionGroup ref="AdminCheckShippingAddressInOrder" stepKey="CheckShippingAddressInOrder">
+            <argument name="shippingAddress" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckBillingAddressInOrder" stepKey="CheckBillingAddressInOrder">
+            <argument name="billingAddress" value="defaultCustomerOSCData"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCFunctionalCheckEditShippingAndBillingAddress"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+
+    </test>
+</tests>

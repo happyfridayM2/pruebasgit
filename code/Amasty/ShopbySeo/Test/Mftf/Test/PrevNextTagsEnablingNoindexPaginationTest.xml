@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextTagsEnablingNoindexPaginationTest" extends="PrevNextTagsEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description
+                    value="Check of Use Prev/Next Tags for Improved Navigation Pages setting enabling with Noindex Pagination"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="PNTSETTINGS-7"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="pntsettings"/>
+            <group value="pntags"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="RTCConfiguring1"
+                         ref="RobotsTagControlConfigurationActionGroup">
+            <argument name="rtcscenario" value="enableNoindexForPaginatedPagesSwitcher"/>
+        </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="RTCConfiguring2"
+                         before="logout"
+                         ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check Prev/Next Tags settings: navigate to Brand Page, check Prev/Next Tags in Page Source, activate pagination, check Prev/Next Tags in Page Source/-->
+
+    </test>
+</tests>

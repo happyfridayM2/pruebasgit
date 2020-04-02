@@ -1,0 +1,16 @@
+<!--@subject {{trans "Email alert for new out of stock subscriptions"}} @-->
+<!--@vars
+{
+"var subscriptionGrid":"Subscriptions Grid"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "Hello,"}}</p>
+<p>{{trans "This is an automatic notification about a new out of stock subscription(s) made today. "}}</p>
+<p>{{trans "Products:"}}</p>
+{{var subscriptionGrid|raw}}
+<br>
+<p>{{trans "Thank you!"}}</p>
+
+{{template config_path="design/email/footer_template"}}

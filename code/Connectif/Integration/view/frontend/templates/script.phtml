@@ -1,0 +1,9 @@
+<?php
+$scriptData = $this->getScriptData();
+$clientId = $scriptData['client_id'];
+$appConfig = $scriptData['appConfig'];
+?>
+<!-- Connectif Javascript Script -->
+<script async id="__cn_generic_script__<?php echo $clientId; ?>">
+!function(t){function e(){if(!t.querySelector('#__cn_client_script_<?php echo $clientId; ?>')){var e=t.createElement("script");e.setAttribute("src","<?php echo $appConfig->cdnProtocol . '://' . $appConfig->cdnDomain . '/' . $appConfig->cdnPath . '/' . $appConfig->clientScriptPath . $clientId ?>"),t.body.appendChild(e)}}"complete"===t.readyState||"interactive"===t.readyState?e():t.addEventListener("DOMContentLoaded",e)}(document);
+</script>

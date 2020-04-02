@@ -1,0 +1,259 @@
+"Category Filter Settings","Category Filter Settings"
+"Manage Group Attributes","Manage Group Attributes"
+"Add New Group","Add New Group"
+"Save Group","Save Group"
+"Delete Group","Delete Group"
+"Save and Continue Edit","Save and Continue Edit"
+"Edit Group '%1'","Edit Group '%1'"
+"New Group","New Group"
+"Group Information","Group Information"
+"General Information","General Information"
+"Group Title","Group Title"
+"Group Code","Group Code"
+Status,Status
+Enabled,Enabled
+Disabled,Disabled
+Swatch,Swatch
+Alias,Alias
+Position,Position
+Attribute,Attribute
+"Attribute Options","Attribute Options"
+"Display Properties","Display Properties"
+"Display Mode","Display Mode"
+"Add From-To Widget","Add From-To Widget"
+"Minimum Slider Value","Minimum Slider Value"
+"Please specify the min value to limit the slider, e.g. <$10","Please specify the min value to limit the slider, e.g. <$10"
+"Maximum Slider Value","Maximum Slider Value"
+"Please specify the max value to limit the slider, e.g. >$999","Please specify the max value to limit the slider, e.g. >$999"
+"Slider Step","Slider Step"
+"Measure Units","Measure Units"
+"Unit Label","Unit Label"
+"Position Label","Position Label"
+"Show in the Block","Show in the Block"
+"Sort Options By","Sort Options By"
+"Show Product Quantities","Show Product Quantities"
+"Show Search Box","Show Search Box"
+"Show the searchbox if the number of options more than","Show the searchbox if the number of options more than"
+"Customers will be able to search for the filter option in the searchbox. 
+                    Leave the field empty to hide the searchbox.","Customers will be able to search for the filter option in the searchbox. 
+                    Leave the field empty to hide the searchbox."
+"Number of Unfolded Options","Number of Unfolded Options"
+"Other options will be shown after a customer clicks the ""More"" button.","Other options will be shown after a customer clicks the ""More"" button."
+Expand,Expand
+"Allows to expand filter automatically right after a page is loaded.
+                Set 'Expand for desktop only' to keep filter minimized on mobile. Keep 'Auto' to work
+                based on the custom theme functionality.","Allows to expand filter automatically right after a page is loaded.
+                Set 'Expand for desktop only' to keep filter minimized on mobile. Keep 'Auto' to work
+                based on the custom theme functionality."
+Tooltip,Tooltip
+Filtering,Filtering
+"When multiselect option is disabled it follows the category page (except the filtering from the search page)","When multiselect option is disabled it follows the category page (except the filtering from the search page)"
+"Allow Multiselect","Allow Multiselect"
+"Multiple Values Logic","Multiple Values Logic"
+"Show Icon on the Product Page","Show Icon on the Product Page"
+"Upload images for your options to show them right after the product title","Upload images for your options to show them right after the product title"
+Visibility,Visibility
+"Visible in Categories","Visible in Categories"
+Categories,Categories
+"Show Only when Any Option of Attributes Below is Selected","Show Only when Any Option of Attributes Below is Selected"
+"Show Only if the Following Option is Selected","Show Only if the Following Option is Selected"
+"Comma separated options ids","Comma separated options ids"
+"Render Categories Tree","Render Categories Tree"
+"Need help with the settings? Please consult the <a href=""%1"">user guide</a> to configure the extension properly.","Need help with the settings? Please consult the <a href=""%1"">user guide</a> to configure the extension properly."
+"Render All Categories Tree","Render All Categories Tree"
+"Yes (Render Full Categories Tree) or No (For category filter tree customization)","Yes (Render Full Categories Tree) or No (For category filter tree customization)"
+"Category Tree Depth","Category Tree Depth"
+"Specify the max level number for category tree. Keep 1 to hide the subcategories","Specify the max level number for category tree. Keep 1 to hide the subcategories"
+"Render Categories Level","Render Categories Level"
+"Subcategories View","Subcategories View"
+"Category Tree Display Mode","Category Tree Display Mode"
+"Expand Subcategories","Expand Subcategories"
+"Please update Amasty Base module. Re-upload it and replace all the files.","Please update Amasty Base module. Re-upload it and replace all the files."
+"Wrong Filter Type","Wrong Filter Type"
+"%1 - %2","%1 - %2"
+above,above
+"Select Options","Select Options"
+"You deleted the group.","You deleted the group."
+"We can't find a group to delete.","We can't find a group to delete."
+"This group no longer exists.","This group no longer exists."
+"Edit Group","Edit Group"
+"Please correct the data sent.","Please correct the data sent."
+"Something went wrong while saving the group.","Something went wrong while saving the group."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"This group code already exists.","This group code already exists."
+"You saved the group.","You saved the group."
+"Requested page doesn't exist","Requested page doesn't exist"
+"Requested attribute group doesn't exist","Requested attribute group doesn't exist"
+"Make sure that ""%1"" attribute can be used in layered navigation","Make sure that ""%1"" attribute can be used in layered navigation"
+Category,Category
+"Something went wrong during rendering of navigation filters. Please try again later.","Something went wrong during rendering of navigation filters. Please try again later."
+"Make sure that ""%1""(id:%2) category for current store is anchored","Make sure that ""%1""(id:%2) category for current store is anchored"
+". '-' .",". '-' ."
+"%1 and above","%1 and above"
+Yes,Yes
+New,New
+"On Sale","On Sale"
+"%1 stars & up","%1 stars & up"
+"%1 star & up","%1 star & up"
+"%1 stars","%1 stars"
+"Not Yet Rated","Not Yet Rated"
+"In Stock","In Stock"
+"Out of Stock","Out of Stock"
+"Bucket does not exist","Bucket does not exist"
+"Invalid method %1::%2","Invalid method %1::%2"
+"Before %1","Before %1"
+"After %1","After %1"
+"Replace %1","Replace %1"
+"Do Not Add","Do Not Add"
+"All Attributes","All Attributes"
+"Show Labels Only","Show Labels Only"
+"Show Images Only","Show Images Only"
+"Show Labels And Images","Show Labels And Images"
+"All Categories","All Categories"
+"Category Thumbnail Images","Category Thumbnail Images"
+"Category Names Without Images","Category Names Without Images"
+Labels,Labels
+Dropdown,Dropdown
+Images,Images
+"Images & Labels","Images & Labels"
+"Text Swatches","Text Swatches"
+Slider,Slider
+"From-To Only","From-To Only"
+Ranges,Ranges
+"Please upload images at the Properties tab.","Please upload images at the Properties tab."
+"Please add text values at the Properties tab.","Please add text values at the Properties tab."
+"Auto (based on custom theme)","Auto (based on custom theme)"
+"Expand for desktop and mobile","Expand for desktop and mobile"
+"Expand for desktop only","Expand for desktop only"
+"Category Description","Category Description"
+Meta-Description,Meta-Description
+Meta-Keywords,Meta-Keywords
+Meta-Title,Meta-Title
+"Category Name","Category Name"
+Sidebar,Sidebar
+Top,Top
+Both,Both
+"Store Currency","Store Currency"
+"Custom label","Custom label"
+"Show products with ANY value","Show products with ANY value"
+"Show products with ALL values only","Show products with ALL values only"
+Before,Before
+After,After
+"Root Category","Root Category"
+"Current Category Level","Current Category Level"
+"Current Category Children","Current Category Children"
+No,No
+Default,Default
+Name,Name
+"Disabled stock status","Disabled stock status"
+"Quantity threshold","Quantity threshold"
+Always,Always
+"By Click","By Click"
+Folding,Folding
+Fly-out,Fly-out
+"Fly-out for Desktop Only","Fly-out for Desktop Only"
+Instantly,Instantly
+"By Button Click","By Button Click"
+"Visible Everywhere","Visible Everywhere"
+"Only in Selected Categories","Only in Selected Categories"
+"Hide in Selected Categories","Hide in Selected Categories"
+"Improved Layered Navigation","Improved Layered Navigation"
+Thumbnail,Thumbnail
+"Please remove ""%1"" folder manually.","Please remove ""%1"" folder manually."
+"Please disable Amasty_ShopbyLite module manually.","Please disable Amasty_ShopbyLite module manually."
+exceprion,exceprion
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Are you sure you wan't to delete a ""${ $.$data.name }"" record?"
+"All Store Views","All Store Views"
+Selected,Selected
+"Select options for this attribute group","Select options for this attribute group"
+Search,Search
+"Sort Option","Sort Option"
+"Choose a color","Choose a color"
+"Upload a file","Upload a file"
+Clear,Clear
+Remove,Remove
+item,item
+items,items
+" star(s)"," star(s)"
+"Select Option ...","Select Option ..."
+"&amp; up","&amp; up"
+"Now Shopping by","Now Shopping by"
+Previous,Previous
+From,From
+To,To
+"Apply filter","Apply filter"
+Go,Go
+"Show more","Show more"
+"Show (<span class='am-counter' data-am-counter='counter'></span>) more","Show (<span class='am-counter' data-am-counter='counter'></span>) more"
+Less,Less
+"Apply Filters","Apply Filters"
+Show,Show
+"Please enter a valid price range.","Please enter a valid price range."
+Items,Items
+Item,Item
+Information,Information
+General,General
+"Enable Ajax","Enable Ajax"
+"Scroll to top after AJAX load","Scroll to top after AJAX load"
+"Add Vertical Scrolling to Filter Block After","Add Vertical Scrolling to Filter Block After"
+"Set maximum box height in px, to disable enter 0","Set maximum box height in px, to disable enter 0"
+"Submit Filters on Desktop","Submit Filters on Desktop"
+"Submit Filters on Mobile","Submit Filters on Mobile"
+"Leave the Single-choice Filter Visible after Selection","Leave the Single-choice Filter Visible after Selection"
+"If 'Yes' it will also display the radio buttons near the options. Choose 'No' to hide the filter once value is selected as well as radio buttons.","If 'Yes' it will also display the radio buttons near the options. Choose 'No' to hide the filter once value is selected as well as radio buttons."
+"Number of Unfolded Options in State","Number of Unfolded Options in State"
+"Category Title and Description","Category Title and Description"
+"Please open Stores -> Attributes -> Product -> [open attribute] -> Properties ->
+[open attribute option settings] in order to define Title, Description, Image and CMS block for your filter options.","Please open Stores -> Attributes -> Product -> [open attribute] -> Properties ->
+[open attribute option settings] in order to define Title, Description, Image and CMS block for your filter options."
+"Add the title & description of the selected filters","Add the title & description of the selected filters"
+"The title & description of the applied filters will be added to the category and brand pages","The title & description of the applied filters will be added to the category and brand pages"
+"Add Filter Title","Add Filter Title"
+"Separate Category Name & Title with","Separate Category Name & Title with"
+"Add Filter Description","Add Filter Description"
+"Replace Category Image","Replace Category Image"
+"Category Image will be replaced if filter option have custom image uploaded.","Category Image will be replaced if filter option have custom image uploaded."
+"Replace Category CMS Block","Replace Category CMS Block"
+"Category CMS Block will be replaced if filter option have custom CMS Block defined","Category CMS Block will be replaced if filter option have custom CMS Block defined"
+"Children Categories Block","Children Categories Block"
+"Category's Thumbnail Image Size","Category's Thumbnail Image Size"
+"Show Image Labels","Show Image Labels"
+"Enable Slider","Enable Slider"
+"Items per Slide","Items per Slide"
+"Category Meta Tags","Category Meta Tags"
+"Please open Stores -> Attributes -> Product -> [open attribute] -> Properties ->
+[open attribute option settings] in order to define Meta-Title, Meta-Description and Meta-Keywords for your filter options.","Please open Stores -> Attributes -> Product -> [open attribute] -> Properties ->
+[open attribute option settings] in order to define Meta-Title, Meta-Description and Meta-Keywords for your filter options."
+"Add the Meta-data of the selected filters","Add the Meta-data of the selected filters"
+"The Meta-data of the applied filters will be added to the category and brand pages","The Meta-data of the applied filters will be added to the category and brand pages"
+"Add Filter Title to Meta-Title","Add Filter Title to Meta-Title"
+"Title Tag Separator","Title Tag Separator"
+"Description Tag Separator","Description Tag Separator"
+"Add Filter Title to Meta-Keywords","Add Filter Title to Meta-Keywords"
+"Category Filter","Category Filter"
+"Stock Filter","Stock Filter"
+"If set to ‘Yes’, please make sure that displaying of out of stock products is configured accordingly
+                    (Stores -> Configuration -> Catalog -> Inventory -> Stock Options -> Display Out of Stock Products -> Yes).
+                    Otherwise, stock filter won’t appear on storefront.","If set to ‘Yes’, please make sure that displaying of out of stock products is configured accordingly
+                    (Stores -> Configuration -> Catalog -> Inventory -> Stock Options -> Display Out of Stock Products -> Yes).
+                    Otherwise, stock filter won’t appear on storefront."
+Label,Label
+"Rating Filter","Rating Filter"
+"New Filter","New Filter"
+"On Sale Filter","On Sale Filter"
+Tooltips,Tooltips
+"Tooltip Image","Tooltip Image"
+"Improved Layered Navigation: All Products","Improved Layered Navigation: All Products"
+"Enable All Products Page","Enable All Products Page"
+"All Products Page URL","All Products Page URL"
+"Amasty Improved Layered Navigation","Amasty Improved Layered Navigation"
+"Settings for your filters and their options","Settings for your filters and their options"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+ID,ID
+Title,Title
+Options,Options
+"Enable Improved Layered Navigation","Enable Improved Layered Navigation"

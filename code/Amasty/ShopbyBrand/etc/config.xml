@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+<!--
+/**
+* Copyright © 2015 Amasty. All rights reserved.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amshopby_brand>
+            <general>
+                <product_icon>0</product_icon>
+                <topmenu_enabled>0</topmenu_enabled>
+                <top_links>0</top_links>
+                <menu_item_label>Brands</menu_item_label>
+                <tooltip_content>{short_description}</tooltip_content>
+            </general>
+            <brands_landing>
+                <notice>{{widget type="Amasty\ShopbyBrand\Block\Widget\BrandList" columns="3" template="widget/brand_list/index.phtml"}}</notice>
+                <show_images>0</show_images>
+                <image_width>100</image_width>
+                <show_search>1</show_search>
+                <show_filter>1</show_filter>
+                <filter_display_all>1</filter_display_all>
+                <display_zero>1</display_zero>
+                <show_count>0</show_count>
+            </brands_landing>
+            <slider>
+                <notice>{{widget type="Amasty\ShopbyBrand\Block\Widget\BrandSlider" template="widget/brand_list/slider.phtml"}}</notice>
+                <items_number>4</items_number>
+                <sort_by>name</sort_by>
+                <slider_header_color>#E2E2E2</slider_header_color>
+                <slider_title_color>#000</slider_title_color>
+                <slider_title>Featured Brands</slider_title>
+                <slider_width>800</slider_width>
+                <image_width>130</image_width>
+                <show_label>0</show_label>
+                <buttons_show>1</buttons_show>
+                <infinity_loop>1</infinity_loop>
+                <simulate_touch>1</simulate_touch>
+                <pagination_show>0</pagination_show>
+                <pagination_clickable>1</pagination_clickable>
+                <autoplay>0</autoplay>
+                <autoplay_delay>1500</autoplay_delay>
+            </slider>
+            <more_from_brand>
+                <enable>0</enable>
+                <title>More from {brand_name}</title>
+                <count>7</count>
+            </more_from_brand>
+            <product_page>
+                <display_brand_image>0</display_brand_image>
+                <display_description>0</display_description>
+                <width>30</width>
+                <height>30</height>
+            </product_page>
+            <product_listing_settings>
+                <show_on_listing>0</show_on_listing>
+                <listing_brand_logo_width>30</listing_brand_logo_width>
+                <listing_brand_logo_height>30</listing_brand_logo_height>
+            </product_listing_settings>
+        </amshopby_brand>
+    </default>
+</config>

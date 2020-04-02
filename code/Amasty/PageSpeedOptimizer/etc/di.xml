@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\PageSpeedOptimizer\Api\QueueRepositoryInterface" type="Amasty\PageSpeedOptimizer\Model\Queue\QueueRepository"/>
+    <preference for="Amasty\PageSpeedOptimizer\Api\Data\QueueInterface" type="Amasty\PageSpeedOptimizer\Model\Queue\Queue"/>
+
+    <preference for="Amasty\PageSpeedOptimizer\Api\ImageSettingRepositoryInterface" type="Amasty\PageSpeedOptimizer\Model\Image\Repository"/>
+    <preference for="Amasty\PageSpeedOptimizer\Api\Data\ImageSettingInterface" type="Amasty\PageSpeedOptimizer\Model\Image\ImageSetting"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="amopt_optimize" xsi:type="object">Amasty\PageSpeedOptimizer\Console\Command\OptimizeCommand2</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\PageSpeedOptimizer\Console\Command\OptimizeCommand2">
+        <arguments>
+            <argument name="configProvider" xsi:type="object">Amasty\PageSpeedOptimizer\Model\ConfigProvider\Proxy</argument>
+            <argument name="optimizeCommand" xsi:type="object">Amasty\PageSpeedOptimizer\Console\Command\Operation\Optimize\Proxy</argument>
+        </arguments>
+    </type>
+
+    <preference for="Amasty\PageSpeedOptimizer\Model\Output\OutputChainInterface" type="Amasty\PageSpeedOptimizer\Model\Output\OutputChain"/>
+    <type name="Amasty\PageSpeedOptimizer\Model\Output\OutputChain">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="isHtml" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\CheckIsOutputHtmlProcessor</item>
+                <item name="isAmp" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\CheckAmpProcessor</item>
+                <item name="moveJs" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\MoveJsProcessor</item>
+                <item name="lazyLoad" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\LazyLoadProcessor</item>
+                <item name="moveCss" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\MoveCssProcessor</item>
+                <item name="checkBundling" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\CheckBundlingProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\PageSpeedOptimizer\Plugin\ProcessPageResult">
+        <arguments>
+            <argument name="outputChain" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Output\OutputChain\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\PageSpeedOptimizer\Console\Command\OptimizeCommand">
+        <arguments>
+            <argument name="forceOptimization" xsi:type="object">Amasty\PageSpeedOptimizer\Model\Image\ForceOptimization\Proxy</argument>
+            <argument name="queueRepository" xsi:type="object">Amasty\PageSpeedOptimizer\Api\QueueRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Asset\Config">
+        <plugin name="excludePagesFromMergeBundle" type="Amasty\PageSpeedOptimizer\Plugin\ExcludePageFromMergeBundle" />
+    </type>
+    <type name="Magento\Deploy\Package\Bundle\RequireJs">
+        <plugin name="amastyBundling" type="Amasty\PageSpeedOptimizer\Plugin\Deploying\Bundling" />
+    </type>
+    <type name="Magento\Deploy\Service\Bundle">
+        <plugin name="getDeployConfig" type="Amasty\PageSpeedOptimizer\Plugin\Deploying\Deploy" />
+    </type>
+    <!-- Magento <2.2 support -->
+    <type name="Magento\Framework\View\Asset\Bundle">
+        <plugin name="amastyBundling" type="Amasty\PageSpeedOptimizer\Plugin\Deploying\BundlingMagento21" />
+    </type>
+    <!-- end -->
+
+    <type name="Magento\Framework\View\TemplateEngineFactory">
+        <plugin name="amastyDebugHints" type="Amasty\PageSpeedOptimizer\Plugin\Debug\TemplateHints" sortOrder="20"/>
+    </type>
+
+    <type name="Magento\Framework\App\Response\HeaderManager">
+        <arguments>
+            <argument name="headerProviderList" xsi:type="array">
+                <item name="AmastyXFrameOptions" xsi:type="object">Amasty\PageSpeedOptimizer\Model\HeaderProvider\XFrameOptions</item>
+                <item name="AmastyContentSecurityPolicy" xsi:type="object">Amasty\PageSpeedOptimizer\Model\HeaderProvider\ContentSecurityPolicy</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Image">
+        <plugin name="AdapterImage" type="Amasty\PageSpeedOptimizer\Plugin\Image\AdapterImage" />
+    </type>
+</config>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AutomaticallyAddRelNofollowSettingOnCustomPageTest" extends="AutomaticallyAddRelNofollowSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Automatically Add relnofollow to Filter Links when Required setting enabling on Category Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="RTCSETTINGS-40"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="relnofollow"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1" ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario2"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="configureAttributesForRTC1"/>
+        </after>
+
+        <!--Check RTC settings: navigate to Category Page, check Nofollow in Attribute's Option in Page Source/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1" after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1" after="clickClimateFilter1"/>
+
+    </test>
+</tests>

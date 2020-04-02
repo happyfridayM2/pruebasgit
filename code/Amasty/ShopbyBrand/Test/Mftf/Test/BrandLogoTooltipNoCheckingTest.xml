@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandLogoTooltipNoCheckingTest" extends="BrandLogoTooltipFullyEnabledCheckingTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Logo and Tooltip checking"/>
+            <title value="Check that Brand Logo and Tooltip is displayed and have correct content"/>
+            <description
+                    value="Check that Brand Logo isn't displayed on Product Listing/All Brands Page/Product Detail Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="BRANDATTR-8"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandlogotooltip"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureTooltipContentNoActionGroup"
+                         stepKey="enableBrandLogoOnProdListing1">
+                <argument name="brandLogoTooltip1" value="displayTooltipNo"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Brand Logo/Tooltip content isn't displayed on Product Listing/Product Detail Page/All Brands Page-->
+
+        <dontSeeElementInDOM selector='{{StorefrontFilterElementsSection.TooltipInDOM}}'
+                             stepKey="seeTooltipContent1"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandLogoTooltipContent('Test &lt;h3&gt;Polyester Test Page Title&lt;&#x0002F;h3&gt; Tooltip Content')}}"
+                stepKey="seeTooltipText1"/>
+        <dontSeeElementInDOM selector='{{StorefrontFilterElementsSection.TooltipInDOM}}'
+                             stepKey="seeTooltipInDOM2"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandLogoTooltipContent('Test &lt;h3&gt;Polyester Test Page Title&lt;&#x0002F;h3&gt; Tooltip Content')}}"
+                stepKey="seeTooltipText2"/>
+        <dontSeeElementInDOM selector='{{StorefrontFilterElementsSection.TooltipInDOM}}'
+                             stepKey="seeTooltipInDOM3"/>
+        <dontSeeElement
+                selector="{{StorefrontBrandElementsSection.BrandItemTooltipContent('Test &lt;h3&gt;Polyester Test Page Title&lt;&#x0002F;h3&gt; Tooltip Content')}}"
+                stepKey="seeTooltipText3"/>
+
+    </test>
+</tests>

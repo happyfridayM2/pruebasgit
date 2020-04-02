@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amshopby_option_form_build_after">
+        <observer name="Amasty_ShopbyBase::AdditionalFormFields"
+                  instance="Amasty\ShopbyBase\Observer\Admin\OptionFormFeatured"/>
+    </event>
+</config>

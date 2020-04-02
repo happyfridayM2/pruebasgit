@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminConfigurationsOSCSection">
+        <element name="Save" type="button" selector="//div[@class='page-actions-buttons']/button[@id='save']"/>
+        <!-- General -->
+        <element name="GeneralTab" type="button" selector="//*[@id='amasty_checkout_general-head']"/>
+        <element name="EnableOneStepCheckout" type="select" selector="//*[@id='amasty_checkout_general_enabled']"/>
+        <element name="AllowToEditProductsInTheOrderSummary" type="select" selector="//*[@id='amasty_checkout_general_allow_edit_options']"/>
+        <element name="AllowGuestCheckout" type="select" selector="//*[@id='amasty_checkout_general_guest_checkout']"/>
+        <element name="AllowGuestCheckoutUseSystemValue" type="checkbox" selector="//input[@id='amasty_checkout_general_guest_checkout_inherit']"/>
+        <element name="LetCustomersCreateAccountAtCheckout" type="select" selector="//*[@id='amasty_checkout_general_create_account']"/>
+        <element name="CreateAnAccountCheckbox" type="select" selector="//*[@id='amasty_checkout_general_create_account_checked']"/>
+        <element name="AutomaticallyLogInCustomers" type="select" selector="//*[@id='amasty_checkout_general_automatically_login']"/>
+        <!-- Design Setting Text And Default Values -->
+        <element name="DesignTab" type="button" selector="//*[@id='amasty_checkout_design-head']"/>
+        <element name="DesignTextsAndDefaultValuesTab" type="button" selector="//*[@id='amasty_checkout_design_text_and_default_values-head']"/>
+        <element name="CheckoutPageTitle" type="input" selector="//*[@id='amasty_checkout_design_text_and_default_values_title']"/>
+        <element name="CheckoutPageDescription" type="input" selector="//*[@id='amasty_checkout_design_text_and_default_values_description']"/>
+        <element name="CheckoutTextFont" type="input" selector="//*[@id='amasty_checkout_design_text_and_default_values_font']"/>
+        <element name="DefaultShippingMethod" type="select" selector="//*[@id='amasty_checkout_design_text_and_default_values_shipping_method']"/>
+        <element name="DefaultShippingMethodNotValue" type="select" selector="//select[@id='amasty_checkout_design_text_and_default_values_shipping_method']/option[1]"/>
+        <element name="DefaultPaymentMethod" type="select" selector="//*[@id='amasty_checkout_design_text_and_default_values_payment_method']"/>
+        <element name="DefaultPaymentMethodNotValue" type="select" selector="//select[@id='amasty_checkout_design_text_and_default_values_payment_method']/option[1]"/>
+        <element name="DefaultCountry" type="select" selector="//*[@id='amasty_checkout_design_text_and_default_values_address_country_id']"/>
+        <element name="DefaultCountryNotValue" type="select"
+                 selector="//select[@id='amasty_checkout_design_text_and_default_values_address_country_id']/option[text()='--Please Select--']"/>
+        <element name="DefaultRegion" type="select" selector="//*[@id='amasty_checkout_design_text_and_default_values_address_region_id']"/>
+        <element name="DefaultPostalCode" type="input" selector="//*[@id='amasty_checkout_design_text_and_default_values_address_postcode']"/>
+        <element name="DefaultCity" type="input" selector="//*[@id='amasty_checkout_design_text_and_default_values_address_city']"/>
+        <!-- Design Setting Layout -->
+        <element name="DesignLayoutTab" type="button" selector="//*[@id='amasty_checkout_design_layout-head']"/>
+        <element name="CheckoutDesign" type="select" selector="//*[@id='amasty_checkout_design_layout_checkout_design']"/>
+        <element name="CheckoutPageLayout" type="select" selector="//*[@id='amasty_checkout_design_layout_layout']"/>
+        <element name="CheckoutPageLayoutModern" type="select" selector="//*[@id='amasty_checkout_design_layout_layout_modern']"/>
+        <element name="DisplayBillingAddressOn" type="select" selector="//*[@id='amasty_checkout_design_layout_display_billing_address_on']"/>
+        <element name="PlaceOrderButtonPosition" type="select" selector="//*[@id='amasty_checkout_design_layout_layout_place_button']"/>
+        <element name="ShippingAddress" type="input" selector="//*[@id='amasty_checkout_design_block_shipping_address']"/>
+        <element name="ShippingMethod" type="input" selector="//*[@id='amasty_checkout_design_block_shipping_method']"/>
+        <element name="Delivery" type="input" selector="//*[@id='amasty_checkout_design_block_delivery']"/>
+        <element name="PaymentMethod" type="input" selector="//*[@id='amasty_checkout_design_block_payment_method']"/>
+        <element name="OrderSummary" type="input" selector="//*[@id='amasty_checkout_design_block_order_summary']"/>
+        <!-- Design Setting Address Formatting -->
+        <element name="DesignAddressFormattingTab" type="button" selector="//*[@id='amasty_checkout_design_address_formatting-head']"/>
+        <element name="NumberOfLinesInAStreetAddress" type="input" selector="//*[@id='amasty_checkout_design_address_formatting_street_lines']"/>
+        <element name="NumberOfLinesUseSystemValue" type="checkbox" selector="//input[@id='amasty_checkout_design_address_formatting_street_lines_inherit']"/>
+        <element name="DisplayMultipleShippingAddressIn" type="select" selector="//*[@id='amasty_checkout_design_address_formatting_display_shipping_address_in']"/>
+        <!-- Design Setting Color Scheme -->
+        <element name="DesignColorSchemeTab" type="button" selector="//*[@id='amasty_checkout_design_color_scheme-head']"/>
+        <element name="HeadingTextColor" type="input" selector="//*[@id='amasty_checkout_design_color_scheme_heading_color']"/>
+        <element name="OrderSummaryBackground" type="input" selector="//*[@id='amasty_checkout_design_color_scheme_summary_color']"/>
+        <element name="CheckoutBackgroundColor" type="input" selector="//*[@id='amasty_checkout_design_color_scheme_bg_color']"/>
+        <element name="PlaceOrderButtonColor" type="input" selector="//*[@id='amasty_checkout_design_color_scheme_button_color']"/>
+        <!-- Design Setting Additional Fields -->
+        <element name="AdditionalOptionsTab" type="button" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras-head']"/>
+        <element name="ShowTaxVATNumber" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_vat_frontend_visibility']"/>
+        <element name="ShowTaxVATNumberSystemValue" type="checkbox" selector="//input[@id='amasty_checkout_design_additional_fields_and_other_extras_vat_frontend_visibility_inherit']"/>
+        <element name="DiscountField" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_discount']"/>
+        <element name="ReloadShippingMethodsWhenCouponCodeIsApplied" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_reload_shipping']"/>
+        <element name="NewsletterCheckbox" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_newsletter']"/>
+        <element name="NewsletterIsCheckedByDefault" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_newsletter_checked']"/>
+        <element name="EnableTermsAndConditions" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_enable_agreements']"/>
+        <element name="TermsAndConditionsCheckboxPositioning" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_display_agreements']"/>
+        <element name="OrderComment" type="select" selector="//*[@id='amasty_checkout_design_additional_fields_and_other_extras_comment']"/>
+        <!-- Design Setting Optional UI Elements -->
+        <element name="OptionalUIElementsTab" type="button" selector="//*[@id='amasty_checkout_design_optional_ui_elements-head']"/>
+        <element name="DisplayHeaderAndFooter" type="select" selector="//*[@id='amasty_checkout_design_optional_ui_elements_header_footer']"/>
+        <element name="TopBlock" type="select" selector="//*[@id='amasty_checkout_design_optional_ui_elements_top_block_id']"/>
+        <element name="BottomBlock" type="select" selector="//*[@id='amasty_checkout_design_optional_ui_elements_bottom_block_id']"/>
+        <element name="SuccessPageCustomBlock" type="select" selector="//*[@id='amasty_checkout_design_optional_ui_elements_block_id']"/>
+        <!-- Delivery Date -->
+        <element name="DeliveryTab" type="button" selector="//*[@id='amasty_checkout_delivery_date-head']"/>
+        <element name="Enabled" type="select" selector="//*[@id='amasty_checkout_delivery_date_enabled']"/>
+        <element name="DeliveryDateFieldIsMandatory" type="select" selector="//*[@id='amasty_checkout_delivery_date_date_required']"/>
+        <element name="AvailableDays" type="multiselect" selector="//*[@id='amasty_checkout_delivery_date_available_days']"/>
+        <element name="AvailableHours" type="text" selector="//*[@id='amasty_checkout_delivery_date_available_hours']"/>
+        <element name="EnableDeliveryComment" type="select" selector="//*[@id='amasty_checkout_delivery_date_delivery_comment_enable']"/>
+        <element name="DeliveryCommentDefaultText" type="input" selector="//*[@id='amasty_checkout_delivery_date_delivery_comment_default']"/>
+        <!-- Geolocation -->
+        <element name="GeolocationTab" type="button" selector="//*[@id='amasty_checkout_geolocation-head']"/>
+        <element name="GeoIPLocation" type="select" selector="//*[@id='amasty_checkout_geolocation_ip_detection']"/>
+        <element name="GoogleAddressSuggestion" type="select" selector="//*[@id='amasty_checkout_geolocation_google_address_suggestion']"/>
+        <element name="GoogleAPIKey" type="input" selector="//*[@id='amasty_checkout_geolocation_google_api_key']"/>
+        <!-- Gift -->
+        <element name="GiftsWrapTab" type="button" selector="//*[@id='amasty_checkout_gifts-head']"/>
+        <element name="AllowGiftMessagesOnOrderLevel" type="select" selector="//*[@id='amasty_checkout_gifts_allow_order']"/>
+        <element name="AllowGiftMessagesOnOrderItems" type="select" selector="//*[@id='amasty_checkout_gifts_allow_items']"/>
+        <element name="GiftWrap" type="select" selector="//*[@id='amasty_checkout_gifts_gift_wrap']"/>
+        <element name="GiftWrapFee" type="input" selector="//*[@id='amasty_checkout_gifts_gift_wrap_fee']"/>
+    </section>
+
+    <section name="AdminConfigurationsCurrencySection">
+        <element name="BaseCurrency" type="select" selector="//select[@id='currency_options_base']"/>
+    </section>
+
+    <section name="AdminStoresTermsAndConditionsSection">
+        <element name="AddNewConditionsButton" type="button" selector="//button[@id='add']"/>
+        <element name="ConditionName" type="input" selector="//input[@id='name']"/>
+        <element name="ConditionForOpen" type="input" parameterized="true"
+                 selector="//tbody//td[contains(@class, 'col-name')][contains(string(), '{{conditionName}}')]"/>
+        <element name="Status" type="select" selector="//select[@id='is_active']"/>
+        <element name="ShowContextAs" type="select" selector="//select[@id='is_html']"/>
+        <element name="Applied" type="select" selector="//select[@id='mode']"/>
+        <element name="StoreViewSelect" type="select" selector="//select[@id='stores']"/>
+        <element name="CheckboxText" type="textarea" selector="//textarea[@id='checkbox_text']"/>
+        <element name="Content" type="textarea" selector="//textarea[@id='content']"/>
+        <element name="ContentHeight" type="input" selector="//input[@id='content_height']"/>
+        <element name="Save" type="button" selector="//button[@id='save']"/>
+        <element name="DeleteCondition" type="button" selector="//button[@id='delete']"/>
+        <element name="ConfirmDeleteCondition" type="button" selector="//button[@class='action-primary action-accept']"/>
+    </section>
+
+</sections>

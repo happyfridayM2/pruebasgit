@@ -1,0 +1,114 @@
+.data-grid-options ul {
+    list-style-type: none;
+}
+.data-grid-options li {
+    margin-bottom:10px;
+}
+.swatch_option {
+    width:20px;
+    height:20px;
+    display: inline-block;
+    float:right;
+}
+.action-select-wrap.admin__action-multiselect-wrap-custom {
+display:block;
+    position:relative;
+}
+
+.data-grid td .action-select.admin__action-multiselect-custom {
+
+    border: 1px solid #adadad;
+    cursor: pointer;
+    display: block;
+    min-height: 3.2rem;
+    padding-right: 3.6rem;
+    white-space: normal;
+}
+.data-grid td .action-select.admin__action-multiselect-custom:before {
+    display:block;
+    background-color: #e3e3e3;
+    border:none;
+    border-left: 1px solid #adadad;
+    bottom: 0;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: auto;
+    height: 3.2rem;
+    width: 3.2rem;
+}
+.data-grid td .action-select.admin__action-multiselect-custom:after {
+    border-color: #000000 transparent transparent transparent;
+    border-style: solid;
+    border-width: 0.5rem 0.4rem 0 0.4rem;
+    content: '';
+    height: 0;
+    margin-top: -0.2rem;
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transition: all .2s linear;
+    width: 0;
+}
+.data-grid td .action-select.admin__action-multiselect-custom:hover {
+    text-decoration:none;
+}
+.data-grid td .action-select.admin__action-multiselect-custom .admin__action-multiselect-text {
+    padding: .6rem 1rem;
+    font-size: 1.4rem;
+    text-align: left;
+    color: #41362f;
+}
+.data-grid td .admin__action-multiselect-wrap-custom .action-menu {
+    overflow-y: visible;
+    width:100%;
+}
+.admin__data-grid-wrap {
+    overflow-x: visible;
+}
+.admin__action-multiselect-wrap-custom .admin__action-multiselect-menu-inner .swatch_option {
+    float:left;
+    margin-right:5px;
+}
+
+.admin__action-multiselect-wrap-custom .admin__action-multiselect-menu-inner li {
+    background-color: #efefef;
+    border: 0;
+    border-bottom: 1px solid #ffffff;
+    text-align: left;
+}
+.admin__action-multiselect-wrap-custom .admin__action-multiselect-menu-inner .action-menu-item {
+    display: inline-block;
+    padding-left:0px;
+}
+.admin__action-multiselect-wrap-custom .admin__action-multiselect-menu-inner .draggable-handle {
+    cursor: -webkit-grab;
+    cursor: move;
+    font-size: 0;
+    margin-top: -4px;
+    padding: 0;
+    vertical-align: middle;
+    display: inline-block;
+    text-decoration: none;
+}
+.admin__action-multiselect-wrap-custom .admin__action-multiselect-menu-inner .draggable-handle:before {
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.8rem;
+    line-height: inherit;
+    color: #9e9e9e;
+    content: '\e617';
+    font-family: 'Admin Icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+
+div.data-grid-options li.value {
+    display:inline-block;
+}
+div.data-grid-options li.value:first-child:after {
+    content:"-";
+}

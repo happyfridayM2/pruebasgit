@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterFilteringLSSFVInteractionTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode in interaction with leave single select filter visible setting"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-16"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="DisableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="dontLeaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="EnableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="leaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Rating Filter: select 5 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter1"
+                        after="checkRatingOfProducts1"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter2"
+                        after="checkRatingOfProducts2"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter3"
+                        after="checkRatingOfProducts3"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('3 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState3"
+               after="dontSeeFilter3"/>
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter4"
+               after="waitSeconds3"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter4"
+                        after="checkRatingOfProducts4"/>
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+                        stepKey="dontSeeFilter5"
+                        after="checkRatingOfProducts5"/>
+
+    </test>
+</tests>

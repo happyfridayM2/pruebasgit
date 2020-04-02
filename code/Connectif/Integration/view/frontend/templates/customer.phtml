@@ -1,0 +1,41 @@
+<?php
+$customer = $this->getClientInfoData();
+$escaper = $this->getHtmlEscaper();
+?>
+
+<!-- Connectif Client Info Tags -->
+<?php if ($customer) { ?>
+    <div class="cn_client_info" style="display:none">
+        <span class="primary_key"><?php echo $escaper->escapeHtml($customer['primary_key']); ?></span>
+        <span class="_name"><?php echo $escaper->escapeHtml($customer['_name']); ?></span>
+        <span class="_surname"><?php echo $escaper->escapeHtml($customer['_surname']); ?></span>
+        <span class="_newsletter_subscription_status"><?php echo $escaper->escapeHtml($customer['_emailStatus']); ?></span>
+        <?php if (array_key_exists("_birthdate", $customer)) {?>
+            <span class="_birthdate"><?php echo $escaper->escapeHtml($customer['_birthdate']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("gender", $customer)) {?>
+            <span class="gender"><?php echo $escaper->escapeHtml($customer['gender']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("country", $customer) && !empty($customer['country'])) {?>
+            <span class="country"><?php echo $escaper->escapeHtml($customer['country']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("city", $customer) && !empty($customer['city'])) {?>
+            <span class="city"><?php echo $escaper->escapeHtml($customer['city']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("street", $customer) && !empty($customer['street'])) {?>
+            <span class="street"><?php echo $escaper->escapeHtml($customer['street']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("zip", $customer) && !empty($customer['zip'])) {?>
+            <span class="zip"><?php echo $escaper->escapeHtml($customer['zip']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("company", $customer) && !empty($customer['company'])) {?>
+            <span class="company"><?php echo $escaper->escapeHtml($customer['company']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("telephone", $customer) && !empty($customer['telephone'])) {?>
+            <span class="_mobilePhone"><?php echo $escaper->escapeHtml($customer['telephone']); ?></span>
+        <?php }?>
+        <?php if (array_key_exists("fax", $customer) && !empty($customer['fax'])) {?>
+            <span class="fax"><?php echo $escaper->escapeHtml($customer['fax']); ?></span>
+        <?php }?>
+    </div>
+<?php } ?>

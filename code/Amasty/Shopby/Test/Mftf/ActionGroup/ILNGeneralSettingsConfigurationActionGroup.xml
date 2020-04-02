@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureAjaxSubmitFiltersActionGroup">
+        <arguments>
+            <argument name="generalILNSettings"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandGeneralSettings1"
+                          selector="{{AdminILNSettingsSection.GeneralSettingsTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.AjaxSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.AjaxSwitcher}}"
+                      userInput="{{generalILNSettings.AjaxSwitcher}}"
+                      stepKey="enableAjax1"/>
+        <selectOption selector="{{AdminILNSettingsSection.SubmitFilterOnDesktopSwitcher}}"
+                      userInput="{{generalILNSettings.SubmitFilterOnDesktopSwitcher}}"
+                      stepKey="enableSubmitInstantly1"/>
+        <selectOption selector="{{AdminILNSettingsSection.SubmitFilterOnMobileSwitcher}}"
+                      userInput="{{generalILNSettings.SubmitFilterOnMobileSwitcher}}"
+                      stepKey="enableSubmitInstantly2"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup"
+                 extends="ConfigureAjaxSubmitFiltersActionGroup">
+        <arguments>
+            <argument name="generalILNSettings3"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.LeaveSingleSelectFilterVisibleSwitcher}}"
+                      userInput="{{generalILNSettings3.LeaveSingleSelectFilterVisibleSwitcher}}"
+                      stepKey="enableSetting1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache2"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAddVerticalScrolling">
+        <arguments>
+            <argument name="generalILNSettings2"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandGeneralSettings1"
+                          selector="{{AdminILNSettingsSection.GeneralSettingsTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.AjaxSwitcher}}"
+                          visible="false"/>
+        <fillField userInput="{{generalILNSettings2.AddVerticalScrollingToFilterBlockAfter}}"
+                   selector="{{AdminILNSettingsSection.AddVerticalScrollingToFilterBlockAfter}}"
+                   stepKey="FillAddVerticalScrollingToFilterBlockAfter"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureNumberOfUnfoldedOptionsInState">
+        <arguments>
+            <argument name="generalILNSettings4"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandGeneralSettings1"
+                          selector="{{AdminILNSettingsSection.GeneralSettingsTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.AjaxSwitcher}}"
+                          visible="false"/>
+        <fillField userInput="{{generalILNSettings4.NumberOfUnfoldedOptionsInState}}"
+                   selector="{{AdminILNSettingsSection.NumberOfUnfoldedOptionsInState}}"
+                   stepKey="SetNumberOfUnfoldedOptionsInState"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>
+
+
+
+
+
+
+
+

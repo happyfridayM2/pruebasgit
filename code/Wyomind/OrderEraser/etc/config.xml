@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright © 2017 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ordereraser>
+            <license>
+                <extension_label>Order Eraser</extension_label>
+                <extension_version>5.3.1</extension_version>
+                <extension_code>oe</extension_code>
+                <get_online_license>1</get_online_license>
+            <activation_key>MAGE-400358173-N5ZT</activation_key></license>
+        </ordereraser>
+    </default>
+   
+</config>

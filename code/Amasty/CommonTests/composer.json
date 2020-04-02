@@ -1,0 +1,21 @@
+{
+    "name": "amasty/module-common-tests",
+    "description": "Test Basics by Amasty team",
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|^7.1.0",
+        "amasty/base": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\CommonTests\\": ""
+        }
+    }
+}

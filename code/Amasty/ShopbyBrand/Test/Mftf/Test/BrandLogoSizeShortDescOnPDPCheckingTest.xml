@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandLogoSizeShortDescOnPDPCheckingTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Logo Size and Short Description checking"/>
+            <title value="Check that Brand Logo Size and Short Description is displayed correctly and have defined content"/>
+            <description
+                    value="Check that Brand Logo Size and Short Description is displayed correctly and have defined content on Product Detail Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="BRANDATTR-21"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandlogotooltip"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureProductPageBrandContent1"
+                         ref="ConfigureProductPageBrandActionGroup">
+                <argument name="brandLogoShortDescOnPDP1" value="productPageBrandSettingsFullyEnabled"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent1"
+                         ref="ConfigureBrandAttributeOptionPageContent">
+                <argument name="Attributes" value="PolyesterTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling1"
+                         ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableFullSeo"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SeoEnabling1"
+                         ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoDefault"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureProductPageBrandContentDefault1"
+                         ref="ConfigureProductPageBrandDefaultActionGroup">
+                <argument name="brandLogoShortDescOnPDP1" value="productPageBrandSettingsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent2"
+                         ref="ConfigureDefaultBrandAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultPolyesterAttributeData"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="noBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that Brand Logo Size and Short Description is displayed correctly and have defined content on Product Detail Page-->
+
+        <amOnPage url="{{StorefrontBrandWithURLKeyPage.url('polyester')}}" stepKey="navigateToBrandPage1"/>
+        <click selector="{{StorefrontCategoryMainSection.specifiedProductItemInfo('Short')}}"
+               stepKey="openProductPage"/>
+        <waitForElement
+                selector="{{StorefrontBrandElementsSection.BrandLogo('/testbrandurlkey/polyester.html','Polyester','/60x60/1.jpg','/60x60/1_')}}"
+                stepKey="waitForBrandLogo2"/>
+        <seeInSource html="/60x60/"
+                     stepKey="checkBrandLogoSizeOnPDP1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.ShortDescriptionContent('Polyester')}}"
+                stepKey="seeShortDescriptionContent1"/>
+
+    </test>
+</tests>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckAuthoriseAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Authorise via the storefront"/>
+            <title value="Check Place Order with Authorise And Button Below the Order Total on the Checkout"/>
+            <description value="Check Place Order with Authorise And Button Below the Order Total on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-41"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsAuthorise"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <actionGroup ref="AdminCreateConfigurableProductWithCategory" stepKey="CreateConfigurableProduct"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCDesignLayoutClassic" stepKey="ConfigurationPlaceButtonBelowOrderSetting"/>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createFirstChildProdCreateConfigurableProduct" stepKey="deleteFirstSimpleChildProduct"/>
+            <deleteData createDataKey="createSecondChildProdCreateConfigurableProduct" stepKey="deleteSecondSimpleChildProduct"/>
+            <deleteData createDataKey="createConfigProdAttrCreateConfigurableProduct" stepKey="deleteConfigProductAttribute"/>
+            <deleteData createDataKey="createCategoryCreateConfigurableProduct" stepKey="deleteCategory"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Products to Cart-->
+        <actionGroup ref="StorefrontAddCreatedConfigurableProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+            <argument name="optionValue" value="OSCCheckAuthoriseAndButtonBelowOrder.configOptionOne"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddCreatedConfigurableProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+            <argument name="optionValue" value="OSCCheckAuthoriseAndButtonBelowOrder.configOptionTwo"/>
+        </actionGroup>
+        <!-- Go To Checkout, Check Payment Method, Totals -->
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentAuthorize"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckAuthoriseAndButtonBelowOrder"/>
+        </actionGroup>
+
+    </test>
+</tests>

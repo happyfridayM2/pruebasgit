@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarVisibleOnlyTest"
+          extends="CategoryFilterLabelsSidebarVisibleEverywhereAttributeTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter visibility on Categories with Attribute as trigger and filtering on sidebar in labels mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-18"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltervis"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SetCategoryIDSVisibility1"
+                         ref="ConfigureAttributeVisibilityOnCategoriesActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityOnly"/>
+            </actionGroup>
+            <remove keyForRemoval="SetCategoryIDSVisibility2"/>
+        </before>
+
+        <after>
+            <actionGroup stepKey="SetCategoryIDSVisibility1"
+                         ref="ConfigureAttributeVisibilityActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityDefault"/>
+            </actionGroup>
+            <remove keyForRemoval="SetCategoryIDSVisibility2"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check the visibility conditions of the Category Filter, select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+                    stepKey="checkCategoryFilterVisibility1"/>
+        <remove keyForRemoval="grabQtyOfTopsProducts1"/>
+        <remove keyForRemoval="clickOnCategoryFilter2"/>
+        <remove keyForRemoval="checkQtyOfTopsProducts1"/>
+        <remove keyForRemoval="checkQtyOfTopsProducts2"/>
+        <dontSee selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+                 stepKey="checkCategoryFilterVisibility3"/>
+
+    </test>
+</tests>
+
+

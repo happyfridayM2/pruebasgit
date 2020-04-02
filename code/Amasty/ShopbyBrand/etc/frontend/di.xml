@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="amasty_shopby_brand" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\ShopbyBrand\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Layer\State">
+        <plugin name="Amasty_ShopbyBrand::ExcludeBrandFilterFromStage"
+                type="Amasty\ShopbyBrand\Plugin\Catalog\Model\Layer\State"/>
+    </type>
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="Amasty_ShopbyBrand::TopMenuFirst"
+                type="Amasty\ShopbyBrand\Plugin\Block\Html\Topmenu" sortOrder="-1" />
+        <plugin name="Amasty_ShopbyBrand::TopMenuLast"
+                type="Amasty\ShopbyBrand\Plugin\Block\Html\TopmenuLast" sortOrder="999" />
+    </type>
+    <type name="Infortis\UltraMegamenu\Block\Navigation">
+        <plugin name="Amasty_ShopbyBrand::TopMenuUltimo"
+                type="Amasty\ShopbyBrand\Plugin\Block\Html\TopmenuThemes" sortOrder="999" />
+    </type>
+    <type name="Smartwave\Megamenu\Block\Topmenu">
+        <plugin name="Amasty_ShopbyBrand::TopMenuPorto"
+                type="Amasty\ShopbyBrand\Plugin\Block\Html\TopmenuThemes" sortOrder="999" />
+    </type>
+    <type name="Amasty\MegaMenu\Model\Menu\TreeResolver">
+        <plugin name="Amasty_ShopbyBrand::Amasty_MegaMenu"
+                type="Amasty\ShopbyBrand\Plugin\Block\Html\MegaMenu" sortOrder="999" />
+    </type>
+    <type name="Amasty\ShopbyBase\Model\Customizer\Category">
+        <arguments>
+            <argument name="customizers" xsi:type="array">
+                <item name="brand" xsi:type="string">\Amasty\ShopbyBrand\Model\Customizer\Category\Brand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Theme\Block\Html\Title">
+        <plugin name="Amasty_ShopbyBrand::linksTitle"
+                type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\View\BlockHtmlTitlePlugin" />
+    </type>
+    <type name="Amasty\Shopby\Model\Layer\Filter\Attribute">
+        <plugin name="remove-brand-from-filter" type="Amasty\ShopbyBrand\Plugin\AttributeFilterPlugin"/>
+    </type>
+    <type name="Amasty\Shopby\Helper\UrlBuilder">
+        <plugin name="Amasty_ShopbyBrand::urlBuilder" type="Amasty\ShopbyBrand\Plugin\Shopby\Helper\UrlBuilder" />
+    </type>
+    <type name="Amasty\ShopbySeo\Helper\Url">
+        <plugin name="Amasty_ShopbyBrand::urlBuilderSeo" type="Amasty\ShopbyBrand\Plugin\ShopbySeo\Helper\Url" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_ShopbyBrand::show_logo_on_listing"
+                type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\Listing\ListProductPlugin" />
+    </type>
+
+    <virtualType name="Magento\CatalogSearch\Block\SearchResult\ListProduct">
+        <plugin name="Amasty_ShopbyBrand::show_logo_on_listing_search"
+                type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\Listing\ListProductPlugin" />
+    </virtualType>
+
+    <type name="Amasty\Mostviewed\Block\Widget\Related">
+        <plugin name="Amasty_ShopbyBrand::add_to_related"
+                type="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\Listing\ListProductPlugin" />
+    </type>
+
+    <type name="Amasty\ShopbySeo\Controller\Router">
+        <plugin name="Amasty_ShopbyBrand::SkipSeoRequestModification"
+                type="Amasty\ShopbyBrand\Plugin\ShopbySeo\Controller\Router" />
+    </type>
+
+    <type name="Amasty\ShopbyBase\Model\UrlBuilder">
+        <arguments>
+            <argument name="urlAdapters" xsi:type="array">
+                <item name="brand" xsi:type="array">
+                    <item name="adapter" xsi:type="object">Amasty\ShopbyBrand\Model\UrlBuilder\Adapter</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ShopbyBrand\Controller\Index\Index">
+        <arguments>
+            <argument name="categoryManager" xsi:type="object">Amasty\ShopbyBase\Model\Category\Manager\Proxy</argument>
+        </arguments>
+    </type>
+</config>

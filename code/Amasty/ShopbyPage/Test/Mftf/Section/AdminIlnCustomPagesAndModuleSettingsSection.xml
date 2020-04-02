@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="CustomPageProfileSection">
+        <element name="CustomPageTitleField" type="text" selector="//*[@id='amasty_shopbypage_title']"/>
+        <element name="CategoriesStoreViewTab" type="text"
+                 selector="#amasty_shopbypage_tabs_amasty_shopbypage_page_edit_tab_category"/>
+        <element name="FilterSelectionsTab" type="button"
+                 selector="#amasty_shopbypage_tabs_amasty_shopbypage_page_edit_tab_selection"/>
+        <element name="StoreViewField" type="select" selector="//*[@id='amasty_shopbypage_stores']"/>
+        <element name="CategoriesField" type="select" selector="//*[@id='amasty_shopbypage_categories']"/>
+        <element name="SelectAttributeDropdown" type="select" selector="//*[@id='new_selection_filter']"/>
+        <element name="SelectAttributeValueDropdown" type="select" selector="//*[@id='attribute_value_1_data']/select"/>
+        <element name="DeleteButton" type="select" selector="//*[@id='delete']"/>
+        <element name="OkButton" type="button"
+                 selector="//*[@id='html-body']/div[{{var1}}]/aside[2]/div[2]/footer/button[2]" parameterized="true"/>
+        <element name="SaveAndContinue" type="button" selector="#saveandcontinue"/>
+        <element name="Save" type="button" selector="#save"/>
+    </section>
+
+</sections>

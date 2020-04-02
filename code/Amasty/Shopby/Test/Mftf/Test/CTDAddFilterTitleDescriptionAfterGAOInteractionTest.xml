@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDAddFilterTitleDescriptionAfterGAOInteractionTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Category Title and Description position after filtering in case of After Category Name/Description in interaction with Group Attribute Option"/>
+            <severity value="MINOR"/>
+            <testCaseId value="CTD-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureGroupAttributeOption1"
+                         ref="GroupAttributeOptionConfigurationActionGroup">
+                <argument name="gaoValues" value="GAOType1"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="CheckTitleAndDescriptionSeparator"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteGroupAttributeOptionActionGroup" stepKey="DeleteGroupAttributeOption1"/>
+            <actionGroup stepKey="SetTitleAndDescriptionDefault1"
+                         ref="DefaultCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Category Title: filter page by Group Attribute Option, check that Category Title consists of  Group Attribute Option Title and Category Title/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Test GAO Title 1')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <waitForElement selector="{{StorefrontPageElementsSection.PageTitle}}" stepKey="waitForElement2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Default Category+tst+Test GAO Title 1"
+             stepKey="checkPageTitle1"/>
+        <seeInSource html="&lt;title&gt;Default Category+tst+Test GAO Title 1&lt;&#x0002F;title&gt;"
+                     stepKey="seeInSourcePageTitle1"/>
+
+    </test>
+</tests>
+
+

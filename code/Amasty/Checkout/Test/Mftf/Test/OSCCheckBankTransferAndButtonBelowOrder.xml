@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckBankTransferAndButtonBelowOrder" extends="OSCCheckAmazonAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Bank Transfer Payment via the storefront"/>
+            <title value="Check Place Order with Bank Transfer Payment And Button Below the Order Totals on the Checkout"/>
+            <description value="Check Place Order with Bank Transfer Payment And Button Below the Order Totals on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-50"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCPaymentBankTransfer"/>
+            <group value="OSCPaymentMethods"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="OSCCustomerCalifornia" after="createFirstSimpleProduct" stepKey="createCustomer"/>
+            <actionGroup ref="AdminActivateBankTransferPayment" after="ConfigurationPlaceButtonDesignSetting" stepKey="ActivateBankTransferPayment"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" after="ActivateBankTransferPayment" stepKey="loginAsCustomer">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+            <deleteData createDataKey="createCustomer" after="deleteFirstSimpleProduct" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminReturnDefaultSettingBankTransferPayment" after="deleteCustomer" stepKey="ReturnDefaultPaymentSetting"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentBankTransferPayment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckBankTransferAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithBankTransferGrabNumber" stepKey="PlaceOrderWithBankTransfer"/>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentBankTransferPayment"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithBankTransfer}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckBankTransferAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithBankTransfer}"/>
+        </actionGroup>
+
+    </test>
+</tests>

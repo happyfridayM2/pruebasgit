@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterFilteringOnSearchResultPageTest" extends="OnSaleFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and filtering"/>
+            <description
+                    value="Check of on sale filter enabling and filtering on sidebar in labels mode on search result page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNONSALEFILTER-14"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <!--Filter by On Sale Filter on search result page: select option on sidebar, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{SearchResultPage.url('pack')}}"
+                  stepKey="navigateToAllProducts1"/>
+
+    </test>
+</tests>
+
+

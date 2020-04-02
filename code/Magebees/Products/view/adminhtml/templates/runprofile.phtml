@@ -1,0 +1,317 @@
+<?php
+$csvFileList='';
+$block->getImportedCSVFiles();
+if(!empty($block->getImportedCSVFiles())){
+	foreach ($block->getImportedCSVFiles() as $file) { $csvFileList=$csvFileList.'"'.$file.'",'; }
+}else{ ?>
+	<div id="messages"><div class="messages"><div class="message message-error error"><div>
+	<?php echo __("No CSV file available in var/import folder also Please check import folder exists or not in var folder and it's permission. If not available then please create it."); ?></div></div></div></div>
+<?php } ?>
+
+<div id="messages"><div class="messages"><div class="message message-notice notice"><div><?php echo __("Please put your product images and downloadable product files in the pub/media/import folder."); ?></div></div></div></div>
+<div class="mbBackground">
+<div class="entry-edit form-inline">
+	<fieldset id="export_form" class="fieldset admin__fieldset">
+	<legend class="admin__legend legend"><span><?php echo __("Import Products"); ?></span></legend><br>
+	<p><?php echo __("Please make sure that you choose the proper settings before running the profile."); ?></p><br/>
+	<div class="messages"></div>
+	<input type="hidden" id="importfiletype" name="importfiletype" value="csv"/>
+	<div class="admin__field field field-store_id  _required">
+	<label for="store_id" class="label admin__field-label"><span><?php echo __("Choose Import File:"); ?></span>
+	</label>
+		<div class="admin__field-control control">	
+			<select id="files" name="files" class="option-control cwsFiles">
+				<option value=""><?php echo __("Please Select CSV file"); ?></option>
+				<?php if ($files = $block->getImportedCSVFiles()){
+					foreach ($files as $file) { ?>
+					<option value=<?php echo $file ?>><?php echo $file ?></option>
+				<?php  }} ?>
+			</select>
+			<small class="profile_direction_import profile_entity_type_product"><?php echo __("(Choose file to import.)") ?></small>
+		</div>
+	</div>
+	
+	<div class="admin__field field field-store_id  _required">
+	<label for="store_id" class="label admin__field-label"><span><?php echo __("Import Behavior :"); ?></span>
+	</label>
+		<div class="admin__field-control control">	
+			<select id="behavior" name="behavior" class="option-control">
+				<option value="append" selected><?php echo __("Add/Update Products") ?></option>
+				<option value="delete"><?php echo __("Delete Products"); ?></option>
+			</select>
+			<small class="profile_direction_import profile_entity_type_product"><?php echo __("(Choose Import Behavior.)") ?></small>
+		</div>
+	</div>
+	
+	<div class="admin__field field field-store_id  _required">
+	<label for="store_id" class="label admin__field-label"><span><?php echo __("Validation Behavior :") ?></span>
+	</label>
+		<div class="admin__field-control control">	
+			<select id="validationBehavior" onclick="changeBtnLbl(this.value)" name="validationBehavior" class="option-control">
+					<option value="validate" selected><?php echo __("Validate & Import") ?></option>
+					<option value="skip"><?php echo __("Skip Validation") ?></option>
+				</select>
+				<small class="profile_direction_import profile_entity_type_product"><?php echo __("(Choose Validation Behavior.)") ?></small>
+		</div>
+	</div>
+	<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+	</fieldset>
+</div>
+</div>
+<div id="validatemodel"><div id="validatecontent"></div></div>
+<script>
+function changeBtnLbl(val){
+	if(val == "validate"){
+		jQuery("#validatebutton").html('<?php echo __("Validate & Import File Data") ?>');
+	}else{
+		jQuery("#validatebutton").html('<?php echo __("Next Step") ?>');
+	}
+}
+
+function validateData(){
+		require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		var file = $('files').options[$('files').options.selectedIndex].value;
+		if (file == '') {
+            alert('<?php echo __("Please select file first.") ?>');
+            return false;
+        }
+		var exporturl = "<?php echo $block->getUrl('*/*/validate/'); ?>";
+		jQuery.ajax({
+					url : exporturl,
+					data: { 
+							'clearOldData':'true',
+							'behavior':document.getElementById("behavior").value,
+							'validationBehavior':document.getElementById("validationBehavior").value,
+							'importfiletype':document.getElementById("importfiletype").value,
+							'files': file,
+							form_key: FORM_KEY,
+						} ,
+					dataType: 'json',
+					type: 'get',
+					showLoader:true,
+					success: function(response){
+						try {
+							//var response = transport.responseText.evalJSON();	
+						}catch(e){
+							//deleteImportFlagOnError();
+							alert("Error: validateData");					
+						}					
+						if(response.url!=''){
+							ajaxProfiler(response.url);
+						}else{
+							if(document.getElementById("validationBehavior").value=='skip'){
+								runSkipImport();
+							}else{
+								importCall();
+							}
+						}
+					}
+				});
+		}
+	);
+}
+
+var countOfUpdated = 0;
+function importCall(){
+	var countOfStartedProfiles = 0;
+	var countOfError = 0;
+	var redirect_to_import_log_url='';
+	var count = 0;
+	require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		jQuery('#validatemodel').modal('openModal');
+		if(countOfUpdated == 0){
+			jQuery("#validatecontent").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" />');
+		}
+		
+		var response = "";
+		var exporturl = "<?php echo $block->getUrl('*/*/validaterecord/'); ?>";
+		jQuery.ajax({
+					url : exporturl,
+					data: { 
+							'importfiletype' : document.getElementById("importfiletype").value,
+							'files' : $('files').options[$('files').options.selectedIndex].value,
+							'direction' : 'Validated',
+							'behavior': document.getElementById("behavior").value,
+							'validationBehavior' : document.getElementById("validationBehavior").value,
+							timestamp : <?php echo time(); ?>,
+							form_key : FORM_KEY,
+						} ,
+					dataType: 'json',
+					type: 'post',
+					//showLoader:true,
+					success: function(response) {
+					try{
+						countOfUpdated = countOfUpdated + response.imported;
+						countOfError = countOfError+response.error;
+						count = response.count;
+						if(countOfUpdated > 0){
+							jQuery("#validatecontent").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" width="40px" /><br/><?php echo __("Processed") ?> '+getPercent(countOfUpdated,count)+'% '+countOfUpdated+'/'+count+' <?php echo __("products") ?>');
+						}else{
+							jQuery("#validatecontent").html('<?php echo __("Please wait...") ?>')
+						}
+						
+						if(response.next==false){
+							setTimeout(function () {window.location=response.url+'countOfError/'+countOfError+'/totalRecords/'+count;}, 1000);
+						}else{
+							importCall();
+						}
+					}catch(e){
+						deleteImportFlagOnError();
+					}
+				}
+			});
+	}
+);
+}
+function getPercent(countOfUpdated,count) {
+	return Math.ceil((countOfUpdated/count)*1000)/10;
+}
+
+require([
+	'jquery',
+	'Magento_Ui/js/modal/modal'
+	],
+	function($,modal) {
+			var options = {
+			type: 'popup',
+			responsive: true,
+			innerScroll: true,
+			title: "Validation",
+			buttons: [{
+				text: $.mage.__('Close'),
+				class: '',
+				click: function () {
+					this.closeModal();
+					window.location="<?php echo $block->getUrl('*/*/index/'); ?>";
+				}
+			}]
+		};
+		var popup = modal(options, $('#validatemodel'));
+	}
+);
+var imported = 0;
+function runImport(){
+	require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		jQuery('#validatemodel').modal('openModal');
+		if(imported == 0){
+			jQuery("#validatecontent").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" />');
+		}
+		jQuery(".modal-title").html('<?php echo __("Import Products"); ?>');
+		
+		var exporturl = "<?php echo $block->getUrl('*/*/validaterecord/'); ?>";
+		jQuery.ajax({
+					url : exporturl,
+					data: {
+							'show_import_button' : 'true',
+							'direction' : 'Imported',
+							'behavior' : '<?php echo $this->getRequest()->getParam('behavior'); ?>',
+							'validationBehavior' :'<?php echo $this->getRequest()->getParam('validationBehavior'); ?>',
+							//timestamp:timestamp,
+							form_key: FORM_KEY,
+						} ,
+					dataType: 'json',
+					type: 'post',
+					showLoader:false,
+					success: function(response){
+						if(response.next==true){
+							imported = imported + response.imported
+							//jQuery("#validatecontent").html(imported+' Products Imported');
+							jQuery("#validatecontent").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" width="40px" /><br/>'+imported+' <?php echo __("Products Imported"); ?>');
+							runImport();
+						}else{
+							jQuery("#validatecontent").html('<?php echo __("Please wait...") ?>');
+							window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'importlog'));?>';	
+						}
+					}
+				});
+		}
+	);
+}
+
+function runSkipImport(){
+	window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'validationlog','show_import_button'=>'true','direction'=>'Imported'));?>behavior/'+document.getElementById("behavior").value;
+}
+function deleteImportFlagOnError(){
+require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		var exporturl = "<?php echo $block->getUrl('*/*/deleteImportFlag/'); ?>";
+		jQuery.ajax({
+					url : exporturl,
+					data: { 
+							timestamp:timestamp,
+							form_key: FORM_KEY,
+						} ,
+					dataType: 'json',
+					type: 'post',
+					showLoader:true,
+					success: function(response){
+						
+					}
+				});
+		}
+	);
+}
+
+function ajaxProfiler(url){
+	require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		jQuery.ajax({
+				url : url,
+				data: {form_key: FORM_KEY},
+				dataType: 'json',
+				type: 'post',
+				showLoader:true,
+				success: function(response){
+					try {
+					}catch(e){
+						deleteImportFlagOnError();
+						alert("Error: ajaxProfiler");					
+					}
+					if(response.url!=''){
+						ajaxProfiler(response.url);
+					}else{
+						if(document.getElementById("validationBehavior").value == 'skip'){
+							runSkipImport();
+						}else{
+							window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'validationlog','direction'=>'Validated'));?>show_import_button/true/behavior/'+document.getElementById("behavior").value+'/validationBehavior/'+document.getElementById("validationBehavior").value;
+							}
+						}
+				}
+			});
+		}
+	);
+}
+</script>

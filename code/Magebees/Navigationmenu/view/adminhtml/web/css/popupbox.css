@@ -1,0 +1,122 @@
+/***************************************************************************
+ Extension Name : Magento Navigation Menu Pro - Responsive Mega Menu / Accordion Menu / Smart Expand Menu
+ Extension URL  : http://www.magebees.com/magento-navigation-menu-pro-responsive-mega-menu-accordion-menu-smart-expand.html
+ Copyright      : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email  : support@magebees.com 
+ ***************************************************************************/
+#navigation-pro ul, #navigation-pro ol { list-style:none; padding:0; margin:0; }
+#navigation-pro div.columns { background:none; }
+#navigation-pro div.side-col { float:left; padding-bottom:25px; width:45%; margin:0; }
+#navigation-pro #footerBut { padding:15px; background-color:#fdfaa4; text-align:center; border:1px solid #c8bc98; box-sizing:border-box; }
+#navigation-pro #footerBut button { margin:0 5px; }
+#navigation-pro #footerBut.fixed { position:fixed; bottom:0; left:118px; opacity:0.9; }
+#navigation-pro #footerBut.noFixed { position:static; width:100%; box-sizing:border-box; }
+
+#navmenu { padding-top:15px; }
+#navmenu ol.ui-sortable { padding:15px; margin-bottom:15px; background-color:#eee; border:1px solid #ddd; }
+#navmenu .groupTitle { color:#eb5e00; font-style:normal; font-size:22px; margin:0 0 5px; }
+#navmenu .groupTitle .edit { float:right; font-size:15px; }
+#navmenu ol { padding:0; }
+#navmenu li.placeholder { background-color:#e5e3e3; border:1px solid #ddd; }
+
+#navmenu li .sub-cat-list { margin-bottom:10px; }
+#navmenu li .menuDiv { padding:7px; margin-bottom:3px; text-align:right; background-color:#fff; border-right:1px solid #ccc; border-bottom:1px solid #ccc; cursor:move; }
+#navmenu li .menuDiv .itemTitle { float:left; font-size:1.4rem; font-weight:bold; line-height:2.5rem; }
+#navmenu li > ol { padding-left:15px; }
+
+.mType { color:#999; font-size:12px; margin:0 10px 0; display:inline-block; vertical-align:middle; }
+
+#navmenu li .menuDiv button { padding:4px 10px; width:30px; height:30px; position:relative; vertical-align:middle; background-repeat:no-repeat; background-size:auto 16px; background-position:50% 50%; border-radius:4px; }
+#navmenu li .menuDiv button span { color:#fff; display:none; font-size:12px; white-space:nowrap; padding:2px 0; margin-left:-35px; width:70px; text-align:center;
+    position:absolute; top:-23px; left:50%; z-index:99; background-color:#000; border-radius:4px; }
+#navmenu li .menuDiv button span:after { content:" "; display:block; width:0; height:0; margin-left:-5px; border:5px solid transparent; border-top-color:#000; position:absolute; top:100%; left:50%; }
+#navmenu li .menuDiv button:hover span { display:block; }
+#navmenu li .menuDiv button.edit-menu-item { background-image:url(images/edit-ico.png); }
+#navmenu li .menuDiv button.add-menu-item { background-image:url(images/add-ico.png); }
+#navmenu li .menuDiv button.delete-menu-item { background-image:url(images/delete-ico.png); }
+
+#navmenu li.disabled .menuDiv { opacity:0.5; }
+
+#navmenu ol.disabled  { opacity:0.5; }
+
+li.mjs-nestedSortable-collapsed > ol { display:none; }
+li .menuDiv .ui-icon { float:left; width:20px; height:20px; margin:4px 4px 0 0; background:url(images/plus-minus.png) no-repeat 0 -20px;cursor:pointer; }
+li .menuDiv .ui-icon.ui-icon-plusthick { background-position:0 0; }
+
+#navigation-pro #content { float:right; margin:0; width:50%; }
+#navigation-pro div.main-col.sticky .main-col-inner { position:fixed; width:100%; right:3rem; top:50px; z-index:100; }
+.sticky-content-header { padding:10px; background-color:#666; border-bottom:1px solid #fff; }
+.sticky-content-header h3 { color:#fff; margin:0; }
+.sticky-content-header p { margin:0; }
+
+#menucreator-tabs { background-color:#fff; border:1px solid #ddd; }
+#menucreator-tabs .ui-tabs-nav { background-color:#fff; border-bottom:1px solid #ddd; }
+#menucreator-tabs .ui-tabs-nav li { float:left; position:relative; border-right:1px solid #ddd; }
+#menucreator-tabs .ui-tabs-nav li a { color:#666; text-decoration:none; font-weight:bold; display:block; padding:7px 20px; }
+#menucreator-tabs .ui-tabs-nav li a:hover { background-color:#efefef; }
+#menucreator-tabs .ui-tabs-nav li.ui-tabs-active a { color:#111; background-color:#ddd; position:relative; }
+#menucreator-tabs .ui-tabs-nav li.ui-tabs-active a:after { content:'.'; font-size:0; display:inline-block; margin-left:-5px; width:0; height:0;
+    border:7px solid transparent; border-top:8px solid #ddd; position:absolute; bottom:-16px; left:50%; }
+
+#menucreator-tabs .ui-tabs-panel { padding:15px; }
+
+#menucreator-tabs #menu_title_check .disabletitle {
+background-color: #ddd;
+    color: #111;
+    position: relative;
+}
+
+
+.fieldSet * { box-sizing:border-box; }
+.fieldSet .input-text, .fieldSet select { width:100%; }
+.fieldSet .field em { color:#f00; font-style:normal; }
+.fieldSet .fields { clear:both; padding:4px 0; }
+.fieldSet .fields .field { float:left; width:48%; margin-left:2%; }
+.fieldSet .fields.column3 .field { width:31%; }
+.fieldSet .fields .field:first-child { margin:0; }
+.fieldSet .fields .field .label { display:block; margin-bottom:2px; }
+
+.fieldSet .input-file { margin:0 0 10px 0 !important; }
+.fieldSet .image-preview { float:left; margin-right:15px; max-width:50px; position:relative; }
+
+
+#menucreator-tabs .ui-tabs-nav:after,
+.fieldSet .fields:after { content:"."; display:block; clear:both; height:0; width:0; overflow:hidden; }
+
+
+#deletemenuitem h3 { color: #253033; font-size: 1.25em; margin-bottom: 0.9em; line-height: 1.4em; text-transform:uppercase; font-weight:bold;}
+.deletemenuitem { border-radius: 2px; padding: 20px 30px; box-shadow: 0 0 15px; font-size: 14px; font-weight: bold; width: 350px; margin: 20px 250px 0 35px; float: left; }
+.deletemenuitem-form { border-radius: 2px; padding: 25px; box-shadow: 0 0 15px; font-size: 14px; font-weight: bold; width: 350px; margin: 20px 250px 0 35px; float: left; }
+#deletedialog { position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background:rgba(0,0,0,0.8); display: none; z-index: 9999999;  }
+#deletemenuitem { width: 400px; margin: 0px; background-color: white; /*font-family: 'Fauna One', serif;*/ position: fixed; border: 10px solid #d5d5d5; border-radius:0; }
+#deletedialog .img { float: right; }
+.deletemenuitem-form .input[type=radio] { width : 28px; margin : 0; padding : 0; opacity : 0; }
+#deletemenuitem { left: 50%; top: 50%; margin-left: -210px; margin-top: -255px; }
+#deletemenuitem input#deleteitem,
+#deletemenuitem input#cancelitem { background:#eb5202; color:#fff; padding:5px 15px; text-shadow:1px 1px 0 rgba(0,0,0,0.25); border:1px solid #b84002; font-size:1.4rem; 
+text-shadow:1px 1px 0 rgba(0,0,0,0.25);  margin-top:10px;}
+#deletemenuitem input#deleteitem:hover,
+#deletemenuitem input#cancelitem:hover {  background:#ba4000; }
+#deletemenuitem .delete-detail { margin-bottom:10px;}
+#deletemenuitem .delete-detail input { vertical-align:middle;}
+#deletemenuitem .delete-detail label { vertical-align:middle;}
+
+#navmenu ol.no-sub{
+    border-top: 2px dotted red;
+    border-right: 2px dotted red;
+    border-left: 2px dotted red;
+    border-bottom: 2px dotted red;
+}
+#navmenu li.no-sub{
+    border-top: 2px dotted red;
+    border-right: 2px dotted red;
+    border-left: 2px dotted red;
+    border-bottom: 2px dotted red;
+}
+#navmenu ol.no-sub-static-block{
+    border-top: 2px dotted red;
+    border-right: 2px dotted red;
+    border-left: 2px dotted red;
+    border-bottom: 2px dotted red;
+}
+.menulbl { display: inline-block;padding: 2px; margin: 0 0 0 4px;vertical-align: top;border-radius: 3px;}

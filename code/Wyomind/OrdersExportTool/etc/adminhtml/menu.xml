@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- Sales > Orders Export Tool -->
+        <add id="Wyomind_OrdersExportTool::main" 
+             parent="Magento_Sales::sales" 
+             module="Wyomind_OrdersExportTool" 
+             title="Orders export tool" 
+             sortOrder="100" 
+             resource="Wyomind_OrdersExportTool::main"/>
+        <add id="Wyomind_OrdersExportTool::profiles" 
+             parent="Wyomind_OrdersExportTool::main" 
+             module="Wyomind_OrdersExportTool" 
+             title="Profiles"
+             sortOrder="10"
+             resource="Wyomind_OrdersExportTool::profiles"
+             action="ordersexporttool/profiles/index" />
+        <add id="Wyomind_OrdersExportTool::variables" 
+             parent="Wyomind_OrdersExportTool::main" 
+             module="Wyomind_OrdersExportTool" 
+             title="Custom variables"
+             sortOrder="20"
+             resource="Wyomind_OrdersExportTool::variables"
+             action="ordersexporttool/variables/index" />
+        <add id="Wyomind_OrdersExportTool::functions" 
+             parent="Wyomind_OrdersExportTool::main" 
+             module="Wyomind_OrdersExportTool" 
+             title="Custom functions"
+             sortOrder="20"
+             resource="Wyomind_OrdersExportTool::functions"
+             action="ordersexporttool/functions/index" />
+    </menu>
+</config>

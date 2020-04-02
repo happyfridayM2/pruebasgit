@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="TestStockA1Linked" type="am_test_stock_source_link">
+        <requiredEntity type="source_stock_link">TestStockA1Link</requiredEntity>
+    </entity>
+
+    <entity name="TestStockA1Link" type="source_stock_link">
+        <data key="priority">1</data>
+        <var key="stock_id" entityType="am_test_stock" entityKey="return"/>
+        <var key="source_code" entityType="am_test_source" entityKey="source[source_code]"/>
+    </entity>
+
+</entities>

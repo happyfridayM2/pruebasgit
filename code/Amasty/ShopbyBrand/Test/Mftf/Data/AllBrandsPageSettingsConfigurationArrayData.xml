@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="setBrandLogoWidthHeightDefault" type="brandLogoAllBrandsPage1">
+        <data key="ShowBrandLogoSwitcher">0</data>
+        <data key="ImageMaxWidth">100</data>
+        <data key="ImageMaxHeight"></data>
+    </entity>
+    <entity name="setBrandLogoWidthHeight" type="brandLogoAllBrandsPage1">
+        <data key="ShowBrandLogoSwitcher">1</data>
+        <data key="ImageMaxWidth">145</data>
+        <data key="ImageMaxHeight">195</data>
+    </entity>
+
+    <entity name="elementsAllBrandsPageFullyEnabled" type="elementsAllBrandsPage1">
+        <data key="EnableSearchSwitcher">1</data>
+        <data key="EnableFilterCharacterSwitcher">1</data>
+        <data key="ShowCharactersWithoutBrandsSwitcher">1</data>
+        <data key="ShowProductsQuantitySwitcher">1</data>
+        <data key="ShowBrandsWithoutProductsSwitcher">1</data>
+    </entity>
+    <entity name="elementsAllBrandsPageNoCharWithoutBrands" type="elementsAllBrandsPage1" extends="elementsAllBrandsPageFullyEnabled">
+        <data key="ShowCharactersWithoutBrandsSwitcher">0</data>
+    </entity>
+    <entity name="ShowProductQtyEmptyBrandsDisabled" type="elementsAllBrandsPage1" extends="elementsAllBrandsPageFullyEnabled">
+        <data key="ShowProductsQuantitySwitcher">0</data>
+        <data key="ShowBrandsWithoutProductsSwitcher">0</data>
+    </entity>
+    <entity name="elementsAllBrandsPageFullyDisabled" type="elementsAllBrandsPage1">
+        <data key="EnableSearchSwitcher">0</data>
+        <data key="EnableFilterCharacterSwitcher">0</data>
+        <data key="ShowProductsQuantitySwitcher">0</data>
+        <data key="ShowBrandsWithoutProductsSwitcher">0</data>
+    </entity>
+
+</entities>

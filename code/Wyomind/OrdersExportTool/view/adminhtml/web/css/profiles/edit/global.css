@@ -1,0 +1,20 @@
+/* delete button */
+button#delete span {
+    color: red !important;
+}
+
+.admin__field .note B {
+
+    display: inline-block;
+    padding: 10px;
+    border-radius: 7px;
+    font-weight: 500;
+    font-size: 106%;
+}
+
+
+.admin__field:hover .note B {
+    background: #fffbbb;
+    color: #542306;
+
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarCategoryTreeAllLabelsImagesByClickTest"
+          extends="CategoryFilterLabelsSidebarCategoryTreeAllTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and rendering of All Category Tree with Expand by Click and with Images and Labels"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-55"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeImagesLabelsByClick"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                    stepKey="checkCategoryOptionImage1"
+                    after="clickOnCategoryFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTree('Women')}}"
+               stepKey="expandCategoryTree1" after="grabQtyOfProducts1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.CategoryOptionImage('Women','1.jpg','1_')}}"
+                    stepKey="checkCategoryOptionImage2"
+                    after="clickOnCategoryFilter2"/>
+
+    </test>
+</tests>
+
+

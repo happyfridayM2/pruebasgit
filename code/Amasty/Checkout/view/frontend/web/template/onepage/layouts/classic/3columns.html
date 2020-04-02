@@ -1,0 +1,59 @@
+<!-- ko fastForEach: getRegion('authentication') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko fastForEach: getRegion('estimation') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko fastForEach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<div class="opc-wrapper layout-3-columns am-opc-wrapper" data-bind="css: $data.additionalClasses">
+    <div class="checkout-column opc">
+        <!-- ko if: getSortedBlock(0) -->
+        <div class="checkout-block">
+            <!-- ko with: requestComponent('checkout.steps.shipping-step.step-config') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+
+            <!-- ko with: getSortedBlock(0) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+    </div>
+    <div class="checkout-column opc">
+        <!-- ko if: getSortedBlock(1) -->
+        <div class="checkout-block">
+            <!-- ko with: getSortedBlock(1) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+        <!-- ko if: getSortedBlock(2) -->
+        <div class="checkout-block">
+            <!-- ko with: getSortedBlock(2) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+        <!-- ko if: getSortedBlock(3) -->
+        <div class="checkout-block">
+            <!-- ko with: getSortedBlock(3) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+    </div>
+    <div class="checkout-column opc">
+        <!-- ko if: getSortedBlock(4) -->
+        <div class="checkout-block">
+            <!-- ko with: getSortedBlock(4) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <!--/ko-->
+    </div>
+</div>

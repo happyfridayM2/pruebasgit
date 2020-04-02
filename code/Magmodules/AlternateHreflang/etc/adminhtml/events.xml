@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2019 Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_adminhtml_system_config_edit">
+        <observer name="alternate_system_config_observer" instance="Magmodules\AlternateHreflang\Observer\System\Config"  />
+    </event>
+    <event name="cms_page_prepare_save">
+        <observer name="alternate_system_cms_save" instance="Magmodules\AlternateHreflang\Observer\Cms\Save"  />
+    </event>
+</config>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminProductProfileSection">
+        <element name="NewFromInputField" type="text" selector="input[name='product[news_from_date]']"/>
+        <element name="AdvancedPriceLink" type="select"
+                 selector="//button//span[contains(string(),'Advanced Pricing')]"/>
+        <element name="SpecialPriceField" type="input" selector="input[name='product[special_price]']"/>
+        <element name="StockStatus" type="select"
+                 selector="select[name='product[quantity_and_stock_status][is_in_stock]']"/>
+        <element name="StockStatusMSI" type="select"
+                 selector="//tr[contains(string(),'{{var1}}')]//select[contains(string(),'Stock')]"
+                 parameterized="true"/>
+        <element name="QtyMSIField" type="select"
+                 selector="//tr[contains(string(),'{{var1}}')]/td[4]//input"
+                 parameterized="true"/>
+        <element name="UnassignMSISource" type="select"
+                 selector="//tr[contains(string(),'{{var1}}')]/td[6]/button"
+                 parameterized="true"/>
+        <element name="DoneButton" type="button"
+                 selector="#html-body > div.modals-wrapper > aside.modal-slide.product_form_product_form_advanced_pricing_modal._show > div.modal-inner-wrap > header > div > div > div > button > span"/>
+        <element name="Save" type="button" selector="#save-button"/>
+        <element name="SelectMaterialOption" type="button" selector="select[name='product[material]']"/>
+    </section>
+
+    <section name="AdminProductReviewProfileSection">
+        <element name="SelectStarRating" type="select" selector="#rating_detail > div > div > label:nth-child({{var2}})"
+                 parameterized="true"/>
+        <element name="Save" type="button" selector="#save_button"/>
+    </section>
+
+</sections>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="TooltipEnablingWithImageActionGroup">
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandTooltipOption1"
+                          selector="{{AdminILNSettingsSection.TooltipTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.TooltipImageUploader}}"
+                          visible="false"/>
+        <attachFile selector="{{AdminILNSettingsSection.TooltipImageUploader}}"
+                    userInput="3.png"
+                    stepKey="uploadFile1"/>
+        <wait time="1" stepKey="waitSeconds1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="TooltipEnablingWithoutImageActionGroup" extends="TooltipEnablingWithImageActionGroup">
+        <waitForPageLoad stepKey="waitForPageLoad1"
+                         after="clickSaveConfig1"/>
+        <click selector="{{AdminILNSettingsSection.TooltipImageDelete}}"
+               stepKey="removeTooltipImage2"
+               after="waitForPageLoad1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}"
+               stepKey="clickSaveConfig2"
+               after="removeTooltipImage2"/>
+    </actionGroup>
+
+</actionGroups>

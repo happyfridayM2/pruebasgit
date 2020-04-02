@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amoptimizer>
+            <tutorial>
+                <show_tutorial>1</show_tutorial>
+            </tutorial>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <javascript>
+                <bundling_type>0</bundling_type>
+                <is_cloud>0</is_cloud>
+                <movejs_exclude_part>data-template="bundle-</movejs_exclude_part>
+            </javascript>
+            <css>
+                <move_print>1</move_print>
+            </css>
+            <images>
+                <lazy_load>1</lazy_load>
+                <folders>catalog,wysiwyg</folders>
+                <lazy_load_script>0</lazy_load_script>
+                <preload_images>1</preload_images>
+                <skip_images_count>7</skip_images_count>
+                <ignore_list>lazyOwl</ignore_list>
+                <optimize_images>1</optimize_images>
+                <process_images_per_request>10</process_images_per_request>
+                <optimize_automatically>1</optimize_automatically>
+                <image_optimization_type>0</image_optimization_type>
+                <jpeg_tool>1</jpeg_tool>
+                <png_tool>1</png_tool>
+                <gif_tool>1</gif_tool>
+                <dump_original>1</dump_original>
+                <multiprocess_enabled>0</multiprocess_enabled>
+                <process_count>4</process_count>
+            </images>
+        </amoptimizer>
+    </default>
+</config>

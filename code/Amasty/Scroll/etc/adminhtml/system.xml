@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Scroll
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>       
+        <section id="amasty_scroll" translate="label" type="text" sortOrder="91406" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Infinite Scroll</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Scroll::config</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Scroll\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General settings</label>
+                <field id="loading" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Loading Type</label>
+                    <source_model>Amasty\Scroll\Model\Source\Loading</source_model>
+                </field>
+                <field id="num_pages_before_button" translate="label comment tooltip" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <depends>
+                        <field id="loading">combined</field>
+                    </depends>
+                    <validate>validate-digits</validate>
+                    <label>Number of Automatically Loaded Pages</label>
+                    <comment><![CDATA[How many pages to scroll before 'Load More' button appears.]]></comment>
+                    <tooltip><![CDATA[Please kindly note that only pages which were loaded with Infinite Scroll are considered as automatically loaded. E.g., if the setting is set to '2', the general number of pages visible for customers before 'Load More' button appearance will be '3']]></tooltip>
+                </field>
+                <field id="page_numbers" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Page Numbers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Choose Yes to display number of the current page above loaded products in the product listing]]></comment>
+                </field>
+                <field id="loading_icon" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>AJAX Progress Image Path</label>
+                    <comment><![CDATA[Specify path to loading image within your theme, i.e. images/amscroll-scroll.gif]]></comment>
+                </field>
+            </group>
+            <group id="button" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Load Prev-Next Button (optional)</label>
+                <field id="label_before" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Label for the Prev Button</label>
+                    <comment><![CDATA[Specify here the text to be displayed on the action button]]></comment>
+                </field>
+                <field id="label_after" translate="label comment" type="text" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Label for the Next Button</label>
+                    <comment><![CDATA[Specify here the text to be displayed on the action button]]></comment>
+                </field>
+                <field id="styles" translate="label comment" type="textarea" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Styles for the Button</label>
+                    <comment><![CDATA[Specify here CSS rules for load next button, like color:black]]></comment>
+                </field>
+            </group>
+            <group id="info" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Info Bar (optional)</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Choose Yes to display info bar with current page number and total pages count]]></comment>
+                </field>
+                <field id="styles" translate="label comment" type="textarea" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Advanced Styles</label>
+                    <comment><![CDATA[Specify here CSS rules for Info Bar, like background-color: red; left: 30px; top: 20px;]]></comment>
+                </field>
+            </group>
+
+            <group id="advanced" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>DOM Selectors (for custom themes)</label>
+                <field id="product_container_group" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Products Group</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

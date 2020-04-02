@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CanonicalAllProdPageURLKeyOnlySuffixDisabledOnBrandPageTest"
+          extends="CanonicalAllProdPageURLKeyOnlySuffixDisabledTest">
+
+        <annotations>
+            <features value="Canonical URL settings"/>
+            <stories value="Canonical URL settings checking"/>
+            <title value="Check Canonical URL settings configuration before/after filtering"/>
+            <description
+                    value="Check of URL Key Only setting configuration on the storefront for Brand Page with disabled Suffix"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CANONICALSETTINGS-42"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="canonicalsettings"/>
+            <group value="allprodpagecanonical"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Check Canonical URL settings: navigate to Brand Page, check Canonical URL in Page Source, filter Page, check Canonical URL/-->
+
+        <amOnPage url="{{StorefrontBrandWithURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <seeInSource
+                html="/testbrandurlkey/polyester&quot;&gt;"
+                stepKey="seeInSource2"/>
+        <seeInSource
+                html="/testbrandurlkey/polyester&quot;&gt;"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>

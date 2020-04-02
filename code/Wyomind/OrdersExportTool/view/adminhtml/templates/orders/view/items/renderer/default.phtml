@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer */ ?>
+<?php $item = $block->getItem() ?>
+<?php $block->setPriceDataObject($item) ?>
+<tr>
+    <td class="col-product">
+        <?php if ($block->canDisplayContainer()) : ?>
+        <div id="<?php echo $block->getHtmlId() ?>">
+        <?php endif; ?>
+            <?php echo $block->getColumnHtml($item, 'name') ?>
+        <?php if ($block->canDisplayContainer()) : ?>
+        </div>
+        <?php endif ?>
+    </td>
+    <td class="col-status"><?php echo $item->getStatus() ?></td>
+    <td class="a-center">
+        <select class="admin__control-select" onchange='OrdersExportTool._updateExportTo("<?php echo $item->getId(); ?>", this.value, "<?php echo $block->getUrl('ordersexporttool/orders/update'); ?>")'>
+            <?php
+            $profiles = $block->getData('oet_profiles');
+            $helperData = $block->getData('oet_helper');
+            ?>
+            <option value="0"><?php echo __("-- No profile --"); ?></option>
+            <?php foreach ($profiles as $profile) : ?>
+                <?php $select = ($helperData->getExportTo($item) == $profile->getId()) ? 'selected' : null; ?>
+                <option <?php echo $select; ?> value='<?php echo $profile->getId(); ?>'><?php echo $profile->getName(); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </td>
+    <td class="col-price-original"><?php echo $block->displayPriceAttribute('original_price') ?></td>
+    <td class="col-price">
+        <?php echo $block->getColumnHtml($item, 'price'); ?>
+    </td>
+    <td class="col-ordered-qty"><?php echo $block->getColumnHtml($item, 'qty') ?></td>
+    <td class="col-subtotal">
+        <?php echo $block->getColumnHtml($item, 'subtotal'); ?>
+    </td>
+    <td class="col-tax-amount"><?php echo $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-tax-percent"><?php echo $block->displayTaxPercent($item) ?></td>
+    <td class="col-discount"><?php echo $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-total last">
+        <?php echo $block->getColumnHtml($item, 'total'); ?>
+    </td>
+</tr>

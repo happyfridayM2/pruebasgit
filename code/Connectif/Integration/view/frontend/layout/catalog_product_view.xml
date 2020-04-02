@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Connectif\Integration\Block\Product" name="connectif_integration.product" after="-"
+                template="Connectif_Integration::product.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Connectif\Integration\Block\Banner" name="product_view" after="-"
+                template="Connectif_Integration::banner.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.additional">
+            <block class="Connectif\Integration\Block\Banner" name="product_crosssell" after="-"
+                template="Connectif_Integration::banner.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

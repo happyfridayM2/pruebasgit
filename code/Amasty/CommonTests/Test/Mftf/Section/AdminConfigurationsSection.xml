@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminConfigurationsCurrencySection">
+        <element name="CurrencyOptionsTab" type="button" selector="//div[@class='accordion']//a[@id='currency_options-head']" timeout="30"/>
+        <element name="CurrencyOptionsTabClose" type="block" selector="//div[@class='accordion']//div[@class='section-config']//a[@id='currency_options-head']"/>
+        <element name="CurrencyOptionsTabOpen" type="block" selector="//div[@class='accordion']//div[@class='section-config active']//a[@id='currency_options-head']"/>
+        <element name="CurrencySelectOptions" type="select" selector="//tr[@id='row_currency_options_allow']//select[@id='currency_options_allow']" timeout="30"/>
+    </section>
+
+
+    <section name="AdminConfigurationsAllSection">
+        <element name="Save" type="button" selector="//div[@class='page-actions-buttons']/button[@id='save']" timeout="30"/>
+    </section>
+
+
+    <section name="AdminCurrencyRatesSection">
+        <element name="Rate_USD_BYR" type="input" selector="//div[@class='admin__control-table-wrapper']//input[@name='rate[USD][BYR]']" timeout="30"/>
+        <element name="Rate_USD_EUR" type="input" selector="//div[@class='admin__control-table-wrapper']//input[@name='rate[USD][EUR]']" timeout="30"/>
+        <element name="Save" type="button" selector="//div[@class='page-actions-buttons']//button[@title='Save Currency Rates']" timeout="30"/>
+    </section>
+
+
+    <section name="AdminConfigurationsTaxSection">
+        <element name="TaxClassesTab" type="button" selector="//a[@id='tax_classes-head']"/>
+        <element name="TaxClassesTabOpen" type="block" selector="//a[@id='tax_classes-head'][@class='open']"/>
+        <element name="TaxClassForShipping" type="select" selector="//select[@id='tax_classes_shipping_tax_class']"/>
+        <element name="TaxClassForShippingSystemValue" type="checkbox" selector="//input[@id='tax_classes_shipping_tax_class_inherit']"/>
+        <element name="TaxClassForProduct" type="select" selector="//select[@id='tax_classes_default_product_tax_class']"/>
+        <element name="TaxClassForProductSystemValue" type="checkbox" selector="//input[@id='tax_classes_default_product_tax_class_inherit']"/>
+        <element name="CalculationSettingsTab" type="button" selector="//a[@id='tax_calculation-head']"/>
+        <element name="CalculationSettingsTabOpen" type="block" selector="//a[@id='tax_calculation-head'][@class='open']"/>
+        <element name="CalculationCatalogPrices" type="select" selector="//select[@id='tax_calculation_price_includes_tax']"/>
+        <element name="CalculationCatalogPricesSystemValue" type="checkbox" selector="//input[@id='tax_calculation_price_includes_tax_inherit']"/>
+        <element name="CalculationShippingPrices" type="select" selector="//select[@id='tax_calculation_shipping_includes_tax']"/>
+        <element name="CalculationShippingPricesSystemValue" type="checkbox" selector="//input[@id='tax_calculation_shipping_includes_tax_inherit']"/>
+        <element name="CalculationEnableCrossBorderTrade" type="select" selector="//select[@id='tax_calculation_cross_border_trade_enabled']"/>
+        <element name="Save" type="button" selector="//button[@id='save']"/>
+    </section>
+
+
+</sections>

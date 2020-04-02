@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CMTMetaTitleDescriptionKeywordsAfterCheckingOnBrandPageTest">
+
+        <annotations>
+            <features value="Category Meta Tags"/>
+            <stories value="Category Meta Tags checking"/>
+            <title value="Check Category Meta Tags"/>
+            <description
+                    value="Check of Attribute Option Meta Title in the appropriate place of Page Source on Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATMETATAGS-6"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catmetatags"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SetMetaDescriptionAttribute1"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup">
+                <argument name="Attributes" value="AllWeatherMetaData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryMetaDescription1"
+                         ref="ConfigureCategorySEOTab">
+                <argument name="Category" value="SetDefaultCategoryMetaData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetFilterMetaData1"
+                         ref="CategoryMetaTagsActionGroup">
+                <argument name="CategoryMetaTags" value="CategoryMetaTagsAfterSeparators"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="SetMetaDescriptionBrandAttribute1"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup">
+                <argument name="Attributes" value="PolyesterMetaData"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureAttributeMetaData2"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup">
+                <argument name="Attributes" value="AllWeatherMetaDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetDefaultCategoryMetaData2"
+                         ref="ConfigureCategorySEOTab">
+                <argument name="Category" value="DefaultCategoryMetaDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetFilterMetaData2"
+                         ref="DefaultMetaTags">
+                <argument name="CategoryMetaTags" value="CategoryMetaTagsDefault"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="SetMetaDescriptionBrandAttribute1"
+                         ref="ConfigureAttributeOptionMetaDataActionGroup">
+                <argument name="Attributes" value="PolyesterMetaDataDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Attribute Option Meta Title in Page Source on Brand Page/-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}" stepKey="navigateToBrandPage1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <seeInSource
+                html="meta name=&quot;title&quot; content=&quot;Polyester Meta Title TST+meta+All-Weather Meta Title TST&quot;"
+                stepKey="checkMetaTitle1"/>
+        <seeInSource
+                html="meta name=&quot;description&quot; content=&quot;Polyester Meta Description TST+metadesc+All-Weather Meta Description TST&quot;"
+                stepKey="seeInSource1"/>
+        <seeInSource
+                html="meta name=&quot;keywords&quot; content=&quot;Polyester Meta Keywords TST, All-Weather Meta Keywords TST&quot;"
+                stepKey="seeInSource2"/>
+
+    </test>
+</tests>
+
+

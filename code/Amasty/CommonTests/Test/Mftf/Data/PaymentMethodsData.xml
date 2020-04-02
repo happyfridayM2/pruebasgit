@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="paymentCheckMoneyOrder" type="paymentMethods">
+        <data key="paymentValue">checkmo</data>
+        <data key="paymentName">Check / Money Order</data>
+    </entity>
+
+    <entity name="paymentBankTransferPayment" type="paymentMethods">
+        <data key="paymentValue">banktransfer</data>
+        <data key="paymentName">Bank Transfer Payment</data>
+    </entity>
+
+    <entity name="paymentCashOnDeliveryPayment" type="paymentMethods">
+        <data key="paymentValue">cashondelivery</data>
+        <data key="paymentName">Cash On Delivery</data>
+    </entity>
+
+    <entity name="paymentPurchaseOrder" type="paymentMethods">
+        <data key="paymentValue">purchaseorder</data>
+        <data key="paymentName">Purchase Order</data>
+    </entity>
+
+    <entity name="paymentBraintree" type="paymentMethods">
+        <data key="paymentValue">braintree</data>
+        <data key="paymentName">Credit Card (Braintree)</data>
+    </entity>
+
+    <entity name="paymentAuthorize" type="paymentMethods">
+        <data key="paymentValue">authorizenet_acceptjs</data>
+        <data key="paymentName">Credit Card (Authorize.Net)</data>
+    </entity>
+
+    <entity name="paymentBraintreePayPal" type="paymentMethods">
+        <data key="paymentValue">braintree_paypal</data>
+        <data key="paymentName">PayPal (Braintree)</data>
+    </entity>
+
+    <entity name="paymentPayflowPro" type="paymentMethods">
+        <data key="paymentValue">payflowpro</data>
+        <data key="paymentName">Credit Card</data>
+    </entity>
+
+    <entity name="paymentPayflowCredit" type="paymentMethods">
+        <data key="paymentValue">payflow_express_bml</data>
+        <data key="paymentName">PayPal Credit</data>
+    </entity>
+
+    <entity name="paymentPayflowExpressCheckout" type="paymentMethods">
+        <data key="paymentValue">payflow_express</data>
+        <data key="paymentName">PayPal Express Checkout</data>
+    </entity>
+
+    <entity name="paymentPaypalExpressCheckout" type="paymentMethods">
+        <data key="paymentValue">paypal_express</data>
+        <data key="paymentName">PayPal Express Checkout</data>
+    </entity>
+
+    <entity name="paymentStripe" type="paymentMethods">
+        <data key="paymentValue">amasty_stripe</data>
+        <data key="paymentName">Credit Card</data>
+    </entity>
+
+    <entity name="paymentKlarna" type="paymentMethods">
+        <data key="paymentValue">klarna_pay_later</data>
+        <data key="paymentName">Pay later in</data>
+    </entity>
+
+    <entity name="paymentEWay" type="paymentMethods">
+        <data key="paymentValue">eway</data>
+        <data key="paymentName">Credit Card (eWAY)</data>
+    </entity>
+
+    <entity name="paymentAmazonPay" type="paymentMethods">
+        <data key="paymentValue">amazonlogin</data>
+        <data key="paymentName">Amazon Pay</data>
+    </entity>
+
+</entities>

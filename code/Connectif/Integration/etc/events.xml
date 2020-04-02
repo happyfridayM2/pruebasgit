@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="newsletter_subscriber_save_after">
+        <observer name="connectif_newsletter_subscriber_save_after" instance="Connectif\Integration\Observer\Newsletter\Subscribe"/>
+    </event>
+    <event name="customer_login">
+        <observer name="connectif_customer_login" instance="Connectif\Integration\Observer\Customer\Login"/>
+    </event>
+    <event name="customer_register_success">
+        <observer name="connectif_customer_register_success" instance="Connectif\Integration\Observer\Customer\Register"/>
+    </event>
+</config>

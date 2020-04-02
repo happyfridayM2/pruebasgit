@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+    /** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+    /** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+    $filterCode = $block->escapeHtml($filterSetting->getFilterCode());
+    $currentCategoryId = (int) $block->getCurrentCategoryId();
+?>
+<form data-amshopby-filter="<?= /* @noEscape */ $filterCode; ?>"
+      data-amshopby-filter-request-var="<?= /* @noEscape */ $block->getFilter()->getRequestVar(); ?>"
+        <?php if ($filterSetting->getEnableOverflowScroll() > 0): ?>
+            style="max-height:<?= /* @noEscape */ (int) $filterSetting->getEnableOverflowScroll(); ?>px;
+            overflow-y: auto;
+            overflow-x: hidden;"
+        <?php endif; ?>>
+            <ul class="items am-filter-items-<?= /* @noEscape */ $filterCode; ?> amshopby-fly-out-view">
+                <?= /* @noEscape */ $categoryTreeHtml; ?>
+            </ul>
+</form>
+<script>
+    require(["jquery", 'mage/menu'], function ($) {
+        $(window).on('load', function () {
+            $(document).trigger('baseCategory', <?= /* @noEscape */ $currentCategoryId; ?>);
+            addFlyOut();
+        });
+        $(document).ajaxComplete(function () {
+            addFlyOut();
+            $(document).trigger('baseCategory', <?= /* @noEscape */ $currentCategoryId; ?>);
+        });
+
+        function addFlyOut() {
+            $(".am-filter-items-<?= /* @noEscape */ $filterCode; ?>").menu({
+                position: { my: "left top", at: "center top+20" }
+            });
+        }
+    });
+</script>

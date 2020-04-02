@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarOnBrandPageMultiSelectTest"
+          extends="CategoryFilterLabelsSidebarMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of Category filter filtering on sidebar in labels mode on Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-30"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter Brand Page by Category Filter: select options on sidebar, check the result/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnFilter1"
+               after="waitForPageLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="clickOnOption3"
+               after="clickOnFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester"
+             stepKey="checkPageTitle1"/>
+        <seeInPageSource html="ambrand-"
+                         stepKey="checkIfItBrandPage1"
+                         after="checkPageTitle1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester"
+             stepKey="checkPageTitle2"/>
+        <seeInPageSource html="ambrand-"
+                         stepKey="checkIfItBrandPage2"
+                         after="checkPageTitle2"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="12"
+             stepKey="checkQtyOfProducts3"/>
+
+    </test>
+</tests>
+
+

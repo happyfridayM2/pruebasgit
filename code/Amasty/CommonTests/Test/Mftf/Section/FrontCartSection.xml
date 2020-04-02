@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="FrontCartSection">
+        <element name="Discount" type="button" selector="//span[text()='Discount']"/>
+        <element name="ProceedToCheckout" type="button" selector="//button[@data-role='proceed-to-checkout']"/>
+        <element name="UpdateShoppingCart" type="button" selector="//button[@value='update_qty']"/>
+        <element name="Subtotal" type="text" selector="//span[@data-th='Subtotal']"/>
+        <element name="OrderTotal" type="text" selector="//td[@data-th='Order Total']/strong/span[@class='price']"/>
+        <element name="EstimateShippingAndTax" type="button" selector="//div[@id='block-shipping']//strong[@id='block-shipping-heading']"/>
+        <element name="ProductInCart" type="block" selector="//table[@id='shopping-cart-table']//strong[@class='product-item-name']/a"/>
+        <element name="EmptyCart" type="block" selector="//main[@id='maincontent']//div[@class='columns']//div[@class='cart-empty']"/>
+        <element name="SelectCountryShipping" type="select" selector="//select[@name='country_id']"/>
+        <element name="SelectStateShipping" type="select" selector="//select[@name='region_id']"/>
+        <element name="ZipShipping" type="input" selector="//input[@name='postcode']"/>
+        <element name="CartTotalLoader" type="block" selector="//div[@id='cart-totals']//div[@data-role='loader']/div[@class='loader']"/>
+        <element name="ShippingMethodsLoader" type="block" selector="//form[@id='co-shipping-method-form']//div[@data-role='loader']/div[@class='loader']"/>
+        <element name="ShippingCountry" type="select" selector="//select[@name='country_id']"/>
+        <element name="ShippingState" type="select" selector="//select[@name='region_id']"/>
+        <element name="TotalsTax" type="block" selector="//tr[@class='totals-tax']/td[@data-th='Tax']/span"/>
+        <element name="DiscountAmount" type="block" selector="//tr[@class='totals']/td[@data-th='Discount']/span"/>
+    </section>
+
+</sections>
+

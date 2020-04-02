@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+		<css src="css/style.css"  media="all and (min-width: 1px)"/>
+		<css src="css/responsive.css"    media="all and (min-width: 1px)" />
+		<css src="css/mega-menu-1.css"    media="all and (min-width: 1px)" />
+		<css src="css/flickity.min.css"    media="all and (min-width: 1px)" />
+		<css src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" src_type="url"/>
+		<link src="js/equal-height.js"/>
+		<css src="css/custom.css" media="all" />
+		<script src="js/custom.js" />
+		<script src="js/connectif.js" />  
+	</head>
+</page>

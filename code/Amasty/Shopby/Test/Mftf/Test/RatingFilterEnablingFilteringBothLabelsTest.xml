@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringBothLabelsTest" extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description value="Check of rating filter enabling and filtering in both position and labels mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNRATINGFILTER-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="RatingFilterEnabling1"
+                         ref="RatingFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Rating Filter: expand filter, select 5 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: expand filter, select 4 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: expand filter, select 3 stars option on top in labels, check the result, don't remove selected option from state/-->
+
+        <!--Filter by Rating Filter: select 2 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter4"
+               after="waitSeconds3"/>
+
+        <!--Filter by Rating Filter: expand filter, select 1 stars option on top in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter: select 5 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Rating')}}"
+               stepKey="expandRatingFilter6"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('5 star(s)')}}"
+               stepKey="selectRatingOption6"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('100')}}"
+                        stepKey="checkRatingOfProducts6"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('5 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState6"/>
+        <wait time="1" stepKey="waitSeconds6"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Rating')}}"
+               stepKey="expandRatingFilter7"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('4 &amp; up star(s)')}}"
+               stepKey="selectRatingOption7"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('80')}}"
+                        stepKey="checkRatingOfProducts7"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('4 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState7"/>
+        <wait time="1" stepKey="waitSeconds7"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Rating')}}"
+               stepKey="expandRatingFilter8"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('3 &amp; up star(s)')}}"
+               stepKey="selectRatingOption8"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('60')}}"
+                        stepKey="checkRatingOfProducts8"/>
+        <wait time="2" stepKey="waitSeconds8"/>
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('2 &amp; up star(s)')}}"
+               stepKey="selectRatingOption9"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('40')}}"
+                        stepKey="checkRatingOfProducts9"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('2 star')}}"
+               stepKey="removeSelectedFilterOptionFromState9"/>
+        <wait time="1" stepKey="waitSeconds9"/>
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Rating')}}"
+               stepKey="expandRatingFilter10"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('1 &amp; up star(s)')}}"
+               stepKey="selectRatingOption10"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('20')}}"
+                        stepKey="checkRatingOfProducts10"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('1 star')}}"
+               stepKey="removeSelectedFilterOptionFromState10"/>
+        <wait time="1" stepKey="waitSeconds10"/>
+
+    </test>
+</tests>

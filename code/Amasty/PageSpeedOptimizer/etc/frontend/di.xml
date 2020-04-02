@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Asset\MergeStrategy\Direct">
+        <plugin name="Amasty_PageSpeedOptimizer::MoveFont" type="Amasty\PageSpeedOptimizer\Plugin\MoveFont" />
+    </type>
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="ProcessPageResult" type="Amasty\PageSpeedOptimizer\Plugin\ProcessPageResult" sortOrder="5" />
+    </type>
+    <type name="Magento\Framework\App\PageCache\Identifier">
+        <plugin name="Amasty_PageSpeedOptimizer::ChangeIdentifier" type="Amasty\PageSpeedOptimizer\Plugin\Framework\App\PageCache\CacheIdentifierPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Swatches\Helper\Data">
+        <plugin name="Amasty_PageSpeedOptimizer::SwatchWebPReplace" type="Amasty\PageSpeedOptimizer\Plugin\Swatches\AjaxImage" />
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Amasty_PageSpeedOptimizer::SwatchGalleryWebpReplace" type="Amasty\PageSpeedOptimizer\Plugin\Swatches\AjaxGallery" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="Amasty_PageSpeedOptimizer::ApplyGalleryWebp" type="Amasty\PageSpeedOptimizer\Plugin\CatalogProduct\Gallery" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\App\Http\Context">
+        <plugin name="Amasty_PageSpeedOptimizer::varnish" type="Amasty\PageSpeedOptimizer\Plugin\Framework\App\Http\Context"/>
+    </type>
+</config>

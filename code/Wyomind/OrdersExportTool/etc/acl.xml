@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2019 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<!-- acl for orders export tools. Visible in te acl treeview of user group rights -->
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Wyomind_OrdersExportTool::main" title="Orders Export Tool" sortOrder="10">
+                    <resource id="Wyomind_OrdersExportTool::profiles" title="Manage profiles" sortOrder="10" />
+                    <resource id="Wyomind_OrdersExportTool::variables" title="Manage custom variables" sortOrder="20" />
+                    <resource id="Wyomind_OrdersExportTool::functions" title="Manage custom functions" sortOrder="30" />
+                    <resource id="Wyomind_OrdersExportTool::orders" title="Update orders" sortOrder="40" />
+                    <resource id="Wyomind_OrdersExportTool::config" title="Manage module configuration" sortOrder="50"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

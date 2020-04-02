@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontOneStepCheckoutSection">
+        <element name="AmastyOneStepCheckout" type="block" selector="//script[contains(@data-requiremodule, 'Amasty_Checkout')]"/>
+        <element name="AmastyOneStepCheckoutDisable" type="block" selector="//script[contains(@src, 'amastyCheckoutDisabled')]"/>
+        <!--Customer Info-->
+        <element name="Email" type="input" selector="//fieldset[@id='customer-email-fieldset']//input[@type='email']"/>
+        <element name="FirstName" type="input" selector="//form[@id='co-shipping-form']//input[@name='firstname']"/>
+        <element name="LastName" type="input" selector="//form[@id='co-shipping-form']//input[@name='lastname']"/>
+        <element name="Street" type="input" selector="//form[@id='co-shipping-form']//input[@name='street[0]']"/>
+        <element name="City" type="input" selector="//form[@id='co-shipping-form']//input[@name='city']"/>
+        <element name="SelectRegion" type="select" selector="//form[@id='co-shipping-form']//select[@name='region_id']"/>
+        <element name="SelectRegionNoValue" type="select"
+                 selector="//div[@name='shippingAddress.region_id']//select[@name='region_id']//option[contains(text(), 'Please select a region')]"/>
+        <element name="Postcode" type="input" selector="//form[@id='co-shipping-form']//input[@name='postcode']"/>
+        <element name="ShippingMethodCheckbox" type="input" selector="//form[@class='form methods-shipping']//input"/>
+        <element name="PaymentMethodCheckbox" type="input" selector="//form[@class='form payments']//input"/>
+        <element name="PaymentAsShippingCheckbox" type="input" selector="//form[@class='form payments']//input[@id='billing-address-same-as-shipping-checkmo']"/>
+        <element name="SelectCountry" type="select" selector="//form[@id='co-shipping-form']//select[@name='country_id']"/>
+        <element name="SelectCountryUS" type="select" selector="//select[@name='country_id']//option[@value='US']"/>
+        <element name="Telephone" type="input" selector="//form[@id='co-shipping-form']//input[@name='telephone']"/>
+        <element name="ShippingLoader" type="block" selector="//li[@id='opc-shipping_method']//div[@class='loader']"/>
+        <element name="CartSubtotal" type="block" selector="//tr[@class='totals sub']//span"/>
+        <element name="ShippingPrice" type="block" selector="//tr[@class='totals shipping excl']//span"/>
+        <element name="OrderTotal" type="block" selector="//tr[@class='grand totals']//span"/>
+        <element name="Discount" type="block" selector="//tr[@class='totals discount']//span[@class='price']"/>
+        <element name="Tax" type="block" selector="//tr[@class='totals-tax']//span"/>
+        <element name="PlaceOrderAfterOrderTotal" type="button" selector="//button[@class='action primary checkout amasty']"/>
+        <element name="PlaceOrderAfterPayment" type="button" selector="//div[contains(@class, 'active')]//button[@class='action primary checkout']"/>
+        <element name="UpdateQtyProductButton" type="button" selector="//div[@role='tablist']//button[@title='Update']"/>
+        <!-- Elements For Braintree Pay Pal -->
+        <element name="BraintreePlaceOrderContinuePayPal" type="button" selector="//button[@id='braintree_paypal_continue_to']"/>
+        <element name="NewBraintreePlaceOrderContinuePayPal" type="button" selector="//div[@data-container='paypal-button']//div[@class='zoid-outlet']"/>
+        <element name="BraintreePlaceOrderPayPal" type="button" selector="//button[@id='braintree_paypal_place_order']"/>
+        <!-- Elements For EWay -->
+        <element name="EWayCreditCardNumber" type="input" selector="//input[@id='eway_cc_number']"/>
+        <element name="EWayExpirationDateMonth" type="select" selector="//select[@id='eway_expiration']"/>
+        <element name="EWayExpirationDateYear" type="select" selector="//select[@id='eway_expiration_yr']"/>
+        <element name="EWayCVC" type="input" selector="//input[@id='eway_cc_cid']"/>
+        <!-- Elements For PayPal Popup-->
+        <element name="PayPalPopupEmail" type="input" selector="//input[contains(@name, 'email') and not(contains(@style, 'display:none'))]"/>
+        <element name="PayPalPopupPassword" type="input" selector="//input[contains(@name, 'password') and not(contains(@style, 'display:none'))]"/>
+        <element name="PayPalPopupButtonNext" type="button" selector="//button[@name='btnNext']"/>
+        <element name="PayPalPopupCheckAgreePolitic" type="button" selector="//label[@class='noBottom']"/>
+        <element name="PayPalPopupButtonAgree" type="button" selector="//*[@id='submitEConsent']"/>
+        <element name="PayPalPopupButtonLogin" type="button" selector="//button[@name='btnLogin']"/>
+        <element name="PayPalPopupCartTotal" type="block" selector="//div[@class='cartContainer']//format-currency[@amount='getAmount()']//span[@class='ltrOverride']"/>
+        <element name="PayPalPopupButtonConfirm" type="button" selector="//*[@id='confirmButtonTop']"/>
+        <element name="PayPalPopupChangeEmail" type="button" selector="//*[@id='backToInputEmailLink']"/>
+        <!-- Element For Payflow -->
+        <element name="PayflowProCreditCardNumber" type="input" selector="//input[@id='payflowpro_cc_number']"/>
+        <element name="PayflowExpirationDateMonth" type="select" selector="//select[@id='payflowpro_expiration']"/>
+        <element name="PayflowExpirationDateYear" type="select" selector="//select[@id='payflowpro_expiration_yr']"/>
+        <element name="PayflowCVC" type="input" selector="//input[@id='payflowpro_cc_cid']"/>
+        <!-- Elements For Braintree Credit Card -->
+        <element name="BraintreeCreditCardNumber" type="input" selector="//input[@id='credit-card-number']"/>
+        <element name="BraintreeExpirationDateMonth" type="input" selector="//input[@id='expiration-month']"/>
+        <element name="BraintreeExpirationDateYear" type="input" selector="//input[@id='expiration-year']"/>
+        <element name="BraintreeCVC" type="input" selector="//input[@id='cvv']"/>
+        <!-- Elements For Stripe-->
+        <element name="StripeCreditCardNumber" type="input" selector="//input[@name='cardnumber']"/>
+        <element name="StripeExpirationDate" type="select" selector="//input[@name='exp-date']"/>
+        <element name="StripeCVC" type="input" selector="//input[@name='cvc']"/>
+        <!-- Elements For Purchase Order-->
+        <element name="PurchaseOrderNumber" type="input" selector="//input[@id='po_number']"/>
+        <!-- Elements For Gifts Message And Wrap-->
+        <element name="AddGiftMessageCheckbox" type="input" selector="//input[@name='gift_message']"/>
+        <element name="GiftMessageForItemTo" type="input" parameterized="true"
+                 selector="//span[contains(string(), '{{productName}}')]/parent::div/following-sibling::div//input[contains(@id, 'to')]"/>
+        <element name="GiftMessageForItemFrom" type="input" parameterized="true"
+                 selector="//span[contains(string(), '{{productName}}')]/parent::div/following-sibling::div//input[contains(@id, 'from')]"/>
+        <element name="GiftMessageForItemInput" type="input" parameterized="true"
+                 selector="//span[contains(string(), '{{productName}}')]/parent::div/following-sibling::div//textarea[contains(@id, 'message')]"/>
+        <element name="GiftMessageOrder" type="block" selector="//span[contains(string(), 'Gift Message for Whole Order')]"/>
+        <element name="GiftMessageOrderTo" type="input" selector="//input[@id='gift-message-whole-to']"/>
+        <element name="GiftMessageOrderFrom" type="input" selector="//input[@id='gift-message-whole-from']"/>
+        <element name="GiftMessageOrderMessage" type="input" selector="//textarea[@id='gift-message-whole-message']"/>
+        <element name="GiftMessageUpdate" type="button" selector="//button[@class='action primary action-save-address']"/>
+        <element name="GiftMessageClose" type="button" selector="//button[@class='action primary action-save-address']/following-sibling::button"/>
+        <element name="GiftMessageSuccessMsg" type="block" selector="//div[@data-ui-id='checkout-cart-validationmessages-message-success']"/>
+        <element name="GiftWrapCheckbox" type="input" selector="//input[@name='gift_wrap']"/>
+        <element name="GiftWrapValue" type="block" parameterized="true"
+                 selector="//input[@name='gift_wrap']/following-sibling::label[contains(string(), '{{giftWrapFee}}')]"/>
+        <element name="GiftWrapInTotals" type="block" selector="//tr[contains(@class,'gift-wrap')]//span[@class='price']"/>
+        <element name="OrderTotalsLoader" type="block" selector="//div[contains(@class, 'amcheckout-summary-container')]//div[@data-role='loader']"/>
+        <!-- Other One Step Checkout Elements -->
+        <element name="EditQtyProductInput" type="input" parameterized="true"
+                 selector="//div[@role='tablist']//strong[contains(string(), '{{productName}}')]/following-sibling::div//input"/>
+        <element name="EditQtyProductButton" type="button" parameterized="true"
+                 selector="//strong[contains(string(), '{{productName}}')]/ancestor::form/button"/>
+        <element name="EditCustomProductOptionTab" type="button" parameterized="true"
+                 selector="//strong[contains(string(), '{{productName}}')]/ancestor::form//span[@class='toggle']"/>
+        <element name="EditCustomProductOptionUpdate" type="button" parameterized="true"
+                 selector="//strong[contains(string(), '{{productName}}')]/ancestor::form/button"/>
+        <element name="OrderComment" type="textarea" selector="//textarea[@name='additional[comment]']"/>
+        <element name="OrderCommentSuccessPage" type="block" selector="//div[@class='comment-content']"/>
+        <element name="OrderCommentInCustomerAccount" type="block" selector="//dd[@class='comment-content']"/>
+        <element name="TermsAndConditionCheckboxBelowOrder" type="button"
+                 selector="//div[contains(@class, 'amcheckout-additional')]//div[@data-role='checkout-agreements']//input[@type='checkbox']"/>
+        <element name="TermsAndConditionCheckboxBelowPayment" type="button"
+                 selector="//div[contains(@class, 'active')]//div[@class='payment-method-content']//input[@type='checkbox']"/>
+        <element name="TermsAndConditionContentClose" type="button"
+                 selector="//aside[contains(@class, 'show')]//button[@class='action secondary action-hide-popup']"/>
+        <element name="AddNewShippingAddressButton" type="button" selector="//button[contains(@class, 'new-address')]"/>
+        <element name="AddNewShippingFirstName" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='firstname']"/>
+        <element name="AddNewShippingLastName" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='lastname']"/>
+        <element name="AddNewShippingStreet" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='street[0]']"/>
+        <element name="AddNewShippingCity" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='city']"/>
+        <element name="AddNewShippingRegion" type="select" selector="//div[@id='shipping-new-address-form']//select[@name='region_id']"/>
+        <element name="AddNewShippingPostcode" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='postcode']"/>
+        <element name="AddNewShippingCountry" type="select" selector="//div[@id='shipping-new-address-form']//select[@name='country_id']"/>
+        <element name="AddNewShippingTelephone" type="input" selector="//div[@id='shipping-new-address-form']//input[@name='telephone']"/>
+        <element name="AddNewShippingSaveInBook" type="checkbox" selector="//input[@id='shipping-save-in-address-book']"/>
+        <element name="AddNewShippingShipHere" type="button" selector="//aside[contains(@class,'_show')]//button[@class='action primary action-save-address']"/>
+        <element name="BillingAsShippingCheckbox" type="checkbox" selector="//div[contains(@class, 'active')]//input[@name='billing-address-same-as-shipping']"/>
+        <element name="SelectBillingAddress" type="select" selector="//div[contains(@class, 'active')]//select[@name='billing_address_id']"/>
+        <element name="SelectBillingOptionNewAddress" type="button" selector="//div[contains(@class, 'active')]//select[@name='billing_address_id']/option[contains(string(), 'New Address')]"/>
+        <element name="AddNewBillingFirstName" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='firstname']"/>
+        <element name="AddNewBillingLastName" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='lastname']"/>
+        <element name="AddNewBillingStreet" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='street[0]']"/>
+        <element name="AddNewBillingCity" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='city']"/>
+        <element name="AddNewBillingRegion" type="select" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//select[@name='region_id']"/>
+        <element name="AddNewBillingPostcode" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='postcode']"/>
+        <element name="AddNewBillingCountry" type="select" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//select[@name='country_id']"/>
+        <element name="AddNewBillingTelephone" type="input" selector="//div[contains(@class, 'active')]//div[@class='billing-address-form']//input[@name='telephone']"/>
+        <element name="AddNewBillingSaveInBook" type="checkbox" selector="//div[contains(@class, 'active')]//input[@id='billing-save-in-address-book-checkmo']"/>
+        <element name="AddNewBillingAddressUpdate" type="button" selector="//div[contains(@class, 'active')]//div[@class='checkout-billing-address']//button[@class='action action-update']"/>
+        <!-- Title And Description -->
+        <element name="OSCTitle" type="block" selector="//div[@class='checkout-header']//h1[@class='title']"/>
+        <element name="OSCDescription" type="block" selector="//div[@class='checkout-header']//div[@class='description']"/>
+        <!-- Block Names Title -->
+        <element name="BlockNameShippingAddress" type="block" selector="//li[@id='shipping']//p[@data-role='title']"/>
+        <element name="BlockNameShippingMethods" type="block" selector="//li[@id='opc-shipping_method']//p[@data-role='title']"/>
+        <element name="BlockNamePaymentMethods" type="block" selector="//div[@id='checkout-payment-method-load']//div[@data-role='title']"/>
+        <element name="BlockNameOrderTotal" type="block" selector="//div[contains(@class, 'opc-block-summary')]//p[contains(@class, 'title')]"/>
+        <!-- Header And Footer -->
+        <element name="OSCHeader" type="block" selector="//div[@class='panel header']"/>
+        <element name="OSCHeaderLogo" type="block" selector="//a[@class='logo']"/>
+        <element name="OSCHeaderMinicart" type="block" selector="//div[@data-block='minicart']"/>
+        <element name="OSCHeaderSearch" type="block" selector="//div[@class='block block-search']"/>
+        <element name="OSCFooter" type="block" selector="//footer[@class='page-footer']"/>
+        <element name="OSCFooterBlockNewsletter" type="block" selector="//div[@class='block newsletter']"/>
+        <element name="OSCFooterBlockAboutAs" type="block" selector="//div[@class='links']"/>
+        <element name="OSCFooterBlockSearchTerms" type="block" selector="//a[contains(string(), 'Search Terms')]/ancestor::ul"/>
+        <!-- Elements For Delivery Date-->
+        <element name="Delivery" type="block" selector=".amcheckout-delivery-date"/>
+        <element name="DatePicker" type="button" selector="button.ui-datepicker-trigger"/>
+        <element name="DeliveryToday" type="button" selector="td.ui-datepicker-today"/>
+        <element name="DeliveryTimeInterval" type="select" selector=".select[name=time]"/>
+        <element name="DeliveryComment" type="input" selector="textarea[name=comment]"/>
+        <!-- Elements For Log In Customer-->
+        <element name="SignInFromSuccessPage" type="button" selector="//a[contains (text(), 'Sign In')]"/>
+        <element name="CheckboxCreateAccount" type="checkbox" selector="//input[@name='additional[register]'][@value='true']"/>
+        <element name="RegistrationLetter" type="block" selector="//div[contains (text(), 'Registration: A letter with further instructions will be sent to your email.')]"/>
+        <element name="WelcomeMessage" type="block" selector="//span[contains (text(), 'Welcome, FirstCustName LastCustName!')]"/>
+        <!-- Element For Create Account on the Checkout -->
+        <element name="Password" type="input" selector=".input-text[name=password][id=customer-password]"/>
+        <element name="ConfirmPassword" type="input" selector=".input-text[name=password-confirmation]"/>
+        <!-- OSC Design Elements -->
+        <element name="DesignClassicTwoColumn" type="block" selector="//div[@id='checkout'][contains(string(),'classic')][contains(string(), '2columns')]"/>
+        <element name="DesignClassicThreeColumn" type="block" selector="//div[@id='checkout'][contains(string(),'classic')][contains(string(), '3columns')]"/>
+        <element name="DesignModernOneColumn" type="block" selector="//div[@id='checkout'][contains(string(),'modern')][contains(string(), '1column')]"/>
+        <element name="DesignModernTwoColumn" type="block" selector="//div[@id='checkout'][contains(string(),'modern')][contains(string(), '2columns')]"/>
+        <element name="DesignModernThreeColumn" type="block" selector="//div[@id='checkout'][contains(string(),'modern')][contains(string(), '3columns')]"/>
+        <element name="DesignHaveTwoColumn" type="block" selector="//div[contains(@class,'opc-wrapper layout-2-columns')]"/>
+        <element name="DesignHaveThreeColumn" type="block" selector="//div[contains(@class,'opc-wrapper layout-3-columns')]"/>
+        <element name="DesignHaveModernOneColumn" type="block" selector="//div[contains(@class,'amcheckout-main-container -modern -layout-1column')]"/>
+        <element name="DesignHaveModernTwoColumn" type="block" selector="//div[contains(@class,'amcheckout-main-container -modern -layout-2columns')]"/>
+        <element name="DesignHaveModernThreeColumn" type="block" selector="//div[contains(@class,'amcheckout-main-container -modern -layout-3columns')]"/>
+        <element name="DesignFirstColumn" type="block" selector="//div[@class='checkout-column opc'][1]"/>
+        <element name="DesignSecondColumn" type="block" selector="//div[@class='checkout-column opc'][2]"/>
+        <element name="DesignThirdColumn" type="block" selector="//div[@class='checkout-column opc'][3]"/>
+        <element name="DesignFourColumn" type="block" selector="//div[@class='checkout-column opc'][4]"/>
+        <element name="ModernDesignFirstColumn" type="block" selector="//div[@class='amcheckout-column'][1]"/>
+        <element name="ModernDesignSecondColumn" type="block" selector="//div[@class='amcheckout-column'][2]"/>
+        <element name="ModernDesignThirdColumn" type="block" selector="//div[@class='amcheckout-column'][3]"/>
+        <element name="ModernDesignFourColumn" type="block" selector="//div[@class='amcheckout-column'][4]"/>
+        <element name="ModernBlockShippingAddress" type="block" selector="//div[@data-amcheckout-js='step-container']//li[@id='shipping']"/>
+        <element name="ModernBlockShippingMethods" type="block" selector="//div[@data-amcheckout-js='step-container']//li[@id='opc-shipping_method']"/>
+        <element name="ModernBlockPaymentMethods" type="block" selector="//div[@data-amcheckout-js='step-container']//li[@id='payment']"/>
+        <element name="ModernBlockInCart" type="block" selector="//div[@data-amcheckout-js='step-container']//div[@class='block items-in-cart active']"/>
+        <element name="ModernBlockMain" type="block" selector="//div[@class='amcheckout-column -main']"/>
+        <element name="ModernBlockSidebar" type="block" selector="//div[@class='amcheckout-column -sidebar']"/>
+        <!-- Login Popup -->
+        <element name="PopUpEmail" type="input" selector="//input[@name='username']"/>
+        <element name="PopUpPassword" type="input" selector="//input[@name='password']"/>
+        <element name="PopUpButtonSignIn" type="button" selector="//div[@class='primary']//span[text()='Sign In']"/>
+    </section>
+
+</sections>

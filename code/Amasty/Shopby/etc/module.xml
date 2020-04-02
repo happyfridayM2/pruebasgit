@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <!-- setup_version is not a module version -->
+    <module name="Amasty_Shopby" setup_version="2.11.2">
+        <sequence>
+            <module name="Amasty_Base" />
+            <module name="Amasty_ShopbyBase" />
+            <module name="Magento_LayeredNavigation" />
+            <module name="Amasty_ElasticSearch" />
+            <module name="Mirasvit_SearchSphinx" />
+            <module name="Mirasvit_SearchMysql" />
+            <module name="Mirasvit_SearchElastic" />
+            <module name="Magento_LayeredNavigationStaging" />
+            <module name="Magento_Catalog" />
+            <module name="Magento_CatalogSearch" />
+            <module name="Magento_Review" />
+            <module name="Magento_Elasticsearch6" />
+        </sequence>
+    </module>
+</config>

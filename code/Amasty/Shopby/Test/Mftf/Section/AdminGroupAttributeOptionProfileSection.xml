@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="GroupAttributeOptionProfileSection">
+        <element name="GroupTitleField" type="input"
+                 selector="#attribute-labels-table > tbody > tr > td:nth-child(1) > input"/>
+        <element name="GroupCodeField" type="input" selector="#group_group_code"/>
+        <element name="StatusSwitcher" type="select" selector="#group_enabled"/>
+        <element name="UploadSwatch" type="select" selector="input[name='datafile']"/>
+        <element name="AliasField" type="input" selector="#group_url"/>
+        <element name="PositionField" type="input" selector="#group_position"/>
+        <element name="AttributeTriggerSelect" type="select" selector="#group_attribute_id"/>
+        <element name="AttributeOptionCheckbox" type="checkbox"
+                 selector="//div[@data-label='{{var1}}']/following::input[@type='checkbox']" parameterized="true"/>
+    </section>
+
+</sections>

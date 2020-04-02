@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NoindexForPaginatedPagesSettingAttributeIndexFollowAlwaysTest"
+          extends="NoindexForPaginatedPagesSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Noindex for paginated pages setting enabling and interaction with Attribute's Index/Follow settings"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="RTCSETTINGS-52"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="noindexpagination"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowAlways"/>
+                <argument name="RTC2" value="AllowMultiSelectLabelsMode"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1" before="logout">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+                <argument name="RTC2" value="SingleSelectDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check RTC settings: navigate to All-products Page, check Nofollow in Page Source after pagination/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickColorFilter1" after="seeInSource1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Black')}}"
+               stepKey="clickBlackOption1" after="clickColorFilter1"/>
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource3" after="clickBlackOption1"/>
+
+    </test>
+</tests>

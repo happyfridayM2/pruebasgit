@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StorefrontFilterElementsSection">
+        <element name="Filter" type="block"
+                 selector="//*[@id='narrow-by-list']//div[contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="FilterWithException" type="block"
+                 selector="//*[@id='narrow-by-list']//div[contains(string(), '{{var1}}')]//span[not(contains(string(), '{{var2}}'))]"
+                 parameterized="true"/>
+        <element name="FilterLast" type="block"
+                 selector="(//*[@id='narrow-by-list'])[last()]//div[contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="FilterInDropdown" type="select"
+                 selector="//option[contains(string(),'Select Option ...')]/ancestor::div[@class='items am-filter-items-{{var1}} am-dropdown']"
+                 parameterized="true"/>
+        <element name="FilterInDropdownLast" type="select"
+                 selector="(//option[contains(string(),'Select Option ...')]/ancestor::*[@class='items am-filter-items-{{var1}} am-dropdown'])[last()]"
+                 parameterized="true"/>
+        <element name="CategoryFilterInDropdown" type="select"
+                 selector="//*[@class='amshopby-category-dropdown']"/>
+        <element name="CategoryFilterInDropdownLast" type="select"
+                 selector="(//*[@class='amshopby-category-dropdown'])[last()]"/>
+        <element name="CategoryFilterExpandTree" type="select"
+                 selector="//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')]/*[@class='am-collapse-icon']"
+                 parameterized="true"/>
+        <element name="CategoryFilterExpandTreeLast" type="select"
+                 selector="(//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')]/*[@class='am-collapse-icon'])[last()]"
+                 parameterized="true"/>
+        <element name="CategoryTreeSequence" type="select"
+                 selector="//li[@data-label='{{var1}}']/following::li[@data-label='{{var2}}']/following::li[@data-label='{{var3}}']/following::li[@data-label='{{var4}}']"
+                 parameterized="true"/>
+        <element name="CategoryOptionImage" type="select"
+                 selector="//*[@class='am-category-image'][@alt='{{var1}}'][contains(@src,'{{var2}}') or contains(@src,'{{var3}}')]"
+                 parameterized="true"/>
+        <element name="FilterOptionForCount" type="select"
+                 selector="//*[@data-amshopby-filter='attr_{{var1}}']//*[@data-am-js='filter-item-{{var2}}']"
+                 parameterized="true"/>
+        <element name="FilterSearchBox" type="select"
+                 selector="//*[@class='am-search-box-attr_{{var1}}']"
+                 parameterized="true"/>
+        <element name="FilterOption" type="select"
+                 selector="//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')]"
+                 parameterized="true"/>
+        <element name="FilterOptionWithException" type="select"
+                 selector="//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')][not(contains(@data-label,'{{var2}}'))]"
+                 parameterized="true"/>
+        <element name="FilterOptionWithNofollow" type="select"
+                 selector="(//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')]//*[contains(@rel,'nofollow')] | //*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')][contains(@rel,'nofollow')])[1]"
+                 parameterized="true"/>
+        <element name="FilterOptionLast" type="select"
+                 selector="(//*[@id='narrow-by-list'])[last()]//*[contains(@data-label,'{{var1}}')]"
+                 parameterized="true"/>
+        <element name="FilterOptionInDropdown" type="select"
+                 selector="//*[@id='narrow-by-list']//div[contains(string(), '{{var1}}')]//option[{{var2}}]"
+                 parameterized="true"/>
+        <element name="FilterOptionInDropdownLast" type="select"
+                 selector="(//*[@id='narrow-by-list'])[last()]//div[contains(string(), '{{var1}}')]//option[{{var2}}]"
+                 parameterized="true"/>
+        <element name="FilterSidebarTooltip" type="block"
+                 selector="//*[@id='narrow-by-list']//div[contains(string(), '{{var1}}')]/span[contains(@title, 'TestTooltip')]"
+                 parameterized="true"/>
+        <element name="FilterTopTooltip" type="block"
+                 selector="//*[@id='narrow-by-list']/div//div[contains(string(), '{{var1}}')]/span[contains(@title, 'TestTooltip')]"
+                 parameterized="true"/>
+        <element name="FilterIsExpanded" type="block" selector="div[aria-expanded='true']"/>
+        <element name="FilterSidebarPosition" type="block"
+                 selector="#narrow-by-list > div:nth-child({{var1}})"
+                 parameterized="true"/>
+        <element name="FilterTop2" type="block"
+                 selector="#narrow-by-list > div:nth-child(2)"/>
+        <element name="FilterTooltipImage" type="block"
+                 selector=" //*[@id='narrow-by-list']/div[{{var1}}]/div[1]/span/img[contains(@src,'{{var2}}') or contains(@src,'{{var3}}')]"
+                 parameterized="true"/>
+        <element name="TooltipInDOM" type="block"
+                 selector="[aria-describedby*='ui-tooltip']"/>
+        <element name="VerticalScroll" type="block"
+                 selector="//*[@id='narrow-by-list']//ol[contains(@style,'{{var1}}')]" parameterized="true"/>
+        <element name="ShowMoreAndLessButtons" type="button"
+                 selector="//*[@class='am-show-more -active'][contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+    </section>
+
+    <section name="StorefrontPageElementsSection">
+        <element name="ProductAmount" type="block" selector="#toolbar-amount"/>
+        <element name="FilterState" type="select"
+                 selector="//*[@id='am-shopby-container']//*[contains(@title,'{{var1}}')]" parameterized="true"/>
+        <element name="GridListMode" type="button" selector="#mode-{{var1}}" parameterized="true"/>
+        <element name="AscDescDirectionSwitcher" type="block"
+                 selector="#amasty-shopby-product-list > div:nth-child(1) > div.toolbar-sorter.sorter > a"/>
+        <element name="SortBy" type="select" selector="//*[@id='sorter']"/>
+        <element name="NextPreviousPage" type="button" selector="(//*[@class='item pages-item-{{var1}}'])[last()]"
+                 parameterized="true"/>
+        <element name="SelectPageLast" type="select" selector="(//*[@class='page'])[last()]"/>
+        <element name="ShowPerPageQuantity" type="select" selector="(//*[@id='limiter'])[last()]"/>
+        <element name="PageTitle" type="select" selector="//*[@class='page-title']"/>
+        <element name="404ErrorTitle" type="select"
+                 selector="//*[@id='maincontent']//span[contains(string(), 'Whoops, our bad...')]"/>
+        <element name="MagentoLogo" type="select"
+                 selector="/html//header/div[2]/a/img[contains(@src,'logo.svg')]"/>
+        <element name="ChildrenCategoryWithImages" type="block"
+                 selector="//*[@id='category-carousel']//img[@height='{{var1}}'][@width='{{var2}}'][contains(@src,'{{var3}}') or contains(@src,'{{var4}}')]"
+                 parameterized="true"/>
+        <element name="ChildrenCategoryWithoutIMGorLabel" type="block"
+                 selector="//*[@id='category-carousel']//div[@class='category-item-title']"/>
+        <element name="ChildrenCategorySlider" type="block"
+                 selector="//*[@id='category-carousel']//div[contains(@class,'swiper-button-{{var1}}')]"
+                 parameterized="true"/>
+        <element name="FilterDescriptionBeforeAndAfter" type="block"
+                 selector="//div[contains(string(), '{{var1}}')]/span[contains(string(), '{{var2}}')][{{var3}}-sibling::br]"
+                 parameterized="true"/>
+        <element name="FilterDescriptionReplaceDoNotAdd" type="text"
+                 selector="//div[@class='category-description'][contains(string(), '{{var1}}')][not(contains(string(), '{{var2}}'))]"
+                 parameterized="true"/>
+        <element name="AjaxLoader" type="text"
+                 selector="div[id='amasty-shopby-overlay']"/>
+        <element name="ByButtonClickAjaxLoader" type="text"
+                 selector="span[class='am-items -loading']"/>
+        <element name="CMSBlockContent" type="text"
+                 selector="//*[@class='category-cms'][contains(string(),'{{var1}}')]" parameterized="true"/>
+        <element name="ImageSource" type="text" selector="//img[contains(@src,'{{var1}}') or contains(@src,'{{var2}}')]"
+                 parameterized="true"/>
+    </section>
+
+    <section name="StorefrontProductSection">
+        <element name="ProductID" type="block" selector="//*[@id='amasty-shopby-product-list']"/>
+        <element name="ProductIDWithSpecialPrice" type="block"
+                 selector="//*[@id='amasty-shopby-product-list']//*[@class='price-box price-final_price'][contains(string(), 'Regular Price')]"/>
+        <element name="ProductIDWithoutSpecialPrice" type="block"
+                 selector="//*[@id='amasty-shopby-product-list']//*[@class='price-box price-final_price'][not(contains(string(), 'Regular Price'))]"/>
+        <element name="SpecifiedProduct" type="select"
+                 selector="//*[@id='amasty-shopby-product-list']//*[contains(string(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="ProductRatingNotLessThan" type="select"
+                 selector="//*[@id='amasty-shopby-product-list']//div[substring-before(@title, '%') &lt; '{{var1}}']"
+                 parameterized="true"/>
+        <element name="ProductPriceEqualPriceRange" type="select"
+                 selector="//*[@id='amasty-shopby-product-list']//div[substring-before(@title, '{{var1}}') &lt; '{{var2}}'][substring-before(@title, '{{var3}}') &gt; '{{var4}}']"
+                 parameterized="true"/>
+        <element name="ItemsCountLast" type="block" selector="//span[@class='toolbar-number']"/>
+        <element name="FilterOptionCount"
+                 type="block"
+                 selector="//*[@id='narrow-by-list']//*[contains(@data-label,'{{var1}}')]//*[contains(@class, 'count')]"
+                 parameterized="true"/>
+    </section>
+
+</sections>

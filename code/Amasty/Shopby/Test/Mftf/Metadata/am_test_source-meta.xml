@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateTestSource" dataType="am_test_source" type="create"
+               auth="adminOauth" url="/V1/inventory/sources" method="POST">
+        <contentType>application/json</contentType>
+        <object key="source" dataType="am_test_source">
+            <field key="source_code">string</field>
+            <field key="name">string</field>
+            <field key="enabled">boolean</field>
+            <field key="country_id">string</field>
+            <field key="region_id">integer</field>
+            <field key="postcode">string</field>
+        </object>
+    </operation>
+
+</operations>

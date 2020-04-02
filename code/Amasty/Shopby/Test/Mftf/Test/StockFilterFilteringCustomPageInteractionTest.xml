@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterFilteringCustomPageInteractionTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode in interaction with custom page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1"
+                         ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario1"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage"
+                         stepKey="deleteCustomPage1"
+                         before="logout"/>
+        </after>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickColorFilter1"
+               after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Black')}}"
+               stepKey="selectBlackOption1"
+               after="clickColorFilter1"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option, check the result, remove selected option from state/-->
+
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1"
+             after="checkProductStock3"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Black')}}"
+               stepKey="removeSelectedFilterOptionFromState3"
+               after="removeSelectedFilterOptionFromState2"/>
+
+    </test>
+</tests>
+

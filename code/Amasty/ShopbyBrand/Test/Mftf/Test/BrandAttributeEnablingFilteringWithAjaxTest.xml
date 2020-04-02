@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeEnablingFilteringWithAjaxTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering with Ajax on all products page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="BRANDATTR-2"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1" ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxInstantlyOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1" ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by Brand Attribute (Material): filter All-products Page by Brand Attribute Filter (Material) with Ajax/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Material')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnMaterialFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="selectPolyesterOption1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForElementNotVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                                  stepKey="waitForAjaxLoaderVisible2"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester"
+             stepKey="checkPageTitle1"/>
+        <reloadPage stepKey="reloadPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage2"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage2"/>
+
+    </test>
+</tests>

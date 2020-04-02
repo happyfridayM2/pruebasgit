@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+?>
+<?php
+/** @var $block \Amasty\Cart\Block\Product\Minipage */
+
+// @codingStandardsIgnoreLine
+$helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+$product = $block->getProduct();
+$rating = $block->getRatingSummary($product);
+$productName = $helper->productAttribute($product, $product->getName(), 'name');
+?>
+
+<p class="amcart-product-notice">
+    <?= $block->escapeHtml(__('Please choose the options for your item')); ?>
+</p>
+<div class="product-item-info product-info-main">
+    <div class="ampage-top-info">
+        <p class="am-title">
+            <?= $block->escapeHtml($productName); ?>
+        </p>
+        <div class="am-rating"><?= /* @noEscape */ $rating; ?></div>
+        <div class="am-price product-info-price"><?= $block->renderPriceHtml(); ?></div>
+    </div>
+
+    <div class="am-photo-container">
+        <a href="<?= $block->escapeUrl($product->getProductUrl()); ?>"
+           title="<?= $block->escapeHtml($productName); ?>"
+           tabindex="-1"
+           class="product-item-photo">
+            <?= /* @noEscape */ $block->getImageBlock($product, 'amasty_cart_popup_image'); ?>
+        </a>
+    </div>
+
+    <div class="ampage-bottom-info">
+        <div class="am-description">
+            <?= /* @noEscape */ $helper->productAttribute($product, $product->getShortDescription(), 'short_description') ?>
+        </div>
+        <p><?= /* @noEscape */ $block->getOptions(); ?></p>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'priceBox'
+    ], function($){
+        var priceBoxes = $('.am-price [data-product-id=<?= $block->escapeHtml($product->getId()) ?>]');
+
+        priceBoxes = priceBoxes.filter(function(index, elem){
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?= /* @noEscape */ $block->getJsonConfig() ?>});
+    });
+</script>

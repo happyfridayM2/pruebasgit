@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+ <menu>
+
+	<add id="Magebees_Navigationmenu::Heading" title="MageBees Navigation Menu" module="Magebees_Navigationmenu" 
+		 sortOrder="0" parent="Magento_Backend::content" resource="Magebees_Navigationmenu::Heading" />
+	 
+	 <add id="Magebees_Navigationmenu::menugroup" title="Manage Menu Groups"  action="navigationmenu/menucreatorgroup/index" module="Magebees_Navigationmenu" sortOrder="10" parent="Magebees_Navigationmenu::Heading" resource="Magebees_Navigationmenu::menugroup"/>
+	 
+	 <add id="Magebees_Navigationmenu::manageitems" title="Manage Menu Items" action="navigationmenu/menucreator/index" module="Magebees_Navigationmenu" sortOrder="20" parent="Magebees_Navigationmenu::Heading" resource="Magebees_Navigationmenu::manageitems"/>
+	 
+ </menu>
+</config>
+

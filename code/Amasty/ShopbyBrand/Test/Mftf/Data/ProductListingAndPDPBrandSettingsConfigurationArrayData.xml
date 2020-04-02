@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="productListingBrandSettingsDefault" type="brandLogoOnListing1">
+        <data key="DisplayBrandLogoProductListing">0</data>
+        <data key="BrandLogoHeightOnListing"></data>
+        <data key="BrandLogoWidthOnListing"></data>
+    </entity>
+    <entity name="productListingBrandSettingsFullyEnabled" type="brandLogoOnListing1">
+        <data key="DisplayBrandLogoProductListing">1</data>
+        <data key="BrandLogoHeightOnListing">66</data>
+        <data key="BrandLogoWidthOnListing">66</data>
+    </entity>
+
+    <entity name="productPageBrandSettingsDefault" type="brandLogoShortDescOnPDP1">
+        <data key="DisplayBrandLogoProductPageSwitcher">0</data>
+        <data key="BrandLogoWidth">30</data>
+        <data key="BrandLogoHeight">30</data>
+    </entity>
+    <entity name="productPageBrandSettingsFullyEnabled" type="brandLogoShortDescOnPDP1">
+        <data key="DisplayBrandLogoProductPageSwitcher">1</data>
+        <data key="DisplayShortDescProductPageSwitcher">1</data>
+        <data key="BrandLogoWidth">60</data>
+        <data key="BrandLogoHeight">60</data>
+    </entity>
+    <entity name="brandLogoOnPDPEnabled" type="brandLogoShortDescOnPDP1" extends="productPageBrandSettingsDefault">
+        <data key="DisplayBrandLogoProductPageSwitcher">1</data>
+        <data key="DisplayShortDescProductPageSwitcher">0</data>
+    </entity>
+
+</entities>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Amasty_Conf" setup_version="2.5.4">
+        <sequence>
+            <module name="Magento_Swatches" />
+            <module name="Magento_Catalog" />
+            <module name="Amasty_Base" />
+            <module name="Magento_LayeredNavigation" />
+            <module name="Magento_CatalogSearch" />
+            <module name="Magento_ConfigurableProduct"/>
+        </sequence>
+    </module>
+</config>

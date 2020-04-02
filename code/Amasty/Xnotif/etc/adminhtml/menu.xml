@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_Xnotif::notifications" title="Notifications" module="Amasty_Xnotif" sortOrder="80"
+             parent="Magento_Reports::report" resource="Amasty_Xnotif::notifications"/>
+        <add id="Amasty_Xnotif::xnotif_stock" title="Stock Alerts" module="Amasty_Xnotif" sortOrder="10"
+             parent="Amasty_Xnotif::notifications" action="xnotif/stock/index" resource="Amasty_Xnotif::stock"/>
+        <add id="Amasty_Xnotif::xnotif_price" title="Price Alerts" module="Amasty_Xnotif" sortOrder="20"
+             parent="Amasty_Xnotif::notifications" action="xnotif/price/index" resource="Amasty_Xnotif::price"/>
+        <add id="Amasty_Xnotif::xnotif_stock_subscription" title="Subscriptions" module="Amasty_Xnotif" sortOrder="30"
+             parent="Amasty_Xnotif::notifications" action="xnotif/subscription/index" resource="Amasty_Xnotif::subscription"/>
+        <add id="Amasty_Xnotif::analytics" title="Analytics Dashboard" module="Amasty_Xnotif" sortOrder="40"
+             parent="Amasty_Xnotif::notifications" action="xnotif/analytics/index" resource="Amasty_Xnotif::analytics"/>
+    </menu>
+</config>

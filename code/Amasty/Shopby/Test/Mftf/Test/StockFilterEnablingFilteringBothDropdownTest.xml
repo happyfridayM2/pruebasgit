@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringBothDropdownTest" extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description value="Check of stock filter enabling and filtering on both in dropdown display mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNSTOCKFILTER-6"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="StockFilterEnabling1"
+                         ref="StockFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDropdownBoth"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Stock Filter: expand filter on top, select Out of Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdown('stock')}}"
+               stepKey="expandStockFilterDropdown1"
+               after="expandStockFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdown('Stock','3')}}"
+               stepKey="selectStockOption1"/>
+
+        <!--Filter by Stock Filter: expand filter on top, select In Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdown('stock')}}"
+               stepKey="expandStockFilterDropdown2"
+               after="expandStockFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdown('Stock','2')}}"
+               stepKey="selectStockOption2"/>
+
+        <!--Filter by Stock Filter: expand filter on sidebar, select In Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Stock')}}" stepKey="expandStockFilter3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdownLast('stock')}}"
+               stepKey="expandStockFilterDropdown3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdownLast('Stock','3')}}"
+               stepKey="selectStockOption3"/>
+        <see selector="{{StorefrontProductSection.SpecifiedProduct('Wayfarer Messenger Bag')}}"
+             userInput="Out of Stock"
+             stepKey="checkProductStock4"/>
+        <dontSee selector="{{StorefrontProductSection.ProductID}}"
+                 userInput="Add to Cart"
+                 stepKey="checkProductStock5"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Out of Stock')}}"
+               stepKey="removeSelectedFilterOptionFromState3"/>
+
+        <!--Filter by Stock Filter: expand filter on sidebar, select Out of Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Stock')}}" stepKey="expandStockFilter4"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdownLast('stock')}}"
+               stepKey="expandStockFilterDropdown4"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdownLast('Stock','2')}}"
+               stepKey="selectStockOption4"/>
+        <dontSee selector="{{StorefrontProductSection.ProductID}}"
+                 userInput="Out of Stock"
+                 stepKey="checkProductStock6"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('In Stock')}}"
+               stepKey="removeSelectedFilterOptionFromState4"/>
+
+    </test>
+</tests>
+

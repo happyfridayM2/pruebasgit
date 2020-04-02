@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description value="Check of rating filter enabling and filtering in sidebar position and labels mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNRATINGFILTER-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="RatingFilterEnabling1"
+                         ref="RatingFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="RatingFilterDisabling1"
+                         ref="RatingFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="DisableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by Rating Filter: select 5 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{AllProductsPageWithAllProducts.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('5 star(s)')}}"
+               stepKey="selectRatingOption1"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('100')}}"
+                        stepKey="checkRatingOfProducts1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('5 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+        <wait time="1" stepKey="waitSeconds1"/>
+
+        <!--Filter by Rating Filter: select 4 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('4 &amp; up star(s)')}}"
+               stepKey="selectRatingOption2"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('80')}}"
+                        stepKey="checkRatingOfProducts2"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('4 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+        <wait time="1" stepKey="waitSeconds2"/>
+
+        <!--Filter by Rating Filter: select 3 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('3 &amp; up star(s)')}}"
+               stepKey="selectRatingOption3"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('60')}}"
+                        stepKey="checkRatingOfProducts3"/>
+        <wait time="2" stepKey="waitSeconds3"/>
+
+        <!--Filter by Rating Filter: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('2 &amp; up star(s)')}}"
+               stepKey="selectRatingOption4"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('40')}}"
+                        stepKey="checkRatingOfProducts4"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('2 stars')}}"
+               stepKey="removeSelectedFilterOptionFromState4"/>
+        <wait time="1" stepKey="waitSeconds4"/>
+
+        <!--Filter by Rating Filter: select 1 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Rating')}}"
+               stepKey="expandRatingFilter5"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('1 &amp; up star(s)')}}"
+               stepKey="selectRatingOption5"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductRatingNotLessThan('20')}}"
+                        stepKey="checkRatingOfProducts5"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('1 star')}}"
+               stepKey="removeSelectedFilterOptionFromState5"/>
+
+    </test>
+</tests>

@@ -1,0 +1,195 @@
+<?php
+$dataHelper = $this->helper('Magezon\Builder\Helper\Data');
+$element    = $this->getElement();
+$deviceType = $element->getData('device_type');
+$styleHtml  = '';
+$prefixes   = [''];
+
+if ($deviceType == 'custom') {
+	$prefixes = ['', 'lg_', 'md_', 'sm_', 'xs_'];
+}
+
+foreach ($prefixes as $_k => $_prefix) {
+	$styles = [];
+	if ($deviceType == 'custom' || $element->getData($_prefix . 'align') != 'left' ) {
+		$styles['text-align'] = $element->getData($_prefix . 'align');
+	}
+	$styles['min-height']     = $this->getStyleProperty($element->getData($_prefix . 'min_height'), true);
+	$styles['margin-top']     = $this->getStyleProperty($element->getData($_prefix . 'margin_top'), true);
+	$styles['margin-right']   = $this->getStyleProperty($element->getData($_prefix . 'margin_right'), true);
+	$styles['margin-bottom']  = $this->getStyleProperty($element->getData($_prefix . 'margin_bottom'), true);
+	$styles['margin-left']    = $this->getStyleProperty($element->getData($_prefix . 'margin_left'), true);
+	$styles['padding-top']    = $this->getStyleProperty($element->getData($_prefix . 'padding_top'), true);
+	$styles['padding-right']  = $this->getStyleProperty($element->getData($_prefix . 'padding_right'), true);
+	$styles['padding-bottom'] = $this->getStyleProperty($element->getData($_prefix . 'padding_bottom'), true);
+	$styles['padding-left']   = $this->getStyleProperty($element->getData($_prefix . 'padding_left'), true);
+
+	if (($styles['padding-top'] == $styles['padding-right']) && ($styles['padding-top'] == $styles['padding-bottom']) && ($styles['padding-top'] == $styles['padding-left'])) {
+		$styles['padding'] = $styles['padding-top'];
+		unset($styles['padding-top']);
+		unset($styles['padding-right']);
+		unset($styles['padding-bottom']);
+		unset($styles['padding-left']);
+	}
+
+	if (($styles['margin-top'] == $styles['margin-right']) && ($styles['margin-top'] == $styles['margin-bottom']) && ($styles['margin-top'] == $styles['margin-left'])) {
+		$styles['margin'] = $styles['margin-top'];
+		unset($styles['margin-top']);
+		unset($styles['margin-right']);
+		unset($styles['margin-bottom']);
+		unset($styles['margin-left']);
+	}
+
+	if ($element->getData($_prefix . 'border_style') && $element->getData($_prefix . 'border_color')) {
+		$styles['border-color'] = $dataHelper->getStyleColor($element->getData($_prefix . 'border_color'), true);
+
+		if ($element->getData($_prefix . 'border_top_width') != '') {
+			$styles['border-top-width'] = $this->getStyleProperty($element->getData($_prefix . 'border_top_width'), true);
+			$styles['border-top-style'] = $element->getData($_prefix . 'border_style');
+		}
+
+		if ($element->getData($_prefix . 'border_right_width') != '') {
+			$styles['border-right-width'] = $this->getStyleProperty($element->getData($_prefix . 'border_right_width'), true);
+			$styles['border-right-style'] = $element->getData($_prefix . 'border_style');
+		}
+
+		if ($element->getData($_prefix . 'border_bottom_width') != '') {
+			$styles['border-bottom-style'] = $element->getData($_prefix . 'border_style');
+			$styles['border-bottom-width'] = $this->getStyleProperty($element->getData($_prefix . 'border_bottom_width'), true);
+		}
+
+		if ($element->getData($_prefix . 'border_left_width') != '') {
+			$styles['border-left-width'] = $this->getStyleProperty($element->getData($_prefix . 'border_left_width'), true);
+			$styles['border-left-style'] = $element->getData($_prefix . 'border_style');
+		}
+		
+	}
+	$styles['border-top-left-radius']     = $this->getStyleProperty($element->getData($_prefix . 'border_top_left_radius'), true);
+	$styles['border-top-right-radius']    = $this->getStyleProperty($element->getData($_prefix . 'border_top_right_radius'), true);
+	$styles['border-bottom-right-radius'] = $this->getStyleProperty($element->getData($_prefix . 'border_bottom_right_radius'), true);
+	$styles['border-bottom-left-radius']  = $this->getStyleProperty($element->getData($_prefix . 'border_bottom_left_radius'), true);
+
+	$_styleHtml = $this->parseStyles($styles);
+	if ($_styleHtml) {
+		if ($deviceType == 'custom') {
+			switch ($_prefix) {
+				case 'xs_':
+					$styleHtml .= '@media (max-width: 575px) {';
+					break;
+
+				case 'sm_':
+					$styleHtml .= '@media (max-width: 767px) {';
+					break;
+
+				case 'md_':
+					$styleHtml .= '@media (max-width: 991px) {';
+					break;
+
+				case 'lg_':
+					$styleHtml .= '@media (max-width: 1199px) {';
+					break;
+
+				// Defualt xl
+				default:
+					//$styleHtml .= '@media (min-width: 1200px) {';
+					break;
+			}
+		}
+		$styleHtml .= '.' . $element->getStyleHtmlId() . '{';
+		$styleHtml .= $_styleHtml;
+		$styleHtml .= '}';
+		if ($deviceType == 'custom' && $_prefix) {
+			$styleHtml .= '}';
+		}
+	}
+
+	$backgroundImage = $element->getData($_prefix . 'background_image');
+	$backgroundColor = $element->getData($_prefix . 'background_color');
+
+	$parallaxStyles  = [];
+	if ($backgroundColor) {
+		$parallaxStyles['background-color'] = $this->getStyleColor($backgroundColor, true);
+	}
+	if ($backgroundImage) {
+		$backgroundStyle = $element->getData($_prefix . 'background_style');
+		$parallaxStyles['background-image'] = 'url(\'' . $dataHelper->getImageUrl($backgroundImage) . '\')';
+		switch ($backgroundStyle) {
+			case 'cover':
+			case 'contain':
+			$parallaxStyles['background-size'] = $element['background_style'];
+			break;
+
+			case 'full-width':
+			$parallaxStyles['background-size'] = '100% auto';
+			break;
+
+			case 'full-height':
+			$parallaxStyles['background-size'] = 'auto 100%';
+			break;
+
+			case 'repeat-x':
+			$parallaxStyles['background-repeat'] = 'repeat-x';
+			break;
+
+			case 'repeat-y':
+			$parallaxStyles['background-repeat'] = 'repeat-y';
+			break;
+
+			case 'no-repeat':
+			case 'repeat':
+			$parallaxStyles['background-repeat'] = $element['background_style'];
+			break;
+
+			default:
+			$parallaxStyles['background-size'] = $backgroundStyle;
+			break;
+		}
+		$backgroundPosition = $element->getData($_prefix . 'background_position');
+		if ($backgroundPosition == 'custom') {
+			$backgroundPosition = $element->getData($_prefix . 'custom_background_position');
+		} else {
+			$backgroundPosition = str_replace('-', ' ', $backgroundPosition);
+		}
+		if ($backgroundPosition) {
+			$parallaxStyles['background-position'] = $backgroundPosition;
+		}
+	}
+	if ($parallaxStyles) {
+		$_styleHtml = $this->parseStyles($parallaxStyles);
+		if ($_styleHtml) {
+			if ($deviceType == 'custom') {
+				switch ($_prefix) {
+					case 'xs_':
+					$styleHtml .= '@media (max-width: 575px) {';
+					break;
+
+					case 'sm_':
+					$styleHtml .= '@media (max-width: 767px) {';
+					break;
+
+					case 'md_':
+					$styleHtml .= '@media (max-width: 991px) {';
+					break;
+
+					case 'lg_':
+					$styleHtml .= '@media (max-width: 1199px) {';
+					break;
+
+					// Defualt xl
+					default:
+					//$styleHtml .= '@media (min-width: 1200px) {';
+					break;
+				}
+			}
+			$styleHtml .= '.' . $element->getParallaxId() . ' .mgz-parallax-inner {';
+			$styleHtml .= $_styleHtml;
+			$styleHtml .= '}';
+			if ($deviceType == 'custom' && $_prefix) {
+				$styleHtml .= '}';
+			}
+		}
+	}
+}
+?>
+<?= $styleHtml ?>
+<?= $this->getAdditionalStyleHtml() ?>

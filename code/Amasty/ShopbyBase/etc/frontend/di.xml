@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Catalog\Block\Category\View">
+        <plugin name="Amasty_ShopbyBase::catalogCategoryView"
+                type="Amasty\ShopbyBase\Plugin\Catalog\Block\Category\View" sortOrder="100"/>
+    </type>
+
+    <type name="\Magento\Catalog\Model\Category">
+        <plugin name="Amasty_ShopbyBase::catalogCategory"
+                type="Amasty\ShopbyBase\Plugin\Catalog\Model\Category" sortOrder="100"/>
+    </type>
+
+    <type name="Magento\Framework\View\Page\Title">
+        <plugin name="Amasty_ShopbyBase::pageTitlePlugin" type="Amasty\ShopbyBase\Plugin\View\Page\Title"/>
+    </type>
+
+    <type name="Amasty\ShopbyBrand\Plugin\Catalog\Block\Product\View\BlockHtmlTitlePlugin">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="resizer" xsi:type="object">Amasty\ShopbyBase\Model\Resizer</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_ShopbyBase::make-css" type="Amasty\ShopbyBase\Plugin\View\Page\Config\Renderer" />
+    </type>
+
+    <type name="Amasty\ShopbyBase\Model\UrlBuilder">
+        <arguments>
+            <argument name="urlAdapters" xsi:type="array">
+                <item name="base" xsi:type="array">
+                    <item name="adapter" xsi:type="object">\Amasty\ShopbyBase\Model\UrlBuilder\Adapter</item>
+                    <item name="sort_order" xsi:type="string">100</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
+</config>

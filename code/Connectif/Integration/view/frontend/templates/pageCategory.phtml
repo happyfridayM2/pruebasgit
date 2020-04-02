@@ -1,0 +1,7 @@
+<?php
+$category = $this->getCurrentCategory();
+$escaper = $this->getHtmlEscaper();
+?>
+<?php if ($category !== NULL) { ?>
+    <div class="cn_page_category" style="display:none"><?php echo $escaper->escapeHtml($category); ?></div>
+<?php } ?>

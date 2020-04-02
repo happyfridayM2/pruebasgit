@@ -1,0 +1,106 @@
+<?php
+$helper = $this->helper('Magebees\Products\Helper\Data');
+$count=count($this->helper->getObjectManager()->create('\Magebees\Products\Model\Profiler')->getCollection());
+$direction=$block->getRequest()->getParam('direction');
+if (empty($direction)) {
+    $direction='Validated';
+}
+?>
+<div id="liFinished"></div>
+<script type="text/javascript">
+    var countOfStartedProfiles = 0;
+    var countOfUpdated = 0;
+    var countOfError = 0;
+    var redirect_to_import_log_url='';
+    var totalRecords = <?php echo $count; ?>;
+    var timestamp=<?php echo time();?>;
+
+require([
+    'jquery',
+    'Magento_Ui/js/modal/modal'
+    ],
+    function($,modal) {
+            var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: "Validation",
+            buttons: [{
+                text: $.mage.__('<?php echo __("Close") ?>'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                    window.location="<?php echo $block->getUrl('*/*/index/'); ?>";
+                }
+            }]
+        };
+        var popup = modal(options, $('#liFinished'));
+    }
+);	
+
+window.onload=function(){
+    if(totalRecords>0){
+        importCall();
+    }
+}
+function importCall(){
+    require([
+        'jquery',
+        'mage/template',
+        'jquery/ui',
+        'mage/translate',
+        'Magento_Ui/js/modal/modal',
+    ],
+     function(jQuery) {
+        var response = "";
+        var exporturl = "<?php echo $block->getUrl('*/*/validaterecord/'); ?>";
+
+        jQuery.ajax({
+                    url : exporturl,
+                    data: { 
+                            'importfiletype' : '<?php echo $block->getRequest()->getParam('importfiletype') ?>',
+                            'files' : '<?php echo $block->getRequest()->getParam('files') ?>',
+                            'direction' : '<?php echo  $direction ?>',
+                            'behavior': '<?php echo $block->getRequest()->getParam('behavior') ?>',
+                            'direction' : '<?php echo $direction ?>',
+                            'validationBehavior' : '<?php echo $block->getRequest()->getParam('validationBehavior');?>',
+                            timestamp : timestamp,
+                            form_key : FORM_KEY,
+                        } ,
+                    dataType: 'json',
+                    type: 'post',
+                    //showLoader:true,
+                    onComplete: function(transport) {
+                    try{
+                        var response = transport;
+                        countOfUpdated=countOfUpdated+response.imported;
+                        countOfError=countOfError+response.error;
+                        alert(countOfUpdated);
+                        alert(countOfError);
+                        
+                        if(response.next==false){
+                                jQuery('#liFinished"').show();
+                                redirect_to_import_log_url=response.url+'countOfError/'+countOfError+'/totalRecords/'+totalRecords;
+                                
+                                <?php if (strcasecmp($direction, "'Validated'") == 0) {?>
+                                doIndexing();
+                                <?php } else { ?>
+                                     setTimeout(function () {
+                                        window.location=redirect_to_import_log_url;
+                                    }, 1000);                                   
+                                <?php } ?>
+                        }else{
+                                importCall();   
+                        }
+                    }catch(e){
+                        
+                    }
+                }
+            });
+    }
+);
+}
+function getPercent() {
+    return Math.ceil((countOfUpdated/totalRecords)*1000)/10;
+}
+</script>

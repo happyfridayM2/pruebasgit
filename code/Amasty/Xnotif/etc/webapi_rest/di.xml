@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Magento plugin not working on checkout. Need joined stock_status table -->
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="add_stock_information" type="Magento\CatalogInventory\Model\AddStockStatusToCollection" />
+    </type>
+</config>

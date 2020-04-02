@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandSliderVisibleItemsQtySortColorTitleTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brands Slider elements checking"/>
+            <title value="Check of Brands Slider qty of visible elements, Sorting, Color Configuration, Title and Images/Slider Size"/>
+            <description
+                    value="Check that Brands Slider qty of visible elements, Sorting, Color Configuration, Title and Images/Slider Size displayed correctly on All Brands Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="BRANDATTR-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandslider"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureBrandSliderQtySortColorTitleSizeActionGroup"
+                         stepKey="configureBrandSliderQtySortColorTitleSize1">
+                <argument name="brandSlider1" value="setBrandSliderQtySortColorTitleSize"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="ProductsInBrandSliderConfigurationActionGroup"
+                         stepKey="configureBrandOptionsInSlider1">
+                <argument name="AttrOptionInBrandSlider1" value="polyesterInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider2" value="organicCottonInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider3" value="nylonInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider4" value="spandexInSliderYes"/>
+                <argument name="AttrOptionInBrandSlider5" value="AddToTheSliderMassAction"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureBrandSliderQtySortColorTitleSizeActionGroup"
+                         stepKey="configureBrandSliderQtySortColorTitleSize1">
+                <argument name="brandSlider1" value="brandSliderQtySortColorTitleSizeDefault"/>
+            </actionGroup>
+            <actionGroup ref="ProductsInBrandSliderConfigurationActionGroup"
+                         stepKey="configureBrandOptionsInSlider1">
+                <argument name="AttrOptionInBrandSlider1" value="polyesterInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider2" value="organicCottonInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider3" value="nylonInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider4" value="spandexInSliderNo"/>
+                <argument name="AttrOptionInBrandSlider5" value="RemoveFromTheSliderMassAction"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that Brands Slider qty of visible elements, Sorting, Color Configuration, Title and Images/Slider Size displayed correctly on All Brands Page/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+        <seeNumberOfElements userInput="3"
+                             selector="{{StorefrontBrandElementsSection.BrandSliderItem}}"
+                             stepKey="seeQtyOfVisibleItems1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderItemsSequence('burlap','cocona')}}"
+                stepKey="seeBrandSliderSequence1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.BrandSliderHeaderColors('#F58C12;','#E2E2E2;')}}"
+                stepKey="seeHeaderColors1"/>
+        <see selector="{{StorefrontBrandElementsSection.BrandSliderHeaderColors('#F58C12;','#E2E2E2;')}}"
+             userInput="Featured Brands Test Title"
+             stepKey="checkBrandSliderTitle1"/>
+        <grabTextFrom selector="~amslider_id(\d+)~"
+                      stepKey="grabDuplicateOptionName1"/>
+        <seeInSource html="amslider_id$grabDuplicateOptionName1 { max-width: 680px; padding: 0 40px; }"
+                     stepKey="checkBrandSliderWidth1"/>
+        <seeInSource html="amslider_id$grabDuplicateOptionName1 .swiper-brand .am-image-wrapper > .am-image { max-width: 150px; max-height: 100px; }"
+                     stepKey="checkBrandSliderImageHeightWidth1"/>
+
+    </test>
+</tests>

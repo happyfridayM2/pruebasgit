@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="OnSaleFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <amOnPage url="{{ProductProfilePage.url('2')}}" stepKey="amOnProductsPage1"/>
+        <waitForElement selector="{{AdminProductProfileSection.AdvancedPriceLink}}" stepKey="waitForElement1"/>
+        <click selector="{{AdminProductProfileSection.AdvancedPriceLink}}"
+               stepKey="clickOnAdvPriceLink1"/>
+        <waitForElement selector="{{AdminProductProfileSection.SpecialPriceField}}" stepKey="waitForElement2"/>
+        <wait time="1" stepKey="waitSeconds1"/>
+        <fillField selector="{{AdminProductProfileSection.SpecialPriceField}}"
+                   userInput="10"
+                   stepKey="configureSpecPrice1"/>
+        <wait time="3" stepKey="waitSeconds2"/>
+        <click selector="{{AdminProductProfileSection.DoneButton}}"
+               stepKey="clickOnDoneButton1"/>
+        <wait time="2" stepKey="waitSeconds3"/>
+        <click selector="{{AdminProductProfileSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandOnSaleFilterOption1"
+                          selector="{{AdminILNSettingsSection.CustomFilterSettingsTab('am_on_sale')}}"
+                          dependentSelector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_on_sale')}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      stepKey="enableDisableOnSaleFilter1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterBlockPositionSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter.CustomFilterBlockPositionSwitcher('am_on_sale')}}"
+                      stepKey="selectBlockPosition1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterDisplayModeSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter.CustomFilterDisplayModeSwitcher('am_on_sale')}}"
+                      stepKey="selectDisplayMode1"/>
+        <fillField userInput="{{customFilter.CustomFilterPositionField('am_on_sale')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterPositionField('am_on_sale')}}"
+                   stepKey="fillOnSaleFilterPositionField1"/>
+        <fillField userInput="{{customFilter.CustomFilterTooltipField('am_on_sale')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterTooltipField('am_on_sale')}}"
+                   stepKey="fillTooltipField1"/>
+        <fillField userInput="{{customFilter3.CustomFilterLabelField('am_on_sale')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterLabelField('am_on_sale')}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <amOnPage url="{{AdminCatalogPriceRuleProfilePage.url('1')}}" stepKey="amOnCatalogPriceRulePage1"/>
+        <waitForElement selector="{{AdminNewCatalogPriceRule.status}}" stepKey="waitForElement3"/>
+        <conditionalClick stepKey="defineStatus1"
+                          selector="{{AdminILNSettingsSection.CatalogPriceRuleEnablingSwitcher}}"
+                          dependentSelector="{{AdminILNSettingsSection.DependentToggle('1')}}"
+                          visible="true"/>
+        <click selector="{{AdminNewCatalogPriceRule.saveAndApply}}" stepKey="saveAndApply"/>
+        <see selector="{{AdminCategoryMessagesSection.SuccessMessage}}"
+             userInput="You saved the rule."
+             stepKey="seeSuccess"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex2"/>
+    </actionGroup>
+
+    <actionGroup name="OnSaleFilterDisablingActionGroup" extends="OnSaleFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <clearField selector="{{AdminProductProfileSection.SpecialPriceField}}" stepKey="configureSpecPrice1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      stepKey="enableDisableOnSaleFilter1"
+                      after="fillLabelField1"/>
+        <conditionalClick stepKey="defineStatus1"
+                          selector="{{AdminILNSettingsSection.CatalogPriceRuleEnablingSwitcher}}"
+                          dependentSelector="{{AdminILNSettingsSection.DependentToggle('0')}}"
+                          visible="true"/>
+    </actionGroup>
+
+    <actionGroup name="OnSaleFilterExpandActionGroup" extends="OnSaleFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('am_on_sale')}}"
+                      stepKey="ExpandOnSaleFilter1"
+                      after="selectDisplayMode1"/>
+    </actionGroup>
+
+    <actionGroup name="OnSaleFilterDisablingForExpandedActionGroup" extends="OnSaleFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <clearField selector="{{AdminProductProfileSection.SpecialPriceField}}" stepKey="configureSpecPrice1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('am_on_sale')}}"
+                      stepKey="ExpandOnSaleFilter1"
+                      after="selectDisplayMode1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('am_on_sale')}}"
+                      stepKey="enableDisableOnSaleFilter1"
+                      after="clickSaveConfig2"/>
+        <click selector="{{AdminILNSettingsSection.Save}}"
+               stepKey="clickSaveConfig3"
+               after="enableDisableOnSaleFilter1"/>
+        <conditionalClick stepKey="defineStatus1"
+                          selector="{{AdminILNSettingsSection.CatalogPriceRuleEnablingSwitcher}}"
+                          dependentSelector="{{AdminILNSettingsSection.DependentToggle('0')}}"
+                          visible="true"/>
+    </actionGroup>
+
+</actionGroups>

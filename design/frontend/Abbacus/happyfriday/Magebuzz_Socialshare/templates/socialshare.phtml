@@ -1,0 +1,34 @@
+<?php
+/**
+* @copyright Copyright (c) 2016 www.magebuzz.com
+*/
+?>
+<?php
+$enableFacebook = $block->_scopeConfig->getValue('socialshare/facebook/enable_facebook', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$enableTwitter = $block->_scopeConfig->getValue('socialshare/twitter/enable_twitter', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$enableGooglePlus = $block->_scopeConfig->getValue('socialshare/googleplus/enable_google_plus', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$enablePinit = $block->_scopeConfig->getValue('socialshare/pinitsharing/enable_pinit', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+?>
+
+<div class="magebuzz-social">
+<?php
+if($enableFacebook == 1):
+	echo $block->getFacebookButton();
+endif;
+
+if($enableTwitter == 1):
+	echo $block->getTwitterButton();
+endif;
+
+if($enableGooglePlus == 1):
+  	echo $block->getGooglePlusButton();
+endif;
+
+if($enablePinit == 1):
+  echo $block->getPinItButton();
+endif;
+?>
+<div class="email_button social-button">
+	<?php echo $this->getLayout()->createBlock('Magento\Catalog\Block\Product\View')->setTemplate('Magento_Catalog::product/view/mailto.phtml')->toHtml();?>
+</div>
+</div>

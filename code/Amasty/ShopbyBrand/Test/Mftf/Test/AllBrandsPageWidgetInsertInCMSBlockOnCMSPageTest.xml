@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageWidgetInsertInCMSBlockOnCMSPageTest" extends="AllBrandsPageWidgetInsertInCMSPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check that All Brands Page Widget is inserted in CMS Block on CMS Page Content"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-32"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="createCMSBlock1"
+                         ref="AdminCreateCMSBlockActionGroup"
+                         before="CreateCMSPageWithWidgetCode1">
+                <argument name="CMSblock1" value="CMSBlockData3"/>
+                <argument name="widgetCode" value="allBrandsPageWidgetCode"/>
+            </actionGroup>
+            <actionGroup stepKey="CreateCMSPageWithWidgetCode1"
+                         ref="CreateCMSPageWithWidgetCodeCMSBlockActionGroup">
+                <argument name="widgetCode" value="brandSliderWidgetCode"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="deleteCMSBlock1"
+                         ref="AmDeleteCMSBlockActionGroup"
+                         before="logout">
+                <argument name="CMSblock1" value="CMSBlockData3"/>
+                <argument name="widgetCode" value="brandSliderWidgetCode"/>
+            </actionGroup>
+        </after>
+
+        <!--Check that All Brands Page Block from CMS Static Block is displayed on CMS Page-->
+
+    </test>
+</tests>

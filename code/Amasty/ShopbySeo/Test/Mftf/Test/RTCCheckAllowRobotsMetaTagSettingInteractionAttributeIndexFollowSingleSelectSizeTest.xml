@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RTCCheckAllowRobotsMetaTagSettingInteractionAttributeIndexFollowSingleSelectSizeTest"
+          extends="RTCCheckAllowRobotsMetaTagSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description
+                    value="Check of Allow the Module to Modify Robots Meta Tag in interaction with Index/Follow from Attribute's Profile in case of Size Filter"/>
+            <severity value="MINOR"/>
+            <testCaseId value="RTCSETTINGS-62"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="allowmodifyrtc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesPriceSizeCategoryForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowSingleSelection"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesPriceSizeCategoryForSeoDefaultActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Check RTC settings: navigate to All-Products Page, check RTC in Page Source, filter Page by single option, check RTC in Page Source, filter Page by second option/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Price')}}"
+               stepKey="clickPatternFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('49.99')}}"
+               stepKey="clickSolidOption1"/>
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Size')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('XL')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('XS')}}"
+               stepKey="clickIndoorOption1"/>
+        <seeInPageSource
+                html="&quot;noindex,nofollow"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>
+

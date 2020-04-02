@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarOnCustomPageMultiSelectTest"
+          extends="CategoryFilterLabelsSidebarMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode with MultiSelect on Custom Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-35"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1"
+                         ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario2"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="SetCategoryDescriptionDefault1"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter after Custom Page activation: select options on sidebar, check the result/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"
+               after="waitForPageLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"
+               after="clickClimateFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page"
+             stepKey="checkPageTitle1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page"
+             stepKey="checkPageTitle2"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="8"
+             stepKey="checkQtyOfProducts3"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('All-Weather')}}"
+               stepKey="removeSelectedFilterOptionFromState3"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.FilterState('All-Weather')}}"
+                        stepKey="dontSeeFilter3"/>
+
+    </test>
+</tests>
+
+

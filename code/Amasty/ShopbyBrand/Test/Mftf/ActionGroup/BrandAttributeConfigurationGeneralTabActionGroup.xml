@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="BrandAttributeConfigurationActionGroup">
+        <arguments>
+            <argument name="brandAttribute"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandGeneralSettingsTab1"
+                          selector="{{AdminIlnBrandsSettingsSection.GeneralSettingsTab}}"
+                          dependentSelector="{{AdminIlnBrandsSettingsSection.SelectBrandAttributeOption}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.SelectBrandAttributeOption}}"
+                      userInput="{{brandAttribute.SelectBrandAttributeOption}}"
+                      stepKey="selectMaterialAsBrandAttribute1"/>
+        <fillField userInput="{{brandAttribute.BrandUrlKeyField}}"
+                   selector="{{AdminIlnBrandsSettingsSection.BrandUrlKeyField}}" stepKey="fillBrandUrlKeyField1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="AllBrandsPageLinkConfigurationActionGroup">
+        <arguments>
+            <argument name="brandsLink1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage2"/>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.AddBrandsLinkTopMenu}}"
+                      userInput="{{brandsLink1.AddBrandsLinkTopMenu}}"
+                      stepKey="setAddBrandsLinkTopMenu1"/>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.AddBrandsAccountTopLinks}}"
+                      userInput="{{brandsLink1.AddBrandsAccountTopLinks}}"
+                      stepKey="setAddBrandsAccountTopLinks1"/>
+        <uncheckOption selector="{{AdminIlnBrandsSettingsSection.BrandsItemLabelLocker}}"
+                       stepKey="uncheckBrandsItemLabelCheckbox1"/>
+        <fillField userInput="{{brandsLink1.BrandsItemLabel}}"
+                   selector="{{AdminIlnBrandsSettingsSection.BrandsItemLabel}}"
+                   stepKey="fillBrandItemLabelField1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureShowBrandsListActionGroup" extends="AllBrandsPageLinkConfigurationActionGroup">
+        <arguments>
+            <argument name="brandsLink1"/>
+        </arguments>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.ShowBrandsList}}"
+                      userInput="{{brandsLink1.ShowBrandsList}}"
+                      stepKey="setShowBrandsList1"
+                      after="setAddBrandsLinkTopMenu1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureTooltipBrandLogoActionGroup">
+        <arguments>
+            <argument name="brandLogoTooltip1"/>
+            <argument name="attributeSeoScenario4"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.DisplayTooltip}}"
+                        userInput="{{brandLogoTooltip1.DisplayTooltip}}"
+                      stepKey="setDisplayTooltip1"/>
+        <unselectOption selector="{{AdminIlnBrandsSettingsSection.DisplayTooltip}}"
+                      userInput="{{brandLogoTooltip1.DisplayTooltip}}"
+                      stepKey="setDisplayTooltip2"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario4.MaterialID)}}"
+                  stepKey="navigateToMaterialBrandAttributePage1"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab4"/>
+        <selectOption selector="{{AdminNewAttributePanel.useInProductListing}}"
+                      userInput="{{brandLogoTooltip1.useInProductListing}}"
+                      stepKey="useInProductListing1"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureTooltipContentActionGroup" extends="ConfigureTooltipBrandLogoActionGroup">
+        <arguments>
+            <argument name="brandLogoTooltip1"/>
+        </arguments>
+        <selectOption selector="{{AdminIlnBrandsSettingsSection.DisplayTooltip}}"
+                      parameterArray="['{{brandLogoTooltip1.DisplayTooltip}}']"
+                      stepKey="setDisplayTooltip1"/>
+        <remove keyForRemoval="setDisplayTooltip2"/>
+        <uncheckOption selector="{{AdminIlnBrandsSettingsSection.TooltipContentLocker}}"
+                       stepKey="uncheckTooltipContentCheckbox1"
+                       after="setDisplayTooltip1"/>
+        <fillField selector="{{AdminIlnBrandsSettingsSection.TooltipContent}}"
+                   userInput="{{brandLogoTooltip1.TooltipContent}}"
+                   stepKey="fillBrandItemLabelField1"
+                   after="uncheckTooltipContentCheckbox1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureTooltipContentNoActionGroup" extends="ConfigureTooltipBrandLogoActionGroup">
+        <arguments>
+            <argument name="brandLogoTooltip1"/>
+        </arguments>
+        <remove keyForRemoval="setDisplayTooltip2"/>
+    </actionGroup>
+
+</actionGroups>

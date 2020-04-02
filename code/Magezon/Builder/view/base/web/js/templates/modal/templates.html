@@ -1,0 +1,24 @@
+<header class="mgz-modal-header">
+	<div class="mgz-modal-header-inner">
+		<h1 class="mgz-modal-title">
+			<i class="mgz-modal-icon {{ mgz.icon }}" ng-if="mgz.icon"></i>
+			<span>{{ mgz.title }}</span>
+		</h1>
+		<span class="mgz-modal-subtitle">{{ mgz.subtitle }}</span>
+		<button class="mgz-modal-action-close" ng-click="mgz.cancel()">
+			<i class="mgz-icon mgz-icon-close"/>
+			<span ng-if="mgz.data.closeText">{{ mgz.closeText }}</span>
+		</button>
+		<a ng-if="$root.elementManager.getElement(element).documentation" class="mgz-modal-help-link" target="_blank" ng-href="{{ $root.elementManager.getElement(element).documentation }}"><i class="fas mgz-fa-external-link-alt"></i> Help</a>
+	</div>
+</header>
+<div class="mgz-modal-content">
+	<div class="mgz-spinner"><i></i></div>
+	<div class="mgz-modal-contentfont.css-inner">
+		<div class="mgz-elements-list">
+			<form ng-submit="mgz.onSubmit()" name="mgz.form" novalidate options="mgz.options">
+				<formly-form model="mgz.model" fields="mgz.tabs" model="mgz.model"></formly-form>
+			</form>
+		</div>
+	</div>
+</div>

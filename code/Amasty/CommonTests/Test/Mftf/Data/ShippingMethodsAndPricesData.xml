@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="_FlatRateMethod" type="shippingMethods">
+        <data key="shippingMethodsName">s_method_flatrate_flatrate</data>
+    </entity>
+
+    <entity name="_BestWayMethod" type="shippingMethods">
+        <data key="shippingMethodsName">s_method_tablerate_bestway</data>
+    </entity>
+
+    <entity name="FlatRateMethod" type="shippingMethodsOnCheckout">
+        <data key="shippingMethodsNameOnCheckout">flatrate_flatrate</data>
+    </entity>
+
+    <entity name="BestWayMethod" type="shippingMethodsOnCheckout">
+        <data key="shippingMethodsNameOnCheckout">tablerate_bestway</data>
+    </entity>
+
+    <entity name="MethodFlatRateOnCheckoutPaymentPage" type="shippingMethodsOnCheckout">
+        <data key="shippingMethodsNameOnCheckoutPaymentPage">Flat Rate - Fixed</data>
+    </entity>
+
+    <entity name="MethodBestWayOnCheckoutPaymentPage" type="shippingMethodsOnCheckout">
+        <data key="shippingMethodsNameOnCheckoutPaymentPage">Best Way - Table Rate</data>
+    </entity>
+
+    <entity name="_Price_0_00" type="shippingPrices">
+        <data key="price">$0.00</data>
+    </entity>
+
+    <entity name="_Price_15_00" type="shippingPrices">
+        <data key="price">$15.00</data>
+    </entity>
+
+    <entity name="_Price_30_00" type="shippingPrices">
+        <data key="price">$30.00</data>
+    </entity>
+
+</entities>

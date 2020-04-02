@@ -1,0 +1,107 @@
+//
+// Porto Compatibility Styles
+// __________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .am-porto-cmtb {
+        .amshopby-filter-current.filter-current {
+            .amshopby-item.item {
+                .am-flex(none, center);
+
+                padding: 0 0 10px 20px;
+            }
+
+            .items {
+                padding: 15px;
+            }
+
+            .am-show-more {
+                padding: 12px 25px 0 0;
+            }
+
+            .category-image .image {
+                display: block;
+                max-width: 100%;
+                width: auto;
+                height: auto;
+            }
+        }
+
+        .filter-options-content .swatch-option {
+            min-width: 22px;
+            width: 22px;
+            height: 22px;
+            border: none;
+            background-position: center center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+        }
+
+        .page-wrapper > .page-header {
+            z-index: 9005;
+        }
+
+        .page-main {
+            z-index: 9;
+        }
+
+        .am-show-more:hover {
+            color: #006bb4 !important;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ----------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .am-porto-cmtb .filter.active .filter-current.filter-current.amshopby-filter-current + .block-actions {
+        top: 187px;
+        border: none;
+        border-radius: inherit;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .am-porto-cmtb .filter.active .filter-current.amshopby-filter-current {
+        & {
+            padding: 17px 30px;
+            height: 140px;
+        }
+
+        & ~ .filter-options {
+            top: 221px;
+        }
+
+        .items {
+            padding: 15px;
+            border-width: 1px;
+        }
+
+        .filter-current-subtitle {
+            display: block;
+            padding: 10px 15px;
+        }
+    }
+
+    .am-porto-cmtb .filter.active {
+        .block-category-list .block-title,
+        .filter-options-title,
+        .filter .filter-current-subtitle,
+        .block-category-list .block-content,
+        .filter-options-content {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .filter-options-title:after {
+            right: 15px;
+        }
+    }
+}

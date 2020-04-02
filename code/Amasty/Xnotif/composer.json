@@ -1,0 +1,22 @@
+{
+    "name": "amasty/xnotif",
+    "description": "Out Of Stock Notification by Amasty",
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|^7.1.0",
+        "amasty/cron-schedule-list": ">=1.0.5",
+        "amasty/base": ">=1.9.10"
+    },
+    "type": "magento2-module",
+    "version": "1.11.12",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Xnotif\\": ""
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CanonicalURLConfigurationActionGroup">
+        <arguments>
+            <argument name="canonicalscenario"/>
+            <argument name="canonicalscenario2"/>
+        </arguments>
+        <amOnPage url="{{AdminMagentoCatalogSettingsPage.url('catalog')}}" stepKey="navigateToMagentoCatalogSettingsPage1"/>
+        <conditionalClick stepKey="expandSEOSettingsTab1"
+                          selector="{{AdminMagentoCatalogSettingsSection.SEOSettingsTab}}"
+                          dependentSelector="{{AdminMagentoCatalogSettingsSection.EnableCanonicalForCategoryPageSwitcher}}"
+                          visible="false"/>
+        <uncheckOption selector="{{AdminMagentoCatalogSettingsSection.EnableCanonicalLocker}}" stepKey="uncheckCheckbox1"/>
+        <selectOption selector="{{AdminMagentoCatalogSettingsSection.EnableCanonicalForCategoryPageSwitcher}}"
+                      userInput="{{canonicalscenario.EnableCanonicalForCategoryPageSwitcher}}"
+                      stepKey="configureEnableCanonicalForCatPagesSwitcher1"/>
+        <click selector="{{AdminMagentoCatalogSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <amOnPage url="{{AdminILNSeoSettingsPage.url}}" stepKey="navigateToSeoSettingsPage1"/>
+        <conditionalClick stepKey="expandCanonicalURlSettingsTab1"
+                          selector="{{AdminILNSeoSettingsSection.CanonicalURLTab}}"
+                          dependentSelector="{{AdminILNSeoSettingsSection.CategoryPagesCanonicalSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.CategoryPagesCanonicalSwitcher}}"
+                      userInput="{{canonicalscenario2.CategoryPagesCanonicalSwitcher}}"
+                      stepKey="configureCategoryPagesCanonicalSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.AllProductsPageCanonicalSwitcher}}"
+                      userInput="{{canonicalscenario2.AllProductsPageCanonicalSwitcher}}"
+                      stepKey="configureAllProductsPageCanonicalSwitcher1"/>
+        <click selector="{{AdminILNSeoSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>

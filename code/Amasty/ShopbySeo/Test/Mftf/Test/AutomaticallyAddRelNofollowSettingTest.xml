@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AutomaticallyAddRelNofollowSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Automatically Add relnofollow to Filter Links when Required setting enabling"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-30"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="rtcsettings"/>
+            <group value="relnofollow"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="RTCEnabling1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+                <argument name="RTC2" value="AllowMultiSelectLabelsMode"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForRTCActionGroup"
+                         stepKey="configureAttributesForRTC1">
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+                <argument name="RTC2" value="SingleSelectDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="RTCEnabling1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check RTC settings: navigate to All-Products Page, check Nofollow in Attribute's Option in Page Source/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickPatternFilter1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterOptionWithNofollow('Black')}}"
+                    stepKey="seeNofollowInOption1"/>
+
+    </test>
+</tests>

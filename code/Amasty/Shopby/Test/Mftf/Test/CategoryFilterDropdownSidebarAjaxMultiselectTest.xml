@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterDropdownSidebarAjaxMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in dropdown mode with enabled Ajax and MultiSelect"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-39"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="SetCategoryIDSMultiSelectActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSDropdownSidebar"/>
+                <argument name="categoryIDS4" value="CategoryIDSMultiSelect"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription1"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxInstantlyOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescriptionDefault1"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="SetCategoryIDSMultiSelectActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS4" value="CategoryIDSSingleSelect"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select options on sidebar, check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdown}}"
+               stepKey="clickCategoryFilterDropdown1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Bags')}}"
+                      stepKey="grabQtyOfBagsProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTree('Gear')}}"
+               stepKey="expandCategoryTree1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Bags')}}"
+               stepKey="clickOnBagsOption1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter2"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Fitness Equipment')}}"
+                      stepKey="grabQtyOfFitnessEquipmentProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Fitness Equipment')}}"
+               stepKey="clickOnFitnessEquipmentOption1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Default Category"
+             stepKey="checkPageTitle1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter3"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Bags')}}"
+             userInput="{$grabQtyOfBagsProducts1}"
+             stepKey="checkQtyOfBagsProducts1"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Fitness Equipment')}}"
+             userInput="{$grabQtyOfFitnessEquipmentProducts1}"
+             stepKey="checkQtyOfFitnessEquipmentProducts"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="25"
+             stepKey="checkQtyOfBagsProducts2"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Bags')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.FilterState('Bags')}}"
+                        stepKey="dontSeeFilter1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Fitness Equipment')}}"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.FilterState('Fitness Equipment')}}"
+                        stepKey="dontSeeFilter2"/>
+
+    </test>
+</tests>
+
+

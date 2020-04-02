@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarTooltipWithImagePositionTest"
+          extends="CategoryFilterLabelsSidebarTooltipPositionTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode, position and tooltip with image"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="TooltipEnablingWithImageActionGroup"
+                         stepKey="enableTooltip1"/>
+        </before>
+
+        <!--Filter All-Products Page by Category Filter: check position and tooltip wuth image, select option on sidebar, check the result/-->
+
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('21','3.png','3_')}}"
+                    stepKey="seeTooltipImage1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.FilterTooltipImage('21','3.png','3_')}}"
+                    stepKey="seeTooltipImage2"/>
+
+    </test>
+</tests>
+
+

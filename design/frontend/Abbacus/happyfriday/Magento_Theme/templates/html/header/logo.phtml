@@ -1,0 +1,62 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();?>
+<span data-action="toggle-nav" class="action nav-toggle"><span><?= /* @escapeNotVerified */ __('Menu') ?></span></span>
+<?php if ($block->isHomePage()):?>
+    <strong class="logo">
+<?php else: ?>
+    <a class="logo" href="<?= $block->getUrl('') ?>" title="<?= /* @escapeNotVerified */ $storeName ?>">
+<?php endif ?>
+        <img src="<?= /* @escapeNotVerified */ $block->getLogoSrc() ?>"
+             alt="<?= /* @escapeNotVerified */ $block->getLogoAlt() ?>"
+             <?= $block->getLogoWidth() ? 'width="' . $block->getLogoWidth() . '"' : '' ?>
+             <?= $block->getLogoHeight() ? 'height="' . $block->getLogoHeight() . '"' : '' ?>
+        />
+<?php if ($block->isHomePage()):?>
+    </strong>
+<?php else:?>
+    </a>
+<?php endif?>
+<script>
+require([
+    'jquery'
+], function ($) {
+    $(".filter-opener").click(function(){
+    $(".sidebar.sidebar-main, .filter-opener .Filterhide").toggleClass("Active");
+});
+});
+ </script>
+<script type="text/javascript">
+require([ 'jquery', 'jquery/ui'], function($){ $(document).ready(function($) {
+jQuery('.catalogsearch-result-index .catalog-topnav.amasty-catalog-topnav').prependTo(jQuery('.catalogsearch-result-index .products.wrapper.grid.products-grid'));
+
+// if (window.location.href.indexOf("all-products") != -1){
+jQuery(window).scroll(function() {
+    if (jQuery(this).scrollTop()) {
+        jQuery('.gototopbutton').fadeIn();
+    } else {
+        jQuery('.gototopbutton').fadeOut();
+    }
+});
+jQuery(".gototopbutton").click(function () {
+   jQuery("html, body").animate({scrollTop: 0}, 1000);
+});
+// }
+
+}); });
+</script>
+<style type="text/css">
+	.catalog-category-view .compare.wrapper + #cwsMenu-1 {
+    display: none !important;
+}
+</style>

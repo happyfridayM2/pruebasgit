@@ -1,0 +1,79 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+// @codingStandardsIgnoreStart
+/** @var Magento\Framework\Url\Helper\Data $urlHelper */
+$urlHelper = $this->helper(\Magento\Framework\Url\Helper\Data::class);
+/** @var Amasty\Xnotif\Helper\Data $helper */
+$helper = $this->helper(\Amasty\Xnotif\Helper\Data::class);
+// @codingStandardsIgnoreEnd
+
+$productId = (int)$helper->getOriginalProduct($block)->getId();
+$parentId = (int)$block->getData('parent_product_id');
+$url = $block->escapeUrl($helper->getEmailUrl('price'));
+?>
+
+<div class="amxnotif-block">
+    <form id="form-validate-price" method="post" action="<?= /* @noEscape */ $url; ?>">
+        <label for="notification-container-<?= /* @noEscape */ $productId;?>">
+            <?= /* @noEscape */ __('Sign up for price alert'); ?>
+        </label>
+        <div class="notification-container" id="notification-container-<?= /* @noEscape */ $productId ?>">
+            <div class="input-fields fieldset">
+                <input type="email"
+                       data-validate="{required:true, 'validate-email':true}"
+                       name="guest_email_price"
+                       id="amxnotif-guest-email_price-<?= /* @noEscape */ $productId;?>"
+                       class="input-text amxnotif-guest-email"
+                       size="30"/>
+                <input type="hidden" name="product_id"
+                       value="<?= /* @noEscape */ $productId;?>"/>
+                <?php if ($parentId) :?>
+                <input type="hidden" name="parent_id"
+                       value="<?= /* @noEscape */ $parentId ?>"/>
+                <?php endif; ?>
+                <input type="hidden" name="type" value="email"/>
+                <input type="hidden"
+                       name="<?= /* @noEscape */ \Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>"
+                       value="<?= /* @noEscape */ $urlHelper->getEncodedUrl(); ?>"/>
+                <?php if ($helper->isGDRPEnabled()) : ?>
+                    <div class="field required">
+                        <input type="checkbox"
+                               name="gdrp"
+                               id="amxnotif-price-gdrp"
+                               title="<?= $block->escapeHtml(__('GDRP')); ?>"
+                               data-validate="{required:true}"
+                               value="1">
+                        <label class="label" for="amxnotif-price-gdrp">
+                            <?= /* @noEscape */ $helper->getGDRPText(); ?>
+                        </label>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="actions-toolbar amxnotif_guest_action">
+                <div class="primary">
+                    <button type="submit" class="action submit primary">
+                        <span><?= $block->escapeHtml(__('Subscribe')); ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        "mage/mage",
+        "mage/validation"
+    ], function ($) {
+        "use strict";
+        $('#form-validate-price').mage('validation');
+    });
+</script>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="MoreFromThisBrandConfigurationActionGroup">
+        <arguments>
+            <argument name="moreFTBBlock1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="moreFTBBlockSettingsTab1"
+                          selector="{{MoreFromThisBrandSettingsSection.MoreFromThisBrandBSettingsTab}}"
+                          dependentSelector="{{MoreFromThisBrandSettingsSection.EnableMoreFromThisBrandBlockSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{MoreFromThisBrandSettingsSection.EnableMoreFromThisBrandBlockSwitcher}}"
+                      userInput="{{moreFTBBlock1.EnableMoreFromThisBrandBlockSwitcher}}"
+                      stepKey="setEnableMoreFromThisBrand1"/>
+        <fillField selector="{{MoreFromThisBrandSettingsSection.MoreFromThisBrandBlockTitle}}"
+                   userInput="{{moreFTBBlock1.MoreFromThisBrandBlockTitle}}"
+                   stepKey="setMoreFromThisBrandTitle1"/>
+        <fillField selector="{{MoreFromThisBrandSettingsSection.MaxProductCount}}"
+                   userInput="{{moreFTBBlock1.MaxProductCount}}"
+                   stepKey="setMaxProductCount1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <amOnPage url="{{ProductProfilePage.url('1895')}}" stepKey="amOnProductProfilePage1"/>
+        <waitForElement selector="{{AdminProductProfileSection.SelectMaterialOption}}" stepKey="waitForElement1"/>
+        <selectOption parameterArray="['{{moreFTBBlock1.relatedAttributeOptions}}']"
+                      selector="{{AdminProductProfileSection.SelectMaterialOption}}"
+                      stepKey="selectPolyesterOption1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <click selector="{{AdminProductProfileSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="MoreFromThisBrandConfigurationDefaultActionGroup"
+                 extends="MoreFromThisBrandConfigurationActionGroup">
+        <arguments>
+            <argument name="moreFTBBlock1"/>
+        </arguments>
+        <selectOption selector="{{MoreFromThisBrandSettingsSection.EnableMoreFromThisBrandBlockSwitcher}}"
+                      userInput="{{moreFTBBlock1.EnableMoreFromThisBrandBlockSwitcher}}"
+                      stepKey="setEnableMoreFromThisBrand1"
+                      after="setMaxProductCount1"/>
+    </actionGroup>
+
+</actionGroups>

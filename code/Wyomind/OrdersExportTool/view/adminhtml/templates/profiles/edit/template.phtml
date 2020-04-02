@@ -1,0 +1,53 @@
+<script>
+    require(["jquery", "oet_template","oet_blackbox"], function ($, template,blackbox) {
+        'use strict';
+        /* template editor */
+        template.CodeMirrorHeaderPattern = template.codeMirror(document.getElementById('header'));
+        template.CodeMirrorBodyPattern = template.codeMirror(document.getElementById('body'));
+        template.CodeMirrorFooterPattern = template.codeMirror(document.getElementById('footer'));
+        // to be sure that the good value will be well stored in db
+        template.CodeMirrorBodyPattern.on('change', function () {
+            $('#body').val(template.CodeMirrorBodyPattern.getValue());
+        });
+        template.CodeMirrorHeaderPattern.on('change', function () {
+            $('#header').val(template.CodeMirrorHeaderPattern.getValue());
+        });
+        template.CodeMirrorFooterPattern.on('change', function () {
+            $('#footer').val(template.CodeMirrorFooterPattern.getValue());
+        });
+
+        $('#type').on('change', function () {
+            template.updateType(true);
+        });
+        $('#format').on('change', function () {
+            template.updateType(true);
+        });
+        $('#scope').on('change', function () {
+            blackbox.refreshLibrary();
+        });
+        template.updateType(false);
+
+        $(document).on('focus', "#fields:not(.advanced) .body-txt-field", function () {
+            template.popup_open($(this).val(), this);
+        });
+
+        $(document).on('focus', "#fields:not(.advanced) .header-txt-field", function () {
+            template.popup_open($(this).val(), this);
+        });
+
+        $(document).on('click', ".remove-field", function () {
+            template.removeField(this);
+        });
+        $(document).on('click', ".add-field", function () {
+
+            template.addField("", "", true, this);
+            return false;
+        });
+
+        $('#profiles_edit_tabs_template_section').on('click', function () {
+            template.CodeMirrorHeaderPattern.refresh();
+            template.CodeMirrorBodyPattern.refresh();
+            template.CodeMirrorFooterPattern.refresh();
+        });
+    });
+</script>

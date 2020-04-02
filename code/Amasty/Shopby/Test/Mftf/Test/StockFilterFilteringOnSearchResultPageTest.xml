@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterFilteringOnSearchResultPageTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode on search result page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNSTOCKFILTER-14"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <!--Filter by Stock Filter on search result page: expand filter, select Out of Stock option, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{SearchResultPage.url('bag')}}" stepKey="navigateToAllProducts1"/>
+
+        <!--Filter by Stock Filter on search result page: expand filter, select In Stock option, check the result, remove selected option from state/-->
+
+    </test>
+</tests>
+

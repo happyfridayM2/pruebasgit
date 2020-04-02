@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CheckPriceShipping">
+        <arguments>
+            <argument name="shippingPrices"/>
+            <argument name="shippingMethods"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <see selector="//label[@for='{{shippingMethods.shippingMethodsName}}']//span" userInput="{{shippingPrices}}" stepKey="checkFreeShipping"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="CloseTabWithShippingInCart"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoFreeShipping">
+        <arguments>
+            <argument name="shippingMethods"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <dontSeeElement selector="//label[@for='{{shippingMethods.shippingMethodsName}}']//span[text()='$0.00']" stepKey="checkNoFreeShipping"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="CloseTabWithShippingInCart"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckPriceShippingWithCountryStateZip">
+        <arguments>
+            <argument name="shippingPrices"/>
+            <argument name="shippingMethods"/>
+            <argument name="country"/>
+            <argument name="state"/>
+            <argument name="zip"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <selectOption selector="{{FrontCartSection.SelectCountryShipping}}"
+                      userInput="{{country}}"
+                      stepKey="selectShippingCountry"/>
+        <selectOption selector="{{FrontCartSection.SelectStateShipping}}"
+                      userInput="{{state}}"
+                      stepKey="selectShippingState"/>
+        <fillField selector="{{FrontCartSection.ZipShipping}}" userInput="{{zip}}" stepKey="enterZip"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForElementNotVisible selector="{{FrontCartSection.CartTotalLoader}}" stepKey="waitWhenNotVisibleLoaderTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <wait time="1" stepKey="waitForLoadShipping"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <see selector="//label[@for='{{shippingMethods.shippingMethodsName}}']//span" userInput="{{shippingPrices}}" stepKey="checkFreeShipping"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad4"/>
+        <click selector="{{FrontCartSection.EstimateShippingAndTax}}" stepKey="CloseTabWithShippingInCart"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad5"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoProductInCart">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <dontSee selector="//table[@id='shopping-cart-table']//strong[@class='product-item-name']/a"
+                 userInput="{{products.productName}}" stepKey="checkNoProductInCart"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoConfigurableProductInCart">
+        <arguments>
+            <argument name="products"/>
+            <argument name="productCustomSKU"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <dontSeeInField selector="//table[@id='shopping-cart-table']//input[@data-cart-item-id='{{productCustomSKU}}']"
+                        userInput="{{products.productName}}" stepKey="checkNoConfigurableProductInCart"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckProductInCart">
+        <arguments>
+            <argument name="products"/>
+            <argument name="addProductQty"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <see selector="{{FrontCartSection.ProductInCart}}"
+             userInput="{{products.productName}}" stepKey="checkProductInCart"/>
+        <seeInField selector="//table[@id='shopping-cart-table']//input[@data-cart-item-id='{{products.productSKU}}']"
+                    userInput="{{addProductQty.qty}}" stepKey="CheckQtyProduct"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckConfigurableProductInCart">
+        <arguments>
+            <argument name="products"/>
+            <argument name="productCustomSKU"/>
+            <argument name="addProductQty"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <see selector="{{FrontCartSection.ProductInCart}}"
+             userInput="{{products.productName}}" stepKey="checkProductInCart"/>
+        <seeInField selector="//table[@id='shopping-cart-table']//input[@data-cart-item-id='{{productCustomSKU}}']"
+                    userInput="{{addProductQty.qty}}" stepKey="CheckQtyProduct"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckEmptyCart">
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <seeElement selector="{{FrontCartSection.EmptyCart}}" stepKey="CheckThatTheCartIsEmpty"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckProductOnCheckoutShippingPage">
+        <arguments>
+            <argument name="products"/>
+            <argument name="addProductQty"/>
+        </arguments>
+        <amOnPage url="{{CheckoutShippingPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="//div[@class='opc-block-summary']//div[@role='tab']" stepKey="ClickTab"/>
+        <seeElement selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{products.productName}}')]"
+                    stepKey="checkProductOnCheckout"/>
+        <see selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{products.productName}}')]//following-sibling::div[@class='details-qty']//span[@class='value']"
+             userInput="{{addProductQty.qty}}" stepKey="CheckQtyProduct"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckProductOnCheckoutPaymentsPage">
+        <arguments>
+            <argument name="products"/>
+            <argument name="addProductQty"/>
+        </arguments>
+        <amOnPage url="{{CheckoutPaymentsPage.url}}" stepKey="navigateToCheckoutPaymentsPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="//div[@class='opc-block-summary']//div[@role='tab']" stepKey="ClickTab"/>
+        <seeElement selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{products.productName}}')]"
+                    stepKey="checkProductOnCheckout"/>
+        <see selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{products.productName}}')]//following-sibling::div[@class='details-qty']//span[@class='value']"
+             userInput="{{addProductQty.qty}}" stepKey="CheckQtyProduct"/>
+    </actionGroup>
+
+
+    <!-- ActionGroups For Check Banners Lite-->
+    <actionGroup name="CheckTopBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <seeElement selector="{{StorefrontProductPageWithPromoSection.TopPromoBanner}}" stepKey="CheckHaveTopBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoTopBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.TopPromoBanner}}" stepKey="CheckNoHaveTopBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckAfterBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <seeElement selector="{{StorefrontProductPageWithPromoSection.AfterBannerLite}}" stepKey="CheckHaveAfterBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoAfterBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.AfterBannerLite}}"
+                        stepKey="CheckNoHaveAfterBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckLabelBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <seeElement selector="{{StorefrontProductPageWithPromoSection.LabelBannerLite}}" stepKey="CheckHaveLabelBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoLabelBannerOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.LabelBannerLite}}"
+                        stepKey="CheckNoHaveLabelBanner"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckNoAllBannersOnProductPage">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.TopPromoBanner}}"
+                        stepKey="CheckNoHaveTopBanner"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.AfterBannerLite}}"
+                        stepKey="CheckNoHaveAfterBanner"/>
+        <dontSeeElement selector="{{StorefrontProductPageWithPromoSection.LabelBannerLite}}"
+                        stepKey="CheckNoHaveLabelBanner"/>
+    </actionGroup>
+
+
+    <!-- ActionGroups For Check Data In Admin Area Order-->
+    <actionGroup name="CheckAdminShippingMethodInLastOrder">
+        <arguments>
+            <argument name="shippingMethodName"/>
+            <argument name="shippingMethodPrice"/>
+        </arguments>
+        <amOnPage url="{{AdminAllOrdersPage.url}}" stepKey="navigateToOrder"/>
+        <click selector="{{AdminOrdersGridSection.LastOrder}}" stepKey="waitForSelectOrder"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad1"/>
+        <see selector="{{AdminOpenOrder.ShippingMethodName}}"
+             userInput="{{shippingMethodName}}" stepKey="checkShippingMethodName"/>
+        <see selector="{{AdminOpenOrder.ShippingMethodPrice}}"
+             userInput="{{shippingMethodPrice}}" stepKey="checkShippingMethodPrice"/>
+    </actionGroup>
+
+
+    <actionGroup name="CheckAdminShippingMethodInPenultimateOrder">
+        <arguments>
+            <argument name="shippingMethodName"/>
+            <argument name="shippingMethodPrice"/>
+        </arguments>
+        <amOnPage url="{{AdminAllOrdersPage.url}}" stepKey="navigateToOrder"/>
+        <click selector="{{AdminOrdersGridSection.PenultimateOrder}}" stepKey="waitForSelectOrder"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad1"/>
+        <see selector="{{AdminOpenOrder.ShippingMethodName}}"
+             userInput="{{shippingMethodName}}" stepKey="checkShippingMethodName"/>
+        <see selector="{{AdminOpenOrder.ShippingMethodPrice}}"
+             userInput="{{shippingMethodPrice}}" stepKey="checkShippingMethodPrice"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckPaymentMethodInLastOrder">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <amOnPage url="{{AdminAllOrdersPage.url}}" stepKey="navigateToOrder"/>
+        <click selector="{{AdminOrdersGridSection.LastOrder}}" stepKey="waitForSelectOrder"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad1"/>
+        <seeElement selector="//div[@class='admin__page-section-item-content'][contains(string(), '{{paymentMethods.paymentName}}')]"
+                    stepKey="checkPaymentMethod"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckPaymentInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="{{AdminOpenOrder.PaymentMethodName(paymentMethods.paymentName)}}"
+                    stepKey="checkPaymentMethod"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckTotalsInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="totals"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <see selector="{{AdminOpenOrder.GrandTotal}}" userInput="{{totals.orderTotal}}"
+             stepKey="checkGrandTotal"/>
+        <see selector="{{AdminOpenOrder.Subtotal}}" userInput="{{totals.cartSubtotal}}"
+             stepKey="checkSubtotal"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckTotalsInOrderWithTax" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="totalsWithTax"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <see selector="{{AdminOpenOrder.GrandTotal}}" userInput="{{totalsWithTax.orderTotal}}"
+             stepKey="checkGrandTotal"/>
+        <see selector="{{AdminOpenOrder.Subtotal}}" userInput="{{totalsWithTax.cartSubtotal}}"
+             stepKey="checkSubtotal"/>
+        <see selector="{{AdminOpenOrder.Tax}}" userInput="{{totalsWithTax.tax}}"
+             stepKey="checkTax"/>
+    </actionGroup>
+
+
+    <!-- Left for Backward Compatibility. Delete after 11.06.2020 -->
+    <actionGroup name="AdminCheckTotalsInLastOrder">
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+
+    <!-- Left for Backward Compatibility. Delete after 11.06.2020 -->
+    <actionGroup name="AdminCheckTotalsInLastOrderWithTax">
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+</actionGroups>

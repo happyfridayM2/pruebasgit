@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+-->
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="AdminCustomPagesProfilePage" url="/amasty_shopbypage/page/{{var1}}/{{var2}}" area="admin"
+          module="ShopbyPage" parameterized="true">
+        <section name="AdminIlnCustomPagesAndModuleSettingsSection"/>
+    </page>
+
+</pages>

@@ -1,0 +1,26 @@
+{
+        "name": "magebees/module-navigationmenupro",
+        "description": "Using this extension you can add different type of menu Links like add category, CMS page link, CMS static block content, product link, custom URL and default user links like My Account, My Wish list, Login, Logout etc.",
+        "type": "magento2-module",
+        "version": "1.5.0",
+        "license": [
+            "OSL-3.0",
+            "AFL-3.0"
+        ],
+		"authors": [
+		{
+		  "name": "Magebees",
+		  "email": "support@magebees.com",
+		  "homepage": "https://www.magebees.com",
+		  "role": "Developer"
+		}
+	  ],
+        "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Magebees\\Navigationmenu\\": ""
+   	 }
+ 	}
+}

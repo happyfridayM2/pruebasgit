@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterEnablingFilteringSidebarLabelsCatPriceRuleInteractionTest"
+          extends="OnSaleFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and filtering"/>
+            <description
+                    value="Check of on sale filter enabling and filtering on sidebar in labels mode in interaction with Catalog Price Rule"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNONSALEFILTER-19"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="createCategoryPriceRule"
+                         ref="AdminCreateCatalogPriceRuleActionGroup">
+                <argument name="catalogRule1" value="ruleInformation"/>
+                <argument name="catalogRule2" value="ruleCondition1"/>
+                <argument name="catalogRule3" value="ruleActionCondition1"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="deleteCategoryPriceRule"
+                         ref="DeleteCatPriceRule"
+                         before="logout">
+                <argument name="searchInput" value="{{AdminSecondaryGridSection.catalogRuleIdentifierSearch}}"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by On Sale Filter: select option on sidebar, check the result, remove selected option from state/-->
+
+        <selectOption userInput="24"
+                      selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"
+                      after="clickOnSaleOption1"/>
+
+    </test>
+</tests>
+
+

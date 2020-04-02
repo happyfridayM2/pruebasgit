@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarOnSRPMultiSelectTest"
+          extends="CategoryFilterLabelsSidebarMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of Category filter filtering on sidebar in labels mode on SRP Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-32"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <!--Filter Search Result Page by Category Filter: select options on sidebar, check the result/-->
+
+        <amOnPage url="{{SearchResultPage.url('black')}}" stepKey="navigateToPage1"/>
+        <seeInSource html="catalogsearch-result"
+                     stepKey="checkPageTitle1"/>
+        <seeInSource html="catalogsearch-result"
+                     stepKey="checkPageTitle2"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="12"
+             stepKey="checkQtyOfProducts3"/>
+        <seeInCurrentUrl url="?cat=23%2C15"
+                         stepKey="seeInCurrentUrlSelectedCategories1"/>
+
+    </test>
+</tests>
+
+

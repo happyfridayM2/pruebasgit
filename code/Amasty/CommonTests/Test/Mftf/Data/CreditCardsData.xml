@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <!-- Use For PayPal and Braintree PayPal -->
+    <entity name="customerPayPalAccount" type="customerCredentialsData">
+        <data key="email">0</data> <!-- Enter Personal Test Account PayPal email-->
+        <data key="password">0</data> <!-- Enter Personal Test Account PayPal password-->
+    </entity>
+
+    <entity name="creditCardVisa" type="creditCard">
+        <data key="cardNumber">4111111111111111</data>
+        <data key="expirationMonth">12</data>
+        <data key="expirationYear">2023</data>
+        <data key="cvc">123</data>
+    </entity>
+
+    <entity name="creditCardVisaTwo" type="creditCard">
+        <data key="cardNumber">4444333322221111</data>
+        <data key="expirationMonth">12</data>
+        <data key="expirationYear">2023</data>
+        <data key="cvc">123</data>
+    </entity>
+
+    <entity name="creditCardStripe" type="creditCard">
+        <data key="cardNumber">4242424242424242</data>
+        <data key="expirationDate">1223</data>
+        <data key="cvc">123</data>
+    </entity>
+
+</entities>

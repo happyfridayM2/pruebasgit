@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Connectif\Integration\Block\Script" name="connectif.script" after="-"
+                template="Connectif_Integration::script.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="after.body.start">
+            <block class="Connectif\Integration\Block\Customer" name="connectif.customer" after="-"
+                template="Connectif_Integration::customer.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="after.body.start">
+            <block class="Connectif\Integration\Block\Cart" name="connectif.cart" after="-" cacheable="false"
+                template="Connectif_Integration::cart.phtml"/>
+        </referenceBlock>
+        <!-- Tag newsletter -->
+        <referenceBlock name="after.body.start">
+            <block class="Connectif\Integration\Block\Newsletter" name="connectif.newsletter" after="-" 
+                template="Connectif_Integration::newsletter.phtml"/>
+        </referenceBlock>
+        <!-- Tag login -->
+        <referenceBlock name="after.body.start">
+            <block class="Connectif\Integration\Block\Login" name="connectif.login" after="-"
+                template="Connectif_Integration::login.phtml"/>
+        </referenceBlock>
+        <!-- Tag register -->
+        <referenceBlock name="after.body.start">
+            <block class="Connectif\Integration\Block\Register" name="connectif.register" after="-"
+                template="Connectif_Integration::register.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

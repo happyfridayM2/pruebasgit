@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description value="Check of stock filter enabling and filtering on sidebar in labels display mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNSTOCKFILTER-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="StockFilterEnabling1"
+                         ref="StockFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="StockFilterDisabling1"
+                         ref="StockFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="DisableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{AllProductsPageWithAllProducts.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Stock')}}"
+               stepKey="expandStockFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Out of Stock')}}"
+               stepKey="selectStockOption1"/>
+        <see selector="{{StorefrontProductSection.SpecifiedProduct('Wayfarer Messenger Bag')}}"
+             userInput="Out of Stock"
+             stepKey="checkProductStock1"/>
+        <dontSee selector="{{StorefrontProductSection.ProductID}}"
+                 userInput="Add to Cart"
+                 stepKey="checkProductStock2"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Out of Stock')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Stock')}}" stepKey="expandStockFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('In Stock')}}"
+               stepKey="selectStockOption2"/>
+        <dontSee selector="{{StorefrontProductSection.ProductID}}"
+                 userInput="Out of Stock"
+                 stepKey="checkProductStock3"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('In Stock')}}"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+
+    </test>
+</tests>
+

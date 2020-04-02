@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CanonicalCatPagesKeepCurrentURLNoindexInteractionAlwaysTest"
+          extends="CanonicalCatPagesBrandFilterOnlyNoindexInteractionAlwaysTest">
+
+        <annotations>
+            <features value="Canonical URL settings"/>
+            <stories value="Canonical URL settings checking"/>
+            <title value="Check Canonical URL settings configuration before/after filtering"/>
+            <description
+                    value="Check of Keep current URL setting configuration on the storefront for Category Pages with Noindex"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CANONICALSETTINGS-57"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="canonicalsettings"/>
+            <group value="catpagescanonical"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCanonicalURL1" ref="CanonicalURLConfigurationActionGroup">
+                <argument name="canonicalscenario2" value="catPageCanonKeepCurrentURL"/>
+                <argument name="canonicalscenario" value="enableCanonical"/>
+            </actionGroup>
+        </before>
+
+        <!--Check Canonical URL settings: navigate to Category Page, check Canonical URL in Page Source, filter Page, check Canonical URL/-->
+
+        <seeInSource
+                html="/men/tops-men/testfilterkey/pattern-solid-material-polyester-coconar-performance-fabric-climate-all-weather-indoor.html?style_general=5561%2C5552&quot;&gt;"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>

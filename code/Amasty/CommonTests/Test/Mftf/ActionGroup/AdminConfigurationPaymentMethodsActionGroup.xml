@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminActivatePurchaseOrder">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openPurchaseOrderTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTabOpen}}"
+            visible="false"/>
+        <uncheckOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledPurchaseOrder}}"
+            stepKey="uncheckUseSystemValuePurchaseCheckbox"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledPurchaseOrder}}"
+            userInput="1"
+            stepKey="activateMethod"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminReturnDefaultSettingPurchaseOrder">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openPurchaseOrderTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTabOpen}}"
+            visible="false"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledPurchaseOrder}}"
+            userInput="0"
+            stepKey="activateMethod"/>
+        <checkOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledPurchaseOrder}}"
+            stepKey="checkUseSystemValuePurchaseCheckbox"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminActivateBankTransferPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openBankTransferTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.BankTransferTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.BankTransferTabOpen}}"
+            visible="false"/>
+        <uncheckOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledBankTransfer}}"
+            stepKey="uncheckUseSystemValueBankCheckbox"/>
+        <wait time="1" stepKey="waitOneSec"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledBankTransfer}}"
+            userInput="1"
+            stepKey="activateMethod"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminReturnDefaultSettingBankTransferPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openBankTransferTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.BankTransferTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.BankTransferTabOpen}}"
+            visible="false"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledBankTransfer}}"
+            userInput="0"
+            stepKey="disableMethod"/>
+        <checkOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledBankTransfer}}"
+            stepKey="checkUseSystemValueBankCheckbox"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminActivateCashOnDeliveryPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openCashOnDeliveryTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.CashOnDeliveryTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.CashOnDeliveryTabOpen}}"
+            visible="false"/>
+        <uncheckOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledCashOnDelivery}}"
+            stepKey="uncheckUseSystemValueCashCheckbox"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledCashOnDelivery}}"
+            userInput="1"
+            stepKey="activateMethod"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminReturnDefaultSettingCashOnDeliveryPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}" stepKey="ScrollToMethodTab"/>
+        <conditionalClick stepKey="openCashOnDeliveryTab"
+            selector="{{AdminPaymentMethodsConfigurationSection.CashOnDeliveryTab}}"
+            dependentSelector="{{AdminPaymentMethodsConfigurationSection.CashOnDeliveryTabOpen}}"
+            visible="false"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledCashOnDelivery}}"
+            userInput="0"
+            stepKey="disableMethod"/>
+        <checkOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledCashOnDelivery}}"
+            stepKey="checkUseSystemValueCashCheckbox"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+
+    <!-- Left for Backward Compatibility. Delete all ActionGroup bellow after 11.06.2020 -->
+    <actionGroup name="AdminActivatePayPalPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivatePayPalPaymentWithDisableInContext">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingPayPalPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivatePayfloyProPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingPayflowProPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateBraintreePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingBraintreePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateStripePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingStripePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateKlarnaPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingKlarnaPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateAuthorizePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingAuthorizePayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateEWayPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingEWayPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminActivateAmazonPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+    <actionGroup name="AdminReturnDefaultSettingAmazonPayment">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+    </actionGroup>
+
+</actionGroups>

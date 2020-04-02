@@ -1,0 +1,17 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+
+    <body>
+
+        <referenceContainer name="head.additional">
+            <block class="Oct8ne\Oct8ne\Block\Oct8neJS" template="Oct8ne_Oct8ne::oct8nejs_header.phtml" name="oct8nejsheader" cacheable="true"/>
+        </referenceContainer>
+
+        <referenceContainer name="before.body.end">
+            <block class="Oct8ne\Oct8ne\Block\Oct8neJS" template="Oct8ne_Oct8ne::oct8nejs.phtml" name="oct8nejsfooter" cacheable="true"/>
+        </referenceContainer>
+
+    </body>
+
+
+</page>

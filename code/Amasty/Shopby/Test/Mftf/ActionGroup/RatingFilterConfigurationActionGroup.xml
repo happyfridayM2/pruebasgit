@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="RatingFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <amOnPage url="{{AdminCrownSummitBackpackReviewsProfilePage.url('6')}}"
+                  stepKey="navigateToReviewPage1"/>
+        <wait time="1" stepKey="waitSeconds21"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('10')}}"
+               stepKey="selectOneStarRating1"/>
+        <wait time="1" stepKey="waitSeconds1"/>
+        <click selector="{{AdminProductReviewProfileSection.Save}}"
+               stepKey="clickSaveReviewButton1"/>
+        <amOnPage url="{{AdminCrownSummitBackpackReviewsProfilePage.url('7')}}"
+                  stepKey="navigateToReviewPage2"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('10')}}"
+               stepKey="selectOneStarRating2"/>
+        <wait time="1" stepKey="waitSeconds2"/>
+        <click selector="{{AdminProductReviewProfileSection.Save}}"
+               stepKey="clickSaveReviewButton2"/>
+        <amOnPage url="{{AdminCrownSummitBackpackReviewsProfilePage.url('8')}}"
+                  stepKey="navigateToReviewPage3"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('10')}}"
+               stepKey="selectOneStarRating3"/>
+        <wait time="1" stepKey="waitSeconds3"/>
+        <click selector="{{AdminProductReviewProfileSection.Save}}"
+               stepKey="clickSaveReviewButton3"/>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandRatingFilterOption1"
+                          selector="{{AdminILNSettingsSection.CustomFilterSettingsTab('rating')}}"
+                          dependentSelector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('rating')}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('rating')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('rating')}}"
+                      stepKey="enableDisableRatingFilter1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterBlockPositionSwitcher('rating')}}"
+                      userInput="{{customFilter.CustomFilterBlockPositionSwitcher('rating')}}"
+                      stepKey="selectBlockPosition1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterDisplayModeSwitcher('rating')}}"
+                      userInput="{{customFilter.CustomFilterDisplayModeSwitcher('rating')}}"
+                      stepKey="selectDisplayMode1"/>
+        <fillField userInput="{{customFilter.CustomFilterPositionField('rating')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterPositionField('rating')}}"
+                   stepKey="fillRatingFilterPositionField1"/>
+        <fillField userInput="{{customFilter.CustomFilterTooltipField('rating')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterTooltipField('rating')}}"
+                   stepKey="fillTooltipField1"/>
+        <fillField userInput="{{customFilter3.CustomFilterLabelField('rating')}}"
+                   selector="{{AdminILNSettingsSection.CustomFilterLabelField('rating')}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="RatingFilterDisablingActionGroup" extends="RatingFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('4')}}"
+               stepKey="selectOneStarRating1"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('2')}}"
+               stepKey="selectOneStarRating2"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('6')}}"
+               stepKey="selectOneStarRating3"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('rating')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('rating')}}"
+                      stepKey="enableDisableRatingFilter1"
+                      after="fillLabelField1"/>
+    </actionGroup>
+
+    <actionGroup name="RatingFilterExpandActionGroup" extends="RatingFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('rating')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('rating')}}"
+                      stepKey="ExpandRatingFilter1"
+                      after="selectDisplayMode1"/>
+    </actionGroup>
+
+    <actionGroup name="RatingFilterDisablingForExpandedActionGroup" extends="RatingFilterEnablingActionGroup">
+        <arguments>
+            <argument name="customFilter"/>
+            <argument name="customFilter2"/>
+            <argument name="customFilter3"/>
+        </arguments>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('4')}}"
+               stepKey="selectOneStarRating1"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('2')}}"
+               stepKey="selectOneStarRating2"/>
+        <click selector="{{AdminProductReviewProfileSection.SelectStarRating('6')}}"
+               stepKey="selectOneStarRating3"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterExpandSwitcher('rating')}}"
+                      userInput="{{customFilter2.CustomFilterExpandSwitcher('rating')}}"
+                      stepKey="ExpandRatingFilter1"
+                      after="selectDisplayMode1"/>
+        <selectOption selector="{{AdminILNSettingsSection.CustomFilterEnableSwitcher('rating')}}"
+                      userInput="{{customFilter.CustomFilterEnableSwitcher('rating')}}"
+                      stepKey="enableDisableRatingFilter1"
+                      after="clickSaveConfig2"/>
+        <click selector="{{AdminILNSettingsSection.Save}}"
+               stepKey="clickSaveConfig3"
+               after="enableDisableRatingFilter1"/>
+    </actionGroup>
+
+</actionGroups>

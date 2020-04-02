@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+<div class="cn_product_visited" style="display:none">
+    <span class="url"><?php echo $_product->getProductUrl() ?></span>
+    <span class="product_id"><?php echo $_product->getId() ?></span>
+    <span class="name"><?php echo $_product->getName() ?></span>
+    <span class="description"><?php echo $_product->getDescription() ?></span>
+    <span class="image_url"><?php echo $_product->getImage(); ?></span>
+    <span class="unit_price"><?php echo $_product->getPrice() ?></span>
+    <span class="availability">
+      <?php if ($block->displayProductStockStatus()): ?>
+        <?php if ($_product->isAvailable()): ?>
+          <span><?= /* @escapeNotVerified */ __('InStock') ?></span>
+        <?php else: ?>
+          <span><?= /* @escapeNotVerified */ __('OutOfStock') ?></span>
+        <?php endif; ?>
+    <?php endif; ?>
+    </span>
+    <span class="category">
+      <?php
+      $catCollection = $_product->getCategoryCollection();
+       foreach($catCollection as $cat){
+             $arrayCat = $cat->getData();
+             $idCat = $arrayCat['entity_id'];
+             $path = explode("/", $arrayCat['path']);
+             //print_r($cat->getData());
+       }
+      foreach($path as $cat){
+            $categoryId = $cat;
+            if($categoryId > 1){
+                $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $category = $_objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+                echo str_replace(" ", "-", $category->getName() . "/");
+            }
+      }
+    ?></span>
+</div>
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <div class="stock available" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('In stock') ?></span>
+        </div>
+    <?php else: ?>
+        <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

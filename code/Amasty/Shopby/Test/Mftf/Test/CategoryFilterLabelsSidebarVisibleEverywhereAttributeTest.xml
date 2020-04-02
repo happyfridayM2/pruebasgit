@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarVisibleEverywhereAttributeTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter visibility on Categories with Attribute as trigger and filtering on sidebar in labels mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CATEGORYFILTER-16"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="catfilter"/>
+            <group value="catfiltervis"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryIDSVisibility1"
+                         ref="ConfigureAttributeVisibilityActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryIDSVisibility2"
+                         ref="ConfigureAttributeVisibilityAttributeActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityClimate"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription1"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ConfigureCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescriptionDefault1"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="MenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryDescription2"
+                         ref="ClearCategoryContent">
+                <argument name="Category" value="WomenCategoryDataDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryIDSVisibility1"
+                         ref="ConfigureAttributeVisibilityActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryIDSVisibility2"
+                         ref="ConfigureAttributeVisibilityDefaultActionGroup">
+                <argument name="attributeVisibility" value="CategoryIDSVisibilityClimate"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check the visibility conditions of the Category Filter, select option on sidebar, check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.FilterWithException('Category','Cardio')}}"
+                        stepKey="checkCategoryFilterVisibility1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickOnClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+               stepKey="clickOnIndoorOption1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+                    stepKey="checkCategoryFilterVisibility2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickOnOption2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+                      stepKey="grabQtyOfTopsProducts1"/>
+        <click selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+               stepKey="clickOnTopsOption1"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter2"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+             userInput="{$grabQtyOfTopsProducts1}"
+             stepKey="checkQtyOfTopsProducts1"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="41"
+             stepKey="checkQtyOfTopsProducts2"/>
+
+    </test>
+</tests>
+
+

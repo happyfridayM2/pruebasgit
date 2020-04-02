@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_shopby_seo" translate="label" type="text" sortOrder="91316" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Improved Layered Navigation: SEO</label>
+            <tab>amasty</tab>
+            <resource>Amasty_ShopbySeo::amasty_shopby_seo</resource>
+            <group id="url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>SEO URLs</label>
+                <field id="mode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[URL will look 'category/autumn.html' instead of 'category.html?season=114'. See per-attribute settings for fine-tuning.]]></comment>
+                </field>
+                <field id="attribute_name" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Attribute Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select 'Yes' to add attribute name to the URL scheme, e.g. black -> color_black]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="filter_word" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filter Key</label>
+                    <comment><![CDATA[It allows to add filter key to the URL scheme, e.g. black-xl-activity -> shopby/black-xl-activity]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="add_suffix_shopby" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Add Suffix to the Brand Pages and All-products Pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[To configure the 'Category URL Suffix' setting please go to Configuration - Catalog - Catalog - Search Engine Optimization - Category URL Suffix. FYI on the category pages the suffix is added regardless of this setting.]]>
+                    </comment>
+                </field>
+                <field id="special_char" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Replace Special Characters With</label>
+                    <source_model>Amasty\ShopbySeo\Model\Source\SpecialChar</source_model>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="option_separator" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Separate Attribute Options With</label>
+                    <source_model>Amasty\ShopbySeo\Model\Source\OptionSeparator</source_model>
+                    <comment>
+                        <![CDATA[For example, if a customer selects 3 options for the attribute `color`, the URL will look like http://example.com/red-green-blue.html.]]>
+                    </comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="separator_checker" sortOrder="68" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label/>
+                    <frontend_model>Amasty\ShopbySeo\Block\System\Config\SeparatorChecker</frontend_model>
+                </field>
+            </group>
+            <group id="robots" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Robots Tag Control</label>
+                <field id="control_robots" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow the Module to Modify Robots Meta Tag</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use "No" for compatibility with other SEO extensions.</comment>
+                </field>
+                <field id="noindex_multiple" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Noindex when Multiple Attribute Filters Applied</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="rel_nofollow" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Automatically Add rel="nofollow" to Filter Links when Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Please refer per-filter settings to make exclusions.</comment>
+                </field>
+                <field id="noindex_paginated" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Noindex for paginated pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="canonical" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Canonical URL</label>
+                <field id="category" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Category Pages</label>
+                    <comment><![CDATA[Set the structure of canonical urls for category pages. Need help with the setting? Please consult the <a target="_blank" href="https://amasty.com/docs/doku.php?id=magento_2:improved_layered_navigation&utm_source=extension&utm_medium=link&utm_campaign=iln_canonical_url_settings_m2#canonical_url_settings">user guide</a> to configure properly.]]></comment>
+                    <source_model>Amasty\ShopbySeo\Model\Source\Canonical\Category</source_model>
+                </field>
+                <field id="root" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>"all-product" Page</label>
+                    <source_model>Amasty\ShopbySeo\Model\Source\Canonical\Root</source_model>
+                    <comment>
+                        <![CDATA[To get these settings working properly please make sure you have enabled the Canonical Meta Tag here Stores > Configuration > Catalog > Search Engine Optimizations.]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="other" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Pagination Settings</label>
+                <field id="prev_next" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Prev/Next Tags for Improved Navigation Pages</label>
+                    <comment><![CDATA[Set 'Yes' to use rel=“next” and rel=“prev” tags and point Google where the next or the previous pages are. Please click <a target="blank" href="https://webmasters.googleblog.com/2011/09/pagination-with-relnext-and-relprev.html">here</a> to learn more details.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="page_meta_title" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Add Page Number to Meta Title</label>
+                    <comment>Adds the Page Number at the end of the Meta Title, e.g. 'Apparel | Page 5'</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="page_meta_descriprion" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Add Page Number to Meta Description</label>
+                    <comment>Adds the Page Number at the end of the Meta Description, e.g. 'Apparel Description | Page 5'</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

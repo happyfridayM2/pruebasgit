@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="iwd" translate="label" sortOrder="999998" class="iwd-extensions-tab">
+            <label>IWD Agency</label>
+        </tab>
+
+        <section id="iwd_support" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Support</label>
+            <tab>iwd</tab>
+            <resource>IWD_All::iwd_extensions</resource>
+            <group id="info" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> </label>
+                <field id="version" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label> </label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

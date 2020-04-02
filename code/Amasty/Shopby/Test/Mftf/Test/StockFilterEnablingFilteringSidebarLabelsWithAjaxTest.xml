@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringSidebarLabelsWithAjaxTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode with Ajax"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNSTOCKFILTER-17"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxInstantlyOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible1"
+                               after="selectStockOption1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"
+                         after="waitForAjaxLoaderVisible1"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible2"
+                               after="removeSelectedFilterOptionFromState1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"
+                         after="waitForAjaxLoaderVisible2"/>
+        <wait time="2" stepKey="waitSeconds1"
+              after="waitForAjaxLoad2"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option, check the ajax loader is visible, check the result, remove selected option from state/-->
+
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible3"
+                               after="selectStockOption2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"
+                         after="waitForAjaxLoaderVisible3"/>
+
+    </test>
+</tests>
+

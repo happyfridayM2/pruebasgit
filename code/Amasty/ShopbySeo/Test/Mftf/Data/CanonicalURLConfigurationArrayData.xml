@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="enableCanonical" type="canonicalscenario">
+        <data key="EnableCanonicalForCategoryPageSwitcher">1</data>
+    </entity>
+    <entity name="disableCanonical" type="canonicalscenario">
+        <data key="EnableCanonicalForCategoryPageSwitcher">0</data>
+    </entity>
+
+    <entity name="canonicalURLDefault" type="canonicalscenario2">
+        <data key="CategoryPagesCanonicalSwitcher">category_brand_filter</data>
+        <data key="AllProductsPageCanonicalSwitcher">root_pure</data>
+    </entity>
+
+    <entity name="catPageCanonKeepCurrentURL" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="CategoryPagesCanonicalSwitcher">category_current</data>
+    </entity>
+    <entity name="catPageCanonURLWithoutFilters" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="CategoryPagesCanonicalSwitcher">category_pure</data>
+    </entity>
+    <entity name="catPageCanonFirstAttributeValue" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="CategoryPagesCanonicalSwitcher">category_first_attribute</data>
+    </entity>
+    <entity name="catPageCanonCurrentURLWithoutGetParam" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="CategoryPagesCanonicalSwitcher">category_cut_off_get</data>
+    </entity>
+
+    <entity name="allProdPageCanonKeepCurrentURL" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="AllProductsPageCanonicalSwitcher">root_current</data>
+    </entity>
+    <entity name="allProdPageCanonFirstAttributeValue" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="AllProductsPageCanonicalSwitcher">root_first_attribute</data>
+    </entity>
+    <entity name="allProdPageCanonCurrentURLWithoutGetParam" type="canonicalscenario2" extends="canonicalURLDefault">
+        <data key="AllProductsPageCanonicalSwitcher">root_cut_off_get</data>
+    </entity>
+</entities>
+

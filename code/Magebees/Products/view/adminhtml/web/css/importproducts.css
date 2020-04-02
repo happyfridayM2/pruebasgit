@@ -1,0 +1,9 @@
+.mb-success{background-color:#f1f1f1;font-size: 16px;color:#000}
+.mbindexLoader{float: right;top: -60px;position: relative;left: -120px;width: 40px;}
+.secone {background-color: whitesmoke;text-decoration: none;font-size: 18px;padding: 10px;margin-top:10px;text-align:center;border-radius:5px;text-transform:uppercase;}
+.mbBackground #import_form{background: whitesmoke;border: 0;margin: 0;padding: 5px 10px 40px;position: relative;border-radius:5px;}
+.mbBackground .admin__field-label {width: 25% !important;margin-left: 20px !important;float: left;}
+.mbBackground #export_form{background:whitesmoke !important;padding:15px !important;border-radius:5px;}
+.admin__page-nav, .order-sidebar{border-radius: 5px;}
+.message, .order-errors .admin__fieldset-wrapper .title{border-radius:10px;}
+.mbBackground select{width: 230px;}

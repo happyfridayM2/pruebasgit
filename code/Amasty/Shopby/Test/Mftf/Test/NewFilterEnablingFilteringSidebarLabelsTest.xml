@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and filtering"/>
+            <description value="Check of new filter enabling and filtering in sidebar position and labels mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNNEWFILTER-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="NewFilterEnabling1"
+                         ref="NewFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="NewFilterDisabling1"
+                         ref="NewFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by New Filter: select option on sidebar, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('New')}}" stepKey="waitForElement1"/>
+        <click stepKey="clickNewFilter1"
+               selector="{{StorefrontFilterElementsSection.Filter('New')}}"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('New')}}"
+               stepKey="clickNewOption1"/>
+        <see selector="{{StorefrontPageElementsSection.ProductAmount}}"
+             userInput="1"
+             stepKey="checkQuantityOfProducts1"/>
+        <see selector="{{StorefrontProductSection.ProductID}}"
+             userInput="Joust Duffle Bag"
+             stepKey="checkProductName1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+                        stepKey="dontSeeFilterInState1"/>
+
+    </test>
+</tests>
+
+

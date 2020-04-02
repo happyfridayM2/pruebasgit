@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCFunctionalCheckTotals">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Change Subtotal, Shipping, Discount and Order Total on the OSC"/>
+            <title value="Check Change Totals"/>
+            <description value="Check Change Subtotal, Shipping, Discount and Order Total on the OSC"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-09"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCFunctional"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="OSCCustomerArizona" stepKey="createCustomer"/>
+            <createData entity="taxRateForArizona" stepKey="createTaxRate"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByBagImpulseDuffle" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="VirtualProductByPrice35" stepKey="createVirtualProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateTaxRuleActionGroup" stepKey="createTaxRule">
+                <argument name="taxRule" value="taxRuleWithArizona"/>
+                <argument name="taxRate" value="$$createTaxRate$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminDefaultConfigurationSettingCalculationTax" stepKey="ConfigurationSettingTax"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminCreateCartPriceRuleActionGroup" stepKey="CreateCartPriceRule">
+                <argument name="ruleName" value="OSCDefaultCartPriceRuleDiscount10"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createVirtualProduct" stepKey="deleteVirtualProduct"/>
+            <actionGroup ref="AdminDeleteTaxRule" stepKey="deleteTaxRule">
+                <argument name="taxRuleCode" value="{{taxRuleWithArizona.code}}" />
+            </actionGroup>
+            <deleteData createDataKey="createTaxRate" stepKey="deleteTaxRate"/>
+            <actionGroup ref="DeleteCartPriceRuleByName" stepKey="deleteCreatedCartPriceRule">
+                <argument name="ruleName" value="{{OSCDefaultCartPriceRuleDiscount10.name}}"/>
+            </actionGroup>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!-- Login As Customer and Add Products-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="LogIn">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createVirtualProduct$$"/>
+        </actionGroup>
+        <!-- Go To Checkout, Check Totals and Place Order-->
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckoutFromCart">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingWithTax" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCFunctionalCheckTotals"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckDiscount" stepKey="checkDiscountAmount">
+            <argument name="oneStepCheckoutData" value="OSCFunctionalCheckTotals"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceBelowOrderCheckMoneyGrabNumber" stepKey="PlaceOrderWithCheckMoney"/>
+        <!-- Check Totals, Discount in Admin Area Order -->
+        <actionGroup ref="AdminCheckTotalsInOrderWithTax" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totalsWithTax" value="OSCFunctionalCheckTotals"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckDiscountInOrder" stepKey="CheckDiscountInAdminOrder">
+            <argument name="discount" value="OSCFunctionalCheckTotals.discount"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithCheckMoney}"/>
+        </actionGroup>
+        
+    </test>
+</tests>

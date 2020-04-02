@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!-- /** * @author Edgar J. Gómez * @copyright Copyright (c) 2017 Edgargomez (http://www.edgargomez.es) * @package Edgargomez_CookieMsg */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="edgargomez" translate="label" sortOrder="10">
+            <label>Edgar G. Extensions</label>
+        </tab>
+ 
+        <section id="edgargomez_cookiemsg" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Cookie Message</label>
+            <tab>edgargomez</tab>
+            <resource>Edgargomez_CookieMsg::edgargomez_cookiemsg</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Message</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable Cookie Message
+                    </comment>
+                </field>
+                <field id="lifetime" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Lifetime in days</label>
+                </field>
+                <field id="msg_position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message Position</label>
+                    <source_model>Edgargomez\CookieMsg\Model\Source\MsgPosition</source_model>
+                </field>
+                <field id="privacy_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Policy Url</label>
+                </field>
+                <field id="privacy_link_text" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Link Text</label>
+                </field>
+                <field id="privacy_title" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Title</label>
+                </field>
+                <field id="privacy_message" translate="label" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Text</label>
+                </field>
+
+                <!-- Show Accept link/button -->
+                <field id="showaccept" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Accept link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="depends_accepttext" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accept link text</label>
+                    <depends>
+                        <field id="*/*/showaccept">1</field>
+                    </depends>
+                </field>
+
+                <!-- Show Cross to close message -->
+                <field id="showcross" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Cross to close message</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="depends_showcross" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Close cross position</label>
+                    <source_model>Edgargomez\CookieMsg\Model\Source\CrossPosition</source_model>
+                    <depends>
+                        <field id="*/*/showcross">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="developer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Developer</label>
+                <field id="devmode" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Developer mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable this option to keep the message showing permanently for editing 
+                    </comment>
+                </field>
+                <field id="css_styling" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS styling</label>
+                </field>
+            </group>
+        </section>
+ 
+    </system>
+</config>

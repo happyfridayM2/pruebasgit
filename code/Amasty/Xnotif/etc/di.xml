@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\ProductAlert\Model\ResourceModel\Stock\Customer\Collection"
+                type="Amasty\Xnotif\Model\ResourceModel\Stock\Customer\Collection"/>
+    <preference for="Magento\ProductAlert\Model\ResourceModel\Price\Customer\Collection"
+                type="Amasty\Xnotif\Model\ResourceModel\Price\Customer\Collection"/>
+
+    <preference for="Magento\ProductAlert\Model\Observer" type="Amasty\Xnotif\Model\Observer"/>
+
+    <preference for="Magento\Bundle\Model\ResourceModel\Selection\Collection"
+                type="Amasty\Xnotif\Model\ResourceModel\Bundle\Selection\Collection"/>
+
+    <!-- fix grouped problem issue -->
+    <preference for="Magento\Catalog\Model\ResourceModel\Product\Link\Product\Collection"
+                type="Amasty\Xnotif\Model\ResourceModel\Product\Link\Product\Collection"/>
+
+    <type name="Magento\CatalogInventory\Observer\SubtractQuoteInventoryObserver">
+        <plugin name="Amasty_Xnotif::low-stock-alert" type="Amasty\Xnotif\Plugins\CatalogInventory\Observer\LowStockAlert"/>
+    </type>
+
+    <type name="Magento\Framework\Mail\Template\TransportBuilder">
+        <plugin name="Amasty_Xnotif::fix_store_email" type="Amasty\Xnotif\Plugins\Mail\Template\TransportBuilder"/>
+    </type>
+
+    <!-- change unsubscribe url - add params start-->
+    <type name="Magento\ProductAlert\Block\Email\Price">
+        <plugin name="Amasty_Xnotif::GetUnsubscribeUrlPrice" type="Amasty\Xnotif\Plugins\ProductAlert\Block\Email\Url"/>
+    </type>
+
+    <type name="Magento\ProductAlert\Block\Email\Stock">
+        <plugin name="Amasty_Xnotif::GetUnsubscribeUrlStock" type="Amasty\Xnotif\Plugins\ProductAlert\Block\Email\Url"/>
+    </type>
+    <!-- change unsubscribe url - add params end-->
+
+    <type name="Amasty\Xnotif\Model\Analytics\Request\Daily\Stock">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="dateTime" xsi:type="object">Magento\Framework\Stdlib\DateTime\DateTime</item>
+                <item name="resourceModel" xsi:type="object">Amasty\Xnotif\Model\ResourceModel\Analytics\Request\Daily\Stock</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Amasty\Xnotif\Api\Analytics\Data\Daily\StockInterface" type="Amasty\Xnotif\Model\Analytics\Request\Daily\Stock" />
+    <preference for="Amasty\Xnotif\Api\Analytics\Daily\StockRepositoryInterface" type="Amasty\Xnotif\Model\Repository\Analytics\Daily\StockRepository" />
+    <preference for="Amasty\Xnotif\Api\Analytics\Data\StockInterface" type="Amasty\Xnotif\Model\Analytics\Request\Stock" />
+    <preference for="Amasty\Xnotif\Api\Analytics\StockRepositoryInterface" type="Amasty\Xnotif\Model\Repository\Analytics\StockRepository" />
+
+    <type name="Magento\ProductAlert\Block\Product\ImageProvider">
+        <plugin name="Amasty_Xnotif::fix-emulate-error" type="Amasty\Xnotif\Plugins\ProductAlert\Block\Product\ImageProvider"/>
+    </type>
+</config>

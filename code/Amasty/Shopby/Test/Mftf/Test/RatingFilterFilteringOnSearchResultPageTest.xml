@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterFilteringOnSearchResultPageTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode on search result page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-14"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <!--Filter by Rating Filter on search result page: select 5 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{SearchResultPage.url('ball')}}" stepKey="navigateToAllProducts1"/>
+
+        <!--Filter by Rating Filter on search result page: select 4 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <amOnPage url="{{SearchResultPage.url('gym')}}"
+                  stepKey="navigateToRequiredPage1"
+                  after="waitSeconds1"/>
+
+        <!--Filter by Rating Filter on search result page: select 3 stars option on sidebar in labels, check the result, remove selected option from state/-->
+        <!--Filter by Rating Filter on search result page: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+        <!--Filter by Rating Filter on search result page: select 1 star option on sidebar in labels, check the result, remove selected option from state/-->
+
+    </test>
+</tests>

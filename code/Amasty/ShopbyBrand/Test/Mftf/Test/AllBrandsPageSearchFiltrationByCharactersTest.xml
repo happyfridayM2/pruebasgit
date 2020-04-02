@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageSearchFiltrationByCharactersTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check of Enable Search/Enable Filter by Character/Show Characters without Brands	settings on All Brands Page in enabled condition"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-10"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="noBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that Enable Search/Enable Filter by Character/Show Characters without Brands settings work correctly on All Brands Page-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <fillField selector="{{StorefrontBrandElementsSection.AllBrandsPageSearcher}}"
+                   userInput="Polyester"
+                   stepKey="typePolyesterInSearch1"/>
+        <click selector="{{StorefrontBrandElementsSection.LinkInAllBrandsPageSearcher('Polyester')}}"
+               stepKey="clickOnLinkInDropdown1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}"
+                        stepKey="dontSee404OnPage1"/>
+        <dontSee userInput="We're sorry, an error has occurred while generating this content."
+                 stepKey="dontSeeGenerationContentError1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage2"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink2"/>
+        <click selector="{{StorefrontBrandElementsSection.FilterByLetterActive('P')}}"
+               stepKey="filterByPLetter1"/>
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.BrandItemOnAllBrandsPageWithLetterNotStarts('P')}}"
+                    stepKey="seeBrandItemStartsWith"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontBrandElementsSection.FilterByLetterInactive}}"
+                             stepKey="seeInactiveBrandLetters1"/>
+
+    </test>
+</tests>

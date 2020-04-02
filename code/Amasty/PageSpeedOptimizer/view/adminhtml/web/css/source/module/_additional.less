@@ -1,0 +1,69 @@
+& when (@media-common = true) {
+    // config styles
+    tr#row_amoptimizer_tutorial_tutorial {
+        & > td:not(.value) {
+            display: none;
+        }
+    }
+
+    tr#row_amoptimizer_images_opti_jpeg_optim_result {
+        & > td:not(.value) {
+            display: none;
+        }
+    }
+
+    tr#row_amoptimizer_images_lazy_ignore_list .tooltip {
+        margin-top:0;
+    }
+
+    .amoptimizer-select {
+        max-height: 80px;
+    }
+
+    .amoptimizer-btn {
+        min-width: 215px;
+    }
+
+    // config styles end
+
+    .amasty-page-step {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .amasty-page-code {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #454d55;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+
+    .amoptimizer-progress-bar {
+        & {
+            margin-top: 20px;
+        }
+
+        & .amprogressbar-progress-wrapper {
+            width: 94%;
+            height: 20px;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+    }
+
+    .amoptimizer-progress-bar .amprogressbar-progress-container {
+        & {
+            position: relative;
+            display: flex;
+            margin: auto;
+            max-width: 60%;
+        }
+
+        .amprogressbar-value {
+            margin-left: 20px;
+            min-width: 50px;
+        }
+    }
+}

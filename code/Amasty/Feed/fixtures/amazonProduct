@@ -1,0 +1,20 @@
+a:36:{s:4:"name";s:14:"Amazon Product";s:8:"filename";s:14:"AmazonProducts";s:9:"feed_type";s:3:"xml";s:9:"is_active";s:1:"1";s:12:"execute_mode";s:6:"manual";s:9:"cron_time";s:3:"180";s:15:"csv_column_name";s:1:"1";s:10:"csv_header";N;s:13:"csv_enclosure";N;s:13:"csv_delimiter";N;s:21:"format_price_currency";s:3:"USD";s:9:"csv_field";N;s:10:"xml_header";s:314:"<?xml version="1.0" encoding="utf-8" ?><AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd"><Header><DocumentVersion>1.01</DocumentVersion><MerchantIdentifier>YOUR_MERCHANT_IDENTIFIER</MerchantIdentifier></Header><MessageType>Product</MessageType>";s:8:"xml_item";s:7:"Message";s:11:"xml_content";s:1645:"
+<MessageID>{attribute="product|product_id" format="as_is" parent="no" optional="no" modify="html_escape"}</MessageID>
+<OperationType>Update</OperationType>
+<Product>
+    <SKU>{attribute="basic|sku" format="as_is" parent="no" optional="no" modify="html_escape"}</SKU>
+    <StandardProductID>Standard_Product_ID</StandardProductID>
+    <LaunchDate>{attribute="product|created_at" format="date" parent="no" optional="no" modify="html_escape"}</LaunchDate>
+    <ReleaseDate>{attribute="product|created_at" format="date" parent="no" optional="no" modify="html_escape"}</ReleaseDate>
+    <Condition>New</Condition>
+    <DescriptionData>
+            <Title>{attribute="product|name" format="as_is" parent="no" optional="yes" modify="html_escape"}</Title>
+            <Brand>{attribute="product|manufacturer" format="as_is" parent="no" optional="yes" modify="html_escape"}</Brand>
+            <Description>{attribute="product|description" format="as_is" parent="no" optional="yes" modify="html_escape|length:500"}</Description>
+            <MaxOrderQuantity>{attribute="product|qty" format="as_is" parent="no" optional="yes" modify="html_escape"}</MaxOrderQuantity>
+            <RecommendedBrowseNode>{attribute="category_path|category" format="as_is" parent="yes" optional="no" modify="html_escape"}</RecommendedBrowseNode>
+            <ShippingWeight unitOfMeasure="KG">{attribute="product|weight" format="as_is" parent="no" optional="yes" modify="html_escape"}</ShippingWeight>
+            <SearchTerms>{attribute="product|meta_keyword" format="as_is" parent="no" optional="yes" modify="html_escape"}</SearchTerms>
+    </DescriptionData>
+</Product>
+";s:10:"xml_footer";s:17:"</AmazonEnvelope>";s:26:"format_price_currency_show";s:1:"1";s:21:"format_price_decimals";s:3:"two";s:26:"format_price_decimal_point";s:3:"dot";s:32:"format_price_thousands_separator";s:5:"comma";s:11:"format_date";s:5:"Y-m-d";s:21:"conditions_serialized";s:184:"a:6:{s:4:"type";s:48:"Magento\CatalogRule\Model\Rule\Condition\Combine";s:9:"attribute";N;s:8:"operator";N;s:5:"value";s:1:"1";s:18:"is_value_processed";N;s:10:"aggregator";s:3:"all";}";s:12:"generated_at";N;s:16:"delivery_enabled";s:1:"0";s:13:"delivery_host";N;s:13:"delivery_type";s:3:"ftp";s:13:"delivery_user";N;s:17:"delivery_password";N;s:13:"delivery_path";N;s:21:"delivery_passive_mode";s:1:"0";s:10:"utm_source";N;s:10:"utm_medium";N;s:8:"utm_term";N;s:11:"utm_content";N;s:12:"utm_campaign";N;s:11:"is_template";s:1:"1";}

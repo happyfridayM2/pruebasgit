@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="amasty_xnotif_product_alert" instance="Amasty\Xnotif\Model\Observer" method="process">
+            <schedule>*/10 * * * *</schedule>
+        </job>
+        <job name="amasty_xnotif_product_alert_limit" instance="Amasty\Xnotif\Model\Observer" method="runDailyCronJob">
+            <schedule>30 22 * * *</schedule>
+        </job>
+        <job name="amasty_xnotif_analytics_collect" instance="Amasty\Xnotif\Model\Analytics\Collector" method="execute">
+            <schedule>5 1 * * *</schedule>
+        </job>
+    </group>
+</config>

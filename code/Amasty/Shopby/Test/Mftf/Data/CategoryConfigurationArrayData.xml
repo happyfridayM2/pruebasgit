@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="DefaultCategoryDataDefault" type="Category">
+        <data key="CategoryID">2</data>
+        <data key="Description"></data>
+        <data key="AddCMSBlock">Please select a static block.</data>
+    </entity>
+    <entity name="MenTopsJacketsCategoryDataDefault" type="Category" extends="DefaultCategoryDataDefault">
+        <data key="CategoryID">14</data>
+    </entity>
+    <entity name="MenCategoryDataDefault" type="Category" extends="DefaultCategoryDataDefault">
+        <data key="CategoryID">11</data>
+    </entity>
+    <entity name="WomenCategoryDataDefault" type="Category" extends="DefaultCategoryDataDefault">
+        <data key="CategoryID">20</data>
+    </entity>
+    <entity name="SetDefaultCategoryDescription" type="Category" extends="DefaultCategoryDataDefault">
+        <data key="Description">Test Default Category Description</data>
+    </entity>
+    <entity name="SetDefaultCategoryCMSBlock" type="Category" extends="DefaultCategoryDataDefault">
+        <data key="AddCMSBlock">Test CMS Block 2</data>
+    </entity>
+    <entity name="DefaultCategoryMetaDataDefault" type="Category">
+        <data key="CategoryID">2</data>
+        <data key="CatMetaTitle"></data>
+        <data key="MetaKeywords"></data>
+        <data key="MetaDescription"></data>
+    </entity>
+    <entity name="MenTopsCategoryMetaDataDefault" type="Category" extends="DefaultCategoryMetaDataDefault">
+        <data key="CategoryID">12</data>
+    </entity>
+    <entity name="SetDefaultCategoryMetaData" type="Category" extends="DefaultCategoryMetaDataDefault">
+        <data key="CatMetaTitle">Default Category Meta Title TST</data>
+        <data key="MetaKeywords">Default Category Meta Keywords TST</data>
+        <data key="MetaDescription">Default Category Meta Description TST</data>
+    </entity>
+    <entity name="metaDataForMenTops" type="Category"  extends="DefaultCategoryMetaDataDefault">
+        <data key="CategoryID">12</data>
+        <data key="CatMetaTitle">Tops - Men Meta Title Test</data>
+        <data key="MetaKeywords">Tops - Men Meta Keywords Test</data>
+        <data key="MetaDescription">Tops - Men Meta Description Test</data>
+    </entity>
+
+</entities>

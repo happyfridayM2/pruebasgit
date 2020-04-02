@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeSingleSelectLSSFVInteractionOnCategoryPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering on Category Page in Single Select Mode and in interaction with Leave Single Select Filter Visible setting"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-27"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup stepKey="DisableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="dontLeaveSingleSelectFilterVisible"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="EnableLSSFVSetting1"
+                         ref="ConfigureLeaveSingleSelectFilterVisibleSettingActionGroup">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+                <argument name="generalILNSettings3" value="leaveSingleSelectFilterVisible"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by Brand Attribute (Material): filter Category Page by Brand Attribute Filter (Material), check the result/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="navigateToCategoryPage1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Material')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnMaterialFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="selectPolyesterOption1"/>
+        <dontSeeInPageSource userInput="ambrand-" stepKey="checkIfItNotBrandPage1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+        <dontSee selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester"
+             stepKey="checkPageTitle1"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.Filter('Material')}}" stepKey="dontSeeFilter1"/>
+        <see userInput="32"
+             selector=" {{StorefrontProductSection.ItemsCountLast}}"
+             stepKey="checkQtyOfProductsAfterFiltration1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Polyester')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+
+    </test>
+</tests>
+
+

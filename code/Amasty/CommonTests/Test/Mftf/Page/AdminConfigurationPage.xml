@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+
+    <page name="AdminCartPriceRulePage" url="sales_rule/promo_quote/index" area="admin" module="Magento_Promo">
+        <section name="AdminRuleGridActionSection" />
+    </page>
+
+    <page name="AdminConfigurationsCurrencyPage" url="admin/system_config/edit/section/currency/" area="admin" module="Magento_Promo">
+        <section name="AdminConfigurationsCurrencySection" />
+    </page>
+
+    <page name="AdminCurrencyRatesPage" url="/admin/system_currency/" area="admin" module="Magento_Promo">
+        <section name="AdminCurrencyRatesSection" />
+    </page>
+
+    <page name="AdminShippingAreaGrid" url="/amasty_shiparea/areas/" area="admin" module="Magento_ShippingArea">
+        <section name="AdminShippingAreaGrid"/>
+    </page>
+
+    <page name="AdminGridProductsPage" url="/catalog/product/" area="admin" module="Magento_SalesRule">
+        <section name="AdminGridProductsSection" />
+    </page>
+
+    <page name="AdminAllOrdersPage" url="/sales/order/" area="admin" module="Magento_Shiprules">
+        <section name="AdminOrdersGridSection"/>
+    </page>
+
+    <page name="AdminPaymentMethodsConfigurationPage" url="/admin/system_config/edit/section/payment/" area="admin" module="Amasty_Payrestriction">
+        <section name="AdminPaymentMethodsConfigurationSection"/>
+    </page>
+
+    <page name="AdminConfigurationsTaxPage" url="/admin/system_config/edit/section/tax/" area="admin" module="Magento_Tax">
+        <section name="AdminConfigurationsTaxSection"/>
+    </page>
+
+</pages>

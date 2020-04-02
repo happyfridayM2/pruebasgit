@@ -1,0 +1,52 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+?>
+<?php
+/**
+ * @var \Amasty\PageSpeedOptimizer\Block\Adminhtml\Settings\SuperBundling $block
+ */
+?>
+<div id="websites-container" style="position:absolute; width:1500px;height:1500px;left:-99999px">
+
+<div data-bind="scope: 'amoptimization-modal'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script>
+    require(['jquery', 'uiRegistry'], function (jquery, registry) {
+        jquery('#amoptimizer_settings_javascript_super_bundling').click(function() {
+            registry.get('amoptimization-modal').openModal();
+            registry.get('amoptimization-modal.optimization-process').start();
+        })
+    });
+</script>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "amoptimization-modal": {
+                            "component": "Magento_Ui/js/modal/modal-component",
+                            "options": {
+                                "type": "popup",
+                                "title": "Advanced Javascript Optimization"
+                            },
+                            "children": {
+                                "optimization-process": {
+                                    "component": "Amasty_PageSpeedOptimizer/js/step-progress-bar",
+                                    "startUrl": "<?= $block->escapeUrl($block->getStartUrl()); ?>",
+                                    "finishUrl": "<?= $block->escapeUrl($block->getFinishUrl()); ?>",
+                                    "processUrl":"",
+                                    "template":"Amasty_PageSpeedOptimizer/step-progress-bar"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+</script>

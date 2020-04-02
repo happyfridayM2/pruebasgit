@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Geoip
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Store/etc/config.xsd">
+    <default>
+        <amgeoip>
+            <general>
+                <location_file_url>https://amasty.com/media/downloads/geoip/databases/GeoLite2-City-Locations-en.csv</location_file_url>
+                <block_file_url>https://amasty.com/media/downloads/geoip/databases/GeoLite2-City-Blocks-IPv4.csv</block_file_url>
+                <block_v6_file_url>https://amasty.com/media/downloads/geoip/databases/GeoLite2-City-Blocks-IPv6.csv</block_v6_file_url>
+                <location_hash_url>https://amasty.com/media/downloads/geoip/databases/location_hash.md5</location_hash_url>
+                <block_hash_url>https://amasty.com/media/downloads/geoip/databases/block_hash.md5</block_hash_url>
+                <block_v6_hash_url>https://amasty.com/media/downloads/geoip/databases/block_hash_ipv6.md5</block_v6_hash_url>
+            </general>
+        </amgeoip>
+    </default>
+</config>

@@ -1,0 +1,441 @@
+<?php $attributeset = $block->getAttributeSet(); ?>
+<?php $store_info = $block->getStoreData(); ?>
+<?php $export_url = $block->getUrl('*/*/export'); ?>
+
+<form method="post" action="<?php //echo $block->getUrl('*/*/export') ?>" id="export_edit_form" >
+<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+<div id="result"></div><br/>
+<div class="entry-edit form-inline secpart1">
+	<fieldset id="export_form" class="fieldset admin__fieldset">
+		<legend class="admin__legend legend">
+			<span><?php echo __("Export Products") ?></span>
+		</legend><br>
+	<div class="messages"></div>
+	<div class="admin__field field field-store_id exsecselect" style="margin: 0 0 12px 0;">
+	<label for="store_id" class="label admin__field-label"><span><?php echo __("Store View") ?></span>
+	</label>
+	<div class="admin__field-control control">
+	
+	<select id="storeids" name="storeids" class="required-entry">
+			<?php  foreach($store_info as $value){ if($value['value']==0){ ?>
+				<option value="0"><?php echo $value['label']; ?></option>
+			<?php } else { ?>
+				<optgroup label="<?php echo $value['label']; ?>"></optgroup>
+			<?php if(!empty($value['value'])){ foreach ($value['value'] as $option){ ?>
+				<option value="<?php echo $option['value']; ?>"><?php echo "&nbsp;&nbsp;&nbsp;&nbsp;".$option['label'];?></option>
+			<?php  } } } } ?>
+		</select>
+		<div id="product_sku-note" class="note admin__field-note"><?php echo __("Please Select Store.") ?></div>
+	</div>
+	</div>
+	
+	<!-- Store Dropdown -->
+	<div class="admin__field field field-export_for  with-note exsecselect" style="margin: 0 0 12px 0;">
+		<label for="export_for" class="label admin__field-label">
+			<span><?php echo __("Select Fields For:") ?></span>
+		</label>
+		<div class="admin__field-control control">
+			<select onchange="displayField(this.value)" class=" select admin__control-select" title="Select Fields For" name="export_for" id="export_for">
+				<option value='*'><?php echo __("All Fields Export") ?></option>
+				<option value='image'><?php echo __("Image Related Fields") ?></option>
+				<option value='inventory'><?php echo __("Inventory Related Fields") ?></option>
+				<option value='price'><?php echo __("Price Related Fields") ?></option>
+				<option value='ucrFields'><?php echo __("Up-sells, Cross-sells and Related Products Related Fields") ?></option>
+				<option value='customselection'><?php echo __("Custom Attribute Selector") ?></option>
+			</select>
+			<div id="product_sku-note" class="note displayFieldMsg admin__field-note"><?php echo __("Please select value for export fields.") ?></div>
+		</div>
+	</div>
+	<!-- End of Store Dropdown -->
+	
+	<!-- Attribute Set Dropdown -->
+	<div class="admin__field field field-attr_dropdown  with-note exsecselect" style="margin: 0 0 12px 0;">
+		<label for="attr_dropdown" class="label admin__field-label">
+			<span><?php echo __("Attribute Set Name:") ?></span>
+		</label>
+		<div class="admin__field-control control">
+			<select class=" select admin__control-select" title="Select Fields For" name="attr_dropdown" id="attr_dropdown">
+				<option value="*"><?php echo __("Any Attribute Set") ?></option>
+				<?php foreach ($attributeset as $attributesetval) { ?>
+					<option value="<?php echo $attributesetval['value']; ?>"><?php echo $attributesetval['label']; ?></option>
+					<?php }?>
+			</select>
+			<div id="product_sku-note" class="note admin__field-note"><?php echo __("Please Select Attribute Set.") ?></div>
+		</div>
+	</div>
+	<!-- End of Attribute Set Dropdown -->
+	
+	<!-- Type Dropdown -->
+	<div class="admin__field field field-export_for  with-note exsecselect" style="margin: 0 0 12px 0;">
+		<label for="export_for" class="label admin__field-label">
+			<span><?php echo __("Type:") ?></span>
+		</label>
+		<div class="admin__field-control control">
+			<select class=" select admin__control-select" title="Select Fields For" name="type_dropdown" id="type_dropdown">
+				<option value='*'><?php echo __("Any Product Types") ?></option>
+				<option value='simple'><?php echo __("Simple Products") ?></option>
+				<option value='configurable'><?php echo __("Configurable Product") ?></option>
+				<option value='grouped'><?php echo __("Grouped Products") ?></option>
+				<option value='virtual'><?php echo __("Virtual Products") ?></option>
+				<option value='bundle'><?php echo __("Bundle Products") ?></option>
+				<option value='downloadable'><?php echo __("Downloadable Products") ?></option>
+			</select>
+			<div id="product_sku-note" class="note admin__field-note"><?php echo __("Please Select Product Type.") ?></div>
+		</div>
+	</div>
+	<!-- End of Type Dropdown -->
+	
+	<!-- Status Dropdown -->
+	<div class="admin__field field field-export_for  with-note exsecselect" style="margin: 0 0 12px 0;">
+		<label for="export_for" class="label admin__field-label">
+			<span><?php echo __("Status:") ?></span>
+		</label>
+		<div class="admin__field-control control">
+			<select class=" select admin__control-select" title="Select Fields For" name="status_dropdown" id="status_dropdown">
+				<option value='*'><?php echo __("Any Product Status") ?></option>
+				<option value='1'><?php echo __("Enabled") ?></option>
+				<option value='2'><?php echo __("Disabled") ?></option>
+			</select>
+			<div id="product_sku-note" class="note admin__field-note"><?php echo __("Please Select Product Status.") ?></div>
+		</div>
+	</div>
+	<!-- End of Status Dropdown -->
+	
+	<!-- Visibility Dropdown -->
+	<div class="admin__field field field-export_for  with-note exsecselect" style="margin: 0 0 12px 0;">
+		<label for="export_for" class="label admin__field-label">
+			<span><?php echo __("Visibility:") ?></span>
+		</label>
+		<div class="admin__field-control control">
+			<select class=" select admin__control-select" title="Select Fields For" name="visibility_dropdown" id="visibility_dropdown">
+				<option value='*'><?php echo __("Any Visibility") ?></option>
+				<option value='1'><?php echo __("Not Visible Individually") ?></option>
+				<option value='2'><?php echo __("Catalog") ?></option>
+				<option value='3'><?php echo __("Search") ?></option>
+				<option value='4'><?php echo __("Catalog, Search") ?></option>
+			</select>
+			<div id="product_sku-note" class="note admin__field-note"><?php echo __("Please Select Product Visibility.") ?></div>
+		</div>
+	</div>
+	<!-- End of Visibility Dropdown -->
+
+
+	<!-- Range Code -->
+		<div class="admin__field field field-export_for  with-note">
+		<label for="export_for" class="label admin__field-label"><span><?php echo __("Export Products By Range: ") ?></span></label>
+		<div class="admin__field-control control">
+			<span class="with-tip">
+					<?php echo __("From: ") ?><input onkeypress="return isNumber(event)" class="input-text" id="fromId" name="fromId" value="" style="width:120px"/>
+					<?php echo __("To: ") ?> <input onkeypress="return isNumber(event)" class="input-text" id="toId" name="toId" value="" style="width:120px"/>
+				</span>
+			<div id="product_sku-note" class="note admin__field-note"><?php echo __("Define Product ID.") ?></div>
+		</div>
+	</div>
+	<!-- End of Range Code -->
+	
+</fieldset>
+
+<fieldset class="mbAdditionalFields">
+ <legend class="admin__legend legend"><span><?php echo __('Additional Fields  (Select "Custom Attribute Selector" to use it from "Select Fields For")') ?></span></legend>
+
+ <?php $attriubte_list = $block->getAttriubteList(); ?>
+		<?php foreach($attriubte_list as $attr){ ?>
+			<?php if($attr == "sku"){continue;} ?>
+			<span class="field-row" style="float: left; width: 250px; padding-top: 10px;">
+                <span>
+                	<input type="checkbox" class="productsField_checkbox" value="<?php echo $attr; ?>" disabled  /><?php echo $attr; ?>
+                </span>
+            </span>
+		<?php } ?>                  
+</fieldset>
+
+</div>
+<div id="export_popup">
+	<div class="steps-export" style="display:none">
+		<ul class="nav-bar">
+			<li id="initialization"><a href="#"><?php echo __("Initialization") ?></a></li>
+			<li id="total_products"><a href="#"><?php echo __("Total Products") ?></a></li>
+			<li id="exporting"><a href="#"><?php echo __("Exporting") ?></a></li>
+			<li id="complate"><a href="#"><?php echo __("Complate") ?></a></li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<div id="myProgress" style="display:none;"><div id="myBar"><div id="label"></div></div></div>
+	<div id="export_popup1"></div>
+</div> <!-- This Code for Popup Content. -->
+
+</form>
+
+<script type="text/javascript">
+	function runProfile(){
+		getTotalProductsCount();	
+	};
+	
+	function getTotalProductsCount(){
+		require([
+		'jquery',
+		'mage/template',
+		'jquery/ui',
+		'mage/translate',
+		'Magento_Ui/js/modal/modal',
+	],
+	 function(jQuery) {
+		 jQuery('#export_popup').modal('openModal');
+		 jQuery('.steps-export').show();
+		 jQuery('#export_popup1').html('initialization');
+		 jQuery('#myProgress').hide();
+		 
+		jQuery(".action-close").click(function() {
+			location.reload(); 
+		});
+		 
+		var response = "";
+		var exporturl = "<?php echo $block->getUrl('*/*/exportrecordcount/'); ?>";
+		jQuery.ajax({
+					url : exporturl,
+					data: { 
+							'store_id' :document.getElementById("storeids").value,
+							'attr_id' : document.getElementById("attr_dropdown").value,
+							'type_id' : document.getElementById("type_dropdown").value,
+							'export_for' : document.getElementById("export_for").value,
+							'status_dropdown' : document.getElementById("status_dropdown").value,
+							'visibility_dropdown' : document.getElementById("visibility_dropdown").value,
+							'fromId' : document.getElementById('fromId').value,
+							'toId' : document.getElementById('toId').value,
+							form_key: FORM_KEY,
+							'categoriesSelect' : jQuery("#categories_categories").val(),
+						} ,
+					dataType: 'json',
+					type: 'post',
+					//showLoader:true,
+					success: function(data){
+						try {
+							response = data;
+						}catch(e){
+							alert("Error: getTotalProductsCount");
+						}
+						if(response.export_can_proceed==true){
+						totalRecords=response.totalOrder;
+						jQuery("#total_products").addClass("active");
+						jQuery("#export_popup1").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" width="40px" /><br/>'+totalRecords+' Product(s) founds.');
+						exportCall(response.splitExport,1,null,response.timestamp);
+					} else{					
+						var el = document.getElementById('storeids');
+						var text = decodeHtml(el.options[el.selectedIndex].innerHTML);
+							alert('Selected Store: "'+text.trim()+'" not having Product(s) to export');
+							window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'export_tabs'));?>';
+						}
+					}
+				});
+		}
+	);
+}
+
+	var countOfStartedProfiles = 0;
+	var countOfUpdated = 0;
+	var countOfError = 0;
+	var totalRecords = 0;
+	var totalPage=0;
+	var export_type='*'
+	var checkedList = [];		
+	function exportCall(splitRun,page,filename,timestamp){
+		var response;
+		var exporturl = "<?php echo $block->getUrl('*/*/exportrun/'); ?>";
+		require([
+			'jquery',
+			'jquery/ui',
+			'Magento_Ui/js/modal/modal',
+		],
+		 function(jQuery) {
+
+				if(document.getElementById('export_for').value == "customselection"){
+					export_type='subselection';
+					
+					checkedList.push("store","websites","attribute_set","type","sku");
+
+					jQuery(".productsField_checkbox:checkbox:checked").each(function(){
+    					checkedList.push(jQuery(this).val());
+					});
+				}
+
+			  	jQuery.ajax({
+					url : exporturl,
+					data: { 
+							'store_id' : document.getElementById('storeids').value,
+							'exportfiletype' : 'csv',
+							'splitRun' : splitRun,
+							'timestamp' : timestamp,
+							'filename' : filename,
+							'page' : page,
+							'feedfor' : document.getElementById('export_for').value,
+							'attr_id' : document.getElementById('attr_dropdown').value,
+							'type_id' : document.getElementById("type_dropdown").value,
+							'export_for' : document.getElementById("export_for").value,
+							'status_dropdown' : document.getElementById("status_dropdown").value,
+							'visibility_dropdown' : document.getElementById("visibility_dropdown").value,
+							'fromId' : document.getElementById('fromId').value,
+							'toId' : document.getElementById('toId').value,
+							'categoriesSelect' : jQuery("#categories_categories").val(),
+							form_key : FORM_KEY,
+							'export_fields[]':checkedList,
+							'export_type':export_type,
+						} ,
+					dataType: 'json',
+					type: 'post',
+					//showLoader:true,
+					success: function(transport) {
+						totalPage++;
+						try {
+							response = transport;
+						}catch(e){
+							alert("Error: exportCall");
+						}
+						if(response.proceed_next==true){
+							countOfUpdated = countOfUpdated + response.exportedOrders;
+							jQuery("#export_popup1").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" width="40px" /><br/>Exported '+countOfUpdated+' out of '+totalRecords+' Product(s).');
+							jQuery("#total_products").removeClass("active");
+							jQuery("#exporting").addClass("active");
+							jQuery('#myProgress').show();
+							move(getPercent());
+							exportCall(splitRun,response.page,response.filename,response.timestamp);
+						}else if(response.filename!=''){
+							jQuery("#export_popup1").html('<img src="<?php echo $block->getViewFileUrl('Magebees_Products::images/loader-1.gif'); ?>" width="40px" /><br/>Exported '+countOfUpdated+' out of '+totalRecords+' Product(s).');
+
+							jQuery("#total_products").removeClass("active");
+							jQuery("#exporting").addClass("active");
+							jQuery('#myProgress').show();
+							move(getPercent());
+							/* Added Line */
+							 mergingCSVFiles(response.filename,1,totalPage,response.timestamp);
+							}
+						}
+				});
+			}
+		);
+	}
+	
+function mergingCSVFiles(filename,processPage,page,timestamp){
+		var response;
+		var exporturl = "<?php echo $block->getUrl('*/*/mergecsv/'); ?>";
+		require([
+			'jquery'
+		],
+		function(jQuery) {
+			  	jQuery.ajax({
+					url : exporturl,
+					data: {
+							'filename' : filename,
+							'page' : page,
+							'processPage' : processPage,
+							'timestamp' : timestamp,
+							form_key : FORM_KEY,
+							'export_fields[]':checkedList,
+							'export_type':export_type,
+						} ,
+					dataType: 'json',
+					type: 'post',
+					//showLoader:true,
+					success: function(transport){
+						try {
+							response = transport;
+						}catch(e){
+							alert("Error: mergingCSVFiles");			
+						}
+						if(response.proceed_next==true){
+							jQuery("#exporting").removeClass("active");
+							jQuery("#complate").addClass("active");
+							mergingCSVFiles(response.filename,response.processPage,response.page,response.timestamp);
+						}else{
+							/* Added Line */
+							jQuery("#exporting").removeClass("active");
+							jQuery("#complate").addClass("active");
+							/* Added Line */
+							
+							jQuery("#myProgress").hide();
+							jQuery("#export_popup1").html('<?php echo __("Please wait while CSV is being prepared for download... ") ?>');
+							jQuery("#export_popup1").html('Products Exported Successfully.<br/> <br/>Your file name is <span style="color:#eb5202;"><b>'+response.filename+'</b></span> and located in var/export folder.');
+							 window.setTimeout(function(){window.location='<?php echo $this->getUrl('*/*/index',array('active_tab'=>'export_file'));?>';}, 3000);
+						}
+					}
+				});
+		}
+	);
+}
+ 
+ 
+function decodeHtml(html) {
+	var txt = document.createElement("textarea");
+	txt.innerHTML = html;
+	return txt.value;
+}
+function getPercent() {
+	return Math.ceil((countOfUpdated/totalRecords)*1000)/10;
+}
+	
+require([
+	'jquery',
+	'Magento_Ui/js/modal/modal'
+	],
+	function($,modal) {
+			var options = {
+			type: 'popup',
+			responsive: true,
+			innerScroll: true,
+			title: "Export Products",
+			buttons: [{
+				text: $.mage.__('Close'),
+				class: '',
+				click: function () {
+					this.closeModal();
+					//window.location="<?php //echo $block->getUrl('*/*/index/'); ?>";
+				}
+			}]
+		};
+		var popup = modal(options, $('#export_popup'));
+	}
+);	
+
+function move(width) {
+  	var elem = document.getElementById("myBar");
+  	if (width >= 100) {
+      //clearInterval(id);
+	  elem.style.width = 0 + '%';
+      document.getElementById("label").innerHTML = 0 + '%';
+    } else {
+      elem.style.width = width + '%';
+      document.getElementById("label").innerHTML = width * 1  + '%';
+    }
+}
+
+function displayField(val){
+	if(val=="*"){
+		jQuery('.productsField_checkbox').attr('disabled','disabled');
+	}else if(val=="image"){
+		jQuery('.productsField_checkbox').attr('disabled','disabled');
+		jQuery(".displayFieldMsg").html('<?php echo __("image, small_image, thumbnail, swatch_image Fields will be include in csv file.") ?>');
+	}else if(val=="inventory"){
+		jQuery('.productsField_checkbox').attr('disabled','disabled');
+		jQuery(".displayFieldMsg").html('<?php echo __("qty, min_qty, use_config_min_qty, is_qty_decimal, backorders, use_config_backorders, min_sale_qty, use_config_min_sale_qty, max_sale_qty, use_config_max_sale_qty, is_in_stock, use_config_notify_stock_qty, manage_stock, use_config_manage_stock, is_decimal_divided Fields will be include in csv file.") ?>');
+	}else if(val=="price"){
+		jQuery('.productsField_checkbox').attr('disabled','disabled');
+		jQuery(".displayFieldMsg").html('<?php echo __("price, special_price, tier_price Fields will be include in csv file.")?>');
+	}else if(val=="ucrFields"){
+		jQuery('.productsField_checkbox').attr('disabled','disabled');
+		jQuery(".displayFieldMsg").html('<?php echo __("related_product_sku , related_product_position , crosssell_product_sku , crosssell_product_position , upsell_product_sku , upsell_product_position Fields will be include in csv file.") ?>');
+	}else if(val=="customselection"){
+		jQuery('.productsField_checkbox').removeAttr('disabled');
+	}
+	else{
+		jQuery(".displayFieldMsg").html('<?php echo __("Please select value for export fields.") ?>');
+	} 
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>

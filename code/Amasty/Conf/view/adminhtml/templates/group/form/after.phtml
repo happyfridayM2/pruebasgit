@@ -1,0 +1,14 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+?>
+<script>
+    require([
+        'Amasty_Conf/js/group-visual'
+    ], function(Visual) {
+          Visual(<?= /* @noEscape */ $block->getJsonVisualConfig() ?>);
+    });
+</script>

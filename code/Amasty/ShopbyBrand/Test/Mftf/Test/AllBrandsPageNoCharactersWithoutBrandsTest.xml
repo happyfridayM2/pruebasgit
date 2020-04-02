@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageNoCharactersWithoutBrandsTest" extends="AllBrandsPageSearchFiltrationByCharactersTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check of Show Characters without Brands	settings on All Brands Page in disabled condition"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-11"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageNoCharWithoutBrands"/>
+            </actionGroup>
+        </before>
+
+        <!--Check that Characters without Brands isn't displayed on All Brands Page-->
+
+        <dontSeeElement selector="{{StorefrontBrandElementsSection.FilterByLetterInactive}}"
+                        stepKey="seeInactiveBrandLetters1"/>
+
+    </test>
+</tests>

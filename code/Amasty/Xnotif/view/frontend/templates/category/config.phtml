@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/** @var \Amasty\Xnotif\Block\Catalog\Category\Config $block */
+?>
+<script type="text/x-magento-init">
+{
+    "body": {
+        "Amasty_Xnotif/js/category_subscribe": {
+            "usePopup": "<?= /* @noEscape */ $block->usePopupForSubscribe() ?>",
+            "popup": []
+        }
+    }
+}
+</script>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Amasty_Xnotif/js/category/configurable": <?= /* @noEscape */ $block->getConfigurableInfo() ?>
+    }
+}
+</script>

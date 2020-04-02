@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amxnotif>
+            <general>
+                <account_image>0</account_image>
+                <customer_name>Dear Friend</customer_name>
+                <min_qty>1</min_qty>
+            </general>
+            <stock>
+                <customer_group>-1</customer_group>
+                <placeholder>Insert your email</placeholder>
+            </stock>
+            <price>
+                <customer_group>-1</customer_group>
+            </price>
+            <gdrp>
+                <enabled>0</enabled>
+                <text><![CDATA[I have read & accept the <a target="_blank" href="/privacy-policy">Privacy Policy</a>]]></text>
+            </gdrp>
+        </amxnotif>
+    </default>
+</config>

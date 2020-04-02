@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarByButtonClickMultiSelectTest"
+          extends="CategoryFilterLabelsSidebarAjaxMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode with enabled By Button Click and MultiSelect"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CATEGORYFILTER-41"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="EnableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup">
+                <argument name="generalILNSettings" value="enableAjaxByButtonClickOnDesktopOnMobile"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAjaxSubmitInstantly1"
+                         ref="ConfigureAjaxSubmitFiltersActionGroup"
+                         before="logout">
+                <argument name="generalILNSettings" value="ajaxSubmitFiltersToDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select options on sidebar, check the result/-->
+
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton1"
+                               after="clickOnBagsOption1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick1"
+               after="waitForByButtonClickButton1"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton2"
+                               after="clickOnFitnessEquipmentOption1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick2"
+               after="waitForByButtonClickButton2"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible2"
+                               after="clickOnByButtonClick2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"
+                         after="waitForAjaxLoaderVisible2"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton3"
+                               after="removeSelectedFilterOptionFromState1"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick3"
+               after="waitForByButtonClickButton3"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible3"
+                               after="clickOnByButtonClick3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"
+                         after="waitForAjaxLoaderVisible3"/>
+        <waitForElementVisible selector="{{AdminILNSettingsSection.ByButtonClick}}"
+                               stepKey="waitForByButtonClickButton4"
+                               after="removeSelectedFilterOptionFromState2"/>
+        <click selector="{{AdminILNSettingsSection.ByButtonClick}}"
+               stepKey="clickOnByButtonClick4"
+               after="waitForByButtonClickButton4"/>
+        <waitForElementVisible selector="{{StorefrontPageElementsSection.AjaxLoader}}"
+                               stepKey="waitForAjaxLoaderVisible4"
+                               after="clickOnByButtonClick4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"
+                         after="waitForAjaxLoaderVisible4"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,58 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer\Category $block */
+/** @var \Amasty\Shopby\Model\Layer\Filter\CategoryItems $filterItems */
+/** @var \Amasty\Shopby\Model\Layer\Filter\Item $filterItem */
+$filterItems = $block->getFilter()->getItems();
+?>
+<?php foreach ($filterItems->getItems($block->getPath()) as $filterItem): ?>
+    <?php $uniqId = uniqid(); ?>
+    <?php $currentPath = ($block->getPath() ?: $filterItems->getStartPath()) . '/' . $filterItem->getValueString(); ?>
+    <li class="item"
+        data-label="<?= /* @noEscape */ $block->stripTags($filterItem->getOptionLabel()) ?>">
+        <?php if ($filterItems->getItemsCount($currentPath)): ?>
+            <span class="am-collapse-icon"></span>
+        <?php endif; ?>
+
+        <?php if ($filterItem->getCount()): ?>
+            <input  class="amshopby-<?= /* @noEscape */ $block->getInputType(); ?>"
+                    name="amshopby[<?= /* @noEscape */ $block->getFilter()->getRequestVar(); ?>][]"
+                    value="<?= $block->escapeHtml($filterItem->getValueString()); ?>"
+                    type="<?= /* @noEscape */ $block->getInputType(); ?>"
+                <?=  /* @noEscape */ $block->checkedFilter($filterItem) ? ' checked' : ''; ?>
+            />
+            <a class="am-filter-item-<?= /* @noEscape */ $block->escapeId($uniqId) ?>
+                <?php if ($block->getFilter()->getItemsCount($currentPath)): ?>
+                    <?= "amshopby-filter-parent"; ?>
+                <?php endif; ?>"
+                data-am-js="filter-item-default"
+                href="<?= $block->escapeUrl($filterItem->getUrl()) ?>"
+                <?= $filterItem->isAddNofollow() ? ' rel="nofollow"' : '' ?>>
+                <?= /* @noEscape */ $filterItem->getOptionLabel() ?>
+                <?php if ($block->getFilterSetting()->isShowProductQuantities()): ?>
+                    <?php //Delete spaces around counter ?>
+                    <span class="count"><?= /* @noEscape */ $filterItem->getCount() ?><span class="filter-count-label">
+                            <?php $title = ($filterItem->getCount() == 1) ? __('item') : __('items');?><?= $block->escapeHtml($title) ?></span></span>
+                <?php endif; ?>
+            </a>
+        <?php else: ?>
+            <?= /* @noEscape */ $filterItem->getOptionLabel() ?>
+            <?php if ($block->getFilterSetting()->isShowProductQuantities()): ?>
+                <?php //Delete spaces around counter ?>
+                <span class="count"><?= /* @noEscape */ $filterItem->getCount() ?><span class="filter-count-label">
+                         <?php $title = ($filterItem->getCount() == 1) ? __('item') : __('items');?><?= $block->escapeHtml($title) ?></span></span>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php if ($filterItems->getItemsCount($currentPath)): ?>
+            <ol class="items items-children -folding level-<?= /* @noEscape */ $block->getLevel(); ?>">
+                <?= /* @noEscape */ $block->renderChildrenItems($currentPath); ?>
+            </ol>
+        <?php endif; ?>
+    </li>
+<?php endforeach; ?>

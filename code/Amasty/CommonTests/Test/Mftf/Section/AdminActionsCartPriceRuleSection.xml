@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminActionsCartPriceRuleSection">
+        <element name="Save" type="button" selector="//button[@id='save']" timeout="30"/>
+        <element name="SaveAndContinueEdit" type="button" selector="//button[@id='save_and_continue']" timeout="30"/>
+        <element name="Priority" type="input" selector="//input[@name='sort_order']"/>
+        <element name="CouponsNo" type="select" selector="//select[@name='coupon_type']/option[@value='1']"/>
+        <element name="CouponsYes" type="select" selector="//select[@name='coupon_type']/option[@value='2']"/>
+        <element name="CouponsCode" type="input" selector="//input[@name='coupon_code']"/>
+
+        <!-- Action Tab -->
+        <element name="ActionTab" type="button" selector="//div[@data-index='actions']/div[@class='fieldset-wrapper-title']"/>
+        <element name="ActionTabOpen" type="block" selector="//div[@data-index='actions']/div[@data-state-collapsible='open']"/>
+        <element name="ActionTabClosed" type="block" selector="//div[@data-index='actions']/div[@data-state-collapsible='closed']"/>
+        <element name="FreeShippingNo" type="select" selector="//select[@name='simple_free_shipping']/option[@value='0']"/>
+        <element name="FreeShippingForMatchingItemsOnly" type="select" selector="//select[@name='simple_free_shipping']/option[@value='1']"/>
+        <element name="FreeShippingForShipmentWithMatchingItems" type="select" selector="//select[@name='simple_free_shipping']/option[@value='2']"/>
+
+        <!-- Conditions in Actions Tab -->
+        <element name="ButtonConditions" type="button" selector="//div[@data-index='actions']//span[@class='rule-param rule-param-new-child']"/>
+
+        <!-- Global Conditions -->
+        <element name="ButtonGlobalConditions" type="button" selector="//div[@data-index='conditions']//span[@class='rule-param rule-param-new-child']"/>
+        <element name="ConditionsTab" type="button" selector="//div[@data-index='conditions']/div[@class='fieldset-wrapper-title']"/>
+        <element name="ConditionsTabOpen" type="block" selector="//div[@data-index='conditions']/div[@data-state-collapsible='open']"/>
+        <element name="ConditionsTabClosed" type="block" selector="//div[@data-index='conditions']/div[@data-state-collapsible='closed']"/>
+        <element name="ConditionsBlock" type="block" selector="//div[@data-index='conditions']//fieldset[@class='admin__fieldset']"/>
+
+        <!-- Highlight Promotions-->
+        <element name="HighlightPromotionTab" type="button" selector="//div[@data-index='promo_banners_highlights']/div[@class='fieldset-wrapper-title']"/>
+        <element name="HighlightPromotionTabOpen" type="block" selector="//div[@data-index='promo_banners_highlights']/div[@data-state-collapsible='open']"/>
+        <element name="HighlightPromotionTabClosed" type="block" selector="//div[@data-index='promo_banners_highlights']/div[@data-state-collapsible='closed']"/>
+        <element name="ShowBannerFor" type="select" selector="//div[@data-index='promo_banners_highlights']//select[@name='extension_attributes[show_banner_for]']"/>
+        <element name="ProductSKUs" type="input" selector="//div[@data-index='promo_banners_highlights']//input[@name='extension_attributes[banner_product_sku]']"/>
+        <element name="CategoriesSelectForClick" type="button" selector="//div[@data-index='promo_banners_highlights']//div[@data-role='advanced-select']"/>
+        <element name="CategoriesInputForSearch" type="input" selector="//div[@data-index='promo_banners_highlights']//input[@data-role='advanced-select-text']"/>
+        <element name="CategoriesFoundCategory" type="button" selector="//div[@data-index='promo_banners_highlights']//li[@data-role='option-group']/div"/>
+        <element name="HighlightPromotionTopBannerTab" type="button" selector="//div[@data-index='top_banner']/div[@class='fieldset-wrapper-title']"/>
+        <element name="HighlightPromotionAfterBannerTab" type="button" selector="//div[@data-index='after_description_banner']/div[@class='fieldset-wrapper-title']"/>
+        <element name="HighlightPromotionLabelBannerTab" type="button" selector="//div[@data-index='product_banner']/div[@class='fieldset-wrapper-title']"/>
+        <element name="TopBannerUpload" type="button" selector="//div[@data-index='top_banner']//input[@type='file']"/>
+        <element name="AfterBannerUpload" type="button" selector="//div[@data-index='after_description_banner']//input[@type='file']"/>
+        <element name="LabelBannerUpload" type="button" selector="//div[@data-index='product_banner']//input[@type='file']"/>
+        <element name="HighlightLabelBannerAltField" type="block" selector="//div[@data-index='product_banner_alt']"/>
+    </section>
+
+</sections>
+

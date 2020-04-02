@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+?>
+<?php
+/** @var \Amasty\Conf\Block\Flipper $block */
+$config = $block->getImageConfiguration();
+?>
+<?php if (count($config)) : ?>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+                "Amasty_Conf/js/product/list/flipper": {
+                    "data": <?= /* @noEscape */ $block->encodeConfig($config); ?>
+            }
+        }
+    }
+    </script>
+<?php endif;?>

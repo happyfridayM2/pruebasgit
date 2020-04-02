@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+?>
+
+<?php $postfix = uniqid();?>
+<?php $filterCode = $block->escapeHtml($filterSetting->getFilterCode()); ?>
+<?php $max = $block->escapeHtml(ceil($fromToConfig['max']))?>
+<?php $min = $block->escapeHtml(floor($fromToConfig['min']))?>
+
+<div class="items am-filter-items-<?= $block->escapeHtml($filterCode); ?>">
+    <form data-amshopby-filter="<?= $block->escapeHtml($filterCode); ?>"
+          data-amshopby-filter-request-var="<?= $block->escapeHtml($block->getFilter()->getRequestVar()); ?>">
+        <div id="am-shopby-filter-<?= $block->escapeHtml($filterCode . '_' . $postfix); ?>"
+             class="amshopby-slider-container amshopby_currency_rate"
+             data-am-js="slider-container"
+             data-min="<?= /* @noEscape */ $min; ?>"
+             data-max="<?= /* @noEscape */ $max; ?>"
+             data-rate="<?= /* @noEscape */ $fromToConfig['curRate']; ?>">
+            <input data-amshopby-slider-id="value"
+                   type=hidden
+                   name="amshopby[<?= $block->escapeHtml($block->getFilter()->getRequestVar())?>][]"/>
+            <div data-amshopby-slider-id="slider" class="am-slider"></div>
+            <div data-amshopby-slider-id="display"
+                 class="amshopby-slider-display"
+                 data-am-js="slider-display"></div>
+        </div>
+    </form>
+</div>
+
+<?php if ($filterSetting->getAddFromToWidget()): ?>
+    <?= /* @noEscape */ $block->getFromToWidget('slider') ?>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "#am-shopby-filter-<?= $block->escapeHtml($filterCode . '_' . $postfix); ?>": {
+            "amShopbyFilterSlider": {
+                    "collectFilters": <?= /* @noEscape */ $block->collectFilters(); ?>,
+                    "template":"<?= $block->escapeHtml($fromToConfig['template']) ?>",
+                    "step":<?= /* @noEscape */ $block->escapeHtml(floatval($fromToConfig['step'])) ?>,
+                    "from": "<?= /* @noEscape */ $fromToConfig['from']; ?>",
+                    "to": "<?= /* @noEscape */ $fromToConfig['to']; ?>",
+                    "min":<?= /* @noEscape */ $min; ?>,
+                    "max":<?= /* @noEscape */ $max; ?>,
+                    "url": "<?= /* @noEscape */ $block->getSliderUrlTemplate(); ?>",
+                    "code":"<?= $block->escapeHtml($filterSetting->getAttributeModel()->getAttributeCode()); ?>",
+                    "hideDisplay": <?= /* @noEscape */ $filterSetting->getAddFromToWidget() ? "1" : '0'; ?>
+                }
+        }
+    }
+</script>

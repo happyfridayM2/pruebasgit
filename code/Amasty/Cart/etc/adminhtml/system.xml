@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>       
+        <section id="amasty_cart" translate="label" type="text" sortOrder="11003" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Ajax Shopping Cart</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Cart::config</resource>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\Cart\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Ajax Shopping Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="type_loading" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Flying Image Effect</label>
+                    <comment>Set to ‘Yes' for a nice-looking visual effect. The product image 'flies' to the 'Top Cart' block in the top menu.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="show_qty_product" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show the Product Qty Added to the Cart on the Product Listing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="compare" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Products to Compare with AJAX</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="wishlist" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Products to Wish List with AJAX</label>
+                    <comment>Current functionality is not available with Multiple Wish Lists enabled.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="open_minicart" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show a Mini Cart once Item is Added</label>
+                    <comment>Set 'Yes' to Show a Mini Cart instead of Confirmation Pop-up once an item is added to the cart.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="dialog_popup" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Dialog Pop-up</label>
+
+                <field id="redirect_to_product" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Redirect to the Product Page</label>
+                    <comment><![CDATA[Set 'Yes' to redirect to the product page when an item has unspecified options. Leave 'No' to show the pop-up with the options on category, search & wishlist.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="display_options" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display Custom Options</label>
+                    <comment>Customers can select configurable products and custom options right on the category page. If the 'Show Only If There Are Required Options' is enabled and a product has at least one required option, all custom options including the required ones are shown.</comment>
+                    <source_model>Amasty\Cart\Model\Source\Option</source_model>
+                    <depends>
+                        <field id="redirect_to_product">0</field>
+                    </depends>
+                </field>
+
+                <field id="confirm_popup" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pop-up for Composite Products</label>
+                    <comment>This pop-up is used for Configurable, Bundle, Grouped Products on a Category Page.</comment>
+                    <source_model>Amasty\Cart\Model\Source\ConfirmPopup</source_model>
+                    <depends>
+                        <field id="redirect_to_product">0</field>
+                    </depends>
+                </field>
+
+                <field id="autosubmit" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>QTY Instant Change</label>
+                    <comment>Choose yes, if you want to change the qty in the cart immediately after changing the qty in the dialog pop-up</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="redirect_to_product">0</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="confirm_popup" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Confirmation Pop-up</label>
+
+                <field id="time" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Dialog Close Delay (in seconds)</label>
+                    <comment>Set a timer for the Continue button. When the preset period expires, the dialog box disappears. If set to 0, dialog won’t be hidden automatically.</comment>
+                </field>
+
+                <field id="use_on_product_page" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable a Confirmation Pop-up on a Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_button" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Continue Button Action on a Product Page</label>
+                    <source_model>Amasty\Cart\Model\Source\Button</source_model>
+                    <comment>Choose whether the Continue button on a product view page should link to the category page or remain on the product page.</comment>
+                    <depends>
+                        <field id="use_on_product_page">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="confirm_display" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Confirmation Pop-up Display</label>
+
+                <field id="align" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Align Pop-up</label>
+                    <comment>Choose where to locate the cart pop-up - Center, Top, Top left, Top right, Left, Right.</comment>
+                    <source_model>Amasty\Cart\Model\Source\Align</source_model>
+                </field>
+
+                <field id="configurable_image" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Image Display for Configurable Products</label>
+                    <comment>Choose to display a Parent Configurable Product Image or a Child Simple Product Image.</comment>
+                    <source_model>Amasty\Cart\Model\Source\Configurable</source_model>
+                </field>
+
+                <field id="display_elements" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display in Pop-up</label>
+                    <comment>Choose what to display in the Confirmation Pop-up</comment>
+                    <source_model>Amasty\Cart\Model\Source\DisplayElements</source_model>
+                </field>
+            </group>
+
+            <group id="selling" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Selling Options</label>
+                <field id="block_type" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Block Type Displayed in the Confirmation Pop-up</label>
+                    <source_model>Amasty\Cart\Model\Source\BlockType</source_model>
+                </field>
+
+                <field id="block_title" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <depends>
+                        <field id="block_type" separator=",">related,crosssell</field>
+                    </depends>
+                </field>
+
+                <field id="block_subtitle" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Subtitle</label>
+                    <depends>
+                        <field id="block_type" separator=",">related,crosssell</field>
+                    </depends>
+                </field>
+
+                <field id="products_qty_limit" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Products Qty Limit</label>
+                    <comment>If more than 2 then slider is activated</comment>
+                    <depends>
+                        <field id="block_type" separator=",">related,crosssell</field>
+                    </depends>
+                </field>
+
+                <field id="cms_block" translate="label comment" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Select CMS Block</label>
+                    <comment>Please note. Some CMS blocks can break confirmation popup. We recommend to select mobile view optimized blocks.</comment>
+                    <source_model>Amasty\Cart\Model\Source\CmsBlock</source_model>
+                    <depends>
+                        <field id="block_type">cms_block</field>
+                    </depends>
+                </field>
+            </group>
+            
+            <group id="visual" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Visual Options</label>
+                <field id="background" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+                <field id="product_name" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product Name Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+                <field id="text" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Text Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+                <field id="button_text" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Button Text Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+                <field id="left_button" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Continue Button Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+                <field id="right_button" translate="label comment" type="text" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>View Cart Button Color</label>
+                    <validate>color</validate>
+                    <backend_model>Amasty\Cart\Model\Config\Backend\SimpleText</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

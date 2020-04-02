@@ -1,0 +1,290 @@
+/**
+Copyright © 2019 Wyomind. All rights reserved.
+See LICENSE.txt for license details.
+*/
+.blackbox {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  min-width: 200px;
+  min-height: 55px;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  display: none;
+  background: url(../../../images/resize.png) no-repeat 100% 100% #373330;
+}
+
+.blackbox.draggable {
+}
+
+.blackbox .resizable {
+  width: 200px;
+  height: 200px;
+  min-width: 200px;
+  min-height: 49px;
+  padding: 6px;
+}
+
+.blackbox .content {
+  position: absolute;
+  bottom: 6px;
+  top: 55px;
+  right: 6px;
+  left: 6px;
+  background: white;
+}
+
+.blackbox div.header {
+  cursor: move;
+  height: 55px;
+}
+
+.blackbox .header .button.active:before,
+.blackbox .header .button.active {
+  color: white;
+}
+
+.blackbox .header .button {
+  font-variant: small-caps;
+  color: #AAA6A0;
+  display: inline-block;
+  padding: 5px 10px 5px 5px;
+  cursor: pointer;
+}
+
+.blackbox .header .button:hover {
+  background: #4A4542;
+  color: #F7F3EB;
+}
+
+.blackbox .button:before {
+  font-family: 'Admin Icons';
+  font-weight: normal !important;
+  color: #aaa6a0;
+  display: block;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.blackbox .button.preview:before {
+  content: '\e61f ' !important;
+}
+
+.blackbox .button.library:before {
+  content: '\e612 ' !important;
+}
+
+.blackbox .button.fullscreen:before,
+.blackbox .button.window:before {
+  font-family: 'MUI-Icons';
+}
+
+.blackbox .button.fullscreen:before {
+  content: '\e04f ' !important;
+}
+
+.blackbox .button.window:before {
+  content: '\e04e ' !important;
+}
+
+.blackbox .button.collapse:before {
+  content: '\e615 ' !important;
+}
+
+.blackbox .button.expand:before {
+  content: '\e616 ' !important;
+}
+
+.blackbox .button.collapse,
+.blackbox .button.expand,
+.blackbox .button.fullscreen,
+.blackbox .button.window {
+  float: right;
+}
+
+.blackbox .button.collapse:before,
+.blackbox .button.expand:before,
+.blackbox .button.fullscreen:before,
+.blackbox .button.window:before {
+  font-size: 1em;
+}
+
+.blackbox .content .error {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -1px;
+  top: 0;
+  display: none;
+  padding: 0 4rem 0 5.5rem;
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+.blackbox .content .error .msg {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.blackbox .content .preview,
+.blackbox .content .library {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+}
+
+.blackbox .content .library,
+.blackbox .content .preview.csv {
+  overflow: auto;
+}
+
+.blackbox .content .loader {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background: url('../../../images/loader.gif') rgba(255, 255, 255, 0.8) no-repeat 50% 50%;
+}
+
+.blackbox .content .preview .CodeMirror {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  height: auto;
+  left: 0;
+  right: 0;
+}
+
+div.preview.csv table tr.header th {
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+/* library itself */
+.items-library {
+
+  UL {
+    //position: fixed;
+    background: white;
+    margin: 0;
+
+    li {
+      list-style: outside none none;
+      display: inline-block;
+      padding-right: 10px;
+      padding-left: 10px;
+      border-right: 1px solid grey;
+    }
+  }
+
+}
+
+.items-library ul
+.items-library .separator {
+  border-bottom: 1px solid black;
+  display: block;
+  width: 6%;
+  height: 10px;
+  margin-left: 47%;
+  margin-right: 47%;
+}
+
+.items-library .label {
+  border-right: medium none;
+  height: auto;
+  width: 50%;
+}
+
+.items-library .pink {
+  width: 50%;
+  font-weight: bold;
+  color: #2F7295;
+  border-left: medium none;
+}
+
+div.attr-list {
+  margin: 5px;
+}
+
+table.attr-list {
+  width: 100%;
+  border: 1px solid #f7f3eb;
+  //margin-top: 20px;
+}
+
+table.attr-list a {
+  color: lightgray;
+}
+
+tr.attribute-sample {
+  display: none;
+}
+
+tr.attribute-sample table {
+  width: 100%;
+}
+
+.lib-type-link {
+  cursor: pointer;
+  color: #2F7295;
+}
+
+.lib-type-link.active {
+  font-weight: bold;
+}
+
+tr.attribute-sample table td {
+  border: none;
+  background-color: transparent;
+  width: 50%;
+  padding-bottom: 10px;
+}
+
+tr.attribute-sample table td.values {
+  text-align: left;
+}
+
+tr.attribute-sample.visible {
+  display: table-row;
+}
+
+.attr-list th {
+  background: #524d49 none repeat scroll 0 0 !important;
+  color: white;
+  padding: 5px;
+}
+
+.attribute-sample.visible > td {
+  padding: 25px;
+}
+
+tr.attribute-documentation_0 td {
+  padding: 3px;
+  margin: 1px !important;
+  background-color: white !important;
+}
+
+tr.attribute-documentation_1:hover td,
+tr.attribute-documentation_0:hover td {
+  background-color: #2F7295 !important;
+  color: white;
+  margin: 1px !important;
+}
+
+tr.attribute-documentation_1 td {
+  padding: 3px;
+  margin: 1px !important;
+}
+
+.attr-list h3 {
+  font-size: 1.2em;
+  margin-left: 25px;
+}

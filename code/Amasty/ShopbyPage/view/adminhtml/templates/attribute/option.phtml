@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+?>
+<?php
+/** @var $block \Amasty\ShopbyPage\Block\Adminhtml\Page\Edit\Tab\Selection\Option */
+?>
+<?php $htmlId = $block->getElement()->getHtmlId() ?>
+<div class="admin__field field required" id="<?= /* @noEscape */ $htmlId ?>_container">
+    <label class="label">
+        <span><?= $block->escapeHtml($block->getElement()->getLabel()); ?></span>
+    </label>
+
+    <div class="admin__field-control control">
+        <div id="<?= /* @noEscape */ $htmlId ?>_data">
+            <?= /* @noEscape */ $block->getValueHtml() ?>
+        </div>
+    </div>
+</div>

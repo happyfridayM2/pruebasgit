@@ -1,0 +1,11 @@
+<?php
+$builderHelper = $this->helper('\Magezon\Builder\Helper\Data');
+$rowInnerWidth = $builderHelper->getConfig('general/row_inner_width');
+$customCss     = $builderHelper->getConfig('customization/css');
+?>
+<?php if ($rowInnerWidth || $customCss) { ?>
+<style>
+	.magezon-builder .mgz-container {width: <?= $rowInnerWidth ?>;}
+	<?= $customCss ?>
+</style>
+<?php } ?>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterDropdownBothTest" extends="CategoryFilterDropdownSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of Category filter filtering on top in dropdown mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-6"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSDisplayModeActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSDropdownBoth"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter All-Products Page by Category Filter: select option on top, check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts2"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('Category')}}"
+               stepKey="clickOnCategoryFilter3"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdownLast}}"
+               stepKey="clickCategoryFilterDropdown3"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Bags')}}"
+                      stepKey="grabQtyOfBagsProducts2"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTreeLast('Gear')}}"
+               stepKey="expandCategoryTree2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('Bags')}}"
+               stepKey="clickOnBagsOption2"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Bags"
+             stepKey="checkPageTitle2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickOnCategoryFilter4"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdown}}"
+               stepKey="clickCategoryFilterDropdown4"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Bags')}}"
+             userInput="{$grabQtyOfBagsProducts2}"
+             stepKey="checkQtyOfBagsProducts3"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="14"
+             stepKey="checkQtyOfBagsProducts4"/>
+
+    </test>
+</tests>
+
+

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2019 Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * @var $block \Magmodules\AlternateHreflang\Block\Product
+ */
+if ($alternate = $block->getAlternateData()) {
+    if (isset($alternate['urls'])) {
+        $alternateUrls = $alternate['urls'];
+        if (count($alternateUrls) > 1 && empty($alternate['error'])) {
+            if ($block->showCommentTags()) {
+                echo PHP_EOL . '<!-- MM: START ALTERNATE TAGS -->';
+            }
+            foreach ($alternateUrls as $language => $url) {
+                echo PHP_EOL . '<link rel="alternate" hreflang="' . $language . '" href="' . $url . '" />';
+            }
+            if ($block->showCommentTags()) {
+                echo PHP_EOL . '<!-- MM: END ALTERNATE TAGS -->';
+            }
+            if ($block->getAlternateDebug()) {
+                $debugRow = '<div class="message info">%s</div>';
+                echo '<div class="alternate-debug">';
+                foreach ($alternateUrls as $language => $url) {
+                    $at = htmlentities('<link rel="alternate" hreflang="' . $language . '" href="' . $url . '" />');
+                    echo sprintf($debugRow, $at);
+                }
+                echo '</div>';
+            }
+            echo PHP_EOL;
+        }
+    }
+    if ($block->getAlternateDebug()) {
+        if (isset($alternate['error'])) {
+            echo '<div class="message info">' . $alternate['error'] . '</div>';
+        }
+    }
+}

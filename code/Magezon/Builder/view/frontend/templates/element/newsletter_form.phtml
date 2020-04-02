@@ -1,0 +1,44 @@
+<?php
+$element     = $this->getElement();
+$title       = $element->getData('title');
+$titleTag    = $element->getData('title_tag');
+$description = $element->getData('description');
+?>
+<div class="block newsletter">
+    <?php if ($title) { ?>
+        <<?= $titleTag ?> class="newsletter-title"><?= $title ?></<?= $titleTag ?>>
+    <?php } ?>
+    <?php if ($description) { ?>
+    <div class="newsletter-description"><?= $description ?></div>
+    <?php } ?>
+    <div class="content">
+        <form class="form subscribe"
+            novalidate
+            action="<?= $block->escapeUrl($this->getUrl('newsletter/subscriber/new', ['_secure' => true])) ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'>
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter">
+                        <span class="label">
+                            <?= $block->escapeHtml(__('Sign Up for Our Newsletter:')) ?>
+                        </span>
+                        <input name="email" type="email"
+                               placeholder="<?= $block->escapeHtml(__('Enter your email address')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true, 'validate-email':true}"
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary sr-only"
+                        title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>"
+                        type="submit"
+                        aria-label="Subscribe">
+                    <span><?= $block->escapeHtml(__('Subscribe')) ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

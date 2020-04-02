@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateCMSBlockActionGroup">
+        <arguments>
+            <argument name="CMSblock1"/>
+            <argument name="widgetCode"/>
+        </arguments>
+        <amOnPage url="{{CmsNewBlock.url}}" stepKey="amOnBlocksCreationForm"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <fillField selector="{{BlockNewPageBasicFieldsSection.blockTitle}}"
+                   userInput="{{CMSblock1.title}}"
+                   stepKey="fillFieldTitle1"/>
+        <fillField selector="{{BlockNewPageBasicFieldsSection.identifier}}"
+                   userInput="{{CMSblock1.identifier}}"
+                   stepKey="fillFieldIdentifier"/>
+        <selectOption selector="{{BlockNewPageBasicFieldsSection.storeView}}"
+                      userInput="All Store View"
+                      stepKey="selectAllStoreView"/>
+        <grabCookie userInput="{{widgetCode.CookieUserInput}}"
+                    stepKey="grabCookie2"/>
+        <fillField selector="{{BlockContentSection.TextArea}}"
+                   userInput="{{CMSblock1.content}}"
+                   stepKey="fillContentField"/>
+        <click selector="{{BlockNewPagePageActionsSection.expandSplitButton}}" stepKey="expandSplitBtn2"/>
+        <click selector="{{BlockNewPagePageActionsSection.saveAndClose}}" stepKey="clickSaveAndClose"/>
+        <see userInput="You saved the block." stepKey="seeSavedBlockMsgOnGrid"/>
+        <seeElement selector="div[data-role='grid-wrapper']" stepKey="seeGridPage"/>
+    </actionGroup>
+
+    <actionGroup name="AmDeleteCMSBlockActionGroup" extends="DeleteCMSBlockActionGroup">
+        <arguments>
+            <argument name="CMSblock1"/>
+        </arguments>
+        <click selector="{{CmsPagesPageActionsSection.select(CMSblock1.title)}}" stepKey="ClickOnSelect"/>
+        <click selector="{{CmsPagesPageActionsSection.delete(CMSblock1.title)}}" stepKey="ClickOnEdit"/>
+    </actionGroup>
+
+</actionGroups>

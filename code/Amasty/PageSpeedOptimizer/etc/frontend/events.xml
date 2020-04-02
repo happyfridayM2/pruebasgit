@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amoptimizer_process_ajax_page">
+        <observer name="amoptimizer_lazy_load_process" instance="Amasty\PageSpeedOptimizer\Observer\AjaxLazyLoadProcessor" />
+    </event>
+</config>

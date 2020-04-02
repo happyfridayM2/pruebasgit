@@ -1,0 +1,9 @@
+<?php
+$searchTerm = $this->getSearchTerm();
+$escaper = $this->getHtmlEscaper();
+?>
+<?php if ($searchTerm) { ?>
+    <div class="cn_search" style="display:none">
+        <span class="search_text"><?php echo $escaper->escapeHtml($searchTerm); ?></span>
+    </div>
+<?php } ?>

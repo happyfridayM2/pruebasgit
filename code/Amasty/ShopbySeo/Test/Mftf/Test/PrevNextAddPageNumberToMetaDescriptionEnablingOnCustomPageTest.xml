@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextAddPageNumberToMetaDescriptionEnablingOnCustomPageTest"
+          extends="PrevNextAddPageNumberToMetaDescriptionEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description value="Check of Add Page Number to Meta Description setting enabling on Custom Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="PNTSETTINGS-16"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="pntsettings"/>
+            <group value="pagenumberinmeta"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1" ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageBasicConfiguration"/>
+                <argument name="customPage2" value="customPageTriggerScenario1"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="DisableAllProductsPerPage1"/>
+        </after>
+
+        <!--Check Add Page Number to Meta Description setting: navigate to Custom Page, check Page Number in Meta Description of Page Source, activate pagination, check Page Number in Meta Description of Page Source/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickColorFilter1" after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Black')}}"
+               stepKey="clickBlackOption1" after="clickColorFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1" after="clickBlackOption1"/>
+
+    </test>
+</tests>

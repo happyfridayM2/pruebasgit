@@ -1,0 +1,448 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Feed
+ */
+?>
+<?php
+/** @var \Amasty\Feed\Block\Adminhtml\Feed\Edit\Tab\Csv\Field $block */
+$_value       = $block->getElement()->getCsvField();
+$htmlId      = $block->getElement()->getHtmlId();
+$_htmlClass   = $block->getElement()->getClass();
+$htmlName    = $block->getElement()->getName();
+$_readonly    = $block->getElement()->getReadonly();
+?>
+<div class="field" id="attribute-<?= $block->escapeHtml($htmlId); ?>-container">
+    <div class="control">
+        <table class="admin__control-table amasty-csv-table" id="fields_table">
+            <thead>
+            <tr>
+                <th class="required"><?= $block->escapeHtml(__('Header')); ?></th>
+                <th class="required"><?= $block->escapeHtml(__('Attribute')); ?></th>
+                <th class="required"><?= $block->escapeHtml(__('Format')); ?></th>
+                <th class="required"><?= $block->escapeHtml(__('Parent')); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody id="<?= $block->escapeHtml($htmlId); ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6" class="col-actions-add">
+                    <button class="action-default add" type="button" onclick="return fieldControl.addItem();">
+                        <span><?= $block->escapeHtml(__('Add Attribute')); ?></span>
+                    </button>
+                    <button class="action-default add" type="button" onclick="return fieldControl.addStaticTextItem()">
+                        <span><?= $block->escapeHtml(__('Add Static Text')); ?></span>
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script id="field-row-template" type="text/x-magento-template">
+    <tr>
+        <td>
+            <input id="field_row_<%- data.index %>_header"
+                   name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][header]"
+                   class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"/>
+        </td>
+        <td>
+            <select id="field_row_<%- data.index %>_attribute"
+                    class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"
+                    name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][attribute]">
+                <optgroup label="<?= $block->escapeHtml(__("Basic")); ?>">
+                    <?php foreach ($block->getBasicAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Advanced")); ?>">
+                    <?php foreach ($block->getAdvancedAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Product")); ?>">
+                    <?php foreach ($block->getProductAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Inventory")); ?>">
+                    <?php foreach ($block->getInventoryAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Price")); ?>">
+                    <?php foreach ($block->getPriceAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Category")); ?>">
+                    <?php foreach ($block->getCategoryAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Category Paths")); ?>">
+                    <?php foreach ($block->getCategoryPathsAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Condition-Based Attributes")); ?>">
+                    <?php foreach ($block->getCustomFieldsAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Image")); ?>">
+                    <?php foreach ($block->getImageAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                    </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Gallery")); ?>">
+                    <?php foreach ($block->getGalleryAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__("Url")); ?>">
+                    <?php foreach ($block->getUrlAttributes() as $attributeId => $attributeName): ?>
+                        <option value="<?= $block->escapeHtml($attributeId); ?>">
+                            <?= $block->escapeHtml($attributeName); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </optgroup>
+            </select>
+        </td>
+        <td>
+            <select id="field_row_<%- data.index %>_format"
+                    class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"
+                    name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][format]" >
+                <?php foreach ($block->getFormats() as $formatId => $formatName): ?>
+                    <option value="<?= $block->escapeHtml($formatId); ?>">
+                        <?= $block->escapeHtml($formatName); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </td>
+        <td>
+            <select id="field_row_<%- data.index %>_parent"
+                    class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"
+                    name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][parent]">
+                <?php foreach ($block->getYesNoVars() as $formatId => $formatName): ?>
+                    <option value="<?= $block->escapeHtml($formatId); ?>"><?= $block->escapeHtml($formatName); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </td>
+        <td class="col-delete">
+            <input type="hidden" name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][delete]"
+                   class="delete" value="" id="field_row_<%- data.index %>_delete" />
+            <button title="<?= $block->escapeHtml(__('Delete')); ?>" type="button"
+                    class="action- scalable delete icon-btn delete-product-option"
+                    id="field_row_<%- data.index %>_delete_button"
+                    onclick="return fieldControl.deleteAttribute(event, <%- data.index %>);">
+                <span><?= $block->escapeHtml(__('Delete')); ?></span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td class="amasty-modify-cell" colspan=5>
+            <table id="field_row_<%- data.index %>_modify_container"></table>
+            <a id="amasty_modify_link_hide_<%- data.index %>" class="amasty-modify-link amasty-hide-link"
+               href="#" onclick="fieldControl.hideModifiers(<%- data.index %>); return false;">
+                <?= $block->escapeHtml(__('hide modifier(s)')); ?>
+            </a>
+            <a id="amasty_modify_link_add_<%- data.index %>" class="amasty-modify-link"
+               href="#" onclick="fieldControl.modifyItem(<%- data.index %>); return false;">
+                <?= $block->escapeHtml(__('add modifier')); ?>
+            </a>
+            <a id="amasty_modify_link_show_<%- data.index %>" class="amasty-modify-link"
+               href="#" onclick="fieldControl.showModifiers(<%- data.index %>); return false;">
+                <?= $block->escapeHtml(__('show modifier(s)')); ?>
+            </a>
+        </td>
+    </tr>
+</script>
+
+<script id="modify-template" type="text/x-magento-template">
+    <tr>
+        <td class="amasty-modify">
+            <select onchange="return fieldControl.changeModifier(this);"
+                    id="field_row_<%- data.rowIndex %>_<%- data.index %>_modify"
+                    class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"
+                    name="<?= $block->escapeHtml($htmlName); ?>[<%- data.rowIndex %>][modify][<%- data.index %>][modify]">
+                <?php foreach ($block->getModiftVars() as $modifyId => $modifyName): ?>
+                    <option value="<?= $block->escapeHtml($modifyId); ?>">
+                        <?= $block->escapeHtml($modifyName); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <input style="display: none;" id="field_row_<%- data.rowIndex %>_<%- data.index %>_arg0"
+                   name="<?= $block->escapeHtml($htmlName); ?>[<%- data.rowIndex %>][modify][<%- data.index %>][arg0]"
+                   class="<?= $block->escapeHtml($_htmlClass); ?>"/>
+            <input style="display: none;" id="field_row_<%- data.rowIndex %>_<%- data.index %>_arg1"
+                   name="<?= $block->escapeHtml($htmlName); ?>[<%- data.rowIndex %>][modify][<%- data.index %>][arg1]"
+                   class="<?= $block->escapeHtml($_htmlClass); ?>"/>
+            <button title="<?= $block->escapeHtml(__('Delete')); ?>" type="button"
+                    class="action- scalable delete icon-btn delete-product-option"
+                    id="field_row_<%- data.rowIndex %>_<%- data.index %>_delete_button"
+                    onclick="return fieldControl.deleteItem(event);" >
+                <span><?= $block->escapeHtml(__('Delete')); ?></span>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<script id="static-text-row-template" type="text/x-magento-template">
+    <tr>
+        <td>
+            <input id="field_row_<%- data.index %>_header"
+                   name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][header]"
+                   class="<?= $block->escapeHtml($_htmlClass); ?> required-entry"/>
+        </td>
+        <td colspan=3>
+            <input id="field_row_<%- data.index %>_static_text" class="<?= $block->escapeHtml($_htmlClass); ?>
+                required-entry" name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][static_text]" />
+        </td>
+        <td class="col-delete">
+            <input type="hidden" name="<?= $block->escapeHtml($htmlName); ?>[<%- data.index %>][delete]"
+                   class="delete" value="" id="field_row_<%- data.index %>_delete" />
+            <button title="<?= $block->escapeHtml(__('Delete')); ?>" type="button"
+                    class="action- scalable delete icon-btn delete-product-option"
+                    id="field_row_<%- data.index %>_delete_button" onclick="return fieldControl.deleteItem(event);">
+                <span><?= $block->escapeHtml(__('Delete')); ?></span>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<script>
+    require([
+        'mage/template',
+        'prototype',
+        'mage/adminhtml/form'
+    ], function (mageTemplate) {
+        //<![CDATA[
+        window.fieldControl = {
+            rowTemplate: mageTemplate('#field-row-template'),
+            modifyTemplate: mageTemplate('#modify-template'),
+            staticTextRowTemplate: mageTemplate('#static-text-row-template'),
+            itemsCount: 0,
+            modifyCount: 0,
+            argsConfig: <?= /** @noEscape */ json_encode($block->getArgs()); ?>,
+            addItem: function (header, attribute, format, parent) {
+                var data = {
+                    index: this.itemsCount++
+                };
+
+                Element.insert($('<?= $block->escapeHtml($htmlId); ?>_container'), {
+                    bottom: this.rowTemplate({
+                        data: data
+                    })
+                });
+
+                if (header)
+                    $('field_row_' + data.index + '_header').value = header;
+
+                if (attribute)
+                    $('field_row_' + data.index + '_attribute').value = attribute;
+
+                if (format)
+                    $('field_row_' + data.index + '_format').value = format;
+
+                if (parent)
+                    $('field_row_' + data.index + '_parent').value = parent;
+
+                var linkHide = $("amasty_modify_link_hide_" + data.index);
+                var linkShow = $("amasty_modify_link_show_" + data.index);
+
+                linkHide.hide();
+                linkShow.hide();
+
+                return data.index;
+
+            },
+            addStaticTextItem: function (header, text) {
+                var data = {
+                    index: this.itemsCount++
+                };
+
+                Element.insert($('<?= $block->escapeHtml($htmlId); ?>_container'), {
+                    bottom: this.staticTextRowTemplate({
+                        data: data
+                    })
+                });
+
+                if (header)
+                    $('field_row_' + data.index + '_header').value = header;
+
+                if (text)
+                    $('field_row_' + data.index + '_static_text').value = text;
+
+                return data.index;
+            },
+            deleteAttribute: function (event, rowIndex) {
+                $('field_row_' + rowIndex + '_modify_container').up('tr').remove();
+                this.deleteItem(event);
+            },
+            deleteItem: function (event) {
+                var tr = Event.findElement(event, 'tr');
+                if (tr) {
+                    Element.select(tr, ['input', 'select']).each(function (element) {
+                        element.remove();
+                    });
+                    Element.remove(tr);
+                }
+                return false;
+            },
+            modifyItem: function (rowIndex, modify, arg0, arg1) {
+                var containerId = 'field_row_' + rowIndex + '_modify_container';
+
+                var container = $(containerId);
+                var linkHide = $("amasty_modify_link_hide_" + rowIndex);
+                var link = $("amasty_modify_link_" + rowIndex);
+
+                if (container) {
+                    var data = {
+                        index: this.modifyCount++,
+                        rowIndex: rowIndex
+                    };
+
+                    Element.insert(container, {
+                        bottom: this.modifyTemplate({
+                            data: data
+                        })
+                    });
+
+                    if (modify) {
+                        var modifySelect = $('field_row_' + data.rowIndex + '_' + data.index + '_modify');
+                        if (modifySelect) {
+                            modifySelect.value = modify;
+                            this.changeModifier(modifySelect);
+                        }
+                    }
+
+                    if (arg0) {
+                        $('field_row_' + data.rowIndex + '_' + data.index + '_arg0').value = arg0;
+                    }
+
+                    if (arg1) {
+                        $('field_row_' + data.rowIndex + '_' + data.index + '_arg1').value = arg1;
+                    }
+
+                    linkHide.show();
+                }
+            },
+            changeModifier: function (select) {
+                var td = select.up('td');
+
+                var args = [];
+
+                if (this.argsConfig[select.getValue()]) {
+                    args = this.argsConfig[select.getValue()];
+                }
+
+                td.select('input').each(function (input) {
+                    input.hide();
+                });
+
+                for (var idx = 0; idx < args.length; idx++) {
+                    var id = select.id.replace("_modify", "_arg" + idx);
+                    var input = td.down("#" + id);
+                    if (input) {
+                        input.show();
+                        input.setAttribute('placeholder', args[idx]);
+                    }
+                }
+            },
+            showAddModifyLink: function (rowIndex) {
+                var $linkAdd = $("amasty_modify_link_add_" + rowIndex);
+                var $linkShow = $("amasty_modify_link_show_" + rowIndex);
+                var $linkHide = $("amasty_modify_link_hide_" + rowIndex);
+                var $container = $("field_row_" + rowIndex + "_modify_container");
+
+                if ($container.select("tr").length > 0) {
+                    $container.hide();
+                    $linkShow.show();
+                    $linkAdd.hide();
+                    $linkHide.hide();
+
+                } else {
+                    $linkShow.hide();
+                    $linkAdd.show();
+                    $linkHide.hide();
+
+                }
+
+            },
+            showModifiers: function (rowIndex) {
+                var $linkAdd = $("amasty_modify_link_add_" + rowIndex);
+                var $linkShow = $("amasty_modify_link_show_" + rowIndex);
+                var $container = $("field_row_" + rowIndex + "_modify_container");
+                var $linkHide = $("amasty_modify_link_hide_" + rowIndex);
+
+                $linkShow.hide();
+                $linkAdd.show();
+                $linkHide.show();
+
+                $container.show();
+            },
+            hideModifiers: function (rowIndex) {
+                var $linkAdd = $("amasty_modify_link_add_" + rowIndex);
+                var $linkShow = $("amasty_modify_link_show_" + rowIndex);
+                var $container = $("field_row_" + rowIndex + "_modify_container");
+                var $linkHide = $("amasty_modify_link_hide_" + rowIndex);
+
+                $linkShow.show();
+                $linkAdd.hide();
+                $linkHide.hide();
+
+                $container.hide();
+            }
+        };
+
+        <?php foreach ($_value as $_item): ?>
+            <?php if ($_item['static_text']): ?>
+                var rowIndex = window.fieldControl.addStaticTextItem(
+                    '<?= $block->escapeHtml($_item['header'], true); ?>',
+                    '<?= $block->escapeHtml($_item['static_text'], true); ?>'
+                );
+            <?php else: ?>
+                var rowIndex = fieldControl.addItem(
+                    '<?= $block->escapeHtml($_item['header'], true); ?>',
+                    '<?= $block->escapeHtml($_item['attribute'], true); ?>',
+                    '<?= $block->escapeHtml($_item['format'], true); ?>',
+                    '<?= $block->escapeHtml($_item['parent'], true); ?>'
+                );
+                <?php foreach ($_item['modify'] as $_modify): ?>
+                    window.fieldControl.modifyItem(rowIndex,
+                            '<?= $block->escapeHtml($_modify['modify'], true); ?>',
+                            '<?= $block->escapeHtml($_modify['arg0'], true); ?>',
+                            '<?= $block->escapeHtml($_modify['arg1'], true); ?>'
+                    );
+                <?php endforeach; ?>
+
+            window.fieldControl.showAddModifyLink(rowIndex);
+            <?php endif; ?>
+        <?php endforeach; ?>
+        //]]>
+    });
+</script>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <block class="Trustedshops\Trustedshops\Block\Rating\Tab" name="trustedshops.rating.tab" template="Trustedshops_Trustedshops::rating_tab.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="product.info.details">
+            <block class="Trustedshops\Trustedshops\Block\Review\Tab" name="trustedshops.review.tab" template="Trustedshops_Trustedshops::review_tab.phtml" group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Trusted Shops Reviews</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block name="trustedshops_trustedshops.review" class="Trustedshops\Trustedshops\Block\Review" template="Trustedshops_Trustedshops::review.phtml" />
+            <block class="Trustedshops\Trustedshops\Block\Rating" name="trustedshops.rating" template="Trustedshops_Trustedshops::rating.phtml" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPayPalBraintreeAndButtonBelowOrder" extends="OSCCheckAuthoriseAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Braintree via the storefront"/>
+            <title value="Check Place Order with Braintree And Button Below the Order Total on the Checkout"/>
+            <description value="Check Place Order with Braintree And Button Below the Order Total on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-35"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsBraintree"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleProductByStriveShoulderPack" after="CreateConfigurableProduct" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategoryCreateConfigurableProduct"/>
+            </createData>
+            <createData entity="OSCCustomerCalifornia" after="createFirstSimpleProduct" stepKey="createCustomer"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" after="ConfigurationPlaceButtonBelowOrderSetting" stepKey="loginAsCustomer">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createFirstSimpleProduct" after="deleteCategory" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createCustomer" after="deleteFirstSimpleProduct" stepKey="deleteCustomer"/>
+        </after>
+
+        <!--Add Products to Cart-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentBraintreePayPal"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPayPalBraintreeAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowPaymentWithPayPalBraintreeGrabNumber" stepKey="PlaceOrderWitPayPalBraintree">
+            <argument name="customerCredentialsData" value="customerPayPalAccount"/>
+        </actionGroup>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentBraintreePayPal"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWitPayPalBraintree}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckPayPalBraintreeAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWitPayPalBraintree}"/>
+        </actionGroup>
+
+    </test>
+</tests>

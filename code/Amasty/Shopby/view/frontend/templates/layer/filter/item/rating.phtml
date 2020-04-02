@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<!-- amasty_shopby_not_remove_tags -->
+<div class="rating-summary">
+    <div class="rating-result" title="<?= /* @noEscape */ ($block->getStar() * 20);?>%">
+        <span style="width:<?= /* @noEscape */ ($block->getStar() * 20);?>%">
+            <span>
+                <?= /* @noEscape */ $block->getStar(); ?>
+            </span>
+        </span>
+    </div>
+</div>
+
+<?php if ($block->getStar() != 5) :?>
+    <span class="am-rating-up"><?= $block->escapeHtml(__('&amp; up')); ?></span>
+<?php endif; ?>

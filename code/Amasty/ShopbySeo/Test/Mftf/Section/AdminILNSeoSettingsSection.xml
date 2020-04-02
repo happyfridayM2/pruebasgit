@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminILNSeoSettingsSection">
+        <element name="SeoUrlsSettingsTab" type="button" selector="#amasty_shopby_seo_url-head"/>
+        <element name="SeoSwitcher" type="select" selector="#amasty_shopby_seo_url_mode"/>
+        <element name="IncludeAttrNameSwitcher" type="block" selector="#amasty_shopby_seo_url_attribute_name"/>
+        <element name="FilterKeyField" type="input" selector="#amasty_shopby_seo_url_filter_word"/>
+        <element name="AddSuffixSwitcher" type="select" selector="#amasty_shopby_seo_url_add_suffix_shopby"/>
+        <element name="ReplaceSpecChar" type="select" selector="#amasty_shopby_seo_url_special_char"/>
+        <element name="SeparateAttrOpt" type="select" selector="#amasty_shopby_seo_url_option_separator"/>
+        <element name="AttentionTitleOnPopup" type="block"
+                 selector="//*[@id='html-body']/div[4]/aside[2]/div[2]/header/h1"/>
+        <element name="AttentionPopupOKButton" type="block"
+                 selector="//*[@id='html-body']/div[4]/aside[2]/div[2]/footer/button"/>
+        <element name="RTCSettingsTab" type="block"
+                 selector="#amasty_shopby_seo_robots-head"/>
+        <element name="AllowModifyRobotsMetaTagSwitcher" type="select"
+                 selector="#amasty_shopby_seo_robots_control_robots"/>
+        <element name="NoindexMultipleAttributeFiltersSwitcher" type="select"
+                 selector="#amasty_shopby_seo_robots_noindex_multiple"/>
+        <element name="AddRelNofollowSwitcher" type="select" selector="#amasty_shopby_seo_robots_rel_nofollow"/>
+        <element name="NoindexForPaginatedPagesSwitcher" type="select"
+                 selector="#amasty_shopby_seo_robots_noindex_paginated"/>
+        <element name="CanonicalURLTab" type="select"
+                 selector="#amasty_shopby_seo_canonical-head"/>
+        <element name="CategoryPagesCanonicalSwitcher" type="select"
+                 selector="#amasty_shopby_seo_canonical_category"/>
+        <element name="AllProductsPageCanonicalSwitcher" type="select"
+                 selector="#amasty_shopby_seo_canonical_root"/>
+        <element name="PaginationSettingsTab" type="button" selector="#amasty_shopby_seo_other-head"/>
+        <element name="UsePrevNextTagsSwitcher" type="button" selector="#amasty_shopby_seo_other_prev_next"/>
+        <element name="AddPageNumberMetaTitleSwitcher" type="button" selector="#amasty_shopby_seo_other_page_meta_title"/>
+        <element name="AddPageNumberMetaDescriptionSwitcher" type="button" selector="#amasty_shopby_seo_other_page_meta_descriprion"/>
+        <element name="Save" type="button" selector="#save"/>
+    </section>
+
+</sections>

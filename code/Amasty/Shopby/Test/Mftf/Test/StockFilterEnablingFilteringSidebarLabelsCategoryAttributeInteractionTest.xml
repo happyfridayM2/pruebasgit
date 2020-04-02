@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringSidebarLabelsCategoryAttributeInteractionTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description
+                    value="Check of stock filter enabling and filtering on sidebar in labels display mode in interaction with Category Attribute"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNSTOCKFILTER-19"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <!--Filter by Stock Filter on All-products Page: expand filter, select Out of Stock option, check the result, filter page by Category Attribute, check the result, remove selected options from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Category')}}"
+               stepKey="clickCategoryFilter1"
+               after="selectStockOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Bags')}}"
+               stepKey="clickBagsCategoryOption1"
+               after="clickCategoryFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Bags"
+             stepKey="checkTitle"
+             after="clickBagsCategoryOption1"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option, check the result, remove selected option from state/-->
+
+    </test>
+</tests>
+

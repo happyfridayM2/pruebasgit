@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterFilteringOtherFiltersInteractionTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter filtering in interaction with other filters"/>
+            <description
+                    value="Check of rating filter filtering in interaction with brand attribute"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-12"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <!--Filter by Color, Price, Rating Filter: select 4 stars option on sidebar, check the result, sequentially remove selected options from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Color')}}"
+               stepKey="clickColorFilter1"
+               after="selectRatingOption2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Black')}}"
+               stepKey="selectBlackOption1"
+               after="clickColorFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Price')}}"
+               stepKey="clickPriceFilter1"
+               after="selectBlackOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('29.99')}}"
+               stepKey="selectPriceOption1"
+               after="clickPriceFilter1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('20.00 -')}}"
+               stepKey="removeSelectedFilterOptionFromState6"
+               after="checkRatingOfProducts4"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Black')}}"
+               stepKey="removeSelectedFilterOptionFromState7"
+               after="removeSelectedFilterOptionFromState6"/>
+
+    </test>
+</tests>
+
+

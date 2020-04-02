@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPurchaseOrderAndButtonBelowPayment" extends="OSCCheckAmazonAndButtonBelowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Purchase Order via the storefront"/>
+            <title value="Check Place Order with Purchase Order And Button Below the Payment Methods on the Checkout"/>
+            <description value="Check Place Order with Purchase Order And Button Below the Payment Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-49"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCPaymentPurchaseOrder"/>
+            <group value="OSCPaymentMethods"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminActivatePurchaseOrder" after="ConfigurationPlaceButtonDesignSetting" stepKey="ActivatePurchaseOrderPayment"/>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+            <actionGroup ref="AdminReturnDefaultSettingPurchaseOrder" after="deleteCustomer" stepKey="ReturnDefaultPaymentSetting"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentPurchaseOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPurchaseOrderAndButtonBelowPayment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowPaymentWithPurchaseOrderGrabNumber" stepKey="PlaceOrderWithPurchaseOrder">
+            <argument name="purchaseOrderNumber" value="OSCCheckPurchaseOrderAndButtonBelowPayment.purchaseOrderNumber"/>
+        </actionGroup>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentPurchaseOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithPurchaseOrder}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckPurchaseOrderAndButtonBelowPayment"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithPurchaseOrder}"/>
+        </actionGroup>
+
+    </test>
+</tests>

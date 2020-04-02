@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterDropdownSidebarMultiSelectTest" extends="CategoryFilterLabelsSidebarMultiSelectTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description value="Checking of Category filter filtering on sidebar in dropdown mode with MultiSelect"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="CATEGORYFILTER-45"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="catfilter"/>
+            <group value="catfiltermultisel"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="SetCategoryIDSMultiSelectActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSDropdownSidebar"/>
+                <argument name="categoryIDS4" value="CategoryIDSMultiSelect"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="SetCategoryIDSMultiSelectActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS4" value="CategoryIDSSingleSelect"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select options on sidebar, check the result/-->
+
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdown}}"
+               stepKey="clickCategoryFilterDropdown1"
+               after="clickOnCategoryFilter1"/>
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Women','Men','Gear','Training')}}"
+                stepKey="checkCategoryTreeSequence1"
+                after="clickCategoryFilterDropdown1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTree('Women')}}"
+               stepKey="expandCategoryTree1"
+               after="checkCategoryTreeSequence1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTree('Tops')}}"
+               stepKey="expandCategoryTree2"
+               after="expandCategoryTree1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdown}}"
+               stepKey="clickCategoryFilterDropdown2"
+               after="clickOnOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterInDropdown}}"
+               stepKey="clickCategoryFilterDropdown3"
+               after="checkPageTitle1"/>
+
+    </test>
+</tests>
+
+

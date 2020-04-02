@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarNumberOfUnfoldedOptionsTest" extends="CategoryFilterLabelsSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode and Number of Unfolded Options setting"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-12"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfilterdispprop"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSNumberUnfoldOpt"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeNoDepthTwoActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeNoDepthTwoCurCatLevImagesLabels"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSDisplayMode1"
+                         ref="ConfigureCategoryIDSOtherElementsDefaultActionGroup">
+                <argument name="categoryIDS1" value="CategoryIDSLabelsSidebar"/>
+                <argument name="categoryIDS2" value="CategoryIDSOtherElementsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup"
+                         after="ConfigureCategoryIDSDisplayMode1">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: check number of unfolded options, select option on sidebar, check the result/-->
+
+        <seeNumberOfElements parameterArray="[1,10]"
+                             selector="{{StorefrontFilterElementsSection.FilterOptionForCount('category_ids','category-amShopbyFilterCategoryLabelsFolding')}}"
+                             stepKey="seeNoMoreThanTenOptions1"
+                             after="clickOnCategoryFilter1"/>
+        <seeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                    stepKey="checkShowMoreElement1"
+                    after="seeNoMoreThanTenOptions1"/>
+        <seeNumberOfElements parameterArray="[1,10]"
+                             selector="{{StorefrontFilterElementsSection.FilterOptionForCount('category_ids','category-amShopbyFilterCategoryLabelsFolding')}}"
+                             stepKey="seeNoMoreThanTenOptions2"
+                             after="clickOnCategoryFilter2"/>
+        <dontSeeElement selector="{{StorefrontFilterElementsSection.ShowMoreAndLessButtons('more')}}"
+                        stepKey="checkShowMoreElement2"
+                        after="seeNoMoreThanTenOptions2"/>
+
+    </test>
+</tests>
+
+

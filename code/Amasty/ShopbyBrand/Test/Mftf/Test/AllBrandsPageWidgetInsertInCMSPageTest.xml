@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AllBrandsPageWidgetInsertInCMSPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page elements checking"/>
+            <title value="Check of All Brands Page elements"/>
+            <description
+                    value="Check that All Brands Page Widget is inserted in CMS Page Content"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-31"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="allbrandspage"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="CreateCMSPageWithWidgetCodeActionGroup"
+                         stepKey="CreateCMSPageWithWidgetCode1">
+                <argument name="widgetCode" value="allBrandsPageWidgetCode"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="noBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="DeleteCMSPageActionGroup"
+                         stepKey="DeleteCMSPage1">
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                         stepKey="configureSearchFilterByCharacter1">
+                <argument name="elementsAllBrandsPage1" value="elementsAllBrandsPageFullyEnabled"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that All Brands Page Block is displayed on CMS Page-->
+
+        <grabCookie userInput="setCMSPageURL" stepKey="grabCookie1"/>
+        <amOnPage url="{$grabCookie1}" stepKey="navigateToCMSPage1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}"
+                        stepKey="dontSee404OnPage1"/>
+        <dontSee userInput="We're sorry, an error has occurred while generating this content."
+                 stepKey="dontSeeGenerationContentError1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}"
+                    stepKey="dontSeeFatalErrorOnPage1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test CMS Page"
+             stepKey="checkPageTitle1"/>
+        <fillField selector="{{StorefrontBrandElementsSection.AllBrandsPageSearcher}}"
+                   userInput="Polyester"
+                   stepKey="typePolyesterInSearch1"/>
+        <click selector="{{StorefrontBrandElementsSection.LinkInAllBrandsPageSearcher('Polyester')}}"
+               stepKey="clickOnLinkInDropdown1"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+
+    </test>
+</tests>

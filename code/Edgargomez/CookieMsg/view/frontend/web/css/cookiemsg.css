@@ -1,0 +1,117 @@
+#eg-cm-wrap {
+    display: none;
+}
+
+/* Full width messages */
+#eg-cm-wrap.topfullwidth {
+    width: 100%;
+    top: 0px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #EEE;
+    border-bottom: 1px solid #CCC;
+    overflow: hidden;
+}
+
+#eg-cm-wrap.bottomfullwidth {
+    width: 100%;
+    bottom: 0px;
+    position: absolute;
+    z-index: 9999;
+    border-bottom: 1px solid #CCC;
+    overflow: hidden;
+}
+
+#eg-cm-wrap.topfullwidth span, #eg-cm-wrap.bottomfullwidth span {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+}
+
+#eg-cm-wrap.topfullwidth span a#eg-cm-hide, #eg-cm-wrap.bottomfullwidth span a#eg-cm-hide {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Box styled messages */
+#eg-cm-wrap.toprightbox {
+    width: 400px;
+    top: 30px;
+    right: 30px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+}
+
+#eg-cm-wrap.topleftbox {
+    width: 400px;
+    top: 30px;
+    left: 30px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+}
+
+#eg-cm-wrap.bottomleftbox {
+    width: 400px;
+    bottom: 30px;
+    left: 30px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+}
+
+#eg-cm-wrap.bottomrightbox {
+    width: 400px;
+    bottom: 30px;
+    right: 30px;
+    position: absolute;
+    z-index: 9999;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+}
+
+#eg-cm-wrap.toprightbox span, #eg-cm-wrap.bottomrightbox span, #eg-cm-wrap.topleftbox span, #eg-cm-wrap.bottomleftbox span {
+    padding: 15px;
+    display: block;
+}
+
+#eg-cm-wrap.toprightbox span a#eg-cm-hide, #eg-cm-wrap.bottomrightbox span a#eg-cm-hide, #eg-cm-wrap.topleftbox span a#eg-cm-hide, #eg-cm-wrap.bottomleftbox span a#eg-cm-hide {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#eg-cm-wrap #eg-cm-cc {
+    display: block;
+    position: absolute;
+    width: 25px;
+    cursor: pointer;
+}
+
+#eg-cm-wrap #eg-cm-cc.topright {
+    top: 0px;
+    right: 0px;
+}
+
+#eg-cm-wrap #eg-cm-cc.topleft {
+    top: 0px;
+    left: 0px;
+}
+
+#eg-cm-wrap #eg-cm-cc.bottomleft {
+    bottom: 0px;
+    left: 0px;
+}
+
+#eg-cm-wrap #eg-cm-cc.bottomright {
+    bottom: 0px;
+    right: 0px;
+}

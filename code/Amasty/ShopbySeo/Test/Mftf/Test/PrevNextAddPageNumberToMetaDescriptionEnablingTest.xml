@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="PrevNextAddPageNumberToMetaDescriptionEnablingTest">
+
+        <annotations>
+            <features value="Pagination settings"/>
+            <stories value="Pagination settings checking"/>
+            <title value="Check Pagination settings configuration in different circumstances"/>
+            <description value="Check of Add Page Number to Meta Description setting enabling"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="PNTSETTINGS-13"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="pntsettings"/>
+            <group value="pagenumberinmeta"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="PNTEnabling1" ref="PaginationSettingsConfigurationActionGroup">
+                <argument name="prevnexttags" value="prevNextTagsFullyEnabled"/>
+            </actionGroup>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup stepKey="SetCategoryMetaData" ref="ConfigureCategorySEOTab">
+                <argument name="Category" value="SetDefaultCategoryMetaData"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup stepKey="PNTDisabling1" ref="PaginationSettingsConfigurationActionGroup">
+                <argument name="prevnexttags" value="prevNextTagsDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SetDefaultCategoryMetaData" ref="ConfigureCategorySEOTab">
+                <argument name="Category" value="DefaultCategoryMetaDataDefault"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check Add Page Number to Meta Description setting: navigate to All-Products Page, check Page Number in Meta Description of Page Source, activate pagination, check Page Number in Meta Description of Page Source/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST&quot;"
+                stepKey="seeInSource1"/>
+        <click selector="{{StorefrontPageElementsSection.NextPreviousPage('next')}}"
+               stepKey="clickNextButton1"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | Page 2&quot;"
+                stepKey="seeInSource2"/>
+        <selectOption userInput="36" selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"/>
+        <click selector="{{StorefrontPageElementsSection.SelectPageLast}}"
+               stepKey="clickLastButton"/>
+        <click selector="{{StorefrontPageElementsSection.SelectPageLast}}"
+               stepKey="clickLastButton2"/>
+        <seeInPageSource
+                html="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | "
+                stepKey="seeInSource3"/>
+        <selectOption userInput="All" selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity2"/>
+        <dontSeeInPageSource
+                userInput="meta name=&quot;description&quot; content=&quot;Default Category Meta Description TST | "
+                stepKey="dontSeeInSource1"/>
+
+    </test>
+</tests>

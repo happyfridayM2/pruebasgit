@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CreateShippingAreaOnlyWithRegions">
+        <arguments>
+            <argument name="shippingArea"/>
+            <argument name="forStatesValue"/>
+        </arguments>
+        <amOnPage url="{{AdminShippingAreaGrid.url}}" stepKey="navigateToShippingAreaGrid"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="clearAllFilters" selector="{{AdminShippingAreaGridSection.FiltersClearAll}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersClearAll}}" visible="true"/>
+        <click selector="{{AdminShippingAreaGridSection.AddShippingAreaButton}}" stepKey="AddNewArea"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <conditionalClick stepKey="openGeneralTab"
+                          selector="{{AdminShippingAreaRuleSection.GeneralTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.GeneralTabOpen}}"
+                          visible="false"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ShippingAreaName}}" userInput="{{shippingArea.name}}" stepKey="enterNameArea"/>
+        <conditionalClick stepKey="activateArea"
+                          selector="{{AdminShippingAreaRuleSection.ShippingAreaStatus}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.ShippingAreaStatusEnable}}"
+                          visible="false"/>
+        <conditionalClick stepKey="openAreaConditionsTab"
+                          selector="{{AdminShippingAreaRuleSection.AreaConditionsTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.AreaConditionsTabOpen}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForCountries}}" userInput="1" stepKey="chooseIncludeForCountries"/>
+        <click selector="{{AdminShippingAreaRuleSection.CountriesSelectForClick}}" stepKey="OpenCountriesMultiSelect"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.CountriesInputInSelectForSearch}}"
+                   userInput="{{shippingArea.country}}" stepKey="enterCountryName"/>
+        <wait time="2" stepKey="wait"/>
+        <click selector="{{AdminShippingAreaRuleSection.CountriesFoundInSelect}}" stepKey="chooseFoundMethod"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForStateRegions}}" userInput="{{forStatesValue}}" stepKey="selectActionsForStates"/>
+        <wait time="2" stepKey="waitWhileShowsRegion"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.StateRegions}}" parameterArray="[{{shippingArea.states}}]" stepKey="selectStates"/>
+        <click selector="{{AdminShippingAreaRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="CreateShippingAreaWithCitiesAndZip" extends="CreateShippingAreaOnlyWithRegions">
+        <arguments>
+            <argument name="shippingArea"/>
+            <argument name="forCities"/>
+            <argument name="forZip"/>
+        </arguments>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForCities}}" userInput="{{forCities}}" stepKey="chooseActionForCities"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.Cities}}"
+                   userInput="{{shippingArea.city}}" stepKey="enterCityName"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForZipPostcode}}" userInput="{{forZip}}" stepKey="chooseActionForZip"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ZipPostcodeFrom}}"
+                   userInput="{{shippingArea.zipFrom}}" stepKey="enterZipFrom"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ZipPostcodeTo}}"
+                   userInput="{{shippingArea.zipTo}}" stepKey="enterZipTo"/>
+        <click selector="{{AdminShippingAreaRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSaveAfterAddedZip"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="CreateShippingAreaOnlyWithCountry">
+        <arguments>
+            <argument name="shippingArea"/>
+        </arguments>
+        <amOnPage url="{{AdminShippingAreaGrid.url}}" stepKey="navigateToShippingAreaGrid2"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+        <conditionalClick stepKey="clearAllFilters" selector="{{AdminShippingAreaGridSection.FiltersClearAll}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersClearAll}}" visible="true"/>
+        <click selector="{{AdminShippingAreaGridSection.AddShippingAreaButton}}" stepKey="AddNewArea2"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <conditionalClick stepKey="openGeneralTab"
+                          selector="{{AdminShippingAreaRuleSection.GeneralTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.GeneralTabOpen}}"
+                          visible="false"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ShippingAreaName}}" userInput="{{shippingArea.name}}" stepKey="enterNameArea2"/>
+        <conditionalClick stepKey="activateArea"
+                          selector="{{AdminShippingAreaRuleSection.ShippingAreaStatus}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.ShippingAreaStatusEnable}}"
+                          visible="false"/>
+        <conditionalClick stepKey="openAreaConditionsTab"
+                          selector="{{AdminShippingAreaRuleSection.AreaConditionsTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.AreaConditionsTabOpen}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForCountries}}" userInput="2" stepKey="chooseExcludeForCountries"/>
+        <click selector="{{AdminShippingAreaRuleSection.CountriesSelectForClick}}" stepKey="OpenCountriesMultiSelect2"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad9"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.CountriesInputInSelectForSearch}}"
+                   userInput="{{shippingArea.country}}" stepKey="enterCountryName"/>
+        <wait time="2" stepKey="wait"/>
+        <click selector="{{AdminShippingAreaRuleSection.CountriesFoundInSelect}}" stepKey="chooseFoundMethod2"/>
+        <click selector="{{AdminShippingAreaRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave2"/>
+    </actionGroup>
+
+    <!-- Left for Backward Compatibility. Delete after 02.06.2020 -->
+    <actionGroup name="DeleteAllShippingAreas">
+        <amOnPage url="{{AdminShippingAreaGrid.url}}" stepKey="navigateToShippingRulesGridPage1"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad1"/>
+    </actionGroup>
+
+    <actionGroup name="AdminDeleteShippingArea">
+        <arguments>
+            <argument name="shippingArea"/>
+        </arguments>
+        <amOnPage url="{{AdminShippingAreaGrid.url}}" stepKey="navigateToPaymentRestrictionGridPage1"/>
+        <waitForPageLoad stepKey="waitForGridLoad"/>
+        <conditionalClick stepKey="openFiltersBlockIfClose" selector="{{AdminShippingAreaGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersNameInput}}" visible="false"/>
+        <fillField selector="{{AdminShippingAreaGridSection.FiltersNameInput}}"
+                   userInput="{{shippingArea.name}}" stepKey="enterNameOfRule"/>
+        <click selector="{{AdminShippingAreaGridSection.FiltersApplyButton}}" stepKey="clickButtonAppleFilter"/>
+        <click selector="{{AdminShippingAreaGridSection.TableRowOne}}" stepKey="openFirstFoundRule"/>
+        <waitForPageLoad stepKey="waitForPageOpenRuleLoad"/>
+        <click selector="{{AdminShippingAreaRuleSection.Delete}}" stepKey="clickToDeleteRule"/>
+        <waitForPageLoad stepKey="waitForLoadConfirmMessage"/>
+        <click selector="{{AdminShippingAreaRuleSection.ModalAcceptButton}}" stepKey="clickToConfirmMessage"/>
+        <waitForPageLoad stepKey="waitForLoadPageAfterDelete"/>
+        <seeElement selector="{{AdminShippingAreaGridSection.SuccessMessageDeletedRule}}"
+                    stepKey="assertShowMessageAboutDeleted"/>
+        <conditionalClick stepKey="clearAllFilters" selector="{{AdminShippingAreaGridSection.FiltersClearAll}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersClearAll}}" visible="true"/>
+        <waitForPageLoad stepKey="waitForLoadPageAfterClearFields"/>
+        <waitForAjaxLoad stepKey="waitForAjaxPageAfterClearFields"/>
+    </actionGroup>
+
+</actionGroups>

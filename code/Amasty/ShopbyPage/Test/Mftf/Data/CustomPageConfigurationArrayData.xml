@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyPage
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="customPageBasicConfiguration" type="customPage">
+        <data key="CustomPageTitleField">Test Custom Page Title</data>
+        <data key="StoreViewField">All Store Views</data>
+        <data key="CategoriesField">Default Category</data>
+    </entity>
+    <entity name="customPageConfigurationOnMenTops" type="customPage" extends="customPageBasicConfiguration">
+        <data key="CategoriesField">12</data>
+    </entity>
+
+    <entity name="customPageTriggerScenario1" type="customPage2">
+        <data key="SelectAttributeDropdown">Color</data>
+        <data key="SelectAttributeValueDropdown">Black</data>
+    </entity>
+    <entity name="customPageTriggerScenario2" type="customPage2">
+        <data key="SelectAttributeDropdown">Climate</data>
+        <data key="SelectAttributeValueDropdown">All-Weather</data>
+    </entity>
+    <entity name="customPageTriggerScenario3" type="customPage2">
+        <data key="SelectAttributeDropdown">Activity</data>
+        <data key="SelectAttributeValueDropdown">Gym</data>
+    </entity>
+
+</entities>

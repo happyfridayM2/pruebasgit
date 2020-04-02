@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckPayPalBraintreeAndButtonBelowPayment" extends="OSCCheckAmazonAndButtonBelowPayment">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Braintree via the storefront"/>
+            <title value="Check Place Order with Braintree And Button Below the Payment Methods on the Checkout"/>
+            <description value="Check Place Order with Braintree And Button Below the Payment Methods on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-34"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsBraintree"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createSecondSimpleProduct"/>
+            <remove keyForRemoval="createCustomer"/>
+            <remove keyForRemoval="loginAsCustomer"/>
+        </before>
+
+        <after>
+            <remove keyForRemoval="deleteSecondSimpleProduct"/>
+            <remove keyForRemoval="deleteCustomer"/>
+        </after>
+
+        <remove keyForRemoval="AddSecondProductToCart"/>
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckout">
+            <argument name="customer" value="customerOSCCheckPayPalAndBraintree"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentBraintreePayPal"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckPayPalBraintreeAndButtonBelowPayment"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowPaymentWithPayPalBraintreeGrabNumberGuest" stepKey="PlaceOrderWitPayPalBraintree">
+            <argument name="customerCredentialsData" value="customerPayPalAccount"/>
+        </actionGroup>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentBraintreePayPal"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWitPayPalBraintree}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckPayPalBraintreeAndButtonBelowPayment"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWitPayPalBraintree}"/>
+        </actionGroup>
+
+    </test>
+</tests>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <move element="amasty.shopby.applybutton.sidebar" destination="content.top" after="catalog.leftnav"/>
+    <move element="catalogsearch.leftnav" destination="content.top" before="-"/>
+    <referenceContainer name="content">
+        <!-- remove="true" can't be reverted as remove="false" on M2 < 2.2.0. So use display="false" -->
+        <referenceBlock name="amasty.shopby.applybutton.topnav" display="false"/>
+        <referenceBlock name="amshopby.catalog.topnav" display="false"/>
+    </referenceContainer>
+</layout>

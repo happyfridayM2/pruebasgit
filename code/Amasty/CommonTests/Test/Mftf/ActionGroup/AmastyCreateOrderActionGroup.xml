@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Delete After Update Promo and Rules -->
+    <actionGroup name="AmastyCreateOrderAsGuestAndCheckSuccessMessage">
+        <arguments>
+            <argument name="customer"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{FrontCartSection.ProceedToCheckout}}" stepKey="clickCart"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Email}}" userInput="{{customer.email}}"
+                   stepKey="enterEmail"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad3"/>
+        <fillField selector="{{CheckoutShippingAddressSection.FirstName}}"
+                   userInput="{{customer.firstname}}" stepKey="enterFirstName"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad4"/>
+        <fillField selector="{{CheckoutShippingAddressSection.LastName}}" userInput="{{customer.lastname}}"
+                   stepKey="enterLastName"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad5"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Street}}"
+                   userInput="{{customer.street}}" stepKey="enterStreet"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad6"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <fillField selector="{{CheckoutShippingAddressSection.City}}" userInput="{{customer.city}}"
+                   stepKey="enterCity"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad7"/>
+        <click selector="{{CheckoutShippingAddressSection.Region}}" stepKey="selectRegion"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad8"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Postcode}}"
+                   userInput="{{customer.postcode}}" stepKey="enterPostcode"/>
+        <waitForPageLoad time="10" stepKey="waitForPageLoad9"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad7"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Telephone}}"
+                   userInput="{{customer.telephone}}" stepKey="enterTelephone"/>
+        <waitForPageLoad time="300" stepKey="waitForPageLoad10"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad8"/>
+	    <scrollTo selector="//button[@data-role='opc-continue']" stepKey="ScrollToButtonNext"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad11"/>
+        <click selector="{{CheckoutShippingAddressSection.FixedShippingMethod}}" stepKey="selectFirstShippingMethod"/>
+        <waitForPageLoad time="500" stepKey="waitForPageLoad12"/>
+        <click selector="{{CheckoutShippingAddressSection.Next}}" stepKey="clickNext"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad13"/>
+        <click selector="{{CheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad14"/>
+        <seeElement selector="{{SuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad15"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontCheckoutFillShippingAddressAsGuest">
+        <arguments>
+            <argument name="customer"/>
+            <argument name="shippingMethodsOnCheckout"/>
+        </arguments>
+        <amOnPage url="{{CheckoutShippingPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterNavigateToCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterNavigateToCheckout"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Email}}" userInput="{{customer.email}}"
+                   stepKey="enterEmail"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterEmail"/>
+        <fillField selector="{{CheckoutShippingAddressSection.FirstName}}"
+                   userInput="{{customer.firstname}}" stepKey="enterFirstName"/>
+        <fillField selector="{{CheckoutShippingAddressSection.LastName}}" userInput="{{customer.lastname}}"
+                   stepKey="enterLastName"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterLastName"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Street}}"
+                   userInput="{{customer.street}}" stepKey="enterStreet"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterStreet"/>
+        <fillField selector="{{CheckoutShippingAddressSection.City}}" userInput="{{customer.city}}"
+                   stepKey="enterCity"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterCity"/>
+        <selectOption selector="{{CheckoutShippingAddressSection.SelectForCountry}}"
+                      userInput="{{customer.country}}"
+                      stepKey="selectCountry"/>
+        <scrollTo selector="{{CheckoutShippingAddressSection.Postcode}}" stepKey="ScrollToPostcode"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Postcode}}"
+                   userInput="{{customer.postcode}}" stepKey="enterPostcode"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterPostcode"/>
+        <selectOption selector="{{CheckoutShippingAddressSection.SelectForRegion}}"
+                      userInput="{{customer.region}}"
+                      stepKey="selectRegion"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterSelectRegion"/>
+        <scrollTo selector="{{CheckoutShippingAddressSection.Telephone}}" stepKey="ScrollToTelephone"/>
+        <fillField selector="{{CheckoutShippingAddressSection.Telephone}}"
+                   userInput="{{customer.telephone}}" stepKey="enterTelephone"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterTelephone"/>
+        <waitForElementNotVisible selector="{{CheckoutShippingAddressSection.ShippingMethodsLoader}}" stepKey="WaitForLoaderNotVisible"/>
+        <wait time="2" stepKey="waitForLoadShipping"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadBeforeClickShipMethod"/>
+        <scrollTo selector="//button[@data-role='opc-continue']" stepKey="ScrollToButtonNext"/>
+        <click selector="//input[@value='{{shippingMethodsOnCheckout.shippingMethodsNameOnCheckout}}']" stepKey="selectShippingMethod"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <click selector="{{CheckoutShippingAddressSection.Next}}" stepKey="clickNext"/>
+        <waitForPageLoad stepKey="waitForPageLoad5"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontCreateOrderAsGuestAndCheckSuccessMessage" extends="StorefrontCheckoutFillShippingAddressAsGuest">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <conditionalClick selector="//input[@value='{{paymentMethods.paymentValue}}']"
+                          dependentSelector="//label[@for='{{paymentMethods.paymentValue}}']/parent::div/parent::div[contains(@class, 'active')]//button[@title='Place Order']"
+                          visible="false" stepKey="choosePaymentMethod"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterChoosePaymentMethod"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterChoosePaymentMethod"/>
+        <click selector="{{CheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterPlaceOrder"/>
+        <seeElement selector="{{SuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeGrab"/>
+        <grabTextFrom selector="{{SuccessPageSection.OrderNumberAfterPlaceOrderGuest}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+
+
+    <!-- To go to the payment page as a customer-->
+    <actionGroup name="AmastyCreateOrderAsCustomerOnCheckoutShippingPage">
+        <arguments>
+            <argument name="shippingMethodsOnCheckout"/>
+        </arguments>
+        <amOnPage url="{{CheckoutShippingPage.url}}" stepKey="navigateToStorefrontCheckoutShippingPage"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad1"/>
+        <click selector="//input[contains(@value, '{{shippingMethodsOnCheckout.shippingMethodsNameOnCheckout}}')]" stepKey="selectFirstShippingMethod"/>
+        <waitForPageLoad time="500" stepKey="waitForPageLoad2"/>
+        <click selector="{{CheckoutShippingAddressSection.Next}}" stepKey="clickNext"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="AmastyCreateOrderAsCustomerOnCheckoutPaymentPage">
+        <!-- Using After ActionGroup "AmastyCreateOrderAsCustomerOnCheckoutShippingPage" -->
+        <amOnPage url="{{CheckoutPaymentsPage.url}}" stepKey="navigateToStorefrontCheckoutPaymentsPage"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad1"/>
+        <click selector="{{CheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <seeElement selector="{{SuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad3"/>
+        <grabTextFrom selector="{{SuccessPageSection.OrderNumberAfterPlaceOrder}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+
+
+    <actionGroup name="AmastyCreateOrderAndCheckShippingInAccount" extends="AmastyCreateOrderAsCustomerOnCheckoutPaymentPage">
+        <arguments>
+            <argument name="shippingPriceInCustomerAccount"/>
+        </arguments>
+        <click selector="{{SuccessPageSection.OrderNumberCustomerAccount}}" stepKey="openOrderInCustomerAccount"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad4"/>
+        <seeElement selector="//tr[@class='shipping']//span[text()='{{shippingPriceInCustomerAccount}}']" stepKey="CheckShippingPrice"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad5"/>
+    </actionGroup>
+
+
+    <!-- Using After ActionGroup "AmastyCreateOrderAsCustomerOnCheckoutShippingPage" -->
+    <actionGroup name="StorefrontCreateOrderAsCustomerWithPaymentMethods">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad4"/>
+        <conditionalClick selector="//input[@value='{{paymentMethods.paymentValue}}']"
+                          dependentSelector="//label[@for='{{paymentMethods.paymentValue}}']/parent::div/parent::div[contains(@class, 'active')]//button[@title='Place Order']"
+                          visible="false" stepKey="choosePaymentMethod" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad5"/>
+        <click selector="{{CheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad6"/>
+        <seeElement selector="{{SuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCreateOrderAndGrabOrderNumber" extends="StorefrontCreateOrderAsCustomerWithPaymentMethods">
+        <waitForPageLoad stepKey="waitForPageLoadAfterAssertSuccessPage"/>
+        <grabTextFrom selector="{{SuccessPageSection.OrderNumberAfterPlaceOrder}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontCreateOrderAsCustomerAndCheckPaymentInAccount" extends="StorefrontCreateOrderAsCustomerWithPaymentMethods">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <click selector="{{SuccessPageSection.OrderNumberCustomerAccount}}" stepKey="openOrderInCustomerAccount"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad4"/>
+        <seeElement selector="//dl[contains(@class, 'payment-method')]//dt[contains(string(), '{{paymentMethods.paymentName}}')]" stepKey="CheckShippingPrice"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad5"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontMultishippingFillAddressAndShippingMethods">
+        <arguments>
+            <argument name="products"/>
+            <argument name="address"/>
+            <argument name="shippingMethodOne"/>
+            <argument name="shippingMethodTwo"/>
+        </arguments>
+        <amOnPage url="{{FrontMultishippingAddress.url}}" stepKey="navigateToMultiShippingAddress"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+        <selectOption selector="//table[@id='multiship-addresses-table']//tr//a[contains(string(),'{{products.productName}}')]/parent::strong/parent::td/following-sibling::td//select"
+                      userInput="{{address}}" stepKey="selectAddressForProduct"/>
+        <click selector="{{StorefrontMultishippingAddress.GoToShippingInformationButton}}" stepKey="GoToShippingInformationPage"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+        <click selector="//strong[contains(string(), 'Address 1')]/parent::div/following-sibling::div//input[contains(@value, '{{shippingMethodOne}}')]" stepKey="chooseFirstMethod"/>
+        <wait time="1" stepKey="wait1"/>
+        <click selector="//strong[contains(string(), 'Address 2')]/parent::div/following-sibling::div//input[contains(@value, '{{shippingMethodTwo}}')]" stepKey="chooseSecondMethod"/>
+        <wait time="1" stepKey="wait2"/>
+        <click selector="{{StorefrontMultishippingShipping.ContinueToBillingInformation}}" stepKey="GoToBillingPage"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="AmastyCreateMultishippingOrderWithTwoAddressAndCheckSuccessful" extends="StorefrontMultishippingFillAddressAndShippingMethods">
+        <arguments>
+            <argument name="billingMethod"/>
+        </arguments>
+        <click selector="//input[@id='{{billingMethod}}']" stepKey="chooseBillingMethod"/>
+        <click selector="{{StorefrontMultishippingBilling.GoToReviewYourOrderButton}}" stepKey="GoToReviewOrder"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad4"/>
+        <click selector="{{StorefrontMultishippingReview.PlaceOrderButton}}" stepKey="SubmitPlaceOrder"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad5"/>
+        <seeElement selector="{{StorefrontMultishippingReview.MultiCheckoutSuccess}}" stepKey="assertSuccessPage"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad15"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCreateOrderChooseUserAndAddProducts">
+        <arguments>
+            <argument name="products"/>
+            <argument name="addProductQty"/>
+            <argument name="customerEmail"/>
+        </arguments>
+        <amOnPage url="{{AdminAllOrdersPage.url}}" stepKey="navigateToOrders"/>
+        <click selector="{{AdminOrdersGridSection.AddNewOrderButton}}" stepKey="waitForCreateOrderButton"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad1"/>
+        <click selector="//tr[@data-role='row']//td[contains(string(),'{{customerEmail}}')]" stepKey="waitForSelectCustomer"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <wait time="2" stepKey="waitForLoadPage"/>
+        <click selector="{{AdminCreateOrderSection.AddProductsButton}}" stepKey="clickAddProductsButton"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <fillField selector="{{AdminCreateOrderSection.TableProductsSearchSkuField}}" userInput="{{products.productSKU}}"
+                   stepKey="enterSkuProductForAdd"/>
+        <click selector="{{AdminCreateOrderSection.TableProductsSearchButton}}" stepKey="clickSearchButton"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <wait time="1" stepKey="waitForLoadSearch"/>
+        <click selector="{{AdminCreateOrderSection.TableProductsCheckbox}}" stepKey="clickCheckbox"/>
+        <wait time="1" stepKey="waitForEnablingField"/>
+        <fillField selector="{{AdminCreateOrderSection.TableProductsQty}}" userInput="{{addProductQty.qty}}"
+                   stepKey="enterQtyProductForAdd"/>
+        <wait time="1" stepKey="waitOneSecond"/>
+        <click selector="{{AdminCreateOrderSection.AddSelectedProductsButton}}" stepKey="addSelectedProducts"/>
+        <waitForPageLoad time="40" stepKey="waitForPageLoad4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <wait time="1" stepKey="waitWhileLoadPage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad5"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCreateOrder" extends="AdminCreateOrderChooseUserAndAddProducts">
+        <arguments>
+            <argument name="shippingMethods"/>
+        </arguments>
+        <scrollTo selector="{{AdminCreateOrderSection.PaymentAndShippingSection}}" stepKey="scrollToSectionShippingAndPayment"/>
+        <click selector="{{AdminCreateOrderSection.GetShippingMethodsButton}}" stepKey="waitForGetShippingMethods"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad6"/>
+        <wait time="2" stepKey="waitForLoadMethods1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad7"/>
+        <wait time="1" stepKey="waitForLoadMethods2"/>
+        <click selector="//input[@id='{{shippingMethods.shippingMethodsName}}']" stepKey="waitForSelectShippingMethods"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad5"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad8"/>
+        <wait time="2" stepKey="waitForChooseMethod"/>
+        <click selector="{{AdminCreateOrderSection.SubmitOrderButton}}" stepKey="waitForSubmitOrder"/>
+        <waitForPageLoad time="50" stepKey="waitForPageLoad6"/>
+    </actionGroup>
+
+</actionGroups>

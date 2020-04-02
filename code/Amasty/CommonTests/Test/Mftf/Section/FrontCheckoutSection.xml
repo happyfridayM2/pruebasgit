@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="CheckoutShippingAddressSection">
+        <!--Customer Info-->
+        <element name="Email" type="input" selector="//fieldset[@id='customer-email-fieldset']//input[@type='email']"/>
+        <element name="FirstName" type="input" selector="//input[@name='firstname']"/>
+        <element name="LastName" type="input" selector="//input[@name='lastname']"/>
+        <element name="Street" type="input" selector="//input[@name='street[0]']"/>
+        <element name="City" type="input" selector="//input[@name='city']"/>
+        <element name="Region" type="select" selector="//select[@name='region_id']/option[@value='1']"/>
+        <element name="Postcode" type="input" selector="//input[@name='postcode']"/>
+        <element name="Country" type="select" selector="//select[@name='country_id']/option[@value='US']"/>
+        <element name="Telephone" type="input" selector="//input[@name='telephone']"/>
+        <!--Shipping Methods-->
+        <element name="FixedShippingMethod" type="radio" selector="//div[@id='checkout-shipping-method-load']//input[@value='flatrate_flatrate']"/>
+        <element name="BestWayShippingMethod" type="text" selector="//div[@id='checkout-shipping-method-load']//input[@value='tablerate_bestway']"/>
+        <!--Button Next-->
+        <element name="Next" type="button" selector="//button[@data-role='opc-continue']"/>
+        <element name="SelectForRegion" type="select" selector="//select[@name='region_id']"/>
+        <element name="SelectForCountry" type="select" selector="//select[@name='country_id']"/>
+        <element name="ShippingMethodsLoader" type="block" selector="//li[@id='opc-shipping_method']//div[@class='loader']"/>
+    </section>
+
+
+    <section name="CheckoutPaymentAddressSection">
+        <element name="PlaceOrder" type="button" selector="//div[contains(@class, 'active')]//button[@title='Place Order']"/>
+        <!-- Coupon Code Elements -->
+        <element name="couponHeader" type="block" selector="#block-discount-heading"/>
+        <element name="couponField" type="input" selector="#discount-code"/>
+        <element name="discountBlockActive" type="block" selector="//span[@id='block-discount-heading']/parent::div[@aria-selected='true']"/>
+        <element name="applyButton" type="button" selector="//form[@id='discount-form']//button[@class='action action-apply']" timeout="30"/>
+        <element name="cancelButton" type="button" selector="//form[@id='discount-form']//button[@class='action action-cancel']" timeout="30"/>
+    </section>
+
+</sections>

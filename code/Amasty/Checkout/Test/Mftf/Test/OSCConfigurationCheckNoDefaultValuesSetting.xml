@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckNoDefaultValuesSetting" extends="OSCConfigurationCheckDefaultValuesSetting">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Default Address Values"/>
+            <title value="Check No Default Values Setting on the Checkout"/>
+            <description value="Check No Default Values Setting on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-05"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationDefaultValues"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="AdminActivateCashOnDeliveryPayment"/>
+            <actionGroup ref="AdminDefaultConfigOSCDesignDefaultValues" stepKey="ReturnDefaultOSCDefaultValuesSetting"/>
+        </before>
+
+        <after>
+            <remove keyForRemoval="ReturnDefaultOSCDefaultValuesSetting"/>
+            <remove keyForRemoval="ReturnDefaultPaymentSetting"/>
+        </after>
+
+        <!--Check No Default Address-->
+        <actionGroup ref="StorefrontOSCCheckNoDefaultValues" stepKey="checkDefaultValues">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+            <argument name="shippingMethodsOnCheckout" value="BestWayMethod"/>
+            <argument name="adminSettingOSCDefaultValues" value="SetAllDefaultValues"/>
+        </actionGroup>
+
+    </test>
+</tests>

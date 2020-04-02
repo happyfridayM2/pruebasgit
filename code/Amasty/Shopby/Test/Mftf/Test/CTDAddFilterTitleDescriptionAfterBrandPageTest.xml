@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDAddFilterTitleDescriptionAfterBrandPageTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Category Title and Description replacing after filtering on Brand Page in case of After Category Name/Description"/>
+            <severity value="MINOR"/>
+            <testCaseId value="CTD-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="AllWeatherTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="PolyesterTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultAllWeatherAttributeData"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultPolyesterAttributeData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescriptionDefault"
+                         ref="DefaultCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Category Title and Description: filter Brand Page by attribute, check that Category Title and Description consists of Attribute Option Name and Description/-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <waitForElement selector="{{StorefrontPageElementsSection.PageTitle}}" stepKey="waitForElement3"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester Test Page Title - All-Weather Test Page Title"
+             stepKey="checkPageTitle1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.FilterDescriptionBeforeAndAfter('All-Weather Test Description','Polyester Test Description','following')}}"
+                stepKey="checkPageDescription1"/>
+
+    </test>
+</tests>
+
+

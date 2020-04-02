@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="enableAjaxInstantlyOnDesktopOnMobile" type="generalILNSettings">
+        <data key="AjaxSwitcher">1</data>
+        <data key="SubmitFilterOnDesktopSwitcher">0</data>
+        <data key="SubmitFilterOnMobileSwitcher">0</data>
+    </entity>
+    <entity name="enableAjaxByButtonClickOnDesktopOnMobile" type="generalILNSettings">
+        <data key="AjaxSwitcher">1</data>
+        <data key="SubmitFilterOnDesktopSwitcher">1</data>
+        <data key="SubmitFilterOnMobileSwitcher">1</data>
+    </entity>
+    <entity name="ajaxSubmitFiltersToDefault" type="generalILNSettings">
+        <data key="AjaxSwitcher">0</data>
+        <data key="SubmitFilterOnDesktopSwitcher">0</data>
+        <data key="SubmitFilterOnMobileSwitcher">0</data>
+    </entity>
+    <entity name="SetVerticalScrolling" type="generalILNSettings2">
+        <data key="AddVerticalScrollingToFilterBlockAfter">60</data>
+    </entity>
+<entity name="SetVerticalScrollingDefault" type="generalILNSettings2">
+        <data key="AddVerticalScrollingToFilterBlockAfter"></data>
+    </entity>
+    <entity name="leaveSingleSelectFilterVisible" type="generalILNSettings3">
+        <data key="LeaveSingleSelectFilterVisibleSwitcher">1</data>
+    </entity>
+    <entity name="dontLeaveSingleSelectFilterVisible" type="generalILNSettings3">
+        <data key="LeaveSingleSelectFilterVisibleSwitcher">0</data>
+    </entity>
+    <entity name="SetCheckNumberOfUnfoldedOptionsInState" type="generalILNSettings4">
+        <data key="NumberOfUnfoldedOptionsInState">2</data>
+    </entity>
+    <entity name="SetCheckNumberOfUnfoldedOptionsInStateDefault" type="generalILNSettings4">
+        <data key="NumberOfUnfoldedOptionsInState">0</data>
+    </entity>
+
+</entities>

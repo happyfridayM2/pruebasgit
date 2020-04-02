@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NoindexForPaginatedPagesSettingOnCategoryPageTest" extends="NoindexForPaginatedPagesSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Noindex for paginated pages setting enabling on Category Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="RTCSETTINGS-43"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="noindexpagination"/>
+        </annotations>
+
+        <!--Check RTC settings: navigate to Category Page, check Nofollow in Page Source after pagination/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="navigateToAllProducts1"/>
+
+    </test>
+</tests>

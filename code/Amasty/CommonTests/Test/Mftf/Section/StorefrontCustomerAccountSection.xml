@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontCustomerAddressBookSection">
+        <element name="AddNewAddress" type="button" selector="//button[@role='add-address']" timeout="30"/>
+        <element name="ButtonDeleteLastAddress" type="button" selector="//tbody//tr[1]//a[@class='action delete']"/>
+        <element name="ButtonConfirmDelete" type="button" selector="//footer[@class='modal-footer']/button[contains(@class, 'action-accept')]"/>
+    </section>
+
+    <section name="StorefrontCustomerAddNewAddressSection">
+        <element name="FirstNameField" type="input" selector="//input[@id='firstname']"/>
+        <element name="LastNameField" type="input" selector="//input[@id='lastname']"/>
+        <element name="PhoneNumberField" type="input" selector="//input[@id='telephone']"/>
+        <element name="StreetAddressField" type="input" selector="//input[@id='street_1']"/>
+        <element name="CityField" type="input" selector="//input[@id='city']"/>
+        <element name="StateSelect" type="select" selector="//select[@id='region_id']"/>
+        <element name="ZipField" type="input" selector="//input[@id='zip']"/>
+        <element name="CountrySelect" type="select" selector="//select[@id='country']"/>
+        <element name="SaveAddress" type="button" selector="//button[@data-action='save-address']"/>
+    </section>
+
+</sections>

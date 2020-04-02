@@ -1,0 +1,50 @@
+<?php
+if ($block->isLogged() && $block->getPositionToLoad() == "Footer") {
+
+    ?>
+
+    <script type="text/javascript">
+
+
+        var oct8ne = document.createElement("script");
+        oct8ne.type = "text/javascript";
+        oct8ne.server = "<?php echo $block->getOct8neServer(); ?>";
+        oct8ne.src = (document.location.protocol == "https:" ? "https://" : "http://") +  "<?php echo $block->getUrlStatic(); ?>" +'api/v2/oct8ne-api-2.3.js' + '?' + (Math.round(new Date().getTime() / 86400000));
+        oct8ne.async = true;
+        oct8ne.license = "<?php echo $block->getLicense(); ?>";
+        oct8ne.baseUrl = "<?php echo $block->getBaseUrl(); ?>";
+        oct8ne.checkoutUrl = "<?php echo $block->getCheckoutUrl(); ?>";
+        oct8ne.loginUrl = "<?php echo $block->getLoginUrl(); ?>";
+        oct8ne.checkoutSuccessUrl = "<?php echo $block->getSuccessUrl(); ?>";
+        oct8ne.locale = "<?php echo $block->getLocale(); ?>";
+        oct8ne.currencyCode = "<?php echo $block->getCurrency(); ?>";
+		oct8ne.platform = "magento2";
+        oct8ne.onProductAddedToCart = function(productId) {
+
+            require([
+                'Magento_Customer/js/customer-data'
+            ], function (customerData) {
+
+                var sections = ['cart'];
+                customerData.invalidate(sections);
+                customerData.reload(sections, true);
+
+            });
+        };
+
+        <?php if($block->isProductPage()){ ?>
+
+        oct8ne.currentProduct = {
+            id: "<?php echo $block->getProductId(); ?>",
+            thumbnail: "<?php echo $block->getProductThumbnail(); ?>"
+        };
+
+
+        <?php }?>
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(oct8ne, s);
+
+
+    </script>
+
+<?php } ?>

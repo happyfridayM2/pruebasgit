@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDReplaceCatImageNoTest" extends="CTDReplaceCatImageYesTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Replace Category Image setting after filtering"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CTD-10"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="ReplaceCatImageCMSBlockNo"/>
+            </actionGroup>
+        </before>
+
+        <!-- Check Category Image: check Category Image, filter page by attribute, check that Category Image isn't replaced by Attribute Option Image/-->
+
+        <seeElement selector="{{StorefrontPageElementsSection.ImageSource('2.jpeg','2_')}}" stepKey="checkCategoryImage2"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.ImageSource('3.png','3_')}}" stepKey="checkCategoryImage3"/>
+
+    </test>
+</tests>
+
+

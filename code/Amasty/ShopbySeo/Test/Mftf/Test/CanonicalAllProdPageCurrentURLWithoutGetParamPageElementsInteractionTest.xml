@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CanonicalAllProdPageCurrentURLWithoutGetParamPageElementsInteractionTest"
+          extends="CanonicalAllProdPageURLKeyOnlyPageElementsInteractionTest">
+
+        <annotations>
+            <features value="Canonical URL settings"/>
+            <stories value="Canonical URL settings checking"/>
+            <title value="Check Canonical URL settings configuration before/after filtering"/>
+            <description
+                    value="Check of Current URL without Get parameters setting configuration on the storefront for All-products Page in interaction with Page Elements"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CANONICALSETTINGS-37"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="canonicalsettings"/>
+            <group value="allprodpagecanonical"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCanonicalURL1" ref="CanonicalURLConfigurationActionGroup">
+                <argument name="canonicalscenario2" value="allProdPageCanonCurrentURLWithoutGetParam"/>
+                <argument name="canonicalscenario" value="enableCanonical"/>
+            </actionGroup>
+        </before>
+
+        <!--Check Canonical URL settings: navigate to All-products Page, check Canonical URL in Page Source, activate Page Elements, filter Page, check Canonical URL/-->
+
+        <seeInSource
+                html="/pattern-solid-climate-all-weather-indoor.html?p=2&quot;&gt;"
+                stepKey="seeInSource4"/>
+
+    </test>
+</tests>

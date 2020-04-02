@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringFilterKeyOnCategoryPageTest"
+          extends="SeoEnablingFilteringFullSeoOnCategoryPageTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled SEO and filter key, seo-friendly brand attribute with no brand url key"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="SEOSETTINGS-22"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="seofilterkey"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoFilterKey"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+        </before>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with enabled seo and filter key, seo-friendly brand attribute with no brand url key, check the result in url/-->
+
+        <seeInCurrentUrl url="/testfilterkey/solid-polyester-all-weather-indoor.html?style_general=5561%2C5552"
+                         stepKey="seeInCurrentUrl1"/>
+
+    </test>
+</tests>
+
+

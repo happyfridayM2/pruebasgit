@@ -1,0 +1,34 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/* @var \Magento\Framework\View\Element\Template $block */
+?>
+<?php
+$lowStockProducts = $block->getData('lowStockProducts');
+if ($lowStockProducts) : ?>
+    <table class="details" cellpadding="5" cellspacing="2" border="1">
+        <tr>
+            <th><?= /* @noEscape */  __('Product Name')?></th>
+            <th><?= /* @noEscape */  __('SKU')?></th>
+            <th><?= /* @noEscape */  __('Quantity')?></th>
+        </tr>
+        <?php foreach ($lowStockProducts as $productInfo) : ?>
+            <tr>
+                <td>
+                    <?= $block->escapeHtml($productInfo['name']); ?>
+                </td>
+                <td>
+                    <?= $block->escapeHtml($productInfo['sku']); ?>
+                </td>
+                <td>
+                    <?= $block->escapeHtml($productInfo['qty']); ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

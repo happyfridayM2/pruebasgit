@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AddProductToCart">
+        <arguments>
+            <argument name="addProductQty"/>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <fillField selector="{{StorefrontProductPageSection.QtyInput}}" userInput="{{addProductQty.qty}}" stepKey="enterQtyProduct"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad2"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" time="200" stepKey="checkProductAdded1"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <actionGroup name="AddVirtualProductToCart">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" time="200" stepKey="checkProductAdded1"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad3"/>
+    </actionGroup>
+
+
+    <actionGroup name="AddConfigurableProductToCart">
+        <arguments>
+            <argument name="addProductQty"/>
+            <argument name="products"/>
+            <argument name="size"/>
+            <argument name="color"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <waitForPageLoad time="100" stepKey="waitForPageLoad1"/>
+        <fillField selector="{{StorefrontProductPageSection.QtyInput}}" userInput="{{addProductQty.qty}}" stepKey="enterQtyProduct"/>
+        <waitForPageLoad time="5" stepKey="waitForPageLoad2"/>
+        <click selector="//div[@class='product-add-form']//div[@option-label='{{size}}']" stepKey="selectSize"/>
+        <click selector="//div[@class='product-add-form']//div[@option-label='{{color}}']" stepKey="selectColor"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad3"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" time="200" stepKey="checkProductAdded1"/>
+        <waitForPageLoad time="20" stepKey="waitForPageLoad4"/>
+    </actionGroup>
+
+
+    <!-- For Add Product Created with Api -->
+    <actionGroup name="AddCreatedProductToCart">
+        <arguments>
+            <argument name="valueQty"/>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <fillField selector="{{StorefrontProductPageSection.QtyInput}}" userInput="{{valueQty.qty}}" stepKey="enterQtyProduct"/>
+        <click selector="{{StorefrontProductPageSection.QtyLabel}}" stepKey="outOfInput"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterInputQty"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="clickToAddToCart"/>
+        <waitForPageLoad stepKey="waitForAddProductToCart"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" stepKey="checkProductAddedOnTheCart"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontAddCreatedConfigurableProductToCart" extends="AddCreatedProductToCart">
+        <arguments>
+            <argument name="optionValue"/>
+        </arguments>
+        <selectOption selector="{{StorefrontProductPageSection.SelectAttributeOption}}"
+                      userInput="{{optionValue}}" after="outOfInput" stepKey="selectOption"/>
+    </actionGroup>
+
+</actionGroups>

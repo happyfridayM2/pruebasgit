@@ -1,0 +1,79 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/* @var $block \Amasty\Shopby\Block\Adminhtml\Form\Renderer\Fieldset\MultiStore */
+$element = $block->getElement();
+$note = $element->getNote() ?
+    '<div class="note admin__field-note" id="' . $element->getId() . '-note">' . $element->getNote() . '</div>' :
+    '';
+$elementBeforeLabel = $element->getExtType() == 'checkbox admin__control-checkbox' ||
+    $element->getExtType() == 'radio admin__control-radio';
+$addOn = ($element->getBeforeElementHtml() || $element->getAfterElementHtml()) && !$element->getNoWrapAsAddon();
+$fieldId = ($element->getHtmlContainerId()) ? ' id="' . $element->getHtmlContainerId() . '"' : '';
+$fieldClass = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+$fieldClass .= ($elementBeforeLabel) ? ' choice' : '';
+$fieldClass .= ($addOn) ? ' with-addon' : '';
+$fieldClass .= ($element->getRequired()) ? ' required _required' : '';
+$fieldClass .= ($note) ? ' with-note' : '';
+$fieldClass .= (!$element->getLabelHtml()) ? ' no-label' : '';
+
+$fieldAttributes = $fieldId . ' class="' . $fieldClass . '" '
+    . $block->getUiId('form-field', $element->getId())
+    . ($element->getFieldExtraAttributes() ? ' ' . $element->getFieldExtraAttributes() : '');
+
+?>
+
+<div <?= /* @noEscape */ $fieldAttributes ?>>
+    <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+    <div class="admin__field-control control" >
+        <div class="fieldset-wrapper-content in collapse" id="manage-titles-content">
+            <fieldset class="admin__fieldset fieldset">
+                <div class="admin__control-table-wrapper">
+                    <table class="admin__control-table" id="attribute-labels-table">
+                        <thead>
+                            <tr>
+                                <?php foreach ($block->getStores() as $store): ?>
+                                    <th class="col-store-view">
+                                        <?= /* @noEscape */ $block->isDefaultStore($store) ? __('All Store Views') : $store->getName() ?>
+                                    </th>
+                                <?php endforeach; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php foreach ($block->getStores() as $store): ?>
+                                    <?php $nameAttr = $block->getName() . '[' . $store->getId() . ']' ?>
+                                    <td class="col-store-view">
+                                        <input
+                                        class="input-text <?= /* @noEscape */ $block->isDefaultStore($store) ? 'required-option required' : '' ?>"
+                                        type="text"
+                                        name="<?= /* @noEscape */ $nameAttr; ?>"
+                                        value="<?= /* @noEscape */ $block->getStoreValue($store->getStoreId()) ?>"/>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+        <?= /* @noEscape */ $note ?>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'chosen'
+    ], function ($, chosen) {
+        $('#<?= /* @noEscape */ $element->getId()?>').chosen({
+            width: '100%',
+            placeholder_text: '<?= $block->escapeHtml(__('Select Options'))?>'
+        });
+    })
+</script>

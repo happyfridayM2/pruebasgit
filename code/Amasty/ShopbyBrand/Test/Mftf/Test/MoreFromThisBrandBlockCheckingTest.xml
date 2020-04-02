@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="MoreFromThisBrandBlockCheckingTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="More from this Brand block checking"/>
+            <title value="Check of More from this Brand Block"/>
+            <description value="Check that More from this Brand Block is displayed correctly"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-20"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="moreftbblock"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="MoreFromThisBrandConfigurationActionGroup"
+                         stepKey="configureMoreFromThisBrandBlock1">
+                <argument name="moreFTBBlock1" value="setMoreFromThisBrand"/>
+            </actionGroup>
+        </before>
+
+        <after>
+        <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                     stepKey="noBrandAttribute1">
+            <argument name="brandAttribute" value="noBrandAttribute"/>
+        </actionGroup>
+        <actionGroup ref="MoreFromThisBrandConfigurationDefaultActionGroup"
+                     stepKey="configureMoreFromThisBrandBlock1">
+            <argument name="moreFTBBlock1" value="MoreFromThisBrandDefault"/>
+        </actionGroup>
+        <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check of Brand Page is opened, brands list is appeared, clickable and redirects to brand page-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}" stepKey="navigateToBrandPage1"/>
+        <click selector="{{StorefrontCategoryMainSection.specifiedProductItemInfo('Sylvia')}}"
+               stepKey="openProductPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <seeElement
+                selector="{{StorefrontBrandElementsSection.MoreFromThisBrandBlockAndTitle('More from Polyester Test Title')}}"
+                stepKey="seeMoreFTBBlockAndTitle1"/>
+        <seeNumberOfElements parameterArray="[1,10]"
+                             selector="{{StorefrontBrandElementsSection.ProductInMoreFromThisBrandBlock}}"
+                             stepKey="seeQtyOfVisibleItems1"/>
+
+    </test>
+</tests>

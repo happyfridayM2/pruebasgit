@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="StorefrontBrandWithoutURLKeyPage" url="/{{var1}}" area="storefront"
+          module="ShopbyBrand" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="StorefrontBrandWithURLKeyPage" url="/testbrandurlkey/{{var1}}" area="storefront"
+          module="ShopbyBrand" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+</pages>

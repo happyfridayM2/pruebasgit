@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+    <page name="AllProductsPage" url="/all-products" area="storefront" module="Shopby">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="AllProductsPageWithAllProducts" url="/all-products?product_list_limit=all" area="storefront"
+          module="Shopby">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="CategoryPage" url="/{{var1}}/{{var2}}.html" area="storefront"
+          module="Shopby" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="SearchResultPage" url="/catalogsearch/result/index/?q={{var1}}" area="storefront"
+          module="Shopby" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="ListGridSortingAscDescProductLimitInURL"
+          url="product_list_{{var1}}&amp;product_list_{{var2}}&amp;product_list_{{var3}}&amp;product_list_{{var4}}"
+          area="storefront" module="Shopby" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+    <page name="SpecifiedPaginationInURL" url="p={{var1}}" area="storefront" module="Shopby" parameterized="true">
+        <section name="StorefrontFilterElementsSection"/>
+        <section name="StorefrontPageElementsSection"/>
+        <section name="StorefrontProductSection"/>
+    </page>
+
+</pages>

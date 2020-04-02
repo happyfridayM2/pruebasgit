@@ -1,0 +1,11 @@
+.item-layered-navigation-stores ~ .item-color-swatches-store {
+    display: none;
+}
+
+.amasty-zoom-window-position {
+    margin-top: 10px;
+    width: 150px;
+    height: 125px;
+    display: block;
+    background: url('../images/window-positions.png');
+}

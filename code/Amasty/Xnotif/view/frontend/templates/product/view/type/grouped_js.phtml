@@ -1,0 +1,50 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php /** @var Magento\Framework\View\Element\Template $block */ ?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Catalog/product/view/validation'
+    ], function ($, validation) {
+        "use strict";
+        $('.grouped .amxnotif-block .amxnotif-guest-email').attr('data-validate', "");
+        $('.grouped .amxnotif-block .amxnotif_guest_action button').click(function (event) {
+            event.preventDefault();
+            var parent = $(this).parents('.amxnotif-block').first();
+            if (parent) {
+                var actionUrl = parent.attr('data-action');
+            }
+
+            if (!actionUrl) {
+                return;
+            }
+
+            var f = $("<form/>",
+                {action: actionUrl}
+            );
+
+            var email = parent.find('.amxnotif-guest-email');
+            email.attr('data-validate', "{required:true, 'validate-email':true}");
+
+            parent.children().each(function (child) {
+                $(this).clone().prependTo(f);
+            });
+
+            f.hide().appendTo('body');
+            var validator = $(email).validation({});
+            if (validator.valid()) {
+                f.submit();
+            }
+            f.remove();
+
+            email.attr('data-validate', "");
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDReplaceCatImageYesBrandPageTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Replace Category Image setting after filtering on Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CTD-13"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="AllWeatherTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="PolyesterTitleAndDescription"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultAllWeatherAttributeData"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultPolyesterAttributeData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescriptionDefault1"
+                         ref="DefaultCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Brand Image: check Brand Image, filter page by attribute, check that Brand Image is replaced by Attribute Option Image/-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.ImageSource('1.jpg','1_')}}" stepKey="checkCategoryImage1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.ImageSource('3.png','3_')}}" stepKey="checkCategoryImage2"/>
+
+    </test>
+</tests>
+
+

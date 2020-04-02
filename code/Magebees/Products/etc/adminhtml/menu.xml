@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+	<menu>
+		<add id="Magebees_Products::Heading" title="MageBees - Import/Export Products" module="Magebees_Products" sortOrder="50" parent="Magento_Backend::system" resource="Magebees_Products::Heading" />
+			<add id="Magebees_Products::import" title="Import Products"  action="products/import/index" module="Magebees_Products" sortOrder="2" parent="Magebees_Products::Heading"  resource="Magebees_Products::import"/>
+			<add id="Magebees_Products::export" title="Export Products"  action="products/export/index" module="Magebees_Products" sortOrder="3" parent="Magebees_Products::Heading"  resource="Magebees_Products::export"/>
+			<add id="Magebees_Products::downloadimg" title="Download Images From Live URL"  action="products/downloadimg/index" module="Magebees_Products" sortOrder="4" parent="Magebees_Products::Heading"  resource="Magebees_Products::downloadimg"/>
+	</menu>
+</config>

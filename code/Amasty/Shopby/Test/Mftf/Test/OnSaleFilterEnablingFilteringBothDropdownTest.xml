@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterEnablingFilteringBothDropdownTest" extends="OnSaleFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and filtering"/>
+            <description value="Check of on sale filter enabling and filtering on both in dropdown mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNONSALEFILTER-5"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="OnSaleFilterEnabling1"
+                         ref="OnSaleFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDropdownBoth"/>
+                <argument name="customFilter3" value="OnSaleFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by On Sale Filter: select option on top, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdown('am_on_sale')}}"
+               stepKey="clickOnFilterDropdown1"
+               after="clickOnSaleFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdown('On Sale','2')}}"
+               stepKey="clickOnSaleOption1"/>
+
+        <!--Filter by On Sale Filter: select option on sidebar, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('On Sale')}}"
+               stepKey="clickOnSaleFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdownLast('am_on_sale')}}"
+               stepKey="clickOnFilterDropdown2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdownLast('On Sale','2')}}"
+               stepKey="clickOnSaleOption2"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontProductSection.ProductIDWithSpecialPrice}}"
+                             stepKey="seeProductsWithSpecPrice1"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductIDWithoutSpecialPrice}}"
+                        stepKey="dontSeeProductWithoutSpecPrice1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+
+    </test>
+</tests>
+
+

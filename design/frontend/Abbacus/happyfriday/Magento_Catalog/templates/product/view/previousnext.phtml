@@ -1,0 +1,86 @@
+<?php 
+
+    $productId = $block->getProduct()->getId(); 
+    $cat_ids = $block->getProduct()->getCategoryIds();
+	
+	$index = 0;
+	
+	$categoryId = 0;
+	
+	if(count($cat_ids)>0)
+	{	
+		$index = count($cat_ids) - 1 ; 
+		$categoryId = $cat_ids[$index] ;
+	}	
+	
+	
+	
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $product = $objectManager->create('Magento\Catalog\Model\Product');
+    $productt = $objectManager->create('Magento\Catalog\Model\Product');
+
+    $category = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+	
+    $category_product = $category->getProductCollection()->addAttributeToSort('created_at', 'desc');
+    $category_product->addAttributeToFilter('status',1);
+    //$category_product->addAttributeToFilter('visibility',4);
+    $category_product->addAttributeToFilter(array(array('attribute' => 'visibility', 'like' => '2'),array('attribute' => 'visibility', 'like' => '4')));
+
+    $items = $category_product->getItems();
+    $cat_prod_ids = (array_keys( $items ) );
+
+    $_pos = array_search($productId, $cat_prod_ids); // get position of current product
+    $_next_pos = $_pos+1;
+    $_prev_pos = $_pos-1;
+    
+	
+	 // get the next product url
+    if( isset($cat_prod_ids[$_next_pos]) ){
+        $_next_prod = $product->load( $cat_prod_ids[$_next_pos] );
+    }
+    else{
+        $_next_prod = $product->load( reset($cat_prod_ids) );
+    }
+
+   // get the prev product url
+    if( isset($cat_prod_ids[$_prev_pos]) ){
+        $_prev_prod = $productt->load( $cat_prod_ids[$_prev_pos] );
+    }
+    else{
+        $_prev_prod = $productt->load( end($cat_prod_ids) );
+    }
+	
+   if($_prev_prod != NULL){
+        $prev_url = $_prev_prod->getProductUrl(true);
+    }
+ 
+    if($_next_prod != NULL){
+        $next_url = $_next_prod->getProductUrl(true);
+    }
+	
+	$_ccat = $objectManager->get('Magento\Framework\Registry')->registry('current_category'); 
+
+?>
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 product-img-box-"><a href="javascript:void(0);" onclick="window.history.back(); return false;"><small style="float:left;">&laquo; </small><?php echo __('Back') ?></a></div>
+ <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 product-img-box-">
+<div class="prev-next-link" style="float:right;padding-right: 38px;">
+<div class="previous_next prev-next-link">
+    <?php if(count($cat_prod_ids)>1): ?> <!-- more then one item then display Next/see all/Previous options -->
+	
+	<?php /* if(!empty($_ccat)): */ ?>
+	
+	<?php if(!empty($prev_url)): ?>
+        <a class="previous" id="prevLink" href="<?php echo $prev_url ?>" alt="Previous"><span><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    <?php endif; ?>
+
+     <?php if(!empty($next_url)): ?>
+        &nbsp;&nbsp;
+        <a class="next" id="nextLink" href="<?php echo $next_url ?>" alt="Next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    <?php endif; ?>
+	
+	<?php /* endif */ ?>
+	 
+	<?php endif ?>
+</div> 
+</div></div>

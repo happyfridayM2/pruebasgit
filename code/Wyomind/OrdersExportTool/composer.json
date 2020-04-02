@@ -1,0 +1,29 @@
+{
+    "name": "wyomind/ordersexporttool",
+    "version": "8.2.0",
+    "version_normalized": "8.2.0.0",
+    "dist": {
+        "type": "zip",
+        "url": "https://www.wyomind.com/wyomind-ordersexporttool-8.2.0.zip",
+        "reference": null
+    },
+    "require": {
+        "magento/framework": ">=100.0.0",
+        "php": "~5.5.0|~5.6.0|>=7.0.0",
+        "wyomind/core": ">=4.5.2"
+    },
+    "type": "magento2-module",
+    "extra": [],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Wyomind\\OrdersExportTool\\": ""
+        }
+    },
+    "license": [
+        "Commercial License - Copyright 2016  - WYOMIND  - Purchasing any product (Software) from the  wyomind.com web-site means buyer agree to the following statements (see LICENSE.TXT)"
+    ],
+    "description": "Orders Export Tool allows you to create xml, csv and txt order files from your Magento admin panel and export them to any CRM application or order management software/platform. Any kind of export file types can be easily customized."
+}

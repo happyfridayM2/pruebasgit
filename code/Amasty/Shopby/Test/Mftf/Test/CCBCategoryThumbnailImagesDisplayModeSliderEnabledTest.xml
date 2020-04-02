@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CCBCategoryThumbnailImagesDisplayModeSliderEnabledTest"
+          extends="CCBCategoryThumbnailImagesDisplayModeTest">
+
+        <annotations>
+            <features value="Children Categories Block"/>
+            <stories value="Children Categories Block checking"/>
+            <title value="Check Children Categories Block"/>
+            <description value="Check of Children Categories display mode and Slider enabling"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CHILDCATBLOCK-4"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="childcatblock"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryThumbImg"
+                         ref="ConfigureCategoryThumbImgWithSliderActionGroup">
+                <argument name="ChildrenCategories1" value="CategoryThumbnailImagesEnabledSlider"/>
+            </actionGroup>
+        </before>
+
+        <!-- Check Category Thumbnail Images display mode and Slider enabling on the Storefront/-->
+
+        <seeElement selector="{{StorefrontPageElementsSection.ChildrenCategorySlider('prev')}}"
+                    stepKey="CheckCarouselElements"/>
+        <seeElement selector="{{StorefrontPageElementsSection.ChildrenCategorySlider('next')}}"
+                    stepKey="CheckCarouselElements1"/>
+        <seeNumberOfElements selector="{{StorefrontPageElementsSection.ChildrenCategoryWithImages('100','100','placeholder.jpg','placeholder.jpg')}}"
+                             userInput="3"
+                             stepKey="CheckCCBElements1"/>
+
+    </test>
+</tests>
+
+

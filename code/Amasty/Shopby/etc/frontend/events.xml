@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_category_flat_loadnodes_before">
+        <observer name="amasty_shopby_children_categories_add_thumbnails" instance="Amasty\Shopby\Observer\CategoryFlatLoadNodesBefore"/>
+    </event>
+    <event name="amshopby_category_manager_init_after">
+        <observer name="amshopby_category_manager_init_after_event" instance="Amasty\Shopby\Observer\CategoryManagerInitAfter"/>
+    </event>
+</config>

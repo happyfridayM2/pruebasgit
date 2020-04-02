@@ -1,0 +1,93 @@
+type Query {
+    getGiftMessageForOrder(input: CartIdInput): GetGiftMessageForOrderOutput
+    @resolver(class: "Amasty\\CheckoutGraphQl\\Model\\Resolver\\GetGiftMessageForOrder")
+    getGiftMessageForOrderItem(input: GetGiftMessageForOrderItemInput): GetGiftMessageForOrderOutput
+    @resolver(class: "Amasty\\CheckoutGraphQl\\Model\\Resolver\\GetGiftMessageForOrderItem")
+    getGiftWrapInformation(input: CartIdInput): GetGiftWrapInformationOutput
+    @resolver(class: "Amasty\\CheckoutGraphQl\\Model\\Resolver\\GetGiftWrapInformation")
+    getDeliveryInformation(input: CartIdInput): GetDeliveryInformationOutput
+    @resolver(class: "Amasty\\CheckoutGraphQl\\Model\\Resolver\\GetDeliveryInformation")
+    getAdditionalFields(input: CartIdInput): GetAdditionalFieldsOutput
+    @resolver(class: "Amasty\\CheckoutGraphQl\\Model\\Resolver\\GetAdditionalFields")
+}
+
+input CartIdInput {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+}
+
+input GetGiftMessageForOrderItemInput {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    item_id: Int! @doc(description: "The unique ID that identifies the quote item")
+}
+
+type GetGiftMessageForOrderOutput {
+    message: String @doc(description: "Is the gift message for order (item)")
+    sender: String @doc(description: "Is the gift sender information for order (item)")
+    recipient: String @doc(description: "Is the gift recipient information for order (item)")
+}
+
+type GetGiftWrapInformationOutput {
+    amount: String @doc(description: "Is the gift wrap amount")
+    base_amount: String @doc(description: "Is the gift wrap base amount")
+}
+
+type GetDeliveryInformationOutput {
+    date: String @doc(description: "Is delivery date information")
+    time: String @doc(description: "This number corresponds to the interval, e.g. '0' -> 0:00 - 1:00, '1' -> 1:00 - 2:00, etc.")
+    comment: String @doc(description: "Is delivery comment information")
+}
+
+type GetAdditionalFieldsOutput {
+    comment: String @doc(description: "Is comment message for order")
+    is_subscribe: Boolean @doc(description: "Is customer subscribe information")
+    is_register: Boolean @doc(description: "Is customer register information after place order")
+    register_dob: String @doc(description: "Is customer register date of birth information")
+}
+
+type Mutation {
+    addGiftMessageForOrderItems(input: AddGiftMessageForOrderItemsInput): String
+    @resolver(class: "\\Amasty\\CheckoutGraphQl\\Model\\Resolver\\AddGiftMessageForOrderItems")
+    addGiftMessageForWholeOrder(input: AddGiftMessageForWholeOrderInput): String
+    @resolver(class: "\\Amasty\\CheckoutGraphQl\\Model\\Resolver\\AddGiftMessageForWholeOrder")
+    updateGiftWrapInformation(input: UpdateGiftWrapInformationInput): String
+    @resolver(class: "\\Amasty\\CheckoutGraphQl\\Model\\Resolver\\UpdateGiftWrapInformation")
+    updateDeliveryInformation(input: UpdateDeliveryInformationInput): String
+    @resolver(class: "\\Amasty\\CheckoutGraphQl\\Model\\Resolver\\UpdateDeliveryInformation")
+    saveAdditionalFields(input: SaveAdditionalFieldsInput): String
+    @resolver(class: "\\Amasty\\CheckoutGraphQl\\Model\\Resolver\\SaveAdditionalFields")
+}
+
+input AddGiftMessageForOrderItemsInput @doc(description: "Defines the input required to run the addGiftMessageForOrderItems mutation") {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    item_id: Int! @doc(description: "The unique ID that identifies the quote item")
+    message: String @doc(description: "Is the gift message for order item")
+    sender: String @doc(description: "Is the gift sender information for order item")
+    recipient: String @doc(description: "Is the gift recipient information for order item")
+}
+
+input AddGiftMessageForWholeOrderInput @doc(description: "Defines the input required to run the addGiftMessageForWholeOrder mutation") {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    message: String @doc(description: "Is the gift message for order")
+    sender: String @doc(description: "Is the gift sender information for order")
+    recipient: String @doc(description: "Is the gift recipient information for order")
+}
+
+input UpdateGiftWrapInformationInput @doc(description: "Defines the input required to run the updateGiftWrapInformation mutation") {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    checked: Boolean! @doc(description: "The checked information about gift wrap to be applied to the order")
+}
+
+input UpdateDeliveryInformationInput @doc(description: "Defines the input required to run the updateDeliveryInformation mutation") {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    date: String! @doc(description: "The delivery date to be applied to the order")
+    time: Int @doc(description: "Enter the number corresponding to the desired interval, e.g. '0' -> 0:00 - 1:00, '1' -> 1:00 - 2:00, etc.")
+    comment: String @doc(description: "The delivery comment to be applied to the order")
+}
+
+input SaveAdditionalFieldsInput @doc(description: "Defines the input required to run the saveAdditionalFields mutation") {
+    cart_id: String! @doc(description: "The unique ID that identifies the customer's cart")
+    comment: String @doc(description: "The comment to be applied to the order")
+    is_subscribe: Boolean @doc(description: "The subscribe information to be applied to the order")
+    is_register: Boolean @doc(description: "The register information to be applied to the order")
+    register_dob: String @doc(description: "The date of birth information to be applied to the order")
+}

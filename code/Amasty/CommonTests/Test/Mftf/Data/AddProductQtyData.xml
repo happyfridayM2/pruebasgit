@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="_enterQty1" type="addProductQty">
+        <data key="qty">1</data>
+    </entity>
+
+    <entity name="_enterQty2" type="addProductQty">
+        <data key="qty">2</data>
+    </entity>
+
+    <entity name="_enterQty3" type="addProductQty">
+        <data key="qty">3</data>
+    </entity>
+
+    <entity name="_enterQty4" type="addProductQty">
+        <data key="qty">4</data>
+    </entity>
+
+    <entity name="_enterQty5" type="addProductQty">
+        <data key="qty">5</data>
+    </entity>
+
+    <entity name="_enterQty6" type="addProductQty">
+        <data key="qty">6</data>
+    </entity>
+
+    <entity name="_enterQty7" type="addProductQty">
+        <data key="qty">7</data>
+    </entity>
+
+    <entity name="_enterQty8" type="addProductQty">
+        <data key="qty">8</data>
+    </entity>
+
+    <entity name="_enterQty9" type="addProductQty">
+        <data key="qty">9</data>
+    </entity>
+
+    <entity name="_enterQty10" type="addProductQty">
+        <data key="qty">10</data>
+    </entity>
+
+    <entity name="_enterQty11" type="addProductQty">
+        <data key="qty">11</data>
+    </entity>
+
+    <entity name="_enterQty12" type="addProductQty">
+        <data key="qty">12</data>
+    </entity>
+
+</entities>

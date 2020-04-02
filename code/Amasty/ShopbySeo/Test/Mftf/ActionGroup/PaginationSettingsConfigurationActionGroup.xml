@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="PaginationSettingsConfigurationActionGroup">
+        <arguments>
+            <argument name="prevnexttags"/>
+        </arguments>
+        <amOnPage url="{{AdminILNSeoSettingsPage.url}}" stepKey="navigateToSeoSettingsPage1"/>
+        <conditionalClick stepKey="expandPaginationSettingsTab1"
+                          selector="{{AdminILNSeoSettingsSection.PaginationSettingsTab}}"
+                          dependentSelector="{{AdminILNSeoSettingsSection.UsePrevNextTagsSwitcher}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.UsePrevNextTagsSwitcher}}"
+                      userInput="{{prevnexttags.UsePrevNextTagsSwitcher}}"
+                      stepKey="configureUsePrevNextTagsSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.AddPageNumberMetaTitleSwitcher}}"
+                      userInput="{{prevnexttags.AddPageNumberMetaTitleSwitcher}}"
+                      stepKey="configureAddPageNumberMetaTitleSwitcher1"/>
+        <selectOption selector="{{AdminILNSeoSettingsSection.AddPageNumberMetaDescriptionSwitcher}}"
+                      userInput="{{prevnexttags.AddPageNumberMetaDescriptionSwitcher}}"
+                      stepKey="configureAddPageNumberMetaDescriptionSwitcher1"/>
+        <click selector="{{AdminILNSeoSettingsSection.Save}}" stepKey="clickSaveConfig2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+</actionGroups>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RTCNoindexMultipleAttributeFiltersAppliedBrandAlwaysSettingOnCategoryPageTest"
+          extends="RTCNoindexMultipleAttributeFiltersAppliedAlwaysSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Noindex when Multiple Attribute Filters Applied setting enabling in interaction with Index/Follow from Brand Attribute's Profile on Category Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-29"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="rtcsettings"/>
+            <group value="noindexformultioptions"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup" stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="attributeSeoScenario4" value="seoFriendlyMultiSelectBrand"/>
+                <argument name="RTC" value="IndexFollowAlways"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup" stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute2"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Check RTC settings: navigate to Category Page, check RTC in Page Source, filter Page, check RTC in Page Source/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickClimateFilter1" after="seeInSource1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="clickAllWeatherOption1" after="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Cotton')}}"
+               stepKey="clickIndoorOption1"/>
+        <dontSeeInPageSource userInput="ambrand-" stepKey="checkIfItBrandPage1"/>
+
+    </test>
+</tests>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="page.main.title" destination="content" as="page.main.title" before="-" />
+		<!-- <move element="amshopby.catalog.topnav.container" destination="amasty.shopby.product.list"  before="-" /> -->
+		<!-- <move element="amshopby.catalog.topnav" destination="search.result"  after="product_list_toolbar" /> -->
+	</body>
+</page>

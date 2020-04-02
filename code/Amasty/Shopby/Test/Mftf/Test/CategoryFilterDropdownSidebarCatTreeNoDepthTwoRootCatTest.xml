@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterDropdownSidebarCatTreeNoDepthTwoRootCatTest" extends="CategoryFilterDropdownSidebarTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in dropdown mode and rendering of Category Tree with Children Categories Depth of one and Root Category"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-49"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltertree"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDropdownDepthTwoActionGroup">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDropdownNoDepthTwoRootCat"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="ConfigureCategoryIDSCategoryTree1"
+                         ref="ConfigureCategoryIDSCategoryTreeDefaultActionGroup"
+                         after="ConfigureCategoryIDSDisplayMode1">
+                <argument name="categoryIDS3" value="CategoryIDSCategoryTreeDefault"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: select option on sidebar, check the result/-->
+
+        <seeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Women','Men','Gear','Training')}}"
+                stepKey="checkCategoryTreeSequence1"
+                after="clickCategoryFilterDropdown1"/>
+        <click selector="{{StorefrontFilterElementsSection.CategoryFilterExpandTree('Women')}}"
+               stepKey="expandCategoryTree1"/>
+        <grabTextFrom selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+                      stepKey="grabQtyOfBagsProducts1"/>
+        <dontSeeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Jackets','Hoodies &amp; Sweatshirts','Tees','Bras &amp; Tanks')}}"
+                stepKey="checkCategoryTreeSequence2"
+                after="grabQtyOfBagsProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Tops')}}"
+               stepKey="clickOnBagsOption1"/>
+        <dontSeeElement
+                selector="{{StorefrontFilterElementsSection.CategoryTreeSequence('Jackets','Hoodies &amp; Sweatshirts','Tees','Bras &amp; Tanks')}}"
+                stepKey="checkCategoryTreeSequence3"
+                after="clickCategoryFilterDropdown2"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Tops"
+             stepKey="checkPageTitle1"/>
+        <see selector="{{StorefrontProductSection.FilterOptionCount('Tops')}}"
+             userInput="{$grabQtyOfBagsProducts1}"
+             stepKey="checkQtyOfBagsProducts1"/>
+        <see selector="{{StorefrontProductSection.ItemsCountLast}}"
+             userInput="50"
+             stepKey="checkQtyOfBagsProducts2"/>
+
+    </test>
+</tests>
+
+

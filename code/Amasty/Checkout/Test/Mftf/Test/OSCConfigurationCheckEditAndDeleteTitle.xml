@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckEditAndDeleteTitle" extends="OSCConfigurationCheckEditTitleAndDescription">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Redaction and Delete Title."/>
+            <title value="Check Redaction and Delete Title on the Checkout"/>
+            <description value="Check Redaction and Delete Title on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-06"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationTexts"/>
+        </annotations>
+
+        <remove keyForRemoval="DeleteDescription"/>
+        <actionGroup ref="AdminConfigOSCDesignTexts" stepKey="ConfigurationEditDesignText">
+            <argument name="adminSettingOSCDesignTexts" value="SetTitle"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckHaveTitleAndDescription" stepKey="CheckTitleAndDescriptionAfterEdit">
+            <argument name="title" value="SetTitle.CheckoutPageTitle"/>
+            <argument name="description" value="SetTitle.CheckoutPageDescription"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckNoTitleAndHaveDescription" stepKey="CheckTitleAndDescriptionAfterDelete">
+            <argument name="description" value="SetTitle.CheckoutPageDescription"/>
+        </actionGroup>
+
+    </test>
+</tests>

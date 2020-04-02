@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterExpandingSidebarBothTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and expanding"/>
+            <description value="Check of rating filter enabling, expanding in sidebar and both location"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-9"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="RatingFilterEnabling1"
+                         ref="RatingFilterExpandActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="DisableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+            <actionGroup stepKey="RatingFilterDisabling1"
+                         ref="RatingFilterDisablingForExpandedActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter2" value="CustomFilterExpandAuto"/>
+                <argument name="customFilter3" value="RatingFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Checking of Rating Filter elements: check expanded Rating Filter in Sidebar position/-->
+
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Rating"
+             stepKey="checkIfFilterExpand1"/>
+        <actionGroup stepKey="RatingFilterEnabling2"
+                     ref="RatingFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="RatingFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Rating"
+             stepKey="checkIfFilterExpand2"/>
+
+        <!--Checking of Rating Filter elements: check expanded Rating Filter in Both position/-->
+
+        <actionGroup stepKey="RatingFilterEnabling3"
+                     ref="RatingFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopOnly"/>
+            <argument name="customFilter3" value="RatingFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts3"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Rating"
+             stepKey="checkIfFilterExpand3"/>
+        <actionGroup stepKey="RatingFilterEnabling4"
+                     ref="RatingFilterExpandActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter2" value="CustomFilterExpandDesktopMobile"/>
+            <argument name="customFilter3" value="RatingFilterLabel"/>
+        </actionGroup>
+        <amOnPage url="{{AllProductsPage.url}}"
+                  stepKey="navigateToAllProducts4"/>
+        <see selector="{{StorefrontFilterElementsSection.FilterIsExpanded}}"
+             userInput="Rating"
+             stepKey="checkIfFilterExpand4"/>
+
+    </test>
+</tests>

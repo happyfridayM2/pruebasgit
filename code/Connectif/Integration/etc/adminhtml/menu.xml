@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Connectif_Integration::connectif" title="Connectif" module="Connectif_Integration" sortOrder="50"
+             resource="Connectif_Integration::connectif" parent="Magento_Backend::marketing"/>
+        <add id="Connectif_Integration::system_connectif" title="Connectif Setings" module="Connectif_Integration"
+             sortOrder="10"
+             resource="Connectif_Integration::system_connectif_account" action="admin/system_config/edit/section/connectif"
+             parent="Connectif_Integration::connectif"/>
+    </menu>
+</config>

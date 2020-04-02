@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NewFilterEnablingFilteringTopBothLabelsTest" extends="NewFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of new filter enabling and filtering"/>
+            <description value="Check of new filter enabling and filtering in top and both position and labels mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNNEWFILTER-2"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="newfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="NewFilterEnabling1"
+                         ref="NewFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterLabelsTop"/>
+                <argument name="customFilter3" value="NewFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by New Filter: select option on top, check the result, remove selected option from state/-->
+
+        <!--Switch New Filter location from Top to Both/-->
+
+        <actionGroup stepKey="NewFilterEnabling1"
+                     ref="NewFilterEnablingActionGroup">
+            <argument name="customFilter" value="CustomFilterLabelsBoth"/>
+            <argument name="customFilter3" value="NewFilterLabel"/>
+        </actionGroup>
+
+        <!--Filter by New Filter: select option on top, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts2"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('New')}}" stepKey="waitForElement2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('New')}}"
+               stepKey="clickNewFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('New')}}"
+               stepKey="clickNewOption2"/>
+        <see selector="{{StorefrontPageElementsSection.ProductAmount}}"
+             userInput="1"
+             stepKey="checkQuantityOfProducts2"/>
+        <see selector="{{StorefrontProductSection.ProductID}}"
+             userInput="Joust Duffle Bag"
+             stepKey="checkProductName2"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState2"/>
+        <wait time="1" stepKey="waitSeconds2"/>
+
+        <!--Filter by New Filter: select option on sidebar, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterLast('New')}}"
+               stepKey="clickNewFilter3"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionLast('New')}}"
+               stepKey="clickNewOption3"/>
+        <see selector="{{StorefrontPageElementsSection.ProductAmount}}"
+             userInput="1"
+             stepKey="checkQuantityOfProducts3"/>
+        <see selector="{{StorefrontProductSection.ProductID}}"
+             userInput="Joust Duffle Bag"
+             stepKey="checkProductName3"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState3"/>
+        <wait time="1" stepKey="waitSeconds3"/>
+
+    </test>
+</tests>
+
+

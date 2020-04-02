@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="customStoreILN" type="store">
+    <data key="name">Test Store View 2</data>
+    <data key="code">tsv2</data>
+    <data key="is_active">1</data>
+    </entity>
+    <entity name="storeViewILN" type="store">
+        <data key="code">tsv2</data>
+    </entity>
+
+</entities>
+
+

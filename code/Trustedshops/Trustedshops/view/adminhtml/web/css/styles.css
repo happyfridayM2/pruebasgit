@@ -1,0 +1,19 @@
+#trustedshops_trustedshops_product_review_attribute_gtin,
+#trustedshops_trustedshops_product_review_attribute_brand,
+#trustedshops_trustedshops_product_review_attribute_mpn,
+#trustedshops_trustedshops_product_expert_review_attribute_gtin,
+#trustedshops_trustedshops_product_expert_review_attribute_brand,
+#trustedshops_trustedshops_product_expert_review_attribute_mpn {
+    width: 98%;
+}
+#trustedshops_trustedshops_general td.label,
+#trustedshops_trustedshops_trustbadge td.label,
+#trustedshops_trustedshops_product td.label {
+    text-align: left;
+}
+
+#trustedshops_trustedshops_general h4,
+#trustedshops_trustedshops_trustbadge h4,
+#trustedshops_trustedshops_product h4 {
+    padding-left: 0;
+}

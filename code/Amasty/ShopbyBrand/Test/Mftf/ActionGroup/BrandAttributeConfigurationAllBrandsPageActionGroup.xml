@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureAllBrandsPageActionGroup">
+        <amOnPage url="{{AdminCMSPageProfilePage.url('7')}}" stepKey="navigateToAllBrandsPageProfilePage1"/>
+        <conditionalClick stepKey="enableAllBrandsPage1"
+                          selector="{{AdminCMSPageProfileSection.AllBrandsPageSwitcher}}"
+                          dependentSelector="{{AdminCMSPageProfileSection.EnabledAllBrandsPageSwitcher}}"
+                          visible="false"/>
+        <click selector="{{AdminCMSPageProfileSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAllBrandsPageBrandLogoActionGroup">
+        <arguments>
+            <argument name="brandLogoAllBrandsPage1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandAllBrandsPageSettingsTab1"
+                          selector="{{AdminAllBrandsPageSettingsSection.AllBrandsPageSettingsTab}}"
+                          dependentSelector="{{AdminAllBrandsPageSettingsSection.AllBrandsPageWidgetCode}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.ShowBrandLogoSwitcher}}"
+                      userInput="{{brandLogoAllBrandsPage1.ShowBrandLogoSwitcher}}"
+                      stepKey="setShowBrandLogo1"/>
+        <fillField selector="{{AdminAllBrandsPageSettingsSection.ImageMaxWidth}}"
+                   userInput="{{brandLogoAllBrandsPage1.ImageMaxWidth}}"
+                   stepKey="setImageWidth1"/>
+        <fillField selector="{{AdminAllBrandsPageSettingsSection.ImageMaxHeight}}"
+                   userInput="{{brandLogoAllBrandsPage1.ImageMaxHeight}}"
+                   stepKey="setImageHeight1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAllBrandsPageSearchQuantityEmptyBrandsActionGroup">
+        <arguments>
+            <argument name="elementsAllBrandsPage1"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnBrandsSettingsPage.url}}" stepKey="navigateToILNBrandsSettingsPage1"/>
+        <conditionalClick stepKey="expandAllBrandsPageSettingsTab1"
+                          selector="{{AdminAllBrandsPageSettingsSection.AllBrandsPageSettingsTab}}"
+                          dependentSelector="{{AdminAllBrandsPageSettingsSection.AllBrandsPageWidgetCode}}"
+                          visible="false"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.EnableSearchSwitcher}}"
+                      userInput="{{elementsAllBrandsPage1.EnableSearchSwitcher}}"
+                      stepKey="setEnableSearch1"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.EnableFilterCharacterSwitcher}}"
+                      userInput="{{elementsAllBrandsPage1.EnableFilterCharacterSwitcher}}"
+                      stepKey="setEnableFilterCharacter1"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.ShowProductsQuantitySwitcher}}"
+                      userInput="{{elementsAllBrandsPage1.ShowProductsQuantitySwitcher}}"
+                      stepKey="setShowProductsQuantity1"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.ShowBrandsWithoutProductsSwitcher}}"
+                      userInput="{{elementsAllBrandsPage1.ShowBrandsWithoutProductsSwitcher}}"
+                      stepKey="setShowBrandsWithoutProducts1"/>
+        <click selector="{{AdminIlnBrandsSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAllBrandsPageShowCharactersWithoutBrandsActionGroup"
+                 extends="ConfigureAllBrandsPageSearchQuantityEmptyBrandsActionGroup">
+        <arguments>
+            <argument name="elementsAllBrandsPage1"/>
+        </arguments>
+        <grabTextFrom selector="{{AdminAllBrandsPageSettingsSection.AllBrandsPageWidgetCode}}"
+                      stepKey="grabAllBrandsPageWidgetCode1"
+                      after="expandAllBrandsPageSettingsTab1"/>
+        <setCookie userInput="setAllBrandsPageWidgetCodeInCookie"
+                   value="{$grabAllBrandsPageWidgetCode1}"
+                   stepKey="setAllBrandsPageWidgetCodeInCookie1"
+                   after="grabAllBrandsPageWidgetCode1"/>
+        <selectOption selector="{{AdminAllBrandsPageSettingsSection.ShowCharactersWithoutBrandsSwitcher}}"
+                      userInput="{{elementsAllBrandsPage1.ShowCharactersWithoutBrandsSwitcher}}"
+                      stepKey="setShowCharactersWithoutBrands1"
+                      after="setEnableFilterCharacter1"/>
+    </actionGroup>
+
+</actionGroups>

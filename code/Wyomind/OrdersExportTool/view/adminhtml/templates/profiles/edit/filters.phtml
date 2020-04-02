@@ -1,0 +1,178 @@
+<?php
+/**
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php echo $block->getFormHtml(); ?>
+
+<fieldset id="states-selector" class="fieldset ">
+    <legend class="legend">
+        <span><?php echo __('Order Status'); ?></span>
+        <span class="select-all"><?php echo __('Select all'); ?></span>
+        <span class="unselect-all"><?php echo __('Unselect all'); ?></span>
+    </legend>
+    <div>
+        <?php foreach ($block->getOrderConfig()->getStates() as $key => $state): ?>
+            <legend style="visibility:visible;width:auto;font-weight:bold;overflow:auto;height:auto;display:inline"><?php echo ucfirst($state); ?></legend>
+            <?php foreach ($block->getOrderConfig()->getStateStatuses($key) as $k => $s): ?>
+                <div class="node">
+                    <div class="cat-box state">
+                        <input class="state" type="checkbox" id='state_<?php echo $k; ?>'
+                               identifier='<?php echo $k; ?>'/> <?php echo $s; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+        <input id="states" name="states" value="<?php echo $block->getStates(); ?>"
+               class="input-text required-entry debug" type="hidden">
+        <div class="note admin__field-note">
+            <?php echo __("Select at least one order state."); ?>
+        </div>
+    </div>
+</fieldset>
+<fieldset id="customer-groups-selector" class="fieldset ">
+    <legend class="legend">
+        <span><?php echo __('Customer group'); ?></span>
+        <span class="select-all"><?php echo __('Select all'); ?></span>
+        <span class="unselect-all"><?php echo __('Unselect all'); ?></span>
+    </legend>
+    <div>
+        <?php
+        $allGroups = $block->getCustomerGroup()->getCollection()->toOptionHash();
+        foreach ($allGroups as $key => $allGroup) : ?>
+            <div class="node">
+                <div class="cat-box">
+                    <input class="customer_group" type="checkbox" id='customer_group_<?php echo $key; ?>'
+                           identifier='<?php echo $key; ?>'/> <?php echo $allGroup; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <input id="customer_groups" name="customer_groups" value="<?php echo $block->getCustomerGroups(); ?>"
+               class=" input-text required-entry debug" type="hidden"">
+        <div class="note admin__field-note">
+           <?php echo __("Select at least one customer group."); ?>
+        </div>
+    </div>
+</fieldset>
+<fieldset id="attributes-selector" class="fieldset ">
+    <legend class="legend">
+        <span><?php echo __('Advanced filters'); ?></span>
+    </legend>
+    <div>
+        <?php
+        $types = $block->getHelper()->getEntities();
+        $selectOutput = null;
+
+        /* BDD attribute list */
+        foreach ($types as $type) {
+            if ($type['filterable']) {
+                $attributesList = [];
+                $resource = $block->getResource();
+                $read = $resource->getConnection($block->getHelper()->getConnection($type['connection']));
+                $tableSfo = $resource->getTableName($type['table']);
+                $fields = $read->describeTable($tableSfo);
+                foreach (array_keys($fields) as $field) {
+                    $attributesList[]['field'] = $field;
+                }
+
+                usort($attributesList, ['Wyomind\OrdersExportTool\Helper\Data', 'cmp']);
+
+                $selectOutput .= " <optgroup label='" . $type['label'] . "'>";
+                foreach ($attributesList as $attribute) {
+                    if (!empty($attribute['field'])) {
+                        $selectOutput .= "<option value='" . $type['code'] . "." . $attribute['field'] . "'>" . $type['label'] . " > " . $attribute['field'] . "</option>";
+                    }
+                }
+
+                $selectOutput .= " </optgroup>";
+                echo "<script>";
+                echo "var " . $type['code'] . "={}; ";
+
+                foreach ($attributesList as $attribute) {
+                    echo " " . $type['code'] . "." . $attribute['field'] . "=[];";
+                }
+                echo "</script>";
+            }
+        }
+        ?>
+        <?php $nbFilters = $block->getCoreHelper()->getStoreConfig("ordersexporttool/system/filters"); ?>
+        <?php for ($x = 0; $x <= $nbFilters; $x++) : ?>
+            <div class="node advanced_filters" id='node_<?php echo $x; ?>'>
+                <div class="cat-box">
+                    <input class="checked-attribute" type="checkbox" id='attribute_<?php echo $x; ?>'
+                           identifier='<?php echo $x; ?>'/>
+                    <select style="width:300px" disabled="disabled" class="name-attribute"
+                            id='name_attribute_<?php echo $x; ?>'>
+                        <?php echo $selectOutput; ?>
+                    </select>
+                    <select disabled="disabled" class="condition-attribute"
+                            id='condition_attribute_<?php echo $x; ?>' style="width:100px">
+                        <option value="eq"><?php echo('='); ?></option>
+                        <option value="gt"><?php echo('>'); ?></option>
+                        <option value="lt"><?php echo('<'); ?></option>
+                        <option value="gteq"><?php echo('&ge;'); ?></option>
+                        <option value="lteq"><?php echo('&le;'); ?></option>
+                        <option value="neq"><?php echo('&ne;'); ?></option>
+                        <option value="like"><?php echo('like'); ?></option>
+                        <option value="nlike"><?php echo('not like'); ?></option>
+                        <option value="null"><?php echo('is null'); ?></option>
+                        <option value="notnull"><?php echo('is not null'); ?></option>
+                        <option value="in"><?php echo('in'); ?></option>
+                        <option value="nin"><?php echo('not in'); ?></option>
+                        <option value="regexp"><?php echo('regular expression'); ?></option>
+                        <option value="finset"><?php echo('find in set'); ?></option>
+                    </select>
+                    <input disabled="disabled" type="text" class="value-attribute"
+                           id="value_attribute_<?php echo $x; ?>" style="width:300px"/>
+                </div>
+            </div>
+        <?php endfor; ?>
+    </div>
+</fieldset>
+
+<script>
+    require(["jquery", "oet_filters"], function ($, filters) {
+        'use strict';
+        // change attribute select 
+        $(document).on('change', '.name-attribute,.condition-attribute', function (evt) {
+            var id = $(this).attr('identifier');
+            var attribute_code = $('#name_attribute_' + id).val();
+            filters.updateRow(id, attribute_code);
+        });
+        $(document).on('change', '.checked-attribute,.statement-attribute,.name-attribute,.condition-attribute,.value-attribute', function (evt) {
+            filters.updateAdvancedFilters();
+        });
+        filters.loadAdvancedFilters();
+        $(document).on("click", ".state", function (evt) {
+            var elt = $(this);
+            elt.parent().toggleClass('selected');
+            filters.updateStates();
+        });
+        filters.loadStates();
+        $(document).on("click", ".customer_group", function (evt) {
+            var elt = $(this);
+            elt.parent().toggleClass('selected');
+            filters.updateCustomerGroups();
+        });
+        filters.loadCustomerGroups();
+        /* un/select all */
+        $(document).on("click", ".select-all", function (evt) {
+            var elt = $(this);
+            filters.selectAll(elt);
+        });
+        $(document).on("click", ".unselect-all", function (evt) {
+            var elt = $(this);
+            filters.unselectAll(elt);
+        });
+        filters.updateUnSelectLinks();
+        /* select advanced filters */
+
+        // change attribute select 
+        $(document).on('change', '.name-attribute,.condition-attribute', function (evt) {
+            var id = $(this).attr('identifier');
+            var attribute_code = $('#name_attribute_' + id).val();
+            filters.updateRow(id, attribute_code);
+        });
+    });
+</script>

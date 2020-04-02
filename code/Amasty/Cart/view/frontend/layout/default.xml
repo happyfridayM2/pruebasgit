@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_Cart::css/vendor/owl.carousel.min.css"/>
+    </head>
+    <referenceBlock name="head.additional">
+        <block class="Amasty\Cart\Block\Config" name="amasty.cart.head"  template="Amasty_Cart::head.phtml" after="-" />
+    </referenceBlock>
+    <referenceBlock name="content">
+        <block class="Amasty\Cart\Block\Config" name="amasty.cart.info"  template="Amasty_Cart::info.phtml" after="-" />
+    </referenceBlock>
+</page>

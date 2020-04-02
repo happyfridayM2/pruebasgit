@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminMagentoCatalogSettingsSection">
+        <element name="StorefrontSettingsTab" type="button" selector="#catalog_frontend-head"/>
+        <element name="SEOSettingsTab" type="button" selector="#catalog_seo-head"/>
+        <element name="StockOptionsTab" type="button" selector="a[id='cataloginventory_options-head']"/>
+        <element name="ShowOutofStockProductsSwitcher" type="select" selector="#cataloginventory_options_show_out_of_stock"/>
+        <element name="ShowOSProductsCheckBoxLocker" type="select" selector="input#cataloginventory_options_show_out_of_stock_inherit"/>
+        <element name="EnableCanonicalForCategoryPageSwitcher" type="select" selector="#catalog_seo_category_canonical_tag"/>
+        <element name="EnableCanonicalLocker" type="select" selector="#catalog_seo_category_canonical_tag_inherit"/>
+        <element name="Save" type="button" selector="#save"/>
+    </section>
+
+</sections>

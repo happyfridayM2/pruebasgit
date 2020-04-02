@@ -1,0 +1,12 @@
+<div class="data-grid-options">
+        <ul data-bind="foreach: { data: getList($row()), as: 'item' }" style="list-style: none;">
+            <!-- ko if: item.checked -->
+         <li attr="class: item.type_group">
+            <span data-bind="text:item.label" attr="class: item.id"></span>
+             <!-- ko if: item.type_group == 'option' -->
+            <span class="swatch_option" attr="style:item.swatch"></span>
+             <!-- /ko -->
+        </li>
+            <!-- /ko -->
+        </ul>
+</div>

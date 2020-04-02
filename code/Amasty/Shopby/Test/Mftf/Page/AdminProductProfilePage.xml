@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+
+
+    <page name="ProductProfilePage" url="/catalog/product/edit/id/{{var1}}/" area="admin" module="Shopby" parameterized="true">
+        <section name="AdminProductProfileSection"/>
+    </page>
+
+    <page name="AdminCrownSummitBackpackReviewsProfilePage" url="/review/product/edit/id/{{var1}}/productId/3/" parameterized="true" area="admin" module="Shopby">
+        <section name="AdminProductProfileSection"/>
+    </page>
+
+</pages>

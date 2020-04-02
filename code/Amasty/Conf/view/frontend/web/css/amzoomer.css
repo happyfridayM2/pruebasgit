@@ -1,0 +1,139 @@
+/*Fix firefox bug with % width/height on flex elements*/
+.columns .column.main {
+    max-width: 100%;
+}
+
+.zoomWrapper {
+    margin: 0 auto;
+}
+
+#amasty-gallery-images,
+#amasty-main-container {
+    text-align: center;
+}
+
+#amasty-main-container {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#amasty-gallery.position-left {
+    position: relative;
+}
+
+#amasty-gallery.position-left #amasty-main-container {
+    margin-left: 24%;
+    max-width: 76%;
+}
+
+#amasty-gallery.position-left #amasty-gallery-container {
+    width: 19%;
+    position: absolute;
+    top: 0;
+}
+
+.position-left .slick-dots {
+    bottom: -90px;
+}
+
+#amasty-gallery-container .slick-vertical button.slick-prev,
+#amasty-gallery-container .slick-vertical button.slick-next {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    position: relative;
+}
+
+.slick-slider .slick-prev,
+.slick-slider .slick-next {
+    width: 25px;
+    height: 25px;
+    box-shadow: none;
+}
+
+.slick-slider .slick-prev:hover,
+.slick-slider .slick-next:hover {
+    border: none;
+}
+
+#amasty-gallery-container .slick-vertical .slick-prev {
+    top: -22px;
+}
+
+#amasty-gallery-container .slick-vertical .slick-next {
+    top: auto;
+    bottom: -22px;
+}
+
+#amasty-gallery-container .slick-vertical .slick-prev {
+    transform: rotate(270deg);
+}
+#amasty-gallery-container .slick-vertical .slick-next {
+    transform: rotate(90deg);
+}
+
+button.slick-prev {
+    left: 0px;
+}
+
+button.slick-next {
+    right: 0px;
+}
+
+.swatch-attribute-options .slick-arrow {
+    z-index: inherit;
+}
+
+#amasty-gallery-container .slick-vertical .slick-slide {
+    padding-top: 1px;
+}
+
+.am-custor-pointer {
+    cursor: pointer;
+}
+
+.amasty-main-image ~ .amasty-main-image {
+    display: none;
+}
+
+#amasty-gallery-images:not(.slick-initialized) .amasty-gallery-thumb-link {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+#amasty-main-image {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#amasty-gallery-images:not(.slick-vertical) .slick-list {
+    margin: 0 25px;
+}
+
+.am-nozoom .zoomContainer {
+    display: none;
+}
+
+@media (max-width: 770px) {
+    #amasty-gallery-images:not(.slick-initialized) .amasty-gallery-thumb-link {
+        margin: 0 5px;
+    }
+
+    #amasty-gallery-container {
+        margin-bottom: 20px;
+    }
+}
+
+#amasty-gallery-container .slick-vertical {
+    margin-top: 20px;
+    padding: 0;
+}

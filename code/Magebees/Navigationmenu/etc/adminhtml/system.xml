@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magebees" translate="label" sortOrder="100">
+            <label>Magebees</label>
+        </tab>
+        <section id="navigationmenu" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Navigation Menu</label>
+            <tab>magebees</tab>
+            <resource>Magebees_Navigationmenu::navigationmenusetting</resource>
+            <group id="general" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Navigation Menu Option</label>
+
+			<field id="module_enable_disable" translate="label comment" type="select" sortOrder="1" showInDefault="1"
+			 showInWebsite="1" showInStore="1"> 
+                    		<label>Enabled</label> 
+                    		<comment> 
+							Select Yes for display menu using Navigation Menu extension on frontend.</comment> <source_model>Magento\Config\Model\Config\Source\Yesno</source_model> 
+
+            </field>
+			<field id="responsive_break_point" translate="label comment" type="text" sortOrder="2" showInDefault="1"
+			 showInWebsite="0" showInStore="0"> 
+                    		<label>Responsive Break Point</label> 
+                    		<comment> Set Responsive Break point value in px.</comment> 
+            </field>
+			</group>
+			
+			
+                		
+            <group id="optimize_performance" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Super Cache (Improves Performance)</label>
+
+				<field id="menu_refresh" translate="label comment" type="button" sortOrder="2" showInDefault="1"
+				 showInWebsite="0" showInStore="0"> 
+					<depends>
+    				<field id="navigationmenu/optimize_performance/developer_mode_enable_disable">0</field>
+					</depends>
+								<label>Publish Static HTML Menu</label> 
+								<comment>If Developer Mode is set to "No" and you made any changes in menu items ( like add,add-sub,edit,delete,re-order menu items or change in the menu group ) then you must PUBLISH Static HTML Menu again so that your changes reflect in frontend.</comment> 
+							 <frontend_model>Magebees\Navigationmenu\Block\Adminhtml\System\Config\Form\Button</frontend_model>
+							 
+				 </field>
+				<field id="developer_mode_enable_disable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0"> 
+								<label>Developer Mode</label> 
+								<comment>Select "Yes" when you are working on staging/development environment. In production envionment(when you make your site live) set this to "No", by doing this it will generate Static HTML Code for your menu(s).Please note that this will decrease page load time, and help you in making your site load fast.</comment> 
+							<source_model>Magento\Config\Model\Config\Source\Yesno</source_model> 
+				 </field>
+			</group>
+				<group id="support" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Info</label>
+					<field id="style" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1"> 
+						<label>Info</label> 
+						<frontend_model>Magebees\Navigationmenu\Model\Support</frontend_model>
+					</field>
+				</group>
+        </section>
+    </system>
+</config>

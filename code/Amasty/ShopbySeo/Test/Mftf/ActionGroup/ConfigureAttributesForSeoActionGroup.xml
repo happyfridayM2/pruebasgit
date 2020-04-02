@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureAttributesForSeoActionGroup">
+        <arguments>
+            <argument name="attributeSeoScenario1"/>
+            <argument name="attributeSeoScenario2"/>
+            <argument name="attributeSeoScenario3"/>
+            <argument name="RTC"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario3.ClimateID)}}"
+                  stepKey="navigateToClimateAttributePage1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{attributeSeoScenario3.AllowMultiSelectSwitcher}}" stepKey="allowMultiSelect1"/>
+        <selectOption selector="{{AttributeProfileSection.EnableSeoSwitcher}}"
+                      userInput="{{attributeSeoScenario3.EnableSeoSwitcher}}" stepKey="enableSeoFriendly1"/>
+        <selectOption selector="{{AttributeProfileSection.IndexModeSwitcher}}"
+                      userInput="{{RTC.IndexModeSwitcher}}" stepKey="enableIndexModeSwitcher1"/>
+        <selectOption selector="{{AttributeProfileSection.FollowModeSwitcher}}"
+                      userInput="{{RTC.FollowModeSwitcher}}" stepKey="enableFollowModeSwitcher1"/>
+        <selectOption selector="{{AttributeProfileSection.RelNoFollowSwitcher}}"
+                      userInput="{{RTC.RelNoFollowSwitcher}}" stepKey="enableRelNoFollowSwitcher1"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPages1"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab1"/>
+        <selectOption selector="{{AttributeProfileSection.ShowFilterOnSRPSwitcher}}"
+                      userInput="{{attributeSeoScenario3.ShowFilterOnSRPSwitcher}}" stepKey="enableShowOnSRP1"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario1.PatternID)}}"
+                  stepKey="navigateToPatternAttributePage1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab2"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{attributeSeoScenario1.AllowMultiSelectSwitcher}}" stepKey="allowSingleSelect1"/>
+        <selectOption selector="{{AttributeProfileSection.EnableSeoSwitcher}}"
+                      userInput="{{attributeSeoScenario1.EnableSeoSwitcher}}" stepKey="enableSeoFriendly2"/>
+        <selectOption selector="{{AttributeProfileSection.IndexModeSwitcher}}"
+                      userInput="{{RTC.IndexModeSwitcher}}" stepKey="enableIndexModeSwitcher2"/>
+        <selectOption selector="{{AttributeProfileSection.FollowModeSwitcher}}"
+                      userInput="{{RTC.FollowModeSwitcher}}" stepKey="enableFollowModeSwitcher2"/>
+        <selectOption selector="{{AttributeProfileSection.RelNoFollowSwitcher}}"
+                      userInput="{{RTC.RelNoFollowSwitcher}}" stepKey="enableRelNoFollowSwitcher2"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPages2"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab2"/>
+        <selectOption selector="{{AttributeProfileSection.ShowFilterOnSRPSwitcher}}"
+                      userInput="{{attributeSeoScenario1.ShowFilterOnSRPSwitcher}}" stepKey="enableShowOnSRP2"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton2"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario2.StyleGeneralID)}}"
+                  stepKey="navigateToStyleGeneralAttributePage1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab3"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{attributeSeoScenario2.AllowMultiSelectSwitcher}}" stepKey="allowMultiSelect2"/>
+        <selectOption selector="{{AttributeProfileSection.EnableSeoSwitcher}}"
+                      userInput="{{attributeSeoScenario2.EnableSeoSwitcher}}" stepKey="disableSeoFriendly1"/>
+        <selectOption selector="{{AttributeProfileSection.IndexModeSwitcher}}"
+                      userInput="{{RTC.IndexModeSwitcher}}" stepKey="enableIndexModeSwitcher3"/>
+        <selectOption selector="{{AttributeProfileSection.FollowModeSwitcher}}"
+                      userInput="{{RTC.FollowModeSwitcher}}" stepKey="enableFollowModeSwitcher3"/>
+        <selectOption selector="{{AttributeProfileSection.RelNoFollowSwitcher}}"
+                      userInput="{{RTC.RelNoFollowSwitcher}}" stepKey="enableRelNoFollowSwitcher3"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPages3"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab3"/>
+        <selectOption selector="{{AttributeProfileSection.ShowFilterOnSRPSwitcher}}"
+                      userInput="{{attributeSeoScenario2.ShowFilterOnSRPSwitcher}}" stepKey="enableShowOnSRP3"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad3"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAttributesWithBrandForSeoActionGroup" extends="ConfigureAttributesForSeoActionGroup">
+        <arguments>
+            <argument name="attributeSeoScenario4"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(attributeSeoScenario4.MaterialID)}}"
+                  stepKey="navigateToMaterialBrandAttributePage1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab4"/>
+        <selectOption selector="{{AttributeProfileSection.EnableSeoSwitcher}}"
+                      userInput="{{attributeSeoScenario4.EnableSeoSwitcher}}" stepKey="enableSeoFriendly4"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{attributeSeoScenario4.AllowMultiSelectSwitcher}}" stepKey="allowMultiSelect3"/>
+        <selectOption selector="{{AttributeProfileSection.IndexModeSwitcher}}"
+                      userInput="{{RTC.IndexModeSwitcher}}" stepKey="enableIndexModeSwitcher4"/>
+        <selectOption selector="{{AttributeProfileSection.FollowModeSwitcher}}"
+                      userInput="{{RTC.FollowModeSwitcher}}" stepKey="enableFollowModeSwitcher4"/>
+        <selectOption selector="{{AttributeProfileSection.RelNoFollowSwitcher}}"
+                      userInput="{{RTC.RelNoFollowSwitcher}}" stepKey="enableRelNoFollowSwitcher4"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPages4"/>
+        <wait time="1" stepKey="wait1"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab4"/>
+        <selectOption selector="{{AttributeProfileSection.ShowFilterOnSRPSwitcher}}"
+                      userInput="{{attributeSeoScenario4.ShowFilterOnSRPSwitcher}}" stepKey="enableShowOnSRP4"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton4"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad4"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache2"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAttributesPriceSizeCategoryForSeoActionGroup"
+                 extends="ConfigureAttributesForSeoActionGroup">
+        <arguments>
+            <argument name="attributeSeoScenario1"/>
+            <argument name="attributeSeoScenario2"/>
+            <argument name="attributeSeoScenario3"/>
+            <argument name="RTC"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultCategory.ID)}}"
+                  stepKey="navigateToClimateAttributePage1"/>
+        <remove keyForRemoval="enableSeoFriendly1"/>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultPrice.ID)}}"
+                  stepKey="navigateToPatternAttributePage1"/>
+        <remove keyForRemoval="allowSingleSelect1"/>
+        <remove keyForRemoval="enableSeoFriendly2"/>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultSize.ID)}}"
+                  stepKey="navigateToStyleGeneralAttributePage1"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureAttributesPriceSizeCategoryForSeoDefaultActionGroup"
+                 extends="ConfigureAttributesForSeoActionGroup">
+        <arguments>
+            <argument name="attributeSeoScenario1"/>
+            <argument name="attributeSeoScenario2"/>
+            <argument name="attributeSeoScenario3"/>
+            <argument name="RTC"/>
+        </arguments>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultCategory.ID)}}"
+                  stepKey="navigateToClimateAttributePage1"/>
+        <selectOption selector="{{AttributeProfileSection.AllowMultiSelectSwitcher}}"
+                      userInput="{{attributeSeoScenario3.AllowMultiSelectSwitcher}}"
+                      stepKey="allowMultiSelect1"
+                      after="enableRelNoFollowSwitcher1"/>
+        <remove keyForRemoval="enableSeoFriendly1"/>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultPrice.ID)}}"
+                  stepKey="navigateToPatternAttributePage1"/>
+        <remove keyForRemoval="allowSingleSelect1"/>
+        <remove keyForRemoval="enableSeoFriendly2"/>
+        <amOnPage url="{{AttributeProfilePage.url(IndexFollowRelNoFollowDefaultSize.ID)}}"
+                  stepKey="navigateToStyleGeneralAttributePage1"/>
+    </actionGroup>
+
+</actionGroups>

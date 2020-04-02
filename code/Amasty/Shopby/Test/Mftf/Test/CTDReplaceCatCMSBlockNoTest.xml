@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDReplaceCatCMSBlockNoTest" extends="CTDReplaceCatCMSBlockYesTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Replace Category CMS Block setting after filtering"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CTD-12"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="ReplaceCatImageCMSBlockNo"/>
+            </actionGroup>
+        </before>
+
+        <!-- Check Category CMS Block: check Category CMS Block, filter page by attribute, check that Category CMS Block isn't replaced by Attribute Option CMS Block/-->
+
+        <dontSeeElement selector="{{StorefrontPageElementsSection.CMSBlockContent('Test CMS Block 1')}}"
+                        stepKey="checkCMSBlockContent2"/>
+        <seeElement selector="{{StorefrontPageElementsSection.CMSBlockContent('Test CMS Block 2')}}"
+                    stepKey="checkCMSBlockContent3"/>
+
+    </test>
+</tests>
+

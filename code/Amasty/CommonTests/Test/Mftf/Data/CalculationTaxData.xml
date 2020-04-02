@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="taxIncludeCatalogAndShipping" type="calculationTax">
+        <data key="taxClassForShipping">Taxable Goods</data>
+        <data key="taxClassForProduct">Taxable Goods</data>
+        <data key="calculationCatalogPrices">Including Tax</data>
+        <data key="calculationShippingPrices">Including Tax</data>
+    </entity>
+
+    <entity name="taxExcluldeCatalogAndShipping" type="calculationTax">
+        <data key="taxClassForShipping">Taxable Goods</data>
+        <data key="taxClassForProduct">Taxable Goods</data>
+        <data key="calculationCatalogPrices">Excluding Tax</data>
+        <data key="calculationShippingPrices">Excluding Tax</data>
+    </entity>
+
+    <entity name="taxExcludeCatalogIncludeShipping" type="calculationTax">
+        <data key="taxClassForShipping">Taxable Goods</data>
+        <data key="taxClassForProduct">Taxable Goods</data>
+        <data key="calculationCatalogPrices">Excluding Tax</data>
+        <data key="calculationShippingPrices">Including Tax</data>
+    </entity>
+
+    <entity name="taxIncludeCatalogExcludeShipping" type="calculationTax">
+        <data key="taxClassForShipping">Taxable Goods</data>
+        <data key="taxClassForProduct">Taxable Goods</data>
+        <data key="calculationCatalogPrices">Including Tax</data>
+        <data key="calculationShippingPrices">Excluding Tax</data>
+    </entity>
+
+    <entity name="taxRateForArizona" type="taxRate">
+        <data key="code" unique="suffix">US-AZ-AllZip-</data>
+        <data key="tax_country_id">US</data>
+        <data key="tax_region_id">4</data>
+        <data key="tax_postcode">*</data>
+        <data key="zip_is_range">0</data>
+        <data key="rate">10</data>
+    </entity>
+    <entity name="taxRuleWithArizona" type="taxRule">
+        <data key="code" unique="suffix">Tax Rule Tests Am </data>
+        <data key="position">0</data>
+        <data key="priority">0</data>
+    </entity>
+
+</entities>

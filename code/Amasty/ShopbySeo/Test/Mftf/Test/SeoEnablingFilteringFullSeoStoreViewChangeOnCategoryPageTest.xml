@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="SeoEnablingFilteringFullSeoStoreViewChangeOnCategoryPageTest"
+          extends="SeoEnablingFilteringFullSeoStoreViewChangeTest">
+
+        <annotations>
+            <features value="SEO settigs"/>
+            <stories value="SEO settigs checking"/>
+            <title value="Check of url configuration after filtering"/>
+            <description
+                    value="Check of url configuration after filtering with enabled full SEO settings in Store View changing scenario on Category Page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="SEOSETTINGS-75"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="seourls"/>
+            <group value="fullseo"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="attributeSeoScenario4" value="seoFriendlyMultiSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAttributesWithBrandForSeoActionGroup" stepKey="configureAttributesForSeo1"
+                         before="configureBrandAttribute2">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="attributeSeoScenario4" value="nonSeoFriendlySingleSelectBrand"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup" stepKey="configureBrandAttribute2"
+                         before="logout">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+        </after>
+
+        <!--Check SEO settings: filter page by seo-friendly and non seo-friendly filters with full seo in Store View changing scenario on Category Page, check the result in url/-->
+
+        <amOnPage url="{{CategoryPage.url('men','tops-men')}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickMaterialFilter1" after="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="clickPolyesterOption1" after="clickMaterialFilter1"/>
+        <seeInCurrentUrl
+                url="/default/men/tops-men/testfilterkey/pattern-solid-material-polyester-climate-all-weather-indoor.html?style_general=5561%2C5552"
+                stepKey="seeInCurrentUrl1"/>
+        <dontSeeInCurrentUrl url="/testbrandurlkey/" stepKey="dontSeeInCurrentUrl3" after="dontSeeInCurrentUrl1"/>
+        <dontSeeInPageSource userInput="ambrand-" stepKey="checkIfItNotBrandPage1" after="dontSeeInCurrentUrl3"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchStoreView1">
+            <argument name="storeView" value="storeViewILN"/>
+        </actionGroup>
+         <seeInCurrentUrl url="/tsv2/men/tops-men/testfilterkey/pattern-solid-material-polyester-climate-all-weather-indoor.html?style_general=5561%2C5552"
+                          stepKey="seeInCurrentUrl2"/>
+        <dontSeeInCurrentUrl url="/testbrandurlkey/" stepKey="dontSeeInCurrentUrl4"/>
+        <dontSeeInPageSource userInput="ambrand-" stepKey="checkIfItNotBrandPage2"/>
+    </test>
+</tests>
+
+

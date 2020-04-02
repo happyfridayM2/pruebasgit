@@ -1,0 +1,62 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+    /** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+    /** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+
+    $filterUniqId = $block->escapeId(uniqid());
+    $filterCode = $block->escapeHtml($filterSetting->getFilterCode());
+?>
+
+<?php if ($filterSetting->isShowSearchBox($filterItems->getCount())): ?>
+    <?= /* @noEscape */ $block->getSearchForm(); ?>
+<?php endif; ?>
+
+<form data-amshopby-filter="<?= /* @noEscape */ $filterCode; ?>"
+      data-amshopby-filter-request-var="<?= /* @noEscape */ $block->getFilter()->getRequestVar(); ?>">
+    <ul class="items am-filter-items-<?= /* @noEscape */ $filterCode; ?> am-labels-folding"
+        <?php if ($filterSetting->getEnableOverflowScroll() > 0): ?>
+            style="max-height:<?= /* @noEscape */ $filterSetting->getEnableOverflowScroll() ?>px;
+                    overflow-y: auto;
+                    overflow-x: hidden;"
+        <?php endif; ?>>
+    <?= /* @noEscape */ $categoryTreeHtml; ?>
+    </ul>
+</form>
+
+<?php
+if ($filterSetting->getSubcategoriesExpand() == \Amasty\Shopby\Model\Source\SubcategoriesExpand::BY_CLICK): ?>
+    <script>
+        require(["jquery"], function ($) {
+            var collapseSelector = "<?= ($block->isTopNav() ? '.amasty-catalog-topnav' : '.sidebar') ?>"
+                + " .am-collapse-icon";
+            if (!$(collapseSelector).length) {
+                collapseSelector = '.am-collapse-icon';
+            }
+
+            $(collapseSelector).nextAll('ul').each(function() {
+                if($(this).find('input[checked]').length === 0) {
+                    if ($(this).siblings(".amshopby-filter-parent")
+                            .find('input[name^="amshopby[cat]"]').first().prop("checked")) {
+                        return true;
+                    }
+                    $(this).hide();
+                } else {
+                    $(this).prevAll('.am-collapse-icon').toggleClass('_active');
+                }
+            });
+
+            $(collapseSelector).click(function (e) {
+                $(this).nextAll('ul').toggle();
+                $(this).toggleClass('_active');
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+    </script>
+<?php endif; ?>

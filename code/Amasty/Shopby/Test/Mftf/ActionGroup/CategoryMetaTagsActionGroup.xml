@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CategoryMetaTagsActionGroup">
+        <arguments>
+            <argument name="CategoryMetaTags"/>
+        </arguments>
+        <amOnPage url="{{AdminIlnSettingsPage.url}}" stepKey="navigateToILNSettingsPage1"/>
+        <conditionalClick stepKey="expandCatMetaTagsTab"
+                          selector="{{AdminILNSettingsSection.CategoryMetaTagsTab}}"
+                          dependentSelector="{{AdminILNSettingsSection.AddFilterTitleToMetaTitle}}"
+                          visible="false"/>
+        <wait time="3" stepKey="waitSeconds001"/>
+        <click selector="{{AdminILNSettingsSection.AddMetaDataOfSelectedFilters}}"
+               stepKey="ClickAddMetaDataOfSelectedFilters"/>
+        <waitForElement selector="{{AdminILNSettingsSection.SelectMetaDataOfSelectedFilters('Climate')}}"
+                        stepKey="waitForElement1"/>
+        <click selector="{{AdminILNSettingsSection.SelectMetaDataOfSelectedFilters('Climate')}}"
+               stepKey="clickClimate"/>
+        <selectOption selector="{{AdminILNSettingsSection.AddFilterTitleToMetaTitle}}"
+                      userInput="{{CategoryMetaTags.AddFilterTitleToMetaTitle}}"
+                      stepKey="SetAddFilterTitleToMetaTitle"/>
+        <fillField userInput="{{CategoryMetaTags.TitleTagSeparator}}"
+                   selector="{{AdminILNSettingsSection.TitleTagSeparator}}"
+                   stepKey="TitleTagSeparator"/>
+        <selectOption selector="{{AdminILNSettingsSection.AddFilterMetaDescription}}"
+                      userInput="{{CategoryMetaTags.AddFilterMetaDescription}}"
+                      stepKey="SetAddFilterDescription"/>
+        <fillField userInput="{{CategoryMetaTags.MetaDescriptionTagSeparator}}"
+                   selector="{{AdminILNSettingsSection.MetaDescriptionTagSeparator}}"
+                   stepKey="SetMetaDescriptionTagSeparator"/>
+        <selectOption selector="{{AdminILNSettingsSection.AddFilterTitleToMetaKeywords}}"
+                      userInput="{{CategoryMetaTags.AddFilterTitleToMetaKeywords}}"
+                      stepKey="SetAddFilterTitleToMetaKeywords"/>
+        <click selector="{{AdminILNSettingsSection.Save}}" stepKey="clickSaveConfig1"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DefaultMetaTags" extends="CategoryMetaTagsActionGroup">
+        <arguments>
+            <argument name="CategoryMetaTags"/>
+        </arguments>
+        <click selector="{{AdminILNSettingsSection.UnSelectMetaDataOfSelectedFilters}}"
+               stepKey="clickClimate"/>
+    </actionGroup>
+
+</actionGroups>

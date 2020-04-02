@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\ShopbyBase\Model\XmlSitemap">
+        <plugin name="Amasty_ShopbySeo::apply-seo-url" type="Amasty\ShopbySeo\Plugin\XmlSitemap\ShopbyBase\Model\Sitemap" />
+    </type>
+
+    <type name="Magento\Config\Model\Config">
+        <plugin name="Amasty_ShopbySeo::config_save_plugin" type="Amasty\ShopbySeo\Plugin\Adminhtml\ConfigPlugin" />
+    </type>
+</config>

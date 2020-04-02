@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CategoryIDSLabelsSidebar" type="categoryIDS1">
+        <data key="CategoryIDSID">105</data>
+        <data key="DisplayModeSwitcher">0</data>
+        <data key="ShowInTheBlockSwitcher">0</data>
+    </entity>
+    <entity name="CategoryIDSLabelsTop" type="categoryIDS1" extends="CategoryIDSLabelsSidebar">
+        <data key="ShowInTheBlockSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSLabelsBoth" type="categoryIDS1" extends="CategoryIDSLabelsSidebar">
+        <data key="ShowInTheBlockSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSDropdownSidebar" type="categoryIDS1" extends="CategoryIDSLabelsSidebar">
+        <data key="DisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSDropdownTop" type="categoryIDS1">
+        <data key="CategoryIDSID">105</data>
+        <data key="DisplayModeSwitcher">1</data>
+        <data key="ShowInTheBlockSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSDropdownBoth" type="categoryIDS1" extends="CategoryIDSDropdownTop">
+        <data key="ShowInTheBlockSwitcher">2</data>
+    </entity>
+
+    <entity name="CategoryIDSOtherElementsDefault" type="categoryIDS2">
+        <data key="SortOptionsBySwitcher">0</data>
+        <data key="ShowProductQuantitiesSwitcher">0</data>
+        <data key="ShowSearchBoxSwitcher">0</data>
+        <data key="NumberUnfoldedOptions">0</data>
+        <data key="IsExpandedSwitcher">0</data>
+        <data key="TooltipTextField"></data>
+        <data key="path">amshopby/category_filter/position</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="CategoryIDSSortByName" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="SortOptionsBySwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSShowProdQtyYes" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="ShowProductQuantitiesSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSShowProdQtyNo" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="ShowProductQuantitiesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSShowSearchBoxYes" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="ShowSearchBoxSwitcher">1</data>
+        <data key="ShowSearchBoxIfTrigger">15</data>
+    </entity>
+    <entity name="CategoryIDSNumberUnfoldOpt" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="NumberUnfoldedOptions">10</data>
+    </entity>
+    <entity name="CategoryIDSIsExpanded" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="IsExpandedSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSDefinedTooltipPosition" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="TooltipTextField">TestTooltip</data>
+        <data key="value">99</data>
+    </entity>
+    <entity name="CategoryIDSDefinedPosition" type="categoryIDS2" extends="CategoryIDSOtherElementsDefault">
+        <data key="value">98</data>
+    </entity>
+    <entity name="CategoryIDSSingleSelect" type="categoryIDS4">
+        <data key="AllowMultiSelectSwitcher">0</data>
+    </entity>
+    <entity name="CategoryIDSMultiSelect" type="categoryIDS4">
+        <data key="AllowMultiSelectSwitcher">1</data>
+    </entity>
+
+</entities>
+
+
+

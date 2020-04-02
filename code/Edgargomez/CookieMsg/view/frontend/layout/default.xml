@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Edgar J. Gómez
+ * @copyright Copyright (c) 2017 Edgargomez (http://www.edgargomez.es)
+ * @package Edgargomez_CookieMsg
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Edgargomez_CookieMsg::css/cookiemsg.css"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block name="edgargomez_cookiemsg" class="Edgargomez\CookieMsg\Block\CookieMsg" template="Edgargomez_CookieMsg::cookiemsg.phtml" />
+        </referenceContainer>
+    </body>
+</page>

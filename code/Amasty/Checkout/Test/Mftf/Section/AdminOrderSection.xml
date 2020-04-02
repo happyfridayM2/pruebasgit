@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminOpenOrder">
+        <element name="GrandTotal" type="block" selector="//td[contains(string(), 'Grand Total')]/parent::tr//span[@class='price']"/>
+        <element name="Subtotal" type="block" selector="//td[contains(string(), 'Subtotal')]/parent::tr//span[@class='price']"/>
+        <element name="Tax" type="block" selector="//td[contains(string(), 'Tax')]/parent::tr//span[@class='price']"/>
+        <element name="Discount" type="block" selector="//td[contains(string(), 'Discount')]/parent::tr//span[@class='price']"/>
+        <element name="GiftOptionOrderTab" type="block" selector="//strong[contains(string(), 'Gift Options')]"/>
+        <element name="GiftOptionOrderFrom" type="input" selector="//input[contains(@name, '[sender]')][contains(@name, 'giftmessage')]"/>
+        <element name="GiftOptionOrderTo" type="input" selector="//input[contains(@name, '[recipient]')][contains(@name, 'giftmessage')]"/>
+        <element name="GiftOptionOrderMessage" type="textarea" selector="//textarea[contains(@name, '[message]')][contains(@name, 'giftmessage')]"/>
+        <element name="GiftOptionItemFrom" type="input" selector="//input[@id='current_item_giftmessage_sender']"/>
+        <element name="GiftOptionItemTo" type="input" selector="//input[@id='current_item_giftmessage_recipient']"/>
+        <element name="GiftOptionItemMessage" type="textarea" selector="//textarea[@id='current_item_giftmessage_message']"/>
+        <element name="GiftOptionItemConfirm" type="button" selector="//button[@id='gift_options_ok_button']"/>
+        <element name="GiftWrap" type="block" selector="//td[contains(string(), 'Gift Wrap')]/parent::tr//span[@class='price']"/>
+        <element name="InvoiceOrder" type="button" selector="//button[@id='order_invoice']"/>
+        <element name="SubmitInvoice" type="button" selector="//button[@title='Submit Invoice']"/>
+        <element name="ShipOrder" type="button" selector="//button[@id='order_ship']"/>
+        <element name="SubmitShipment" type="button" selector="//button[@title='Submit Shipment']"/>
+        <element name="MessageSuccess" type="block" selector="//div[@data-ui-id='messages-message-success']"/>
+        <element name="CommentHistoryTab" type="button" selector="//a[@id='sales_order_view_tabs_order_history']"/>
+        <element name="ProductAttributeOptions" type="block" selector="//dl[@class='item-options']//dd[contains(string(),'{{optionValue}}')]" parameterized="true"/>
+        <element name="GiftMessageForItem" type="block" selector="//span[contains(string(), 'Gift Message for {{productName}}')]" parameterized="true"/>
+        <element name="GiftProductOption" type="button" parameterized="true"
+                 selector="//div[@class='product-sku-block'][contains (string(),  '{{productSku}}')]//ancestor::tbody//a[contains(@id, 'gift_options')]"/>
+        <element name="ProductQtyValue" type="block" parameterized="true"
+                 selector="//div[@class='product-sku-block'][contains(string(),'{{productSku}}')]/ancestor::tr//table[@class='qty-table']//td"/>
+        <element name="CommentValue" type="block" parameterized="true"
+                 selector="//div[@id='Order_History']//div[contains(@class, 'item-comment')][contains(string(), '{{commentValue}}')]"/>
+    </section>
+
+</sections>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandsLinkFirstAndLinkInAccountTopTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="All Brands Page links checking"/>
+            <title value="Check of brand links is displayed and redirect"/>
+            <description
+                    value="Check of brand link is displayed on first position in Top Menu and Account Top Links and redirects to Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-4"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+            <group value="brandlink"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="configureBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="brandsLinkFirstAddToAccountLinks"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="enableAllBrandsPage1">
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="ConfigureAllBrandsPageActionGroup"
+                         stepKey="disableAllBrandsPage1">
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="noBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup ref="AllBrandsPageLinkConfigurationActionGroup"
+                         stepKey="configureAllBrandsPageLinks1">
+                <argument name="brandsLink1" value="noDisplayBrandsLink"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check that brand link is displayed in Top Menu on first position, Account Top Links is displayed and all appropriate links redirect to Brand Page-->
+
+        <actionGroup stepKey="loginAsCustomer"
+                     ref="LoginToStorefrontActionGroup">
+            <argument name="Customer" value="VeronicaCostello"/>
+        </actionGroup>
+        <click selector=" {{StorefrontPanelHeaderSection.customerWelcomeMenu}}"
+               stepKey="clickOnCustomerWelcomeMenu1"/>
+        <click selector=" {{StorefrontBrandElementsSection.AllBrandsPageLinkInCustomerMenu}}"
+               stepKey="clickOnAllBrandsPageLink1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <dontSee userInput="We're sorry, an error has occurred while generating this content."
+                 stepKey="dontSeeGenerationContentError1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+        <seeInSource html="&lt;title&gt;All Brands Page&lt;&#x0002F;title&gt;" stepKey="seeInSource1"/>
+        <click selector="{{StorefrontBrandElementsSection.AllBrandsPageLink('1')}}"
+               stepKey="clickOnBrandsPageLink1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage2"/>
+        <dontSee userInput="We're sorry, an error has occurred while generating this content."
+                 stepKey="dontSeeGenerationContentError2"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage2"/>
+        <seeInSource html="&lt;title&gt;All Brands Page&lt;&#x0002F;title&gt;" stepKey="seeInSource2"/>
+
+    </test>
+</tests>

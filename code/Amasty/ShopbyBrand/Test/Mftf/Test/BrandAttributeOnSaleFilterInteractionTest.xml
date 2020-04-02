@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeOnSaleFilterInteractionTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering on All-products Page in interaction with On Sale Filter"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-24"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttributeWithUrlKey"/>
+            </actionGroup>
+            <actionGroup stepKey="OnSaleFilterEnabling1"
+                         ref="OnSaleFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="OnSaleFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="OnSaleFilterDisabling1"
+                         ref="OnSaleFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="OnSaleFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by Brand Attribute (Material): filter All-products Page by On Sale Filter, then filter by Brand Attribute Filter (Material), check the result/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('On Sale')}}"
+               stepKey="clickOnSaleFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('On Sale')}}"
+               stepKey="selectOnSaleOption1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Material')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Material')}}"
+               stepKey="clickOnMaterialFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Polyester')}}"
+               stepKey="selectPolyesterOption1"/>
+        <seeInPageSource html="ambrand-" stepKey="checkIfItBrandPage1"/>
+        <dontSeeElement selector="{{StorefrontPageElementsSection.404ErrorTitle}}" stepKey="dontSee404OnPage1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.MagentoLogo}}" stepKey="dontSeeFatalErrorOnPage1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Polyester"
+             stepKey="checkPageTitle1"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontProductSection.ProductIDWithSpecialPrice}}"
+                             stepKey="seeProductsWithSpecPrice1"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductIDWithoutSpecialPrice}}"
+                        stepKey="dontSeeProductWithoutSpecPrice1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+
+    </test>
+</tests>
+
+

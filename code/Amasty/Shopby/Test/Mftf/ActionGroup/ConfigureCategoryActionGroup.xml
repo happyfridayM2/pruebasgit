@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ConfigureCategoryContent">
+        <arguments>
+            <argument name="Category"/>
+        </arguments>
+        <amOnPage url="{{AdminMagentoCategoryPage.url(Category.CategoryID)}}" stepKey="OpenNecessaryCategoryPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <click selector="{{AdminMainActionsSection.storeViewDropdown}}" stepKey="clickOnStoreViewDropdown1"/>
+        <click selector="{{AdminMainActionsSection.storeViewByName('Default Store View')}}"
+               stepKey="clickStoreViewByName"/>
+        <waitForElement selector="{{CustomPageProfileSection.OkButton('8')}}" stepKey="waitForElement1"/>
+        <wait time="2" stepKey="wait1"/>
+        <pressKey selector="{{CustomPageProfileSection.OkButton('8')}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]" stepKey="pressEnter1"/>
+        <waitForPageLoad time="25" stepKey="waitForPageLoad2"/>
+        <conditionalClick stepKey="expandContentTab"
+                          selector="{{CategoriesSection.CategorySettingsTab('Content')}}"
+                          dependentSelector="{{CategoriesSection.UploadThumbnail}}"
+                          visible="false"/>
+        <wait time="4" stepKey="waitSeconds1"/>
+        <uncheckOption selector="{{CategoriesSection.CategoryContentCheckbox('Thumbnail')}}"
+                       stepKey="uncheckCheckbox1"/>
+        <attachFile userInput="1.jpg" selector="{{CategoriesSection.UploadThumbnail}}"
+                    stepKey="ConfigureFile1"/>
+        <wait time="3" stepKey="waitSeconds2"/>
+        <uncheckOption selector="{{CategoriesSection.CategoryContentCheckbox('Category Image')}}"
+                       stepKey="uncheckCheckbox2"/>
+        <attachFile userInput="2.jpeg" selector="{{CategoriesSection.UploadCategoryImg}}"
+                    stepKey="ConfigureFile2"/>
+        <wait time="3" stepKey="waitSeconds3"/>
+        <uncheckOption selector="{{CategoriesSection.CategoryContentCheckbox('Description')}}"
+                       stepKey="uncheckCheckbox3"/>
+        <fillField selector="{{CategoriesSection.Description}}"
+                   userInput="{{Category.Description}}"
+                   stepKey="SetDescription"/>
+        <uncheckOption selector="{{CategoriesSection.CategoryContentCheckbox('Add CMS Block')}}"
+                       stepKey="uncheckCheckbox4"/>
+        <selectOption selector="{{CategoriesSection.AddCMSBlock}}"
+                      userInput="{{Category.AddCMSBlock}}"
+                      stepKey="SetAddCMSBlock"/>
+        <conditionalClick stepKey="expandDisplaySettingsTab"
+                          selector="{{CategoryDisplaySettingsSection.DisplaySettingTab}}"
+                          dependentSelector="{{CategoriesSection.AnchorCategoryToggle}}"
+                          visible="false"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1"/>
+        <waitForElementVisible selector="{{CategoriesSection.AnchorCategoryToggle}}" stepKey="waitForToggle1"/>
+        <selectOption selector="{{CategoryDisplaySettingsSection.displayMode}}"
+                      userInput="PRODUCTS_AND_PAGE"
+                      stepKey="selectDisplayMode1"/>
+        <conditionalClick stepKey="enableAnchor1"
+                          selector="{{CategoriesSection.AnchorCategoryToggle}}"
+                          dependentSelector="{{CategoriesSection.AnchorCategoryToggleEnabled}}"
+                          visible="false"/>
+        <click selector="{{AdminCategoryMainActionsSection.SaveButton}}" stepKey="saveSubCategory"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="ClearCategoryContent" extends="ConfigureCategoryContent">
+        <arguments>
+            <argument name="Category"/>
+        </arguments>
+        <click selector="{{CategoriesSection.DeleteThumbnail}}"
+               stepKey="ConfigureFile1"/>
+        <click selector="{{CategoriesSection.DeleteCategoryImg}}"
+               stepKey="ConfigureFile2"/>
+        <selectOption selector="{{CategoryDisplaySettingsSection.displayMode}}"
+                      userInput="PRODUCTS"
+                      stepKey="selectDisplayMode1"/>
+        <conditionalClick stepKey="enableAnchor1"
+                          selector="{{CategoriesSection.AnchorCategoryToggle}}"
+                          dependentSelector="{{CategoriesSection.AnchorCategoryToggleEnabled}}"
+                          visible="true"/>
+    </actionGroup>
+
+    <actionGroup name="ClearDefaultCategoryContent" extends="ConfigureCategoryContent">
+        <arguments>
+            <argument name="Category"/>
+        </arguments>
+        <click selector="{{CategoriesSection.DeleteThumbnail}}"
+               stepKey="ConfigureFile1"/>
+        <click selector="{{CategoriesSection.DeleteCategoryImg}}"
+               stepKey="ConfigureFile2"/>
+        <selectOption selector="{{CategoryDisplaySettingsSection.displayMode}}"
+                      userInput="PRODUCTS"
+                      stepKey="selectDisplayMode1"/>
+        <conditionalClick stepKey="enableAnchor1"
+                          selector="{{CategoriesSection.AnchorCategoryToggle}}"
+                          dependentSelector="{{CategoriesSection.AnchorCategoryToggleEnabled}}"
+                          visible="false"/>
+    </actionGroup>
+
+    <actionGroup name="ConfigureCategorySEOTab">
+        <arguments>
+            <argument name="Category"/>
+        </arguments>
+        <amOnPage url="{{AdminMagentoCategoryPage.url(Category.CategoryID)}}" stepKey="OpenCategoryPage1"/>
+        <conditionalClick stepKey="ExpandSearchEngineOptimizationTab1"
+                          selector="{{CategoriesSection.CategorySettingsTab('Search Engine Optimization')}}"
+                          dependentSelector="{{CategoriesSection.CatMetaTitle}}"
+                          visible="false"/>
+        <fillField selector="{{CategoriesSection.CatMetaTitle}}"
+                   userInput="{{Category.CatMetaTitle}}"
+                   stepKey="SetMetaTitle3"/>
+        <waitForElement selector="{{CategoriesSection.MetaKeywords}}" stepKey="waitForElement2"/>
+        <fillField selector="{{CategoriesSection.MetaKeywords}}"
+                   userInput="{{Category.MetaKeywords}}"
+                   stepKey="SetMetaKeywords3"/>
+        <fillField selector="{{CategoriesSection.MetaDescription}}"
+                   userInput="{{Category.MetaDescription}}"
+                   stepKey="SetMetaDescription3"/>
+        <click selector="{{CategoriesSection.Save}}" stepKey="clickSaveCategories3"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache3"/>
+    </actionGroup>
+
+</actionGroups>
+
+

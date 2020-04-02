@@ -1,0 +1,114 @@
+<div class="amoptimizer-steps-container">
+    <ul class="amsteps-icons-wrapper">
+        <li class="amsteps-icon" data-bind="css: {'-active': isGeneration(), '-done': isDone() || inProgress() || isPastProcess()}"></li>
+        <li class="amsteps-icon" data-bind="css: {'-active': inProgress(), '-done': isDone() || isPastProcess()}"></li>
+        <li class="amsteps-icon" data-bind="css: {'-done': isDone()}"></li>
+    </ul>
+    <ul class="amsteps-titles-wrapper">
+        <li class="amsteps-title" data-bind="i18n: 'Preparing links', css: {'-active': isGeneration()}"></li>
+        <li class="amsteps-title" data-bind="css: {'-active': inProgress()}">
+            <span data-bind="i18n: 'Processing links:'"></span>
+            <span data-bind="text: currentFiles()"></span>/<span data-bind="text: filesCount()"></span>
+        </li>
+        <li class="amsteps-title" data-bind="css: {'-active': isDone()}">
+            <span data-bind="i18n: 'Optimization Finished'"></span>
+        </li>
+    </ul>
+</div>
+<!-- ko if: inProgress() -->
+<div class="amoptimizer-progress-bar">
+    <div class="amprogressbar-progress-timer">
+        <div class="amprogressbar-progress-container">
+            <div class="amprogressbar-progress-wrapper">
+                <progress max="100" value="0" class="amprogressbar-progress" data-bind="value: percentage()"></progress>
+            </div>
+            <span class="amprogressbar-value"><span data-bind="text: percentage()"></span>%</span>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+<!-- ko if: isGeneration() -->
+    <!-- ko ifnot: storeSelect() -->
+        <div class="amloader-spinner-container">
+            <div class="amloader-spinner">
+                <!-- ko foreach: new Array(dotCount()) -->
+                <div class="amloader-dot-container" data-bind="css:'dot-' + ($index()+1) + '-container'">
+                    <div class="amloader-dot" data-bind="css:'dot-' + ($index()+1)"></div>
+                </div>
+                <!-- /ko -->
+            </div>
+            <p class="amloader-title" data-bind="i18n: 'Please wait...'"></p>
+        </div>
+    <!-- /ko -->
+    <!-- ko if: storeSelect() -->
+        <div data-bind="i18n:'Select stores to optimize (usually it\'s unnecessary to optimize more than one store with the same theme/language):'" style="font-weight: bold;margin-top:20px"></div>
+        <div class="amasty-page-code">
+        <!-- ko foreach: storesToSelect -->
+            <ul style="margin-left: 40px">
+                <li>
+                    <span data-bind="text: $data.title"></span>
+                    <ul style="margin-left:20px">
+                        <!-- ko foreach: $data.data -->
+                        <li>
+                            <span data-bind="text: $data.title"></span>
+                            <ul style="margin-left:40px">
+                                <!-- ko foreach: $data.data -->
+                                <li>
+                                    <input type="checkbox" data-bind="checkedValue: $data.store_id,
+                                        checked: $parents[2].selectedStores,
+                                        attr: {id: 'amoptselectstore'+$data.store_id}" />
+                                    <label data-bind="text: $data.title, attr: {for: 'amoptselectstore'+$data.store_id}"></label>
+                                </li>
+                                <!-- /ko -->
+                            </ul>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </li>
+            </ul>
+        <!-- /ko -->
+        </div>
+        <div><button data-bind="i18n: 'Next', click: prepareStoreLinks"></button></div>
+    <!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if:isPastProcess() -->
+    <div data-bind="i18n:'You can add specific pages to javascript bundle (e.g. Checkout page). Every link should be on a new line:'"></div>
+    <div data-bind="text: 'https://example.com/checkout/'"></div>
+    <div data-bind="text: 'https://example.com/contact/'"></div>
+    <textarea style="width:100%;margin:10px 0;border-radius:5px" rows="5" data-bind="value: manualLinks"></textarea>
+    <div style="text-align:right"><button data-bind="i18n: 'Finish', click: pastProcessLinks"></button></div>
+<!-- /ko -->
+
+<!-- ko if: failed() -->
+    <div data-bind="i18n:'Please, click on the link(s) below to open it.'"></div>
+    <div data-bind="i18n: 'It can take some time for the page(s) to load. Open all the links if there are several of them.'"></div>
+    <div data-bind="i18n: 'Wait until you get the message You can close the window'"></div>
+    <div class="amasty-page-code">
+        <!-- ko foreach: links -->
+            <div><a class="amoptimizer-super-bundle" data-bind="attr:{href: $data}, text: $parent.removeGetParam($data)" target="_blank"></a></div>
+        <!-- /ko -->
+    </div>
+    <div><button data-bind="i18n: 'Next', click: pastProcess"></button></div>
+<!-- /ko -->
+
+<!-- ko if: isDone() -->
+    <!-- ko if: (cloudConfig !== '') -->
+        <div data-bind="i18n:'Please copy the code below and paste it in the \'system=>default\' section of the \'app/etc/config.php\' file.'"></div>
+        <div data-bind="i18n: 'If this key already exists, then replace it with the new one.'"></div>
+        <div data-bind="i18n: 'In the section \'system=>default=>dev=>js:\' enable the following options: merge_files => 1, minify_files => 1, enable_js_bundling=> 1'"></div>
+        <div data-bind="i18n: 'Push changes into your cloud repository'" style="margin-top:20px"></div>
+        <textarea data-bind="value: cloudConfig" style="margin-top:20px; width:100%" rows="5"></textarea>
+    <!-- /ko -->
+    <!-- ko if: (cloudConfig === '') -->
+        <div data-bind="i18n:'Launch the following CLI commands one by one:'">
+
+        </div>
+        <div class="amasty-page-code">
+            <div>php bin/magento cache:clean</div>
+            <div>rm -rf pub/static/_cache/merged/*</div>
+            <div>php bin/magento setup:static-content:deploy <small data-bind="i18n:'your locales'"></small></div>
+        </div>
+    <!-- /ko -->
+<!-- /ko -->
+<div style="margin-bottom:20px;height:1px;width:1px"></div>

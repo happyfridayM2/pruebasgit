@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="_SKU" type="actionsConditionsOptions">
+        <data key="optionsText">SKU</data>
+        <data key="optionsValue">sku</data>
+    </entity>
+
+    <entity name="_subtotal" type="actionsConditionsOptions">
+        <data key="optionsText">Subtotal</data>
+        <data key="optionsValue">base_subtotal</data>
+    </entity>
+
+    <entity name="_isOneOf" type="actionsConditionsOptionsParamIs">
+        <data key="optionsText">is one of</data>
+        <data key="optionsValue">()</data>
+    </entity>
+
+    <entity name="_equalsOrGreaterThan" type="actionsConditionsOptionsParamIs">
+        <data key="optionsText">equals or greater than</data>
+        <data key="optionsValue">>=</data>
+    </entity>
+
+    <entity name="_is" type="actionsConditionsOptionsParamIs">
+        <data key="optionsText">is</data>
+        <data key="optionsValue">==</data>
+    </entity>
+
+    <entity name="_shippingCountry" type="actionsConditionsOptions">
+        <data key="optionsText">Shipping Country</data>
+        <data key="optionsValue">country_id</data>
+    </entity>
+
+    <entity name="_shippingState" type="actionsConditionsOptions">
+        <data key="optionsText">Shipping State/Province</data>
+        <data key="optionsValue">region_id</data>
+    </entity>
+
+    <entity name="_city" type="actionsConditionsOptions">
+        <data key="optionsText">City</data>
+        <data key="optionsValue">city</data>
+    </entity>
+
+    <entity name="_isNot" type="actionsConditionsOptionsParamIs">
+        <data key="optionsText">is not</data>
+        <data key="optionsValue">!=</data>
+    </entity>
+
+
+</entities>

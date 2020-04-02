@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_CommonTests
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminGridProductsSection">
+        <element name="FiltersButton" type="button" selector="//div[@class='data-grid-filters-action-wrap']/button[text()='Filters']" timeout="30"/>
+        <element name="InputNameFilters" type="input" selector="//input[@name='name']" timeout="30"/>
+        <element name="ApplyFiltersButton" type="button" selector="//button[@data-action='grid-filter-apply']" timeout="30"/>
+    </section>
+
+    <section name="AdminProductSection">
+        <element name="Save" type="button" selector="//button[@id='save-button']" timeout="30"/>
+        <element name="Status" type="text" selector="//div[@data-index='status']" timeout="50"/>
+        <element name="ProductSku" type="input" selector="//input[@name='product[sku]']" timeout="30"/>
+        <element name="AdvancedInventory" type="button" selector="//button[@data-index='advanced_inventory_button'][@class='action-additional']" timeout="30"/>
+        <element name="AdvancedInventoryQty" type="input" selector="//div[@data-index='stock_data']//input[@name='product[quantity_and_stock_status][qty]']" timeout="30"/>
+        <element name="CloseAdvancedInventory" type="button" selector="//aside[contains(@class,'advanced_inventory')]//button[@data-role='closeBtn']" timeout="30"/>
+        <element name="Backorders" type="select" selector="//select[@name='product[stock_data][backorders]']"/>
+        <element name="BackordersConfigSetting" type="input" selector="//input[@name='product[stock_data][use_config_backorders]']"/>
+        <element name="BackordersConfigSettingYes" type="block" selector="//input[@name='product[stock_data][use_config_backorders]'][@value='1']"/>
+        <element name="BackordersConfigSettingNo" type="block" selector="//input[@name='product[stock_data][use_config_backorders]'][@value='0']"/>
+    </section>
+
+</sections>

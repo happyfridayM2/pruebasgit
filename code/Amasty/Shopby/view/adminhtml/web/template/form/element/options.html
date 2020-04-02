@@ -1,0 +1,122 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div
+        class="admin__action-multiselect-wrap-custom action-select-wrap"
+        tabindex="0"
+        data-bind="
+        attr: {
+            id: uid
+        },
+        css: {
+            _active: listVisible,
+            'admin__action-multiselect-tree': isTree()
+        },
+        event: {
+            focusin: onFocusIn,
+            focusout: onFocusOut,
+            keydown: keydownSwitcher
+        },
+        outerClick: outerClick.bind($data)
+">
+    <!-- ko if: type == 'option' -->
+    <!-- ko if: chipsEnabled -->
+    <div
+            class="action-select admin__action-multiselect-custom"
+            data-role="advanced-select"
+            data-bind="
+            css: {_active: multiselectFocus},
+            click: function(data, event) {
+                toggleListVisible(data, event)
+            }
+    ">
+        <div class="admin__action-multiselect-text"
+             data-bind="
+                i18n: selectedPlaceholders.defaultPlaceholder
+        ">
+        </div>
+    </div>
+    <!-- /ko -->
+    <div class="action-menu"
+         data-bind="css: { _active: listVisible }
+    ">
+        <ul class="admin__action-multiselect-menu-inner _root"
+            data-role="options-container" data-bind="
+                event: {
+                    mousemove: function(data, event){onMousemove($data, $index(), event)}
+                }
+            ">
+            <!-- ko foreach: { data: options, as: 'option'}  -->
+            <li class="admin__action-multiselect-menu-inner-item _root col-draggable"
+                data-bind="css: { _parent: $data.optgroup }"
+                data-role="option-group">
+                <div data-role="draggable-handle" class="draggable-handle"
+                     title="<?php /* @noEscape */
+                                 echo __('Sort Option'); ?>"></div>
+                <input data-role="options" type="hidden"
+                       data-bind="attr: { 'value': option.sort_order, 'id': option.id+'_sort_order','data-id':option.id}"/>
+                <div class="action-menu-item"
+                     data-bind="
+                        css: {
+                            _expended: $parent.getLevelVisibility($data),
+                            _unclickable: $parent.isLabelDecoration($data),
+                            '_with-checkbox': $parent.showCheckbox
+                        },
+                        click: function(data, event){
+                            $parent.toggleOptionSelected($data, $index(), event);
+                        },
+                        clickBubble: false
+
+                ">
+                    <!-- ko if: $data.optgroup && $parent.showOpenLevelsActionIcon-->
+                    <div class="admin__action-multiselect-dropdown"
+                         data-bind="
+                            click: function(event){
+                                $parent.openChildLevel($data, $element, event);
+                            },
+                            clickBubble: false
+                         ">
+                    </div>
+                    <!-- /ko-->
+                    <!--ko if: $parent.showCheckbox-->
+                    <input
+                            class="admin__control-checkbox"
+                            type="checkbox"
+                            tabindex="-1"
+                            data-bind="attr: { 'checked': $parent.isChecked(option.checked) }">
+                    <!-- /ko-->
+                    <label class="admin__action-multiselect-label">
+                        <span   if="$parent.isType(option.type)" class="swatch_option" attr="style:option.swatch"></span>
+                        <span data-bind="text: option.label"></span>
+                        <span
+                                if="$parent.getPath(option)"
+                                class="admin__action-multiselect-item-path"
+                                data-bind="text: $parent.getPath(option)"></span>
+
+                    </label>
+                </div>
+                <!-- ko if: $data.optgroup -->
+                <!-- ko template: {name: $parent.optgroupTmpl, data: {root: $parent, current: $data}} -->
+                <!-- /ko -->
+                <!-- /ko-->
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: type == 'value' -->
+    <ul class="admin__action-multiselect-menu-inner _root">
+    <!-- ko foreach: { data: options, as: 'option'}  -->
+        <li>
+    <input class="admin__control-text list-value" type="text"
+           data-bind="attr: { 'value': option.value, 'id': option.id+'_value','data-id':option.id, 'sort-order':option.sort_order}"/>
+        </li>
+    <!-- /ko-->
+    </ul>
+    <!-- /ko -->
+</div>
+

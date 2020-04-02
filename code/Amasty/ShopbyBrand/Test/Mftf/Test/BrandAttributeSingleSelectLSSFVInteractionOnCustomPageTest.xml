@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBrand
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="BrandAttributeSingleSelectLSSFVInteractionOnCustomPageTest"
+          extends="BrandAttributeSingleSelectLSSFVInteractionOnCategoryPageTest">
+
+        <annotations>
+            <features value="Brand Attribute"/>
+            <stories value="Brand Attribute checking"/>
+            <title value="Check of brand attribute enabling and filtering"/>
+            <description
+                    value="Check of brand attribute enabling and filtering on Custom  Page in Single Select Mode and in interaction with Leave Single Select Filter Visible setting"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="BRANDATTR-29"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="brandattribute"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="CustomPageEnabling1"
+                         ref="CustomPageConfigurationActionGroup">
+                <argument name="customPage" value="customPageConfigurationOnMenTops"/>
+                <argument name="customPage2" value="customPageTriggerScenario2"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="DeleteCustomPage" stepKey="deleteCustomPage1" before="disableBrandAttribute1"/>
+        </after>
+
+        <!--Filter by Brand Attribute (Material): filter Custom Page by Brand Attribute Filter (Material), check the result/-->
+
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"
+               after="navigateToCategoryPage1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"
+               after="clickClimateFilter1"/>
+        <see selector="{{StorefrontPageElementsSection.PageTitle}}"
+             userInput="Test Custom Page Title"
+             stepKey="checkPageTitle1"
+             after="clickAllWeatherOption1"/>
+        <see userInput="24"
+             selector=" {{StorefrontProductSection.ItemsCountLast}}"
+             stepKey="checkQtyOfProductsAfterFiltration1"/>
+
+    </test>
+</tests>
+
+

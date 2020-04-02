@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CategoryFilterLabelsSidebarPageElementsInteractionAllPerPageTest"
+          extends="CategoryFilterLabelsSidebarPageElementsInteractionTest">
+
+        <annotations>
+            <features value="Category filter"/>
+            <stories value="Category filter checking"/>
+            <title value="Checking of Category filter filtering"/>
+            <description
+                    value="Checking of Category filter filtering on sidebar in labels mode in interaction with Page Elements and All Products per Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CATEGORYFILTER-26"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="catfilter"/>
+            <group value="catfiltercompatibility"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup">
+                <argument name="AllPerPage" value="enableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="enableAllProductsPerPage1"
+                         ref="EnableAllProductsPerPageActionGroup"
+                         before="logout">
+                <argument name="AllPerPage" value="disableAllowAllProductsPerPage"/>
+            </actionGroup>
+        </after>
+
+        <!--Filter All-Products Page by Category Filter: activate Page Elements, select option on sidebar, check the result/-->
+
+        <selectOption userInput="All"
+                      selector="{{StorefrontPageElementsSection.ShowPerPageQuantity}}"
+                      stepKey="selectProductQuantity1"/>
+        <remove keyForRemoval="clickOnNextPageButton1"/>
+        <seeInCurrentUrl
+                url="{{ListGridSortingAscDescProductLimitInURL.url('dir=desc','mode=list','order=name','limit=all')}}"
+                stepKey="seeInCurrentUrlPageElements1"/>
+
+    </test>
+</tests>
+
+

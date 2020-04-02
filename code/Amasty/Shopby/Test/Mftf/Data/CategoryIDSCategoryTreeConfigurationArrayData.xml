@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CategoryIDSCategoryTreeDefault" type="categoryIDS3">
+        <data key="CategoryIDSID">105</data>
+        <data key="RenderAllCategoriesTreeSwitcher">1</data>
+        <data key="SubcategoriesViewSwitcher">1</data>
+        <data key="CategoryTreeDisplayModeSwitcher">0</data>
+        <data key="ExpandSubcategoriesSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeByClick" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeImagesLabels" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeImagesLabelsByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDefault">
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeImagesOnly" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeImagesOnlyByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDefault">
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOut" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOutImagesLabels" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOutImagesOnly" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOutDesktop" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">3</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOutImagesLabelsDesktop" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">3</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeFlyOutImagesOnlyDesktop" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDefault">
+        <data key="SubcategoriesViewSwitcher">3</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthOne" type="categoryIDS3" extends="CategoryIDSCategoryTreeDefault">
+        <data key="RenderAllCategoriesTreeSwitcher">0</data>
+        <data key="CategoryTreeDepthField">1</data>
+    </entity>
+
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCat" type="categoryIDS3">
+        <data key="CategoryIDSID">105</data>
+        <data key="RenderAllCategoriesTreeSwitcher">0</data>
+        <data key="CategoryTreeDepthField">2</data>
+        <data key="RenderCategoriesLevelSwitcher">1</data>
+        <data key="SubcategoriesViewSwitcher">1</data>
+        <data key="CategoryTreeDisplayModeSwitcher">0</data>
+        <data key="ExpandSubcategoriesSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCatImagesByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCatImagesLabels" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevImagesLabels" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthThreeCurCatLevImagesLabels" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="CategoryTreeDepthField">3</data>
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevLabelsByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevLabelsOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildImagesLabelsByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildLabelsOnlyByClick" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="ExpandSubcategoriesSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCatFlyOutLabelsOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">1</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCatFlyOutDOImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">1</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+        <data key="SubcategoriesViewSwitcher">3</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoRootCatFlyOutLabelsImages" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">1</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevFlyOutDOLabelsImages" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="SubcategoriesViewSwitcher">3</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevFlyOutLabelsOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatLevFlyOutImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildFlyOutDOImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildFlyOutImagesLabels" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthTwoCurCatChildFlyOutDOLabelsOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+        <data key="SubcategoriesViewSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthOneLabelsOnly" type="categoryIDS3">
+        <data key="CategoryIDSID">105</data>
+        <data key="RenderAllCategoriesTreeSwitcher">0</data>
+        <data key="CategoryTreeDepthField">1</data>
+        <data key="CategoryTreeDisplayModeSwitcher">0</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthOneLabelsImages" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthOneLabelsOnly">
+        <data key="CategoryTreeDisplayModeSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeNoDepthOneImagesOnly" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeNoDepthOneLabelsOnly">
+        <data key="CategoryTreeDisplayModeSwitcher">1</data>
+    </entity>
+
+    <entity name="CategoryIDSCategoryTreeDropdownDefault" type="categoryIDS3">
+        <data key="CategoryIDSID">105</data>
+        <data key="RenderAllCategoriesTreeSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeDropdownNoDepthTwoRootCat" type="categoryIDS3">
+        <data key="CategoryIDSID">105</data>
+        <data key="RenderAllCategoriesTreeSwitcher">0</data>
+        <data key="CategoryTreeDepthField">2</data>
+        <data key="RenderCategoriesLevelSwitcher">1</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeDropdownNoDepthTwoCurrentCatLevel" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDropdownNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">2</data>
+    </entity>
+    <entity name="CategoryIDSCategoryTreeDropdownNoDepthTwoCurrentCatChildren" type="categoryIDS3"
+            extends="CategoryIDSCategoryTreeDropdownNoDepthTwoRootCat">
+        <data key="RenderCategoriesLevelSwitcher">3</data>
+    </entity>
+
+</entities>
+
+
+

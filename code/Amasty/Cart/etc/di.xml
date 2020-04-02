@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Cart
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="Amasty_Cart::product-view-addtocart" type="Amasty\Cart\Plugin\Product\View\Addtocart" />
+    </type>
+    <!-- Move functionality to product-list plugin -->
+    <!--<type name="\Magento\Catalog\Block\Category\View">-->
+        <!--<plugin name="Amasty_Cart::category-view-addtocart" type="Amasty\Cart\Plugin\Product\Category\Addtocart" />-->
+    <!--</type>-->
+    <!--<type name="\Magento\CatalogSearch\Block\Result">-->
+        <!--<plugin name="Amasty_Cart::search-view-addtocart" type="Amasty\Cart\Plugin\CatalogSearch\Result" />-->
+    <!--</type>-->
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="Amasty_Cart::widget-view-addtocart" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\Widget\NewWidget">
+        <plugin name="Amasty_Cart::widget-view-addtocart-new" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Wishlist\Block\Customer\Wishlist\Items">
+        <plugin name="Amasty_Cart::wishlist-addtocart" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="Amasty_Cart::wishlist-sidebar-addtocart" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Amasty_Cart::compare-addtocart" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_Cart::product-list" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\Checkout\Block\Cart\Crosssell">
+        <plugin name="Amasty_Cart::product-crosssell" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Magento\TargetRule\Block\Checkout\Cart\Crosssell">
+        <plugin name="Amasty_Cart::product-crosssell-ee" type="Amasty\Cart\Plugin\Product\ProductsList" />
+    </type>
+
+    <type name="Amasty\Cart\Model\Config\Backend\SimpleText">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="escaper" xsi:type="object">Magento\Framework\Escaper</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

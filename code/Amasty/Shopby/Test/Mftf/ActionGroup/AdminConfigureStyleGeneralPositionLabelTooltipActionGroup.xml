@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="EnableStyleGeneralPositionLabelTooltipActionGroup">
+
+        <!-- This Action group should be removed after creation of Price Attribute tests-->
+
+        <amOnPage url="{{AttributeProfilePage.url('150')}}"
+                  stepKey="navigateToStyleAttributePage1"/>
+        <click selector="{{AttributeProfileSection.StorefrontPropertiesTab}}"
+               stepKey="clickOnStoreFrontPropertiesTab1"/>
+        <fillField userInput="100"
+                   selector="{{AttributeProfileSection.PositionField}}"
+                   stepKey="fillStyleAttributePositionField1"/>
+        <click selector="{{AttributeProfileSection.ILNTab}}" stepKey="clickOnILNTab1"/>
+        <selectOption selector="{{AttributeProfileSection.BlockPositionField}}"
+                      userInput="2" stepKey="selectStyleGeneralBlockPosition1"/>
+        <wait time="5" stepKey="waitSeconds12"/>
+        <click selector="{{AttributeProfileSection.Save}}" stepKey="clickSaveButton1"/>
+        <wait time="2" stepKey="waitSeconds2"/>
+        <magentoCLI command="cache:clean" stepKey="flushCache1"/>
+    </actionGroup>
+
+    <actionGroup name="DisableStyleGeneralPositionLabelTooltipActionGroup"
+                 extends="EnableStyleGeneralPositionLabelTooltipActionGroup">
+
+        <!-- This Action group should be removed after creation of Price Attribute tests-->
+
+        <fillField userInput="0"
+                   selector="{{AttributeProfileSection.PositionField}}"
+                   stepKey="fillStyleAttributePositionField1"/>
+        <selectOption selector="{{AttributeProfileSection.BlockPositionField}}"
+                      userInput="0"
+                      stepKey="selectStyleGeneralBlockPosition1"/>
+    </actionGroup>
+
+</actionGroups>

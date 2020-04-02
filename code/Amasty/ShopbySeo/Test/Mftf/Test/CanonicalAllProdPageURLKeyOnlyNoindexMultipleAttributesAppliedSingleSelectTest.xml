@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CanonicalAllProdPageURLKeyOnlyNoindexMultipleAttributesAppliedSingleSelectTest">
+
+        <annotations>
+            <features value="Canonical URL settings"/>
+            <stories value="Canonical URL settings checking"/>
+            <title value="Check Canonical URL settings configuration before/after filtering"/>
+            <description value="Check of URL Key Only setting configuration on the storefront for All-products Page with Noindex and enabled Noindex when Multiple Attribute Filters Applied setting"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CANONICALSETTINGS-88"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="canonicalsettings"/>
+            <group value="allprodpagecanonical"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="RTCConfiguring1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="enableNoindexForMultipleOptions"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCanonicalURL1" ref="CanonicalURLConfigurationActionGroup">
+                <argument name="canonicalscenario2" value="canonicalURLDefault"/>
+                <argument name="canonicalscenario" value="enableCanonical"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling1" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableFullSeo"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup"
+                         stepKey="configureAttributesForSeo1">
+                <argument name="attributeSeoScenario1" value="SeoFriendlySingleSelect"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlyMultiSelect"/>
+                <argument name="attributeSeoScenario3" value="SeoFriendlyAllowMultiSelect"/>
+                <argument name="RTC" value="IndexFollowSingleSelection"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="RTCConfiguring2" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+            <actionGroup ref="ConfigureAttributesForSeoActionGroup" stepKey="configureAttributesForSeo2">
+                <argument name="attributeSeoScenario1" value="nonSeoFriendlySingleSelect1"/>
+                <argument name="attributeSeoScenario2" value="nonSeoFriendlySingleSelect2"/>
+                <argument name="attributeSeoScenario3" value="nonSeoFriendlySingleSelect3"/>
+                <argument name="RTC" value="IndexFollowRelNoFollowDefault"/>
+            </actionGroup>
+            <actionGroup stepKey="SeoEnabling2" ref="SeoSettingsConfigurationActionGroup">
+                <argument name="seoScenario2" value="enableSeoDefault"/>
+                <argument name="seoScenario" value="enableSeoDisableSuffix"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureCanonicalURL1" ref="CanonicalURLConfigurationActionGroup">
+                <argument name="canonicalscenario2" value="canonicalURLDefault"/>
+                <argument name="canonicalscenario" value="disableCanonical"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Check Canonical URL settings: navigate to All-products Page, check Canonical URL in Page Source, filter Page, check Canonical URL/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <seeInSource
+                html="rel=&quot;canonical&quot;"
+                stepKey="seeInSource1"/>
+        <seeInSource
+                html="/all-products.html&quot;&gt;"
+                stepKey="seeInSource2"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Pattern')}}"
+               stepKey="clickPatternFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Solid')}}"
+               stepKey="clickSolidOption1"/>
+        <seeInSource
+                html="rel=&quot;canonical&quot;"
+                stepKey="seeInSource3"/>
+        <seeInSource
+                html="/all-products.html&quot;&gt;"
+                stepKey="seeInSource4"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <dontSeeInSource
+                html="rel=&quot;canonical&quot;"
+                stepKey="dontSeeInSource1"/>
+        <dontSeeInSource
+                html="/all-products.html&quot;&gt;"
+                stepKey="dontSeeInSource2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Indoor')}}"
+               stepKey="clickIndoorOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Style')}}"
+               stepKey="clickStyleFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionWithException('Tank','Tanks')}}"
+               stepKey="clickTankOption1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('Windbreaker')}}"
+               stepKey="clickWindbreakerOption1"/>
+        <dontSeeInSource
+                html="rel=&quot;canonical&quot;"
+                stepKey="dontSeeInSource3"/>
+        <dontSeeInSource
+                html="/all-products.html&quot;&gt;"
+                stepKey="dontSeeInSource4"/>
+
+    </test>
+</tests>

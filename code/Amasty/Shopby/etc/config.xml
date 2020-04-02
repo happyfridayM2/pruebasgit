@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<!--
+/**
+* Copyright © 2015 Amasty. All rights reserved.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amshopby>
+            <general>
+                <ajax_enabled>0</ajax_enabled>
+                <ajax_scroll_up>1</ajax_scroll_up>
+                <submit_filters_on_desktop>0</submit_filters_on_desktop>
+                <submit_filters_on_mobile>0</submit_filters_on_mobile>
+                <keep_single_choice_visible>1</keep_single_choice_visible>
+                <unfolded_options_state>0</unfolded_options_state>
+            </general>
+            <heading>
+                <add_title>after</add_title>
+                <title_separator> - </title_separator>
+                <add_description>after</add_description>
+                <replace_image>1</replace_image>
+                <replace_cms_block>1</replace_cms_block>
+            </heading>
+            <children_categories>
+                <image_size>100</image_size>
+                <items_per_slide>5</items_per_slide>
+            </children_categories>
+            <meta>
+                <add_title>after</add_title>
+                <title_separator> - </title_separator>
+                <add_description>after</add_description>
+                <description_separator>, </description_separator>
+                <add_keywords>before</add_keywords>
+            </meta>
+            <stock_filter>
+                <enabled>0</enabled>
+                <stock_source>stock_status</stock_source>
+                <placed_block>1</placed_block>
+                <position>0</position>
+                <label>Stock</label>
+                <tooltip></tooltip>
+                <is_expanded>0</is_expanded>
+                <display_mode>0</display_mode>
+            </stock_filter>
+            <rating_filter>
+                <enabled>0</enabled>
+                <placed_block>1</placed_block>
+                <position>0</position>
+                <label>Rating</label>
+                <tooltip></tooltip>
+                <is_expanded>0</is_expanded>
+                <display_mode>0</display_mode>
+            </rating_filter>
+            <am_is_new_filter>
+                <enabled>0</enabled>
+                <placed_block>1</placed_block>
+                <position>0</position>
+                <label>New</label>
+                <tooltip></tooltip>
+                <is_expanded>0</is_expanded>
+                <display_mode>0</display_mode>
+            </am_is_new_filter>
+            <am_on_sale_filter>
+                <enabled>0</enabled>
+                <placed_block>1</placed_block>
+                <position>0</position>
+                <label>On Sale</label>
+                <tooltip></tooltip>
+                <is_expanded>0</is_expanded>
+                <display_mode>0</display_mode>
+            </am_on_sale_filter>
+            <category_filter>
+                <enabled>1</enabled>
+                <category_tree_depth>1</category_tree_depth>
+                <subcategories_view>1</subcategories_view>
+                <subcategories_expand>1</subcategories_expand>
+                <render_all_categories_tree>1</render_all_categories_tree>
+                <render_categories_level>3</render_categories_level>
+                <position>0</position>
+            </category_filter>
+            <tooltips>
+                <enabled>1</enabled>
+                <image>amasty/shopby/images/tooltip.png</image>
+            </tooltips>
+        </amshopby>
+        <amshopby_root>
+            <general>
+                <enabled>1</enabled>
+                <url>all-products</url>
+            </general>
+        </amshopby_root>
+    </default>
+</config>

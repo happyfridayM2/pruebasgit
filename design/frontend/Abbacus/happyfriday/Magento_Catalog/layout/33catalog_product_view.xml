@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="page.main.title" destination="product.info.main" before="-" />
+        <!-- <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/> -->
+        <!-- <move element="product.info.review" destination="product.info.main" before="product.info.price"/> -->
+		<move element="socialshare" destination="product.info.media" before="skip_gallery_after.target"/>
+		<referenceContainer name="product.info.main">
+			<container name="product.info.custom.left" before="-" htmlTag="div" htmlClass="left-items">
+				<container name="product.info.custom.message" htmlTag="div" htmlClass="pro-msg">
+					<block class="Magento\Catalog\Block\Product\View" name="product.qty.low.message" template="Magento_Catalog::product/view/lowqtymessage.phtml" cacheable="false">
+					</block>
+				</container>
+			</container>
+			<container name="product.info.custom.right" after="product.info.custom.left" htmlTag="div" htmlClass="right-items">
+			</container>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.brand" template="Magento_Catalog::product/view/attribute.phtml" before="-">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getBrand</argument>
+					<argument name="at_code" xsi:type="string">brand</argument>
+					<argument name="css_class" xsi:type="string">brand</argument>
+					<!--<argument name="at_label" xsi:type="string">default</argument>-->
+					<argument name="add_attribute" xsi:type="string">itemprop="brand"</argument>
+					<argument name="at_type" xsi:type="string">text</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+		<move element="product.info.stock.sku" destination="product.info.main" after="product.info.brand"/>
+		<move element="product.info.type" destination="product.info.main" after="product.info.stock.sku"/>
+		<referenceBlock name="view.addto.compare" remove="true"/>
+		<referenceBlock name="product.info.mailto" remove="true"/>
+		<referenceBlock name="product.info.overview" remove="true"/>
+		<referenceBlock name="product.attributes" remove="true"/>
+		<referenceBlock name="product.info.details">
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.composition" template="Magento_Catalog::product/view/attribute.phtml" group="detailed_info">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getComposition</argument>
+					<argument name="at_code" xsi:type="string">composition</argument>
+					<argument name="css_class" xsi:type="string">composition</argument>
+					<argument name="at_label" xsi:type="string">none</argument>
+					<argument name="title" translate="true" xsi:type="string">Composition</argument>
+				</arguments>
+			</block>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.product_care" template="Magento_Catalog::product/view/attribute.phtml" group="detailed_info">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getProductCare</argument>
+					<argument name="at_code" xsi:type="string">product_care</argument>
+					<argument name="css_class" xsi:type="string">product_care</argument>
+					<argument name="at_label" xsi:type="string">none</argument>
+					<argument name="title" translate="true" xsi:type="string">Product Care</argument>
+				</arguments>
+			</block>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.delivery" template="Magento_Catalog::product/view/attribute.phtml" group="detailed_info">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getDelivery</argument>
+					<argument name="at_code" xsi:type="string">delivery</argument>
+					<argument name="css_class" xsi:type="string">delivery</argument>
+					<argument name="at_label" xsi:type="string">none</argument>
+					<argument name="title" translate="true" xsi:type="string">Feature</argument>
+				</arguments>
+			</block>
+		</referenceBlock>
+		<referenceContainer name="content">
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.sizing" template="Magento_Catalog::product/view/sizing.phtml" after="-">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getSizing</argument>
+					<argument name="at_code" xsi:type="string">sizing</argument>
+					<argument name="css_class" xsi:type="string">sizing</argument>
+					<argument name="at_label" xsi:type="string">none</argument>
+					<argument name="title" translate="true" xsi:type="string">Size Guide</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+		<referenceContainer name="content">
+			<block class="Magento\Catalog\Block\Product\View\Description" name="product.info.previousnext" template="product/view/previousnext.phtml" />   
+		</referenceContainer>
+		
+		<referenceContainer name="content.aside">
+			<!-- <block class="WeltPixel\OwlCarouselSlider\Block\Slider\Products" before="-" name="recently_viewed" cacheable="false" template="WeltPixel_OwlCarouselSlider::product/list/items.phtml">
+	            <action method="setType">
+	                <argument name="products_type" xsi:type="string">recently_viewed</argument>
+	            </action>
+				<action method="setData">
+	                <argument name="products_type" xsi:type="string">recently_viewed</argument>
+	            </action>
+	        </block> -->
+	        <!-- <container name="custom.review.wrapper" htmlTag="div" htmlClass="custom-review-wrapper">
+		        <container name="custom.review.container" htmlTag="div" htmlClass="custom-review-container">
+			        <block class="Magento\Review\Block\Product\View\ListView" name="custom.review.list" template="Magento_Review::product/view/list.phtml"/>
+			        <block class="Magento\Review\Block\Product\Review" name="custom.reviews.tab" template="Magento_Review::review.phtml"/>
+		        </container>
+			</container> -->
+			<container name="product.info.details" htmlTag="div" htmlClass="product info detailed" after="product.info.media">
+                <block class="Magento\Review\Block\Form" name="product.review.form" as="review_form">
+                    <container name="product.review.form.fields.before" as="form_fields_before" label="Review Form Fields Before" htmlTag="div" htmlClass="rewards"/>
+                </block>
+                <block class="Magento\Review\Block\Product\View\ListView" name="product.info.product_additional_data" as="product_additional_data" template="product/view/list.phtml"/>
+                <block class="Magento\Theme\Block\Html\Pager" name="product_review_list.toolbar"/>
+            </container>
+		</referenceContainer>
+		        	
+
+       <move element="product.info.previousnext" destination="product.info.media" before="socialshare"/>
+		<move element="product.info.brand" destination="product.info.custom.left"  before="-" />
+		
+		<move element="page.main.title" destination="product.info.custom.left" after="product.info.brand" />
+		<move element="product.info.stock.sku" destination="product.info.custom.left" after="page.main.title" />
+		<move element="product.info.price" destination="product.info.custom.left" after="product.info.stock.sku" />
+		<move element="product.info.custom.message" destination="product.info.custom.left" after="product.info.price" />
+		<move element="product.info.review" destination="product.info.custom.right" before="-" />
+		<move element="product.info.addto" destination="product.info.custom.right" after="product.info.review" />
+		<move element="product.info.details" destination="product.info.main" after="-" />
+		<move element="custom.review.wrapper" destination="page.wrapper" after="main.content" />
+		<referenceBlock name="reviews.tab" remove="true"/>
+		<!-- <referenceBlock name="product.info.review" remove="true"/> -->
+    </body>
+</page>
+		

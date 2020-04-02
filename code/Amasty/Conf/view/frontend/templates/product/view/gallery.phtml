@@ -1,0 +1,54 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+?>
+<?php /** @var \Amasty\Conf\Block\Product\View\Gallery $block */ ?>
+<div class="gallery-placeholder" data-gallery-role="gallery-placeholder">
+    <div id="amasty-gallery" data-role="amasty-gallery">
+        <div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-loading">
+            <div data-role="loader" class="loading-mask">
+                <div class="loader">
+                    <img src="<?= $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif')); ?>"
+                         alt="<?= /* @noEscape */ __('Loading...') ?>">
+                </div>
+            </div>
+        </div>
+        <!--Fix for jumping content. Loader must be the same size as gallery.-->
+        <script>
+            var config = {
+                    "width": <?= /* @noEscape */ $block->getImageAttribute('product_page_image_medium', 'width') ?>,
+                    "thumbheight": <?= /* @noEscape */ $block->getImageAttribute('product_page_image_small', 'height')
+                    ?: $block->getImageAttribute('product_page_image_small', 'width'); ?>,
+                    "navtype": "<?= /* @noEscape */ $block->getVar("gallery/navtype") ?>",
+                    "height": <?= /* @noEscape */ $block->getImageAttribute('product_page_image_medium', 'height') ?>
+                },
+                thumbBarHeight = 0,
+                loader = document.querySelectorAll('[data-gallery-role="gallery-placeholder"] [data-role="loader"]')[0];
+
+            if (config.navtype === 'horizontal') {
+                thumbBarHeight = config.thumbheight;
+            }
+
+            loader.style.paddingBottom = ( config.height / config.width * 100) + "%";
+        </script>
+
+        <div id="amasty-main-container" data-gallery-role="amasty-main-container"></div>
+        <div id="amasty-gallery-container"  data-gallery-role="amasty-gallery-container">
+            <div id="amasty-gallery-images"  data-gallery-role="amasty-gallery-images"></div>
+        </div>
+
+        <script type="text/x-magento-init">
+        {
+            "[data-role=amasty-gallery]": {
+                "Amasty_Conf/js/amzoomer": {
+                    "data": <?= /* @noEscape */ $block->getGalleryImagesJson() ?>,
+                    "options":<?= /* @noEscape */ $block->getGalleryOptionJson() ?>
+                }
+            }
+        }
+        </script>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <body>
+		<referenceContainer name="content">
+			<referenceBlock name="catalog.compare.sidebar" remove="true" />
+			<referenceContainer name="sidebar.additional" remove="true" />
+		</referenceContainer>
+		<referenceContainer name="page.bottom.container">
+			<block class="Magento\Catalog\Block\Category\View" name="category.description.bottom" template="Magento_Catalog::category/description.phtml" after="-"/>
+		</referenceContainer>
+		<move element="category.meta.info" destination="page.bottom.container" after="-" />
+		<move element="page.main.title" destination="content" as="page.main.title" before="-" />
+		<move element="category.image" destination="content" after="page.main.title" />
+		<move element="category.description" destination="content" after="category.image" />
+		<move element="breadcrumbs" destination="category.product.list.additional" after="-"/>
+		<referenceBlock name="category.description" remove="true"/>
+	</body>
+</page>

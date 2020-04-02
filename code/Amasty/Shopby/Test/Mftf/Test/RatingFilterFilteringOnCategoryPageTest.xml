@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RatingFilterFilteringOnCategoryPageTest"
+          extends="RatingFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of rating filter enabling and filtering"/>
+            <description
+                    value="Check of rating filter enabling and filtering in sidebar position and labels mode on category page"/>
+            <severity value="MINOR"/>
+            <testCaseId value="ILNRATINGFILTER-13"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="ratingfilter"/>
+        </annotations>
+
+        <!--Filter by Rating Filter on category page: select 4 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{CategoryPage.url('gear','fitness-equipment')}}" stepKey="navigateToAllProducts1"/>
+
+        <!--Filter by Rating Filter on category page: select 3 stars option on sidebar in labels, check the result, don't remove selected option from state/-->
+
+        <amOnPage url="{{CategoryPage.url('gear','bags')}}"
+                  stepKey="navigateToRequiredPage1"
+                  after="waitSeconds1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+
+        <!--Filter by Rating Filter on category page: select 2 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+        <!--Filter by Rating Filter on category page: select 1 stars option on sidebar in labels, check the result, remove selected option from state/-->
+
+    </test>
+</tests>

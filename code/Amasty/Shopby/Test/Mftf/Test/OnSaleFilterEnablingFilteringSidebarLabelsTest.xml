@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="OnSaleFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of on sale filter enabling and filtering"/>
+            <description value="Check of on sale filter enabling and filtering on sidebar in labels mode"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ILNONSALEFILTER-1"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="onsalefilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="OnSaleFilterEnabling1"
+                         ref="OnSaleFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterSidebarLabels"/>
+                <argument name="customFilter3" value="OnSaleFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="OnSaleFilterDisabling1"
+                         ref="OnSaleFilterDisablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDisabled"/>
+                <argument name="customFilter3" value="OnSaleFilterLabel"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--Filter by On Sale Filter: select option on sidebar, check the result, remove selected option from state/-->
+
+        <amOnPage url="{{AllProductsPage.url}}" stepKey="navigateToAllProducts1"/>
+        <conditionalClick stepKey="clickOnSaleFilter1"
+                          selector="{{StorefrontFilterElementsSection.Filter('On Sale')}}"
+                          dependentSelector="{{StorefrontFilterElementsSection.FilterOption('On Sale')}}"
+                          visible="false"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('On Sale')}}"
+               stepKey="clickOnSaleOption1"/>
+        <seeNumberOfElements parameterArray="[1,100]"
+                             selector="{{StorefrontProductSection.ProductIDWithSpecialPrice}}"
+                             stepKey="seeProductsWithSpecPrice1"/>
+        <dontSeeElement selector="{{StorefrontProductSection.ProductIDWithoutSpecialPrice}}"
+                        stepKey="dontSeeProductWithoutSpecPrice1"/>
+        <click selector="{{StorefrontPageElementsSection.FilterState('Yes')}}"
+               stepKey="removeSelectedFilterOptionFromState1"/>
+
+    </test>
+</tests>
+
+

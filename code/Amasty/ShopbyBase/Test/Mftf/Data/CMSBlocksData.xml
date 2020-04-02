@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="CMSBlockData1" type="CMSblock1">
+        <data key="title">Test CMS Block 1</data>
+        <data key="identifier" unique="suffix" >block</data>
+        <data key="content">Test CMS Block 1</data>
+    </entity>
+
+    <entity name="CMSBlockData2" type="CMSblock1">
+        <data key="title">Test CMS Block 2</data>
+        <data key="identifier" unique="suffix" >block</data>
+        <data key="content">Test CMS Block 2</data>
+    </entity>
+
+    <entity name="CMSBlockData3" type="CMSblock1">
+        <data key="title">Test CMS Block 3</data>
+        <data key="identifier" unique="suffix" >block</data>
+        <data key="content">{$grabCookie2}</data>
+    </entity>
+
+</entities>
+
+

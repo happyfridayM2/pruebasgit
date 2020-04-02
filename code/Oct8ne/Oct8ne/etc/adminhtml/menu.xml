@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Oct8ne_Oct8ne::content" title="Oct8ne" module="Oct8ne_Oct8ne" sortOrder="50" resource="Oct8ne_Oct8ne::content" />
+        <add id="Oct8ne_Oct8ne::Login" title="Login" module="Oct8ne_Oct8ne" sortOrder="0" parent="Oct8ne_Oct8ne::content" action="oct8ne/login" resource="Oct8ne_Oct8ne::Login"/>
+    </menu>
+</config>

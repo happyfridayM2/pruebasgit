@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Remove extension attributes from processing as additional data-->
+
+    <type name="Magento\Paypal\Model\Express">
+        <plugin name="Abbacus_Paypal::ExpressPlugin" type="Abbacus\Paypal\Plugin\Magento\Paypal\Model\ExpressPlugin" disabled="false" />
+    </type>
+</config>

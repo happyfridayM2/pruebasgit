@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="CTDReplaceCatCMSBlockYesBrandPageTest">
+
+        <annotations>
+            <features value="Category Title and Description"/>
+            <stories value="Category Title and Description checking"/>
+            <title value="Check Category Title and Description"/>
+            <description
+                    value="Check of Replace Category CMS Block setting after filtering on Brand Page"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="CTD-15"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="cattitledesc"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup stepKey="createCMSBlock1"
+                         ref="AdminCreateCMSBlockActionGroup">
+                <argument name="CMSblock1" value="CMSBlockData1"/>
+                <argument name="widgetCode" value="allBrandsPageWidgetCode"/>
+            </actionGroup>
+            <actionGroup stepKey="createCMSBlock2"
+                         ref="AdminCreateCMSBlockActionGroup">
+                <argument name="CMSblock1" value="CMSBlockData2"/>
+                <argument name="widgetCode" value="allBrandsPageWidgetCode"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="AllWeatherAttrWithCMSBlockData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescription1"
+                         ref="ConfigureCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="enableBrandAttribute1">
+                <argument name="brandAttribute" value="materialAsBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent1"
+                         ref="ConfigureAttributeOptionPageContent">
+                <argument name="Attributes" value="PolyesterAttrWithCMSBlockData"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup stepKey="deleteCMSBlock1"
+                         ref="AmDeleteCMSBlockActionGroup">
+                <argument name="CMSblock1" value="CMSBlockData1"/>
+            </actionGroup>
+            <actionGroup stepKey="deleteCMSBlock2"
+                         ref="AmDeleteCMSBlockActionGroup">
+                <argument name="CMSblock1" value="CMSBlockData2"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureClimateAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultAllWeatherAttributeData"/>
+            </actionGroup>
+            <actionGroup ref="BrandAttributeConfigurationActionGroup"
+                         stepKey="disableBrandAttribute1">
+                <argument name="brandAttribute" value="noBrandAttribute"/>
+            </actionGroup>
+            <actionGroup stepKey="ConfigureBrandAttributeOptionPageContent2"
+                         ref="ConfigureDefaultAttributeOptionPageContent">
+                <argument name="Attributes" value="DefaultPolyesterAttributeData"/>
+            </actionGroup>
+            <actionGroup stepKey="SetTitleAndDescriptionDefault1"
+                         ref="DefaultCategoryTitleAndDescriptionActionGroup">
+                <argument name="CatTitleAndDescriptILNSettings" value="DefaultCategoryTitleAndDescription"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!-- Check Brand CMS Block: check Brand CMS Block, filter page by attribute, check that Brand CMS Block is replaced by Attribute Option CMS Block/-->
+
+        <amOnPage url="{{StorefrontBrandWithoutURLKeyPage.url('polyester')}}" stepKey="navigateToAllProducts1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.CMSBlockContent('Test CMS Block 2')}}" stepKey="checkCMSBlockContent1"/>
+        <waitForElement selector="{{StorefrontFilterElementsSection.Filter('Climate')}}" stepKey="waitForElement1"/>
+        <click selector="{{StorefrontFilterElementsSection.Filter('Climate')}}"
+               stepKey="clickClimateFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOption('All-Weather')}}"
+               stepKey="clickAllWeatherOption1"/>
+        <seeElement selector="{{StorefrontPageElementsSection.CMSBlockContent('Test CMS Block 1')}}" stepKey="checkCMSBlockContent2"/>
+
+    </test>
+</tests>
+
+

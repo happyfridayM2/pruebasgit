@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_ShopbyBase::css/chosen/chosen.css"/>
+        <css src="Amasty_Shopby::css/fields.css"/>
+    </head>
+    <body>
+        <referenceBlock name="attribute_edit_tabs">
+            <block class="Amasty\Shopby\Block\Adminhtml\Product\Attribute\Edit\Tab\Shopby" as="amshopby"/>
+        </referenceBlock>
+    </body>
+</page>

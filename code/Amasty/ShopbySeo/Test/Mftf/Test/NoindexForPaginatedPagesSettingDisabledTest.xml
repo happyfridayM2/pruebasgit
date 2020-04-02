@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbySeo
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="NoindexForPaginatedPagesSettingDisabledTest" extends="NoindexForPaginatedPagesSettingTest">
+
+        <annotations>
+            <features value="Robots Tag Control settings"/>
+            <stories value="Robots Tag Control settings checking"/>
+            <title value="Check Robots Tag Control settings configuration before/after filtering"/>
+            <description value="Check of Noindex for paginated pages setting disabling"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RTCSETTINGS-42"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNsmoke"/>
+            <group value="rtcsettings"/>
+            <group value="noindexpagination"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="SeoEnabling1" ref="RobotsTagControlConfigurationActionGroup">
+                <argument name="rtcscenario" value="robotsTagControlDefault"/>
+            </actionGroup>
+        </before>
+
+        <!--Check RTC settings: navigate to All-Products Page, check Follow in Page Source after pagination/-->
+
+        <seeInPageSource
+                html="&quot;INDEX,FOLLOW"
+                stepKey="seeInSource2"/>
+
+    </test>
+</tests>

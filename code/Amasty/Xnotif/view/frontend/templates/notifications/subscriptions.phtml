@@ -1,0 +1,41 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+?>
+<?php
+/* @var $block \Amasty\Xnotif\Block\AdminNotify */
+?>
+
+<?php
+$collection = $block->getSubscriptionCollection();
+if ($collection && $collection->getSize()) : ?>
+    <table cellpadding="5" cellspacing="2" border="1">
+        <tr>
+            <th><?= $block->escapeHtml(__('Name'))?></th>
+            <th><?= $block->escapeHtml(__('SKU'))?></th>
+            <th><?= $block->escapeHtml(__('Total Number of Subscriptions'))?></th>
+            <th><?= $block->escapeHtml(__('Last Subscription'))?></th>
+        </tr>
+        <?php foreach ($collection as $item) : ?>
+            <tr>
+                <td>
+                    <?= $block->escapeHtml($item->getName()); ?>
+                </td>
+                <td>
+                    <?= $block->escapeHtml($item->getSku()); ?>
+                </td>
+                <td>
+                    <?= $block->escapeHtml($item->getTotalCnt()); ?>
+                </td>
+                <td>
+                    <?= $block->escapeHtml($item->getLastD()); ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else : ?>
+    <p><?= $block->escapeHtml(__('There are no notifications.')) ?></p>
+<?php endif; ?>

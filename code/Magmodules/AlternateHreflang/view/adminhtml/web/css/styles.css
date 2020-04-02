@@ -1,0 +1,79 @@
+.mm-block-alternatehreflang {
+    background: #f8f8f8 no-repeat 8px;
+    border: 1px solid #e5e5e5;
+    border-left: 2px solid #ea4c00;
+    font-size: 12px;
+    color: #303030;
+    margin-bottom: 0;
+    padding: 1.5rem 1.5rem 1.5rem 75px;
+    background-size: 55px;
+
+}
+
+.mm-block-alternatehreflang strong {
+    font-weight: 600;
+    color: #514943;
+}
+
+.mm-block-alternatehreflang p {
+    font-size: 12px;
+    margin-left: 9px;
+}
+
+.mm-block-alternatehreflang tr a {
+    color: #6d6761;
+}
+
+.mm-block-alternatehreflang tr td {
+    padding: 5px 25px 0 0;
+}
+
+.mm-block-alternatehreflang .helpbutton {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    padding: 20px 10px;
+    font-weight: 700;
+    float: right;
+    background: #514943;
+}
+
+@media only screen and (min-width: 1375px) {
+    .mm-block-alternatehreflang .helpbutton {
+        color: #fff;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+        padding: 20px 20px 20px 50px;
+        font-weight: 700;
+        float: right;
+        background: url(../images/icons.png) no-repeat scroll 7px -84px #514943;
+        background-size: 35px;
+    }
+}
+
+.mm-block-alternatehreflang .helpbutton:hover {
+    background-color: #373330;
+    text-decoration: none;
+}
+
+.mm-block-alternatehreflang .icon1 {
+    background: url(../images/icons.png) no-repeat scroll 2px -3px;
+    background-size: 30px;
+    width: 35px;
+    height: 27px;
+    float: left;
+}
+
+.mm-block-alternatehreflang .icon2 {
+    background: url(../images/icons.png) no-repeat scroll 2px -31px;
+    background-size: 31px;
+    width: 35px;
+    height: 25px;
+    float: left;
+}
+
+#row_magmodules_alternate_general_support .admin__field-value {
+    padding-top: 0 !important;
+}
+
+#magmodules_alternate_general_version  {
+    padding-top: 0 !important;
+}

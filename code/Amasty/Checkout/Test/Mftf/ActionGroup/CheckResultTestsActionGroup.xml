@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Action Groups below should be used after: "GoToOSCAsCustomerDefaultAddressAndChooseShipping" or
+             "GoToOSCAsCustomerChooseAddressAndShipping" or "GoToOSCAsGuestAndChooseShipping", but
+                    if ActionGroup extended from "GoToOSCFromCart" she can be used without them -->
+
+    <actionGroup name="StorefrontOSCCheckPaymentMethod">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadPaymentMethods"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadPaymentMethods"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheck"/>
+        <seeElement selector="//label[@for='{{paymentMethods.paymentValue}}']" stepKey="checkHavePaymentMethod"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckTotalsAndShippingPrice">
+        <arguments>
+            <argument name="oneStepCheckoutData"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadTotals"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheck"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.CartSubtotal}}"
+             userInput="{{oneStepCheckoutData.cartSubtotal}}" stepKey="checkSubtotalPrice"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.ShippingPrice}}"
+             userInput="{{oneStepCheckoutData.shippingPrice}}" stepKey="checkShippingPrice"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OrderTotal}}"
+             userInput="{{oneStepCheckoutData.orderTotal}}" stepKey="checkOrderTotal"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckTotalsAndShippingWithTax" extends="StorefrontOSCCheckTotalsAndShippingPrice">
+        <arguments>
+            <argument name="oneStepCheckoutData"/>
+        </arguments>
+        <see selector="{{StorefrontOneStepCheckoutSection.Tax}}"
+             userInput="{{oneStepCheckoutData.tax}}" stepKey="checkTax"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckOnlySubtotal">
+        <arguments>
+            <argument name="oneStepCheckoutData"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadTotals"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheck"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.CartSubtotal}}"
+             userInput="{{oneStepCheckoutData.cartSubtotal}}" stepKey="checkSubtotalPrice"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckSubtotalAndTax" extends="StorefrontOSCCheckOnlySubtotal">
+        <arguments>
+            <argument name="oneStepCheckoutData"/>
+        </arguments>
+        <see selector="{{StorefrontOneStepCheckoutSection.Tax}}"
+             userInput="{{oneStepCheckoutData.tax}}" stepKey="checkTax"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDiscount">
+        <arguments>
+            <argument name="oneStepCheckoutData"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadTotals"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheck"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.Discount}}"
+             userInput="{{oneStepCheckoutData.discount}}" stepKey="checkDiscount"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveGiftMessageCheckbox">
+        <waitForPageLoad stepKey="waitForPageLoadCheckbox"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadCheckbox"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.AddGiftMessageCheckbox}}"
+                    stepKey="checkHaveCheckBoxAddMessage"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckGiftMessageBase">
+        <waitForPageLoad stepKey="waitForPageLoadGiftMessage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadGiftMessage"/>
+        <uncheckOption selector="{{StorefrontOneStepCheckoutSection.AddGiftMessageCheckbox}}"
+                       stepKey="uncheckBoxAddMessage"/>
+        <checkOption selector="{{StorefrontOneStepCheckoutSection.AddGiftMessageCheckbox}}"
+                       stepKey="checkBoxAddMessage"/>
+        <waitForPageLoad stepKey="waitForPopup"/>
+        <waitForAjaxLoad stepKey="waitForAjaxAfterOpenPopup"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveGiftMessageForOrder" extends="StorefrontOSCCheckGiftMessageBase">
+        <waitForPageLoad stepKey="waitForLoadPopUp"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.GiftMessageOrder}}"
+                    stepKey="seeGiftMessageOnOrder"/>
+        <click selector="{{StorefrontOneStepCheckoutSection.GiftMessageClose}}"
+               stepKey="closePopUpMessage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxAfterClosePopUp"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckNoGiftMessageForOrder" extends="StorefrontOSCCheckGiftMessageBase">
+        <waitForPageLoad stepKey="waitForLoadPopUp"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.GiftMessageOrder}}"
+                    stepKey="dontSeeGiftMessageOnOrder"/>
+        <click selector="{{StorefrontOneStepCheckoutSection.GiftMessageClose}}"
+               stepKey="closePopUpMessage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxAfterClosePopUp"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveGiftMessageForItems" extends="StorefrontOSCCheckGiftMessageBase">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForLoadPopUp"/>
+        <seeElement selector="{{AdminOpenOrder.GiftMessageForItem(product.name)}}"
+                    stepKey="seeGiftMessageOnItem"/>
+        <click selector="{{StorefrontOneStepCheckoutSection.GiftMessageClose}}"
+               stepKey="waitForAjaxAfterClosePopUp"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoGiftMessageForItems" extends="StorefrontOSCCheckGiftMessageBase">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForLoadPopUp"/>
+        <dontSeeElement selector="{{AdminOpenOrder.GiftMessageForItem(product.name)}}"
+                        stepKey="seeGiftMessageOnItem"/>
+        <click selector="{{StorefrontOneStepCheckoutSection.GiftMessageClose}}"
+               stepKey="waitForAjaxAfterClosePopUp"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckGiftMessageForOrderInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="OSCGiftMessageOrderData"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="{{AdminOpenOrder.GiftOptionOrderTab}}" stepKey="checkHaveGiftOption"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionOrderFrom}}"
+             userInput="{{OSCGiftMessageOrderData.messageFrom}}"
+             stepKey="checkMessageOrderFrom"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionOrderTo}}"
+             userInput="{{OSCGiftMessageOrderData.messageTo}}"
+             stepKey="checkMessageOrderTo"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionOrderMessage}}"
+             userInput="{{OSCGiftMessageOrderData.messageMessage}}"
+             stepKey="checkMessageOrderMessage"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckGiftMessageForItemInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="OSCGiftMessageForItemData"/>
+            <argument name="product"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="{{AdminOpenOrder.GiftProductOption(product.sku)}}"
+                    stepKey="CheckHaveGiftOptions"/>
+        <click selector="{{AdminOpenOrder.GiftProductOption(product.sku)}}"
+               stepKey="OpenGiftMessage"/>
+        <waitForPageLoad stepKey="waitForPopUp"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionItemFrom}}"
+                    userInput="{{OSCGiftMessageForItemData.messageFrom}}"
+                    stepKey="checkMessageOrderFrom"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionItemTo}}"
+                    userInput="{{OSCGiftMessageForItemData.messageTo}}"
+                    stepKey="checkMessageOrderTo"/>
+        <seeInField selector="{{AdminOpenOrder.GiftOptionItemMessage}}"
+                    userInput="{{OSCGiftMessageForItemData.messageMessage}}"
+                    stepKey="checkMessageOrderMessage"/>
+        <click selector="{{AdminOpenOrder.GiftOptionItemConfirm}}"
+               stepKey="ConfirmOptions"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckHaveGiftWrapCheckbox">
+        <arguments>
+            <argument name="giftWrapFee"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadGiftWrapCheckbox"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadGiftWrapCheckbox"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.GiftWrapCheckbox}}"
+                    stepKey="checkHaveCheckBoxGiftWrap"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.GiftWrapValue(giftWrapFee)}}"
+                    stepKey="checkValueGiftWrap"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckGiftWrapInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="giftWrapFee"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <see selector="{{AdminOpenOrder.GiftWrap}}" userInput="{{giftWrapFee}}" stepKey="checkHaveGiftWrap"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckDiscountInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="discount"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <see selector="{{AdminOpenOrder.Discount}}" userInput="{{discount}}" stepKey="checkHaveDiscount"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckQtyProductInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="product"/>
+            <argument name="valueQty"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <see selector="{{AdminOpenOrder.ProductQtyValue(product.sku)}}"
+             userInput="{{valueQty.qty}}" stepKey="checkHaveQty"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckConfigProductOptionInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="optionValue"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="{{AdminOpenOrder.ProductAttributeOptions(optionValue)}}" stepKey="checkHaveDiscount"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckPriceShipping">
+        <arguments>
+            <argument name="shippingPrices"/>
+            <argument name="shippingMethodsOnCheckout"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadTotals"/>
+        <waitForElementNotVisible selector="{{FrontCartSection.CartTotalLoader}}" stepKey="waitWhenNotVisibleLoaderTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadShipping"/>
+        <wait time="3" stepKey="waitForLoadShipping"/>
+        <see selector="//input[contains(@value, '{{shippingMethodsOnCheckout.shippingMethodsNameOnCheckout}}')]/parent::td/following-sibling::td/span/span[@class='price']"
+             userInput="{{shippingPrices}}" stepKey="checkFreeShipping"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckPlaceOrderButtonBelowPayment">
+        <arguments>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadPaymentMethods"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadPaymentMethods"/>
+        <conditionalClick selector="//input[@value='{{paymentMethods.paymentValue}}']"
+                          dependentSelector="//div[contains(@class, 'active')]//label[@for='{{paymentMethods.paymentValue}}']"
+                          visible="false" stepKey="choosePaymentMethod" />
+        <waitForPageLoad stepKey="waitForPageLoadAfterChooseMethod"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterChooseMethod"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.PlaceOrderAfterPayment}}"
+                        stepKey="dontSeeGiftMessageOnOrder"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckHaveOrderCommentField">
+        <waitForPageLoad stepKey="waitForPageLoadComment"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadComment"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OrderComment}}"
+                    stepKey="checkHaveOrderCommentField"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveCommentOnSuccessPageAndInCustomerAccount">
+        <arguments>
+            <argument name="comment"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadComment"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadComment"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OrderCommentSuccessPage}}"
+             userInput="{{comment}}"
+             stepKey="checkHaveOrderCommentOnSuccessPage"/>
+        <click selector="{{SuccessPageSection.OrderNumberCustomerAccount}}" stepKey="openOrderInCustomerAccount"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheckComment"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadBeforeCheckComment"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OrderCommentInCustomerAccount}}"
+             userInput="{{comment}}"
+             stepKey="CheckOrderCommentInCustomerAccount"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckOrderCommentInLastOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="commentInAdminOrder"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <click selector="{{AdminOpenOrder.CommentHistoryTab}}" stepKey="OpenCommentHistory"/>
+        <waitForPageLoad stepKey="waitForOpenPageComment"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadComment"/>
+        <seeElement selector="{{AdminOpenOrder.CommentValue(commentInAdminOrder)}}"
+                    stepKey="CheckHaveCommentInOrder"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckShippingAddressInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="shippingAddress"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.firstName}}')]"
+                    stepKey="CheckFirstName"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.lastName}}')]"
+                    stepKey="CheckLastName"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.street}}')]"
+                    stepKey="CheckStreet"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.city}}')]"
+                    stepKey="CheckCity"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.postcode}}')]"
+                    stepKey="CheckPostcode"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.telephone}}')]"
+                    stepKey="CheckTelephone"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.region}}')]"
+                    stepKey="CheckRegion"/>
+        <seeElement selector="//div[contains(@class,'shipping')]//address[contains(string(),'{{shippingAddress.country}}')]"
+                    stepKey="CheckCountry"/>
+    </actionGroup>
+
+
+    <actionGroup name="AdminCheckBillingAddressInOrder" extends="AdminOpenOrderOnId">
+        <arguments>
+            <argument name="billingAddress"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenOrder"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.firstName}}')]"
+                    stepKey="CheckFirstName"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.lastName}}')]"
+                    stepKey="CheckLastName"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.street}}')]"
+                    stepKey="CheckStreet"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.city}}')]"
+                    stepKey="CheckCity"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.postcode}}')]"
+                    stepKey="CheckPostcode"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.telephone}}')]"
+                    stepKey="CheckTelephone"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.region}}')]"
+                    stepKey="CheckRegion"/>
+        <seeElement selector="//div[contains(@class,'billing')]//address[contains(string(),'{{billingAddress.country}}')]"
+                    stepKey="CheckCountry"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveConditionBelowOrder">
+        <arguments>
+            <argument name="conditionCheckboxText"/>
+            <argument name="conditionContent"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadCondition"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadCondition"/>
+        <seeElement selector="//div[@class='amcheckout-additional-options additional-options']//span[contains(string(), '{{conditionCheckboxText}}')]"
+                    stepKey="checkHaveConditionBelowOrder"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.TermsAndConditionCheckboxBelowOrder}}"
+                    stepKey="checkHaveCheckboxBelowOrder"/>
+        <click selector="//div[@class='amcheckout-additional-options additional-options']//span[contains(string(), '{{conditionCheckboxText}}')]"
+               stepKey="openContentCondition"/>
+        <waitForPageLoad stepKey="waitForPageLoadPopup"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadPopup"/>
+        <seeElement selector="//aside[contains(@class, 'show')]//div[@class='checkout-agreements-item-content'][contains(string(), '{{conditionContent}}')]"
+                    stepKey="CheckHaveContent"/>
+       <click selector="{{StorefrontOneStepCheckoutSection.TermsAndConditionContentClose}}" stepKey="ClosePopup"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckHaveConditionBelowPayment">
+        <arguments>
+            <argument name="conditionCheckboxText"/>
+            <argument name="conditionContent"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadPaymentMethods"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadPaymentMethods"/>
+        <conditionalClick selector="//input[@value='{{paymentCheckMoneyOrder.paymentValue}}']"
+                          dependentSelector="//div[contains(@class, 'active')]//label[@for='{{paymentCheckMoneyOrder.paymentValue}}']"
+                          visible="false" stepKey="choosePaymentMethod" />
+        <waitForPageLoad stepKey="waitForPageLoadCondition"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadCondition"/>
+        <seeElement selector="//div[contains(@class, 'active')]//div[@class='payment-method-content']//span[contains(string(), '{{conditionCheckboxText}}')]"
+                    stepKey="checkHaveConditionBelowOrder"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.TermsAndConditionCheckboxBelowPayment}}"
+                    stepKey="checkHaveCheckboxBelowOrder"/>
+        <click selector="//div[contains(@class, 'active')]//div[@class='payment-method-content']//span[contains(string(), '{{conditionCheckboxText}}')]"
+               stepKey="openContentCondition"/>
+        <waitForPageLoad stepKey="waitForPageLoadPopup"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadPopup"/>
+        <seeElement selector="//aside[contains(@class, 'show')]//div[@class='checkout-agreements-item-content'][contains(string(), '{{conditionContent}}')]"
+                    stepKey="CheckHaveContent"/>
+        <click selector="{{StorefrontOneStepCheckoutSection.TermsAndConditionContentClose}}" stepKey="ClosePopup"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckDisableOneStepCheckout" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOSC"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOSC"/>
+        <seeElementInDOM selector="{{StorefrontOneStepCheckoutSection.AmastyOneStepCheckoutDisable}}" stepKey="CheckInPageSource"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckEnableOneStepCheckout" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOSC"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOSC"/>
+        <seeElementInDOM selector="{{StorefrontOneStepCheckoutSection.AmastyOneStepCheckout}}" stepKey="checkEnableCheckout"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDefaultValues">
+        <arguments>
+            <argument name="adminSettingOSCDefaultValues"/>
+            <argument name="shippingMethodsOnCheckout"/>
+            <argument name="paymentMethods"/>
+        </arguments>
+        <amOnPage url="{{OneStepCheckoutPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad stepKey="waitForPageLoadOSC"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOSC"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultCity"/>
+        <seeInField selector="{{StorefrontOneStepCheckoutSection.City}}"
+                    userInput="{{adminSettingOSCDefaultValues.DefaultCity}}" stepKey="checkDefaultCity"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultCountry"/>
+        <seeInField selector="{{StorefrontOneStepCheckoutSection.SelectCountry}}"
+                    userInput="{{adminSettingOSCDefaultValues.DefaultCountry}}" stepKey="checkDefaultCountry"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultRegion"/>
+        <seeInField selector="{{StorefrontOneStepCheckoutSection.SelectRegion}}"
+                    userInput="{{adminSettingOSCDefaultValues.DefaultRegion}}" stepKey="checkDefaultRegion"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultPostalCode"/>
+        <seeInField selector="{{StorefrontOneStepCheckoutSection.Postcode}}"
+                    userInput="{{adminSettingOSCDefaultValues.DefaultPostalCode}}" stepKey="checkDefaultPostalCode"/>
+        <waitForPageLoad stepKey="waitForPageLoadShippingMethod"/>
+        <seeCheckboxIsChecked selector="{{StorefrontOneStepCheckoutSection.ShippingMethodCheckbox}}"
+                              stepKey="checkShippingMethods"/>
+        <waitForPageLoad stepKey="waitForPageLoadPaymentMethod"/>
+        <seeOptionIsSelected selector="{{StorefrontOneStepCheckoutSection.PaymentMethodCheckbox}}"
+                             userInput="{{paymentMethods.paymentValue}}"  stepKey="checkHavePaymentMethod"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoDefaultValues">
+        <arguments>
+            <argument name="shippingMethodsOnCheckout"/>
+            <argument name="adminSettingOSCDefaultValues"/>
+        </arguments>
+        <amOnPage url="{{OneStepCheckoutPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad stepKey="waitForPageLoadOSC"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOSC"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultCountry"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.SelectCountryUS}}" stepKey="checkNoDefaultCountry"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultRegion"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.SelectRegionNoValue}}"
+                    stepKey="checkNoDefaultRegion"/>
+        <waitForPageLoad stepKey="waitForPageLoadCity"/>
+        <dontSeeInField selector="{{StorefrontOneStepCheckoutSection.City}}"
+                        userInput="{{adminSettingOSCDefaultValues.DefaultCity}}"
+                        stepKey="checkNoDefaultCity"/>
+        <waitForPageLoad stepKey="waitForPageLoadDefaultPostalCode"/>
+        <dontSeeInField selector="{{StorefrontOneStepCheckoutSection.Postcode}}"
+                        userInput="{{adminSettingOSCDefaultValues.DefaultPostalCode}}"
+                        stepKey="checkNoDefaultPostalCode"/>
+        <waitForPageLoad stepKey="waitForPageLoadFirstShippingMethod"/>
+        <dontSeeOptionIsSelected selector="{{StorefrontOneStepCheckoutSection.ShippingMethodCheckbox}}"
+                                 userInput="{{shippingMethodsOnCheckout.shippingMethodsNameOnCheckout}}"
+                                 stepKey="checkFirstShippingMethods"/>
+        <waitForPageLoad stepKey="waitForPageLoadSecondShippingMethod"/>
+        <dontSeeOptionIsSelected selector="{{StorefrontOneStepCheckoutSection.PaymentMethodCheckbox}}"
+                                 userInput="{{shippingMethodsOnCheckout.shippingMethodsNameOnCheckout}}"
+                                 stepKey="checkSecondShippingMethods"/>
+        <waitForPageLoad stepKey="waitForPageLoadPaymentMethod"/>
+        <seeCheckboxIsChecked selector="{{StorefrontOneStepCheckoutSection.PaymentAsShippingCheckbox}}"
+                              stepKey="checkHavePaymentMethod"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckHaveTitleAndDescription" extends="GoToOSCFromCart">
+        <arguments>
+            <argument name="title"/>
+            <argument name="description"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckTitleAndDescription"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OSCTitle}}" userInput="{{title}}"
+                    stepKey="checkTitle"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OSCDescription}}" userInput="{{description}}"
+                    stepKey="checkDescription"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoTitleAndHaveDescription" extends="GoToOSCFromCart">
+        <arguments>
+            <argument name="description"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckTitleAndDescription"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCTitle}}"
+                        stepKey="checkNoTitle"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OSCDescription}}" userInput="{{description}}"
+                    stepKey="checkDescription"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoDescriptionAndHaveTitle" extends="GoToOSCFromCart">
+        <arguments>
+            <argument name="title"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckTitleAndDescription"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.OSCTitle}}" userInput="{{title}}"
+                    stepKey="checkTitle"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCDescription}}"
+                        stepKey="checkNoDescription"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoTitleAndDescription" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckTitleAndDescription"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCTitle}}"
+                        stepKey="checkNoTitle"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCDescription}}"
+                        stepKey="checkNoDescription"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDesignClassicTwoColumns" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignClassicTwoColumn}}"
+                    stepKey="checkOSCHaveClassic2ColumnsDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignHaveTwoColumn}}"
+                    stepKey="checkOSCHave2Columns"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignFirstColumn}}"
+                    stepKey="checkOSCHaveFirstColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignSecondColumn}}"
+                    stepKey="checkOSCHaveSecondColumn"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.DesignThirdColumn}}"
+                        stepKey="checkOSCNoThirdColumn"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckDesignClassicThreeColumns" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignClassicThreeColumn}}"
+                    stepKey="checkOSCHaveClassic3ColumnsDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignHaveThreeColumn}}"
+                    stepKey="checkOSCHave3Columns"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignFirstColumn}}"
+                    stepKey="checkOSCHaveFirstColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignSecondColumn}}"
+                    stepKey="checkOSCHaveSecondColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignThirdColumn}}"
+                        stepKey="checkOSCHaveThirdColumn"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.DesignFourColumn}}"
+                        stepKey="checkOSCNoFourColumn"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDesignModernOneColumn" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignModernOneColumn}}"
+                    stepKey="checkOSCHaveModern1ColumnDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignHaveModernOneColumn}}"
+                    stepKey="checkOSCHave1Columns"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockShippingAddress}}"
+                    stepKey="checkOSCHaveShippingAddressFieldsBlock"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockShippingMethods}}"
+                    stepKey="checkOSCHaveShippingAddressMethodsBlock"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockPaymentMethods}}"
+                    stepKey="checkOSCHavePaymentMethodsBlock"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockInCart}}"
+                        stepKey="checkOSCOrderSummaryContentBlock"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDesignModernTwoColumns" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignModernTwoColumn}}"
+                    stepKey="checkOSCHaveModern2ColumnDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignHaveModernTwoColumn}}"
+                    stepKey="checkOSCHave2Columns"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockMain}}"
+                    stepKey="checkOSCHaveFirstMainColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernBlockSidebar}}"
+                    stepKey="checkOSCHaveSecondSidebarColumn"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckDesignModernThreeColumns" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <waitForPageLoad stepKey="waitForPageLoadForCheckDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignModernThreeColumn}}"
+                    stepKey="checkOSCHaveModern3ColumnDesign"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.DesignHaveModernThreeColumn}}"
+                    stepKey="checkOSCHave3Columns"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernDesignFirstColumn}}"
+                    stepKey="checkOSCHaveFirstColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernDesignSecondColumn}}"
+                    stepKey="checkOSCHaveSecondColumn"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.ModernDesignThirdColumn}}"
+                    stepKey="checkOSCHaveThirdColumn"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.ModernDesignFourColumn}}"
+                    stepKey="checkOSCNoFourColumn"/>
+    </actionGroup>
+
+
+    <actionGroup name="StorefrontOSCCheckBlockNames" extends="GoToOSCFromCart">
+        <arguments>
+            <argument name="blockNames"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.BlockNameShippingAddress}}"
+             userInput="{{blockNames.ShippingAddress}}"
+             stepKey="checkBlockShippingAddress"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.BlockNameShippingMethods}}"
+             userInput="{{blockNames.ShippingMethod}}"
+             stepKey="checkBlockShippingMethod"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.BlockNamePaymentMethods}}"
+             userInput="{{blockNames.PaymentMethod}}"
+             stepKey="checkBlockPaymentMethod"/>
+        <see selector="{{StorefrontOneStepCheckoutSection.BlockNameOrderTotal}}"
+             userInput="{{blockNames.OrderSummary}}"
+             stepKey="checkBlockOrderSummary"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckHaveHeaderAndFooter" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeader}}"
+                    stepKey="checkHeader"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeaderLogo}}"
+                    stepKey="checkHeaderLogo"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeaderMinicart}}"
+                    stepKey="checkHeaderMinicart"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeaderSearch}}"
+                    stepKey="checkHeaderSearch"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooter}}"
+                    stepKey="checkFooter"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooterBlockNewsletter}}"
+                    stepKey="checkFooterBlockNewsletter"/>
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooterBlockSearchTerms}}"
+                    stepKey="checkFooterBlockSearchTerms"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckNoHeaderAndFooter" extends="GoToOSCFromCart">
+        <waitForPageLoad stepKey="waitForPageLoadOneStepCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadOneStepCheckout"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeader}}"
+                    stepKey="checkHeader"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeaderMinicart}}"
+                    stepKey="checkHeaderMinicart"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCHeaderSearch}}"
+                    stepKey="checkHeaderSearch"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooter}}"
+                    stepKey="checkFooter"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooterBlockNewsletter}}"
+                    stepKey="checkFooterBlockNewsletter"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooterBlockAboutAs}}"
+                    stepKey="checkFooterBlockAboutAs"/>
+        <dontSeeElement selector="{{StorefrontOneStepCheckoutSection.OSCFooterBlockSearchTerms}}"
+                    stepKey="checkFooterBlockSearchTerms"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckCheckoutAnalytics">
+        <arguments>
+            <argument name="store"/>
+        </arguments>
+        <amOnPage url="{{AdminCheckoutAnalyticsPage.url}}" stepKey="navigateAdminToCheckoutAnalytics"/>
+        <selectOption selector="{{AdminCheckoutAnalyticsSection.StoreView}}"
+                      userInput="{{store.name}}"
+                      stepKey="setStoreView"/>
+        <click selector="{{AdminCheckoutAnalyticsSection.Refresh}}" stepKey="refreshAnalyticsPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterRefresh"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckSectionsCheckoutAnalytics">
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.FormCompletionRateOfShippingAddress}}" stepKey="checkForm"/>
+        <scrollTo selector="{{AdminCheckoutAnalyticsSection.CustomerInformationAndShippingAddressTab}}" stepKey="scrollToCustomerInformationTab" />
+        <conditionalClick stepKey="openCustomerInformationAndShippingAddressTab"
+                          selector="{{AdminCheckoutAnalyticsSection.CustomerInformationAndShippingAddressTab}}"
+                          dependentSelector="{{AdminCheckoutAnalyticsSection.CustomerInformationAndShippingAddressTabOpen}}"
+                          visible="false"/>
+        <waitForElementVisible selector="{{AdminCheckoutAnalyticsSection.CustomerInformationGrid}}" stepKey="waitCustomerGrid"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.CustomerEmailCompletionRate}}" stepKey="checkEmail"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.LastNameCompletionRate}}" stepKey="checkLastName"/>
+        <scrollTo selector="{{AdminCheckoutAnalyticsSection.BillingAddressTab}}" stepKey="scrollToBillingTab" />
+        <conditionalClick stepKey="openBillingAddressTab"
+                          selector="{{AdminCheckoutAnalyticsSection.BillingAddressTab}}"
+                          dependentSelector="{{AdminCheckoutAnalyticsSection.BillingAddressTabOpen}}"
+                          visible="false"/>
+        <waitForElementVisible selector="{{AdminCheckoutAnalyticsSection.BillingAddressGrid}}" stepKey="waitBillingGrid"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.CityCompletionRate}}" stepKey="checkCity"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.PhoneNumberCompletionRate}}" stepKey="checkPhoneNumber"/>
+        <scrollTo selector="{{AdminCheckoutAnalyticsSection.ShippingMethodTab}}" stepKey="scrollToShippingTab" />
+        <conditionalClick stepKey="openShippingMethodTab"
+                          selector="{{AdminCheckoutAnalyticsSection.ShippingMethodTab}}"
+                          dependentSelector="{{AdminCheckoutAnalyticsSection.ShippingMethodTabOpen}}"
+                          visible="false"/>
+        <waitForElementVisible selector="{{AdminCheckoutAnalyticsSection.ShippingMethodGrid}}" stepKey="waitShippingMethodGrid"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.ShippingMethodCompletionRate}}" stepKey="checkShippingMethod"/>
+        <scrollTo selector="{{AdminCheckoutAnalyticsSection.DeliveryDateTab}}" stepKey="scrollToDeliveryTab" />
+        <conditionalClick stepKey="openDeliveryDateTab"
+                          selector="{{AdminCheckoutAnalyticsSection.DeliveryDateTab}}"
+                          dependentSelector="{{AdminCheckoutAnalyticsSection.DeliveryDateTabOpen}}"
+                          visible="false"/>
+        <waitForElementVisible selector="{{AdminCheckoutAnalyticsSection.DeliveryDateGrid}}" stepKey="waitDeliveryGrid"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.DeliveryDateCompletionRate}}" stepKey="checkDeliveryDate"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.DeliveryCommentCompletionRate}}" stepKey="checkDeliveryComment"/>
+        <scrollTo selector="{{AdminCheckoutAnalyticsSection.PaymentMethodTab}}" stepKey="scrollToPaymentTab" />
+        <conditionalClick stepKey="openPaymentMethodTab"
+                          selector="{{AdminCheckoutAnalyticsSection.PaymentMethodTab}}"
+                          dependentSelector="{{AdminCheckoutAnalyticsSection.PaymentMethodTabOpen}}"
+                          visible="false"/>
+        <waitForElementVisible selector="{{AdminCheckoutAnalyticsSection.PaymentMethodGrid}}" stepKey="waitPaymentGrid"/>
+        <seeElement selector="{{AdminCheckoutAnalyticsSection.PaymentMethodCompletionRate}}" stepKey="checkPayment"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckSignIn">
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.SignInFromSuccessPage}}" stepKey="checkSignIn"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckRegistrationLetter" extends="StorefrontOSCCheckSignIn">
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.RegistrationLetter}}" stepKey="checkRegistrationLetter"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckCreateCustomer">
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.WelcomeMessage}}" stepKey="checkMessage"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOSCCheckAccountCheckboxWithCheckMoneyCreateOrder" extends="StorefrontOSCPlaceOrderBelowOrderWithCheckMoney">
+        <seeElement selector="{{StorefrontOneStepCheckoutSection.CheckboxCreateAccount}}" stepKey="seeCheckbox" after="waitForAjaxLoadWithPayment"/>
+    </actionGroup>
+
+</actionGroups>

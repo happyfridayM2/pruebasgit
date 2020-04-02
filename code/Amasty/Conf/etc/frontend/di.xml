@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Conf
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Swatches\Block\LayeredNavigation\RenderLayered">
+        <plugin name="Amasty_Conf:add_group_option" type="Amasty\Conf\Plugin\Swatches\Block\LayeredNavigation\RenderLayered" />
+    </type>
+
+    <type name="Magento\Catalog\Helper\Product\View">
+        <plugin name="Amasty_Conf:add_system_config" type="Amasty\Conf\Plugin\Catalog\Helper\Product\View" />
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Plugin\Model\ResourceModel\Attribute\InStockOptionSelectBuilder">
+        <plugin name="Amasty_Conf::disable-stock-filter"
+                type="Amasty\Conf\Plugin\ConfigurableProduct\Model\ResourceModel\Attribute\InStockOptionSelectBuilder"/>
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_Conf::ListProduct_Flipper" type="Amasty\Conf\Plugin\Catalog\Product\ListProduct"/>
+    </type>
+
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="Amasty_Conf::Search_Flipper" type="Amasty\Conf\Plugin\CatalogSearch\Block\Result"/>
+    </type>
+
+    <type name="Magento\CatalogSearch\Block\Advanced\Result">
+        <plugin name="Amasty_Conf::Advanced_Search_Flipper" type="Amasty\Conf\Plugin\CatalogSearch\Block\Result"/>
+    </type>
+
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="Amasty_Conf::matrix_add_to_cart" type="Amasty\Conf\Plugin\Checkout\Model\Cart"/>
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="Amasty_Conf::preselect_simple_image" type="Amasty\Conf\Plugin\Catalog\Product\AbstractProduct" />
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Amasty_Conf::show_out_of_stock"
+                type="Amasty\Conf\Plugin\ConfigurableProduct\Block\Product\View\Type\Configurable"/>
+    </type>
+
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_Conf::make-css" type="Amasty\Conf\Plugin\View\Page\Config\Renderer" />
+    </type>
+
+    <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute" type="Amasty\Conf\Model\Layer\Filter\Attribute"/>
+</config>

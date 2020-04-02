@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="CategoriesSection">
+        <element name="UploadThumbnail" type="block"
+                 selector="//div[@class='file-uploader']/div[@class='file-uploader-area']/input[@name='thumbnail']"/>
+        <element name="DeleteThumbnail" type="button"
+                 selector="//*[@type='button'][contains(string(), 'Delete image')]"/>
+
+        <element name="UploadCategoryImg" type="button"
+                 selector="//div[@class='file-uploader image-uploader']/div[@class='file-uploader-area']/input[@name='image']"/>
+        <element name="DeleteCategoryImg" type="button" selector="//*[@class='action-remove'][@title='Delete image']"/>
+        <element name="Description" type="text" selector="#category_form_description"/>
+        <element name="AddCMSBlock" type="text" selector="//*[@class='admin__control-select'][@name='landing_page']"/>
+
+        <element name="CategorySettingsTab" type="button"
+                 selector="//*[@class='admin__collapsible-title']//span[contains(string(),'{{var1}}')]"
+                 parameterized="true"/>
+        <element name="CatMetaTitle" type="text" selector="//input[@class='admin__control-text'][@name='meta_title']"/>
+        <element name="MetaKeywords" type="text"
+                 selector="//*[@class='admin__control-textarea'][@name='meta_keywords']"/>
+        <element name="MetaDescription" type="text"
+                 selector="//*[@class='admin__control-textarea'][@name='meta_description']"/>
+        <element name="Save" type="button" selector="#save"/>
+
+        <element name="AnchorCategoryToggle" type="checkbox"
+                 selector="//*[@name='is_anchor']/following::*[@class='admin__actions-switch-label']"/>
+        <element name="AnchorCategoryToggleEnabled" type="checkbox"
+                 selector="//*[@name='is_anchor'][@value='1']/following::*[@class='admin__actions-switch-label']"/>
+
+        <element name="CategoryContentCheckbox" type="checkbox"
+                 selector="(//div[@class='admin__field _disabled' or @class='admin__field'][contains(string(), '{{var1}}')]//input[@class='admin__control-checkbox'])[last()]"
+                 parameterized="true"/>
+
+    </section>
+
+</sections>
+

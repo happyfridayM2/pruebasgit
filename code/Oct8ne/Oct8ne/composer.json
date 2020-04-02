@@ -1,0 +1,28 @@
+{
+  "name": "oct8ne/oct8ne",
+  "description": "A Magento 2 Oct8ne connector",
+  "type": "magento2-module",
+  "version": "1.0.3",
+  "license": [
+    "SAAS"
+  ],
+  "authors": [
+    {
+      "name": "Oct8ne",
+      "email": "contact@oct8ne.com",
+      "homepage": "https://www.oct8ne.com",
+      "role": "Leader"
+    }
+  ],
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0"
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+
+      "Oct8ne\\Oct8ne\\": ""
+
+    }
+  }
+}

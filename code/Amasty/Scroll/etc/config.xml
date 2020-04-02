@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Scroll
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_scroll>
+            <general>
+                <loading><![CDATA[auto]]></loading>
+                <num_pages_before_button>3</num_pages_before_button>
+                <page_numbers>1</page_numbers>
+                <loading_icon><![CDATA[Amasty_Scroll::images/amscroll-scroll.gif]]></loading_icon>
+            </general>
+            <button>
+                <label_before><![CDATA[Load previous]]></label_before>
+                <label_after><![CDATA[Load next]]></label_after>
+                <styles><![CDATA[background: #3A4F62;]]></styles>
+            </button>
+            <info>
+                <enabled><![CDATA[1]]></enabled>
+                <styles><![CDATA[background: #3A4F62;]]></styles>
+            </info>
+            <advanced>
+                <product_container_group>.products.products-grid, .products.products-list, .products-grid.grid</product_container_group>
+            </advanced>
+        </amasty_scroll>
+    </default>
+</config>

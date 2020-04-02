@@ -1,0 +1,34 @@
+<?php
+/**
+ * @category  Trustedshops
+ * @package   Trustedshops\Trustedshops
+ * @author    Trusted Shops GmbH
+ * @copyright 2016 Trusted Shops GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.trustedshops.de/
+ */
+?>
+<?php /** @var \Trustedshops\Trustedshops\Block\Rating $block */ ?>
+<?php if ($block->isActive()) : ?>
+    <?php if ($block->isExpert()) : ?>
+        <?php /* @noEscape */ echo $block->getCode() ?>
+    <?php else : ?>
+        <script type="text/javascript"
+                src="//widgets.trustedshops.com/reviews/tsSticker/tsProductStickerSummary.js"></script>
+        <script type="text/javascript">
+            var summaryBadge = new productStickerSummary();
+            summaryBadge.showSummary(
+                {
+                    'tsId': '<?php echo $block->escapeHtml($block->getTsId()) ?>',
+                    'sku': ['<?php echo $block->escapeHtml($block->getProductSku(true)) ?>'],
+                    'element': '#ts_product_widget',
+                    'starColor': '<?php echo $block->escapeHtml($block->getStarColor()) ?>',
+                    'starSize': '<?php echo $block->escapeHtml($block->getStarSize()) ?>',
+                    'fontSize': '<?php echo $block->escapeHtml($block->getFontSize()) ?>',
+                    'showRating': true,
+                    'scrollToReviews': false
+                }
+            );
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

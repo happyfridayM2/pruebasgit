@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationDisplayHeaderAndFooter">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Configuration Header And Footer"/>
+            <title value="Check Header And Footer"/>
+            <description value="Check Configuration Display Header And Footer on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-16"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationUIElements"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByOvernightDuffle" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCOptionalUIElements" stepKey="ConfigurationOSCOptionalUIElements">
+                <argument name="adminSettingOSCDesignOptionalUI" value="SetOSCDesignOptionalUIDisplayHeader"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminConfigOSCOptionalUIElements" stepKey="ReturnDefaultOSCOptionalUIElements"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add product to cart-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <!--Check Have Header And Footer-->
+        <actionGroup ref="StorefrontOSCCheckHaveHeaderAndFooter" stepKey="CheckOSCHeaderAndFooter"/>
+        <!--Disable and Check Header And Footer-->
+        <actionGroup ref="AdminConfigOSCOptionalUIElements" stepKey="ConfigurationOSCDesignSetting"/>
+        <actionGroup ref="StorefrontOSCCheckNoHeaderAndFooter" stepKey="CheckOSCNoHeaderAndFooter"/>
+
+    </test>
+</tests>

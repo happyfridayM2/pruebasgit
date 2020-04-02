@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Xnotif
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Amasty\Xnotif\Block\Html\Link\Current"
+                   name="customer-account-navigation-price-subscriptions-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">xnotif/price/index</argument>
+                    <argument name="label" xsi:type="string" translate="true">Price Subscriptions</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current"
+                   name="customer-account-navigation-stock-subscriptions-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">xnotif/stock/index</argument>
+                    <argument name="label" xsi:type="string" translate="true">Back in Stock Subscriptions</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <move element="customer-account-navigation-account-link"
+              destination="customer_account_navigation"
+              before="-"/>
+        <move element="customer-account-navigation-account-edit-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-account-link"/>
+        <move element="customer-account-navigation-address-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-account-edit-link"/>
+        <move element="customer-account-navigation-my-credit-cards"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-address-link"/>
+        <move element="customer-account-navigation-downloadable-products-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-my-credit-cards"/>
+        <move element="customer-account-navigation-orders-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-downloadable-products-link"/>
+        <move element="customer-account-navigation-newsletter-subscriptions-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-orders-link"/>
+        <move element="customer-account-navigation-billing-agreements-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-newsletter-subscriptions-link"/>
+        <move element="customer-account-navigation-product-reviews-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-billing-agreements-link"/>
+        <move element="customer-account-navigation-wish-list-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-product-reviews-link"/>
+        <move element="customer-account-navigation-price-subscriptions-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-wish-list-link"/>
+        <move element="customer-account-navigation-stock-subscriptions-link"
+              destination="customer_account_navigation"
+              after="customer-account-navigation-price-subscriptions-link"/>
+    </body>
+</page>

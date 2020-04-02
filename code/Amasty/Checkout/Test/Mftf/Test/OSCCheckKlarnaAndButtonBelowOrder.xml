@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCCheckKlarnaAndButtonBelowOrder" extends="OSCCheckAuthoriseAndButtonBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Place Order With Klarna via the storefront"/>
+            <title value="Check Place Order with Klarna And Button Below the Order Total on the Checkout"/>
+            <description value="Check Place Order with Klarna And Button Below the Order Total on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-39"/>
+            <group value="OSCCheckExternalPayments"/>
+            <group value="OSCCheckExternalPaymentsKlarna"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleProductByJoustDuffleBag" after="CreateConfigurableProduct" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategoryCreateConfigurableProduct"/>
+            </createData>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createFirstSimpleProduct" after="deleteCategory" stepKey="deleteFirstSimpleProduct"/>
+        </after>
+
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddSecondProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckPaymentMethod" stepKey="checkHavePaymentMethod">
+            <argument name="paymentMethods" value="paymentKlarna"/>
+        </actionGroup>
+         <actionGroup ref="StorefrontOSCCheckTotalsAndShippingPrice" stepKey="checkTotalsAndShipping">
+            <argument name="oneStepCheckoutData" value="OSCCheckKlarnaAndButtonBelowOrder"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithKlarnaGrabNumberGuest" stepKey="PlaceOrderWithKlarna"/>
+        <!-- Check Payment Method and Totals in Admin Area Order-->
+        <actionGroup ref="AdminCheckPaymentInOrder" stepKey="checkPaymentInAdminOrder">
+            <argument name="paymentMethods" value="paymentKlarna"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithKlarna}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTotalsInOrder" stepKey="CheckTotalsInAdminOrder">
+            <argument name="totals" value="OSCCheckKlarnaAndButtonBelowOrder"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderWithKlarna}"/>
+        </actionGroup>
+
+    </test>
+</tests>

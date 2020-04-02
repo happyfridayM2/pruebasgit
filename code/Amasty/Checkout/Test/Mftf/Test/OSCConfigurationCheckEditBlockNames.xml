@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckEditBlockNames">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Configuration Block Names"/>
+            <title value="Check Block Names"/>
+            <description value="Check Configuration Block Names on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-10"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationDesignLayout"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByWayfarerMessenger" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <!-- Login as Admin and Configuration Setting -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCDesignLayoutReOrderBlocks" stepKey="ConfigurationReOrderBlocksBlockName">
+                <argument name="adminSettingOSCDesignLayoutReOrderBlocks" value="SetBlockNamesWithoutDelivery"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data After Test and Return Default Setting -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminDefaultConfigOSCDesignLayoutReOrderBlocks" stepKey="ReturnDefaultBlockNameSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Product to Cart and Check Block Names-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCCheckBlockNames" stepKey="CheckOSCBlockNames">
+            <argument name="blockNames" value="SetBlockNamesWithoutDelivery"/>
+        </actionGroup>
+        <!--Delete and Check Default Block Names-->
+        <actionGroup ref="AdminDefaultConfigOSCDesignLayoutReOrderBlocks" stepKey="ClearFieldBlockNames"/>
+        <actionGroup ref="StorefrontOSCCheckBlockNames" stepKey="CheckOSCDefaultBlockNames">
+            <argument name="blockNames" value="SetIfBlockNamesIsEmpty"/>
+        </actionGroup>
+
+    </test>
+</tests>

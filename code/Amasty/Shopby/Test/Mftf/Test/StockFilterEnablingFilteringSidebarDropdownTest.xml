@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StockFilterEnablingFilteringSidebarDropdownTest"
+          extends="StockFilterEnablingFilteringSidebarLabelsTest">
+
+        <annotations>
+            <features value="Custom filters"/>
+            <stories value="Custom filters checking"/>
+            <title value="Check of stock filter enabling and filtering"/>
+            <description value="Check of stock filter enabling and filtering on sidebar in dropdown display mode"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="ILNSTOCKFILTER-2"/>
+            <group value="Amasty"/>
+            <group value="ILN"/>
+            <group value="ILNregression"/>
+            <group value="stockfilter"/>
+        </annotations>
+
+        <before>
+            <actionGroup stepKey="StockFilterEnabling1"
+                         ref="StockFilterEnablingActionGroup">
+                <argument name="customFilter" value="CustomFilterDropdownSidebar"/>
+                <argument name="customFilter3" value="StockFilterLabel"/>
+            </actionGroup>
+        </before>
+
+        <!--Filter by Stock Filter: expand filter, select Out of Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdown('stock')}}"
+               stepKey="expandStockFilterDropdown1"
+               after="expandStockFilter1"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdown('Stock','3')}}"
+               stepKey="selectStockOption1"/>
+
+        <!--Filter by Stock Filter: expand filter, select In Stock option in dropdown, check the result, remove selected option from state/-->
+
+        <click selector="{{StorefrontFilterElementsSection.FilterInDropdown('stock')}}"
+               stepKey="expandStockFilterDropdown2"
+               after="expandStockFilter2"/>
+        <click selector="{{StorefrontFilterElementsSection.FilterOptionInDropdown('Stock','2')}}"
+               stepKey="selectStockOption2"/>
+
+    </test>
+</tests>
+

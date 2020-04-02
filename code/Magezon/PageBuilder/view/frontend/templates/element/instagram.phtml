@@ -1,0 +1,78 @@
+<?php
+$coreHelper      = $this->helper('\Magezon\Core\Helper\Data');
+$element         = $this->getElement();
+$items           = $this->getItems();
+$title           = $coreHelper->filter($element->getData('title'));
+$titleAlign      = $element->getData('title_align');
+$titleTag        = $element->getData('title_tag') ? $element->getData('title_tag') : 'h2';
+$description     = $coreHelper->filter($element->getData('description'));
+$showLine        = $element->getData('show_line');
+$linePosition    = $element->getData('line_position');
+$onclick         = $element->getData('onclick');
+$linkText        = $element->getData('link_text');
+$hoverEffect     = $element->getData('hover_effect');
+$displayLikes    = $element->getData('display_likes');
+$displayComments = $element->getData('display_comments');
+$linkTarget      = $element->getData('link_target');
+$options         = [];
+$htmlId = $element->getHtmlId();
+$xl = $element->getData('item_xl');
+$lg = $element->getData('item_lg');
+$md = $element->getData('item_md');
+$sm = $element->getData('item_sm');
+$xs = $element->getData('item_xs');
+?>
+<div class="mgz-block">
+	<?php if ($title || $description) { ?>
+	<div class="mgz-block-heading mgz-block-heading-align-<?= $titleAlign ?><?= $showLine ? ' mgz-block-heading-line' : '' ?> mgz-block-heading-line-position-<?= $linePosition ?>">
+		<?php if ($title) { ?>
+			<<?= $titleTag ?> class="title"><?= $title ?></<?= $titleTag ?>>
+		<?php } ?>
+		<?php if ($description) { ?>
+			<div class="info"><?= $description ?></div>
+		<?php } ?>
+	</div>
+	<?php } ?>
+	<div class="mgz-block-content">
+		<div class="mgz-grid <?= $hoverEffect ? 'mgz-image-hovers' : '' ?> <?= ($onclick=='photoswipe') ? 'mgz-photoswipe' : '' ?> mgz-instagram <?= ($onclick == 'magnific') ? 'mgz-magnific-gallery' : '' ?>  mgz-grid-col-xl-<?= $xl ?> mgz-grid-col-lg-<?= $lg ?> mgz-grid-col-md-<?= $md ?> mgz-grid-col-sm-<?= $sm ?> mgz-grid-col-xs-<?= $xs ?>"  <?php if($onclick=='photoswipe') { ?>data-pswp-uid="1"<?php } ?> data-type="gallery">
+			<?php foreach ($items as $item) { ?>
+				<?php
+				$link = $item['link'];
+				if ($onclick == 'magnific' || $onclick == 'photoswipe') {
+					$link = $item['original'];
+				}
+				?>
+				<div class=" mgz-grid-item">
+					<?php if ($onclick) { ?>
+					<a href="<?= $link ?>" class="mgz-flex-position-middle-center <?= $hoverEffect ? 'hover-type-' . $hoverEffect : '' ?>" data-size="<?= $this->getDataSize() ?>" title="<?= $block->escapeHtml($item['caption']) ?>" target="<?= $linkTarget ?>">
+					<?php } ?>
+						<?php if ($displayLikes || $displayComments) { ?>
+						<div class="item-metadata">
+							<?php if ($displayLikes) { ?>
+							<span class="item-likes"><?= $item['likes'] ?></span>
+							<?php } ?>
+							<?php if ($displayComments) { ?>
+							<span class="item-comments"><?= $item['comments'] ?></span>
+							<?php } ?>
+						</div>
+						<?php } ?>
+						<img src="<?= $item['large'] ?>"/>
+						<figure><?= $item['caption'] ?></figure>
+					<?php if ($onclick) { ?>
+					</a>
+					<?php } ?>
+				</div>
+			<?php } ?>
+		</div>
+		<?php if ($linkText) { ?>
+			<a href="<?= $this->getFollowLink() ?>"><?= $linkText ?></a>
+		<?php } ?>
+		<?php if($onclick=='photoswipe') { ?>
+		<script>
+			require(['jquery', 'Magezon_PageBuilder/js/photoswipe'], function($) {
+				$('.<?= $htmlId ?> .mgz-photoswipe').photoswipe(<?= json_encode($options) ?>);
+			});
+		</script>
+		<?php } ?>
+	</div>
+</div>

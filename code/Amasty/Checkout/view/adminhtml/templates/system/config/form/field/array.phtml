@@ -1,0 +1,48 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+?>
+<?php /** @var \Amasty\Checkout\Model\Config\DragAndDrop $block */
+$sortedBlocks = $block->getSortedBlockNames();
+?>
+<table class="admin__control-table amcheckout-sortable-container" data-mage-init='{"amastyDraggableFieldArray": {}}'>
+    <tbody data-role="row-container" id="row-container">
+    <input id="block_management_inherit"
+           name="groups[design][groups][layout][fields][block_management][inherit]"
+           type="text"
+           value="0"
+           hidden>
+    <?php foreach ($sortedBlocks as $sortOrder => $blockInfo): ?>
+        <tr class="amcheckout-sortable"
+            data-amcheckout-js="<?= $block->escapeHtml($blockInfo['block_code']) ?>"
+            data-amcheckout-sortable="true">
+            <td class="col-draggable">
+                <div data-role="draggable-handle" class="draggable-handle" title="Sort Rows"></div>
+            </td>
+            <input data-role="sort-order"
+                   type="hidden"
+                   name="groups[design][groups][layout][fields][<?= $block->escapeHtml($blockInfo['block_code']) ?>][sort_order]"
+                   value="<?= /* @noEscape */$sortOrder ?>"/>
+            <td class="col-blocks">
+                <label for="amasty_checkout_block_names_<?= $block->escapeHtml($blockInfo['block_code']) ?>"
+                       class="am-label">
+                    <span><?= $block->escapeHtml($blockInfo['block_name']) ?></span>
+                </label>
+            </td>
+            <td>
+                <input id="amasty_checkout_design_<?= $block->escapeHtml($blockInfo['block_code']) ?>"
+                       name="groups[design][groups][layout][fields][<?= $block->escapeHtml($blockInfo['block_code']) ?>][value]"
+                       value="<?= $block->escapeHtml($blockInfo['block_value']) ?>"
+                       placeholder="<?= $block->escapeHtml($blockInfo['block_value']) ?>"
+                       class="input-text"
+                       type="text"
+                       data-required="0"
+                       data-meta-field-name="label"/>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

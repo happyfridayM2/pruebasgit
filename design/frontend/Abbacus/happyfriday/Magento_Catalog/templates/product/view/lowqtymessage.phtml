@@ -1,0 +1,14 @@
+<?php
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$_product = $block->getProduct();
+	$productId = $_product->getId();
+	$productStockObj = $objectManager->create('Magento\CatalogInventory\Api\StockRegistryInterface')->getStockItem($productId);
+	$stockItem = $_product->getExtensionAttributes()->getStockItem();
+	//$productStockObj->getData();
+	?>
+<div class="qty-low-message">
+
+	<?php if ($stockItem->getQty() >= 1 && $stockItem->getQty() <= 2) : ?>
+		<p class="last-chance-message"><?= $block->escapeHtml(__('Last chance to get yours!')) ?></p>
+	<?php endif;	?>
+</div>

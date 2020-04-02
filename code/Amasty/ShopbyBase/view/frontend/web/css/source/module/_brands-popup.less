@@ -1,0 +1,137 @@
+//
+//  Shop by Brands Popup
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+@ambrands-popup__width: 600px;
+@ambrands-popup__height: 450px;
+@ambrands-popup-filter-letter__size: 40px;
+@ambrands-popup-filter-letter__color: #333;
+@ambrands-popup-filter__background: #f0f0f0;
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .ambrands-list-popup,
+    .ambrands-menu-item .ambrands-arrow {
+        display: none;
+    }
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .ambrands-list-popup {
+        position: absolute;
+        .lib-css(width, @ambrands-popup__width);
+        .lib-css(height, @ambrands-popup__height);
+        background: #fff;
+        box-shadow: 0 0 1px 1px #ccc;
+        opacity: 0;
+        transition: all .5s ease;
+        pointer-events: none;
+    }
+
+    .ambrands-menu-item:hover .ambrands-list-popup {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .ambrands-list-container {
+        height: 100%;
+        font-size: 0;
+    }
+
+    .ambrands-popup-filter {
+        & {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 27%;
+            height: 100%;
+            padding: 20px;
+            font-size: 0;
+            vertical-align: top;
+            text-align: center;
+            .lib-css(background, @ambrands-popup-filter__background);
+        }
+
+        .ambrands-letter {
+            & {
+                display: inline-block;
+                box-sizing: border-box;
+                .lib-css(width, @ambrands-popup-filter-letter__size);
+                .lib-css(height, @ambrands-popup-filter-letter__size);
+                font-size: 14px;
+                .lib-css(line-height, @ambrands-popup-filter-letter__size);
+                text-align: center;
+                .lib-css(color, @ambrands-popup-filter-letter__color);
+            }
+
+            &:hover {
+                .lib-css(color, @ambrands-popup-filter-letter__color);
+                text-decoration: none;
+                background: #ccc;
+            }
+        }
+
+        .ambrands-letter.-disabled {
+            background-color: #f1f1f1;
+            opacity: .6;
+            pointer-events: none;
+        }
+
+        .ambrands-letter.-active {
+            color: #fff;
+            background: #f58d0f;
+        }
+
+        .ambrands-letter.-letter-all {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    .ambrands-popup-items {
+        & {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 73%;
+            height: 100%;
+            padding: 20px;
+            overflow: auto;
+            font-size: 14px;
+        }
+
+        .brand-images .brands-letter {
+            width: 100%;
+            padding: 0;
+        }
+
+        .brand-item {
+            text-align: center;
+        }
+
+        .brand-item .label:before {
+            content: none;
+        }
+
+        .brand-item .count {
+            .lib-css(transform, translateX(50%), 1);
+        }
+
+        .brand-images .brands-letter .brand-item {
+            margin: 0 20px 20px 0;
+        }
+
+        .letter {
+            margin-bottom: 15px;
+        }
+    }
+}

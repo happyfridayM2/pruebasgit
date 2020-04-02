@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationCheckDontAllowGuestCheckout">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Enable One Step Checkout and Dont Allow Guest Checkout"/>
+            <title value="Check Dont Allow Guest Checkout on the Checkout"/>
+            <description value="Check Dont Allow Guest Checkout on the Checkout"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-04"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationGeneral"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="OSCCustomerArizona" stepKey="createCustomer"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByJoustDuffleBag" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <!-- Login As Admin and Configuration setting -->
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting">
+                <argument name="adminSettingOSCGeneral" value="SetOSCGeneralDontAllowGuestCheckout"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data after Test and Return Default Setting -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminDefaultConfigOSCGeneral" stepKey="ReturnDefaultGeneralSetting"/>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Product to Cart-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddProductToCart">
+            <argument name="valueQty" value="_enterQty2"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <!--Go To Checkout As Guest With Popup-->
+        <actionGroup ref="GoToOSCAsGuestWithPopup" stepKey="LoginWithPopup">
+              <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!--Check Enable Checkout and Place Order-->
+        <actionGroup ref="StorefrontOSCCheckEnableOneStepCheckout" stepKey="checkEnableCheckout"/>
+        <actionGroup ref="GoToOSCAsCustomerDefaultAddressAndChooseShipping" stepKey="OnCheckoutChoseShipping">
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOSCPlaceOrderBelowOrderWithCheckMoney" stepKey="checkPlaceOrder"/>
+
+    </test>
+</tests>

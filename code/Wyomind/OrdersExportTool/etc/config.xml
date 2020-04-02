@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright © 2019 Wyomind. All rights reserved.
+ * See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ordersexporttool>
+            <license>
+                <extension_label>Orders Export Tool</extension_label>
+                <extension_version>8.2.0</extension_version>
+                <extension_code>oet</extension_code>
+                <get_online_license>1</get_online_license>
+            <activation_key>OTRCDJ3TDULIN5WU1</activation_key></license>
+            <settings>
+                <report_title>Orders Export Tool - report </report_title>
+            </settings>
+            <advanced>
+                <enable_log>0</enable_log>
+                <grid>Magento\Sales\Block\Adminhtml\Order\Grid</grid>
+            </advanced>
+            <system>
+                <memory_limit>0</memory_limit>
+                <preview>10</preview>
+                <buffer>10</buffer>
+                <sqlsize>1500</sqlsize>
+                <filters>10</filters>
+            </system>
+        </ordersexporttool>
+    </default>
+</config>

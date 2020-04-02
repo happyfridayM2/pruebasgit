@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Edgar J. Gómez
+ * @copyright Copyright (c) 2017 Edgargomez (http://www.edgargomez.es)
+ * @package Edgargomez_CookieMsg
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <edgargomez_cookiemsg>
+            <general>
+                <enable>1</enable>
+                <block_label>365</block_label>
+                <text_align>center</text_align>
+            </general>
+        </edgargomez_cookiemsg>
+    </default>
+</config>

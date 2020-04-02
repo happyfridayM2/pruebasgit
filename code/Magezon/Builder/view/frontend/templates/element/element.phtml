@@ -1,0 +1,92 @@
+<?php
+$dataHelper = $this->helper('Magezon\Builder\Helper\Data');
+$element    = $block->getElement();
+$block      = $this->getChildElementBlock($element);
+$classes    = $element->getWrapperClasses() ? $element->getWrapperClasses() : [];
+$classes[]  = 'mgz-element';
+$classes[]  = $element->getHtmlId();
+$classes[]  = 'mgz-element-' . $element->getType();
+if ($wrapperClasses = $block->getWrapperClasses()) $classes[] = implode(' ', $wrapperClasses);
+$attrs = '';
+if ($attributes = $block->getElementAttributes()) {
+	foreach ($attributes as $k => $v) {
+		$attrs .= ' ' . $k . '="' . $v . '"';
+	}
+}
+$backgroundImage = $element->getBackgroundImage();
+$backgroundColor = $element->getBackgroundColor();
+$builderElement  = $this->getBuilderElement();
+?>
+<?php if ($block->isEnabled()) { ?>
+	<?php $blockHtml = $block->toHtml() ?>
+	<?php if ((!$blockHtml && $builderElement->getData('resizable')) || $blockHtml) { ?>
+	<div <?= $element->getElId() ? 'id="' . $element->getElId() . '"' : '' ?> class="<?= implode(' ', $classes) ?>" <?= $attrs ?>>
+		<?php if (!$block->getDisableInner()) { ?>
+			<div class="mgz-element-inner <?= implode(' ', $block->getInnerClasses()) ?> <?= $element->getStyleHtmlId() ?>">
+			<?php } ?>
+				<?= $blockHtml ?>
+			<?php if (!$block->getDisableInner()) { ?>
+			</div>
+		<?php } ?>
+		<?php if ($backgroundImage || $backgroundColor || ($element->getBackgroundVideo() && $element->getBackgroundType() == 'yt_vm_video')) { ?>
+			<?php
+			$_id                = $element->getHtmlId();
+			$parallaxType       = $element->getParallaxType();
+			$backgroundType     = $element->getBackgroundType();
+			$backgroundStyle    = $element->getBackgroundStyle();
+			$backgroundPosition = str_replace('-', ' ', $element->getBackgroundPosition());
+
+			$parallaxWrapAttrs['data-background-type'] = $backgroundType;
+			$parallaxWrapAttrs['data-parallax-type']   = $parallaxType;
+			$parallaxWrapClasses                       = [];
+
+			if ($backgroundPosition) $parallaxWrapAttrs['data-parallax-image-background-position'] = $backgroundPosition;
+
+			if ($backgroundType == 'yt_vm_video') {
+				$parallaxWrapAttrs['data-parallax-video']            = $element->getBackgroundVideo();
+				$parallaxWrapAttrs['data-parallax-video-start-time'] = $element->getVideoStartTime();
+				$parallaxWrapAttrs['data-parallax-video-end-time']   = $element->getVideoEndTime();
+
+				if ($element->getVideoVolume()) {
+					$parallaxWrapAttrs['data-parallax-video-volume'] = $element->getVideoVolume();
+				}
+
+		            // video always play.
+				if ($element->getParallaxVideoAlwaysPlay()) {
+					$parallaxWrapAttrs['data-parallax-video-always-play'] = 'true';
+				}
+			}
+
+				// show video on mobile.
+			if ($backgroundType == 'yt_vm_video') {
+				$parallaxWrapAttrs['data-parallax-video-mobile'] = $element->getVideoMobile();
+			}
+
+		        // parallax.
+			if ($parallaxType == 'scroll' || $parallaxType == 'scale' || $parallaxType == 'opacity' || $parallaxType == 'scroll-opacity' || $parallaxType == 'scale-opacity') {
+				$parallaxWrapAttrs['data-parallax-type']   = $parallaxType;
+				$parallaxWrapAttrs['data-parallax-speed']  = $element->getParallaxSpeed();
+				$parallaxWrapAttrs['data-parallax-mobile'] = $element->getParallaxMobile();
+			}
+
+		    // mouse parallax.
+			$mouseParallax = $element->getMouseParallax();
+			if ($mouseParallax) {
+				$parallaxWrapAttrs['data-parallax-mouse-parallax-size']  = $element->getMouseParallaxSize();
+				$parallaxWrapAttrs['data-parallax-mouse-parallax-speed'] = $element->getMouseParallaxSpeed();
+			}
+
+			$parallaxWrapAttributes = '';
+			foreach ($parallaxWrapAttrs as $k => $v) {
+				if ($v) $parallaxWrapAttributes .= ' ' . $k . '="' . $v . '"';
+			}
+			$parallaxWrapClasses[] = 'mgz-parallax';
+			if ($mouseParallax) $parallaxWrapClasses[] = 'mgz-parallax-mouse-parallax';
+			?>
+			<div class="<?= $element->getParallaxId() ?> <?= $element->getStyleHtmlId() ?> <?= implode(' ', $parallaxWrapClasses) ?>" <?= $parallaxWrapAttributes ?>>
+				<div class="mgz-parallax-inner"></div>
+			</div>
+		<?php } ?>
+	</div>
+	<?php } ?>
+<?php } ?>

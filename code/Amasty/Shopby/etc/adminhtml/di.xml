@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Amasty\Shopby\Model\Source\DisplayMode\RatingFilter"
+                 type="Amasty\Shopby\Model\Source\DisplayMode\StockFilter"/>
+
+    <virtualType name="Amasty\Shopby\Model\Source\DisplayMode\NewFilter"
+                 type="Amasty\Shopby\Model\Source\DisplayMode\StockFilter"/>
+
+    <virtualType name="Amasty\Shopby\Model\Source\DisplayMode\OnSaleFilter"
+                 type="Amasty\Shopby\Model\Source\DisplayMode\StockFilter"/>
+
+    <type name="\Magento\Catalog\Model\ResourceModel\Eav\Attribute">
+        <plugin name="Amasty_Shopby::AmshopbyAttributePlugin"
+                type="\Amasty\Shopby\Plugin\Catalog\Model\ResourceModel\Eav\Attribute" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category\DataProvider">
+        <plugin name="Amasty_Shopby::AddAttributesDynamically"
+                type="Amasty\Shopby\Plugin\Catalog\Model\Category\DataProvider"/>
+    </type>
+    <type name="Amasty\Shopby\Controller\Adminhtml\Category\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Magento\Catalog\CategoryImageUpload</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Shopby\Model\Media\ImageProcessor">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">catalog/category</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ShopbyBase\Model\FilterSetting\AttributeConfig">
+        <arguments>
+            <argument name="attributeList" xsi:type="array">
+                <item name="all" xsi:type="boolean">true</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Attribute\Edit\Tabs">
+        <plugin name="Amasty_Shopby::AttributeEditTab"
+                type="Amasty\Shopby\Plugin\Catalog\Block\Adminhtml\Product\Attribute\Edit\Tabs"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category">
+        <plugin name="Amasty_Shopby::CategoryThumbnail"
+                type="Amasty\Shopby\Plugin\Catalog\Model\Category"/>
+    </type>
+    <type name="Magento\Catalog\Model\ImageUploader">
+        <plugin name="Amasty_Shopby::fix_magento_bug_with_image_move"
+                type="Amasty\Shopby\Plugin\Catalog\Model\ImageUploaderPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Model\Category\Attribute\Backend\Image">
+        <plugin name="Amasty_Shopby::fix_magento_bug_with_image_save"
+                type="Amasty\Shopby\Plugin\Catalog\Model\Category\Attribute\Backend\ImagePlugin"/>
+    </type>
+</config>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_ShopbyBase
+ */
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="ruleInformation" type="catalogRule1">
+        <data key="name">Test Catalog Price Rule</data>
+        <data key="is_active">1</data>
+        <data key="website_ids">1</data>
+        <data key="customer_group_ids">0</data>
+    </entity>
+
+    <entity name="ruleCondition1" type="catalogRule2">
+        <data key="conditionSelect">Category</data>
+        <data key="targetInput">4</data>
+    </entity>
+
+    <entity name="ruleActionCondition1" type="catalogRule3">
+        <data key="simple_action">by_percent</data>
+        <data key="discount_amount">10</data>
+    </entity>
+
+</entities>
+
+

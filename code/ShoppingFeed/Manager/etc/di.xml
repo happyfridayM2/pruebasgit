@@ -1,0 +1,452 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="ShoppingFeed\Manager\Model\ShoppingFeed\Api\SessionManager" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\AccountInterface" type="ShoppingFeed\Manager\Model\Account"/>
+    <preference for="ShoppingFeed\Manager\Api\AccountRepositoryInterface" type="ShoppingFeed\Manager\Model\AccountRepository"/>
+    <type name="ShoppingFeed\Manager\Model\Account\Importer" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Account\StoreInterface" type="ShoppingFeed\Manager\Model\Account\Store"/>
+    <preference for="ShoppingFeed\Manager\Api\Account\StoreRepositoryInterface" type="ShoppingFeed\Manager\Model\Account\StoreRepository"/>
+    <type name="ShoppingFeed\Manager\Model\Account\Store\Source" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Feed\ProductInterface" type="ShoppingFeed\Manager\Model\Feed\Product"/>
+    <preference for="ShoppingFeed\Manager\Api\Data\Feed\Product\SectionInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Config\FieldFactoryInterface" type="ShoppingFeed\Manager\Model\Config\FieldFactory"/>
+    <type name="ShoppingFeed\Manager\Model\Config\FieldFactory" shared="true">
+        <arguments>
+            <argument name="typeFactories" xsi:type="array">
+                <item name="category_multi_select" xsi:type="object">ShoppingFeed\Manager\Model\Config\Field\Category\MultiSelectFactory</item>
+                <item name="checkbox" xsi:type="object">ShoppingFeed\Manager\Model\Config\Field\CheckboxFactory</item>
+                <item name="multi_select" xsi:type="object">ShoppingFeed\Manager\Model\Config\Field\MultiSelectFactory</item>
+                <item name="select" xsi:type="object">ShoppingFeed\Manager\Model\Config\Field\SelectFactory</item>
+                <item name="text_box" xsi:type="object">ShoppingFeed\Manager\Model\Config\Field\TextBoxFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Config\Value\HandlerFactoryInterface" type="ShoppingFeed\Manager\Model\Config\Value\HandlerFactory"/>
+    <type name="ShoppingFeed\Manager\Model\Config\Value\HandlerFactory" shared="true">
+        <arguments>
+            <argument name="typeFactories" xsi:type="array">
+                <item name="boolean" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\BooleanFactory</item>
+                <item name="integer" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\IntegerFactory</item>
+                <item name="number" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\NumberFactory</item>
+                <item name="option" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\OptionFactory</item>
+                <item name="positive_integer" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\PositiveIntegerFactory</item>
+                <item name="positive_number" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\PositiveNumberFactory</item>
+                <item name="text" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\TextFactory</item>
+                <item name="email" xsi:type="object">ShoppingFeed\Manager\Model\Config\Value\Handler\EmailFactory</item>
+                <item name="product_attribute" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Value\Handler\AttributeFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Account\Store\ConfigManager" shared="true"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Refresher" shared="true">
+        <arguments>
+            <argument name="appEmulation" xsi:type="object">Magento\Store\Model\App\Emulation\Proxy</argument>
+            <argument name="catalogProductRepository" xsi:type="object">Magento\Catalog\Api\ProductRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\ResourceModel\Feed\Refresher" shared="true"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Exporter" shared="true">
+        <arguments>
+            <argument name="feedDirectory" xsi:type="string">shoppingfeed</argument>
+        </arguments>
+    </type>
+    <type name="ShoppingFeed\Manager\Model\ResourceModel\Feed\Exporter" shared="true"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\RealTimeUpdater" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\TypePoolInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\TypePool"/>
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\TypePool" shared="true">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="stock" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Stock</item>
+                <item name="prices" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Prices</item>
+                <item name="attributes" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Attributes</item>
+                <item name="images" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Images</item>
+                <item name="categories" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Categories</item>
+                <item name="shipping" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Section\Type\Shipping</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\ResourceModel\Feed\Product\Section\Type" shared="true"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Boolean" shared="true">
+        <arguments>
+            <argument name="fullAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Full</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Configurable" shared="true">
+        <arguments>
+            <argument name="fullAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Full</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Renderable" shared="true">
+        <arguments>
+            <argument name="fullAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Full</argument>
+            <argument name="excludedAttributeCodes" xsi:type="array">
+                <item name="attribute_set_id" xsi:type="string">attribute_set_id</item>
+                <item name="category_ids" xsi:type="string">category_ids</item>
+                <item name="created_at" xsi:type="string">created_at</item>
+                <item name="custom_design" xsi:type="string">custom_design</item>
+                <item name="custom_design_from" xsi:type="string">custom_design_from</item>
+                <item name="custom_design_to" xsi:type="string">custom_design_to</item>
+                <item name="custom_layout" xsi:type="string">custom_layout</item>
+                <item name="custom_layout_update" xsi:type="string">custom_layout_update</item>
+                <item name="entity_id" xsi:type="string">entity_id</item>
+                <item name="gallery" xsi:type="string">gallery</item>
+                <item name="gift_message_available" xsi:type="string">gift_message_available</item>
+                <item name="has_options" xsi:type="string">has_options</item>
+                <item name="links_exists" xsi:type="string">links_exists</item>
+                <item name="links_purchased_separately" xsi:type="string">links_purchased_separately</item>
+                <item name="links_title" xsi:type="string">links_title</item>
+                <item name="media_gallery" xsi:type="string">media_gallery</item>
+                <item name="msrp_display_actual_price_type" xsi:type="string">msrp_display_actual_price_type</item>
+                <item name="old_id" xsi:type="string">old_id</item>
+                <item name="options_container" xsi:type="string">options_container</item>
+                <item name="page_layout" xsi:type="string">page_layout</item>
+                <item name="price_type" xsi:type="string">price_type</item>
+                <item name="price_view" xsi:type="string">price_view</item>
+                <item name="quantity_and_stock_status" xsi:type="string">quantity_and_stock_status</item>
+                <item name="required_options" xsi:type="string">required_options</item>
+                <item name="samples_title" xsi:type="string">samples_title</item>
+                <item name="shipment_type" xsi:type="string">shipment_type</item>
+                <item name="sku_type" xsi:type="string">sku_type</item>
+                <item name="tier_price" xsi:type="string">tier_price</item>
+                <item name="type_id" xsi:type="string">type_id</item>
+                <item name="updated_at" xsi:type="string">updated_at</item>
+                <item name="url_key" xsi:type="string">url_key</item>
+                <item name="url_path" xsi:type="string">url_path</item>
+                <item name="weight_type" xsi:type="string">weight_type</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Export\State\AdapterInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Export\State\Adapter"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\StockInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Stock"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\PricesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Prices"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\AttributesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Attributes"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\ImagesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Images"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\CategoriesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Categories"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\ShippingInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Shipping"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Stock">
+        <arguments>
+            <argument name="stockRegistry" xsi:type="object">Magento\CatalogInventory\Api\StockRegistryInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Prices">
+        <arguments>
+            <argument name="configurableProductType" xsi:type="object">Magento\ConfigurableProduct\Model\Product\Type\Configurable</argument>
+            <argument name="taxCalculator" xsi:type="object">Magento\Tax\Api\TaxCalculationInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Adapter\Attributes">
+        <arguments>
+            <argument name="frontendUrlBuilder" xsi:type="object">ShoppingFeed\Manager\FrontendUrl</argument>
+            <argument name="configurableAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Configurable</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Feed\ConfigInterface" type="ShoppingFeed\Manager\Model\Feed\Config"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Export\State\ConfigInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Export\State\Config"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\StockInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Stock"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\PricesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Prices"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\AttributesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Attributes"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\ImagesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Images"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\CategoriesInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Categories"/>
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\ShippingInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Shipping"/>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Export\State\Config">
+        <arguments>
+            <argument name="booleanAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Boolean</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Attributes">
+        <arguments>
+            <argument name="renderableAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Renderable</argument>
+            <argument name="mappableAttributes" xsi:type="array"/>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Prices">
+        <arguments>
+            <argument name="customerGroupSource" xsi:type="object">Magento\Customer\Model\Customer\Source\Group\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Section\Config\Shipping">
+        <arguments>
+            <argument name="renderableAttributeSource" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Source\Renderable</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\RendererPoolInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\RendererPool"/>
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\RendererPool" shared="true">
+        <arguments>
+            <argument name="renderers" xsi:type="array">
+                <item name="boolean" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Boolean</item>
+                <item name="date" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Date</item>
+                <item name="fpt" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Fpt</item>
+                <item name="image" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Image</item>
+                <item name="number" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Number</item>
+                <item name="option" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Option</item>
+                <item name="options" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Options</item>
+                <item name="price" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Price</item>
+                <item name="text" xsi:type="object">ShoppingFeed\Manager\Model\Feed\Product\Attribute\Value\Renderer\Text</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Feed\Product\Category\SelectorInterface" type="ShoppingFeed\Manager\Model\Feed\Product\Category\Selector"/>
+    <type name="ShoppingFeed\Manager\Model\Feed\Product\Category\Selector" shared="true">
+        <arguments>
+            <argument name="frontendUrlBuilder" xsi:type="object">ShoppingFeed\Manager\FrontendUrl</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Marketplace\OrderInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order"/>
+    <preference for="ShoppingFeed\Manager\Api\Marketplace\OrderRepositoryInterface" type="ShoppingFeed\Manager\Model\Marketplace\OrderRepository"/>
+
+    <type name="ShoppingFeed\Manager\Model\Marketplace\Order\Importer" shared="true">
+        <arguments>
+            <argument name="localeDate" xsi:type="object">Magento\Framework\Stdlib\DateTime\TimezoneInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\Marketplace\Order\Manager" shared="true">
+        <arguments>
+            <argument name="localeDate" xsi:type="object">Magento\Framework\Stdlib\DateTime\TimezoneInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Marketplace\Order\AddressInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\Address"/>
+    <preference for="ShoppingFeed\Manager\Api\Marketplace\Order\AddressRepositoryInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\AddressRepository"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Marketplace\Order\ItemInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\Item"/>
+    <preference for="ShoppingFeed\Manager\Api\Marketplace\Order\ItemRepositoryInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\ItemRepository"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Marketplace\Order\LogInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\Log"/>
+    <preference for="ShoppingFeed\Manager\Api\Marketplace\Order\LogRepositoryInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\LogRepository"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Marketplace\Order\TicketInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\Ticket"/>
+    <preference for="ShoppingFeed\Manager\Api\Marketplace\Order\TicketRepositoryInterface" type="ShoppingFeed\Manager\Model\Marketplace\Order\TicketRepository"/>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Shipping\Method\RuleInterface" type="ShoppingFeed\Manager\Model\Shipping\Method\Rule"/>
+    <preference for="ShoppingFeed\Manager\Api\Shipping\Method\RuleRepositoryInterface" type="ShoppingFeed\Manager\Model\Shipping\Method\RuleRepository"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Shipping\Method\ApplierPoolInterface" type="ShoppingFeed\Manager\Model\Shipping\Method\ApplierPool"/>
+    <type name="ShoppingFeed\Manager\Model\Shipping\Method\ApplierPool" shared="true">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="basic" xsi:type="object">ShoppingFeed\Manager\Model\Shipping\Method\Applier\Basic</item>
+                <item name="marketplace" xsi:type="object">ShoppingFeed\Manager\Model\Shipping\Method\Applier\Marketplace</item>
+            </argument>
+            <argument name="defaultApplierCode" xsi:type="string">marketplace</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Model\Shipping\Method\Applier\Config\BasicInterface" type="ShoppingFeed\Manager\Model\Shipping\Method\Applier\Config\Basic"/>
+    <preference for="ShoppingFeed\Manager\Model\Shipping\Method\Applier\Config\MarketplaceInterface" type="ShoppingFeed\Manager\Model\Shipping\Method\Applier\Config\Marketplace"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Sales\Order\ConfigInterface" type="ShoppingFeed\Manager\Model\Sales\Order\Config"/>
+    <type name="ShoppingFeed\Manager\Model\Sales\Order\Business\TaxManager" shared="true"/>
+    <type name="ShoppingFeed\Manager\Model\Sales\Order\Shipment\Track\Collector" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Sales\Order\ImporterInterface" type="ShoppingFeed\Manager\Model\Sales\Order\Importer"/>
+    <type name="ShoppingFeed\Manager\Model\Sales\Order\Importer" shared="true">
+        <arguments>
+            <argument name="directoryHelper" xsi:type="object">Magento\Directory\Helper\Data\Proxy</argument>
+            <argument name="catalogProductHelper" xsi:type="object">Magento\Catalog\Helper\Product\Proxy</argument>
+            <argument name="catalogProductRepository" xsi:type="object">Magento\Catalog\Api\ProductRepositoryInterface\Proxy</argument>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+            <argument name="quoteManager" xsi:type="object">Magento\Quote\Api\CartManagementInterface\Proxy</argument>
+            <argument name="weeeHelper" xsi:type="object">Magento\Weee\Helper\Data\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogInventory\Model\Spi\StockStateProviderInterface">
+        <plugin name="sfm_cataloginventory_spi_stock_state_provider_plugin" type="ShoppingFeed\Manager\Plugin\CatalogInventory\Spi\StockStateProviderPlugin" sortOrder="1000000000"/>
+    </type>
+
+    <type name="Magento\InventorySales\Model\CheckItemsQuantity">
+        <plugin name="sfm_inventory_sales_check_items_quantity_plugin" type="ShoppingFeed\Manager\Plugin\InventorySales\CheckItemsQuantityPlugin" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Weee\Model\Tax">
+        <plugin name="sfm_weee_tax_plugin" type="ShoppingFeed\Manager\Plugin\Weee\TaxPlugin"/>
+    </type>
+    <type name="ShoppingFeed\Manager\Plugin\Weee\TaxPlugin" shared="true"/>
+
+    <type name="Magento\Tax\Model\Config">
+        <plugin name="sfm_tax_config_plugin" type="ShoppingFeed\Manager\Plugin\Tax\ConfigPlugin" sortOrder="1000000000"/>
+    </type>
+    <type name="ShoppingFeed\Manager\Plugin\Tax\ConfigPlugin" shared="true"/>
+
+    <type name="Magento\Tax\Model\Sales\Total\Quote\CommonTaxCollector">
+        <plugin name="sfm_tax_sales_total_quote_common_tax_collector_plugin" type="ShoppingFeed\Manager\Plugin\Tax\Sales\Total\Quote\CommonTaxCollectorPlugin" sortOrder="0"/>
+    </type>
+
+    <type name="Magento\Sales\Block\Order\Totals">
+        <plugin name="sfm_order_totals_block_plugin" type="ShoppingFeed\Manager\Plugin\Sales\Order\TotalsBlockPlugin" sortOrder="1000000000"/>
+    </type>
+
+    <type name="Magento\Tax\Model\Sales\Pdf\Grandtotal">
+        <plugin name="sfm_tax_sales_pdf_grand_total_plugin" type="ShoppingFeed\Manager\Plugin\Tax\Sales\Pdf\GrandTotalPlugin" sortOrder="1000000000"/>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Observer\AfterQuoteLoadObserver">
+        <arguments>
+            <argument name="catalogProductHelper" xsi:type="object">Magento\Catalog\Helper\Product\Proxy</argument>
+        </arguments>
+    </type>
+
+    <preference for="ShoppingFeed\Manager\Api\Data\Cron\TaskInterface" type="ShoppingFeed\Manager\Model\Cron\Task"/>
+    <preference for="ShoppingFeed\Manager\Api\Cron\TaskRepositoryInterface" type="ShoppingFeed\Manager\Model\Cron\TaskRepository"/>
+    <type name="ShoppingFeed\Manager\Model\Cron\Task\Runner" shared="true"/>
+
+    <preference for="ShoppingFeed\Manager\Model\Command\ConfigInterface" type="ShoppingFeed\Manager\Model\Command\BaseConfig"/>
+    <preference for="ShoppingFeed\Manager\Model\CommandPoolInterface" type="ShoppingFeed\Manager\Model\CommandPool"/>
+    <type name="ShoppingFeed\Manager\Model\CommandPool" shared="true">
+        <arguments>
+            <argument name="groups" xsi:type="array">
+                <item name="feed" xsi:type="string">Feed</item>
+                <item name="orders" xsi:type="string">Orders</item>
+            </argument>
+            <argument name="commands" xsi:type="array">
+                <item name="feed" xsi:type="array">
+                    <item name="sync_product_list" xsi:type="object">ShoppingFeed\Manager\Model\Command\Feed\SyncProductList</item>
+                    <item name="force_automatic_refresh" xsi:type="object">ShoppingFeed\Manager\Model\Command\Feed\ForceAutomaticRefresh</item>
+                    <item name="refresh" xsi:type="object">ShoppingFeed\Manager\Model\Command\Feed\Refresh</item>
+                    <item name="export" xsi:type="object">ShoppingFeed\Manager\Model\Command\Feed\Export</item>
+                </item>
+                <item name="orders" xsi:type="array">
+                    <item name="fetch_marketplace_orders" xsi:type="object">ShoppingFeed\Manager\Model\Command\Orders\FetchMarketplaceOrders</item>
+                    <item name="import_sales_orders" xsi:type="object">ShoppingFeed\Manager\Model\Command\Orders\ImportSalesOrders</item>
+                    <item name="send_state_updates" xsi:type="object">ShoppingFeed\Manager\Model\Command\Orders\SendStateUpdates</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SalesRule\Model\Utility">
+        <plugin name="sfm_salesrule_utility_plugin" type="ShoppingFeed\Manager\Plugin\SalesRule\UtilityPlugin" sortOrder="1000000000"/>
+    </type>
+
+    <virtualType name="ShoppingFeedManagerPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">ShoppingFeed\Manager\Model\Ui\Payment\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">ShoppingFeedManagerPaymentValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">ShoppingFeedManagerPaymentValidatorPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShoppingFeedManagerPaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">ShoppingFeedManagerPaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShoppingFeedManagerPaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">ShoppingFeed\Manager\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShoppingFeedManagerPaymentValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="availability" xsi:type="string">ShoppingFeedManagerPaymentAvailabilityValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShoppingFeedManagerPaymentAvailabilityValidator" type="ShoppingFeed\Manager\Payment\Gateway\Validator\AvailabilityValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">ShoppingFeed\Manager\Payment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <type name="ShoppingFeed\Manager\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">ShoppingFeed\Manager\Model\Ui\Payment\ConfigProvider::CODE</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\StringHelper" shared="true">
+        <arguments>
+            <argument name="localeResolver" xsi:type="object">Magento\Framework\Locale\ResolverInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="ShoppingFeed\Manager\Model\TimeHelper" shared="true"/>
+    <type name="ShoppingFeed\Manager\Model\ResourceModel\Table\Dictionary" shared="true"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="sfm_account_store_listing_data_source" xsi:type="string">ShoppingFeed\Manager\Model\ResourceModel\Account\Store\Grid\Collection</item>
+                <item name="sfm_shipping_method_rule_listing_data_source" xsi:type="string">ShoppingFeed\Manager\Model\ResourceModel\Shipping\Method\Rule\Grid\Collection</item>
+                <item name="sfm_marketplace_order_listing_data_source" xsi:type="string">ShoppingFeed\Manager\Model\ResourceModel\Marketplace\Order\Grid\Collection</item>
+                <item name="sfm_marketplace_order_log_listing_data_source" xsi:type="string">ShoppingFeed\Manager\Model\ResourceModel\Marketplace\Order\Log\Grid\Collection</item>
+                <item name="sfm_cron_task_listing_data_source" xsi:type="string">ShoppingFeed\Manager\Model\ResourceModel\Cron\Task\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Account\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Account\Store\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Shipping\Method\Rule\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Marketplace\Order\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Marketplace\Order\Log\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+    <virtualType name="ShoppingFeed\Manager\Ui\DataProvider\Cron\Task\Listing\DataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="sfm_feed_sync_product_list" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\SyncProductListCommand</item>
+                <item name="sfm_feed_force_export_state_refresh" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\ForceExportStateRefreshCommand</item>
+                <item name="sfm_feed_force_sections_refresh" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\ForceSectionsRefreshCommand</item>
+                <item name="sfm_feed_force_automatic_refresh" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\ForceAutomaticRefreshCommand</item>
+                <item name="sfm_feed_refresh" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\RefreshCommand</item>
+                <item name="sfm_feed_export" xsi:type="object">ShoppingFeed\Manager\Console\Command\Feed\ExportCommand</item>
+                <item name="sfm_orders_fetch_marketplace_orders" xsi:type="object">ShoppingFeed\Manager\Console\Command\Orders\FetchMarketplaceOrdersCommand</item>
+                <item name="sfm_orders_import_sales_orders" xsi:type="object">ShoppingFeed\Manager\Console\Command\Orders\ImportSalesOrdersCommand</item>
+                <item name="sfm_orders_send_state_updates" xsi:type="object">ShoppingFeed\Manager\Console\Command\Orders\SendStateUpdatesCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Cron\Model\ConfigInterface">
+        <plugin name="sfm_cron_config_plugin" type="ShoppingFeed\Manager\Plugin\Cron\ConfigPlugin" sortOrder="0"/>
+    </type>
+
+    <virtualType name="ShoppingFeed\Manager\Url\FrontendScopeResolver" type="Magento\Framework\Url\ScopeResolver">
+        <arguments>
+            <argument name="areaCode" xsi:type="const">Magento\Framework\App\Area::AREA_FRONTEND</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ShoppingFeed\Manager\FrontendUrl" type="Magento\Framework\Url">
+        <arguments>
+            <argument name="scopeResolver" xsi:type="object">ShoppingFeed\Manager\Url\FrontendScopeResolver</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="ShoppingFeed\Manager\Setup\UpgradeData">
+        <arguments>
+            <argument name="storeConfigManager" xsi:type="object">ShoppingFeed\Manager\Model\Account\Store\ConfigManager\Proxy</argument>
+        </arguments>
+    </type>
+</config>

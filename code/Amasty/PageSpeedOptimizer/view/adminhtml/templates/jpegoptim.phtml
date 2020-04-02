@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PageSpeedOptimizer
+ */
+?>
+<?php
+/**
+ * @var \Magento\Backend\Block\Template $block
+ */
+
+$jpegOptimUrl = 'Amasty_PageSpeedOptimizer::images/jpegoptim.jpg';
+?>
+    </td>
+    <td></td>
+</tr>
+<tr id="jpegoptim_image">
+    <td colspan="2">
+        <div class="amoptimizer_tutorial" style="">
+            <img src="<?= $block->escapeUrl($block->getViewFileUrl($jpegOptimUrl)); ?>" />
+        </div>
+    </td>
+    <td>

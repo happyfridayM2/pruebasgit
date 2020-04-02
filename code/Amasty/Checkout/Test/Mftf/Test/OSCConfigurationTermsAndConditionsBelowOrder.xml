@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Checkout
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="OSCConfigurationTermsAndConditionsBelowOrder">
+        <annotations>
+            <features value="Customize Checkout via admin"/>
+            <stories value="Check Terms And Conditions on the OSC"/>
+            <title value="Check Terms And Conditions"/>
+            <description value="Check Terms And Conditions Below Order on the OSC"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="OSC-MFTF-24"/>
+            <group value="Amasty"/>
+            <group value="OSC"/>
+            <group value="Checkout"/>
+            <group value="OSCConfiguration"/>
+            <group value="OSCConfigurationAdditional"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test and Configuration setting-->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByBagImpulseDuffle" stepKey="createFirstSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdminConfigOSCGeneral" stepKey="ConfigurationGeneralSetting"/>
+            <actionGroup ref="AdminConfigOSCAdditionalWithTermsCheckboxPosition" stepKey="ConfigurationAdditionalSetting">
+                <argument name="adminSettingOSCDesignAdditional" value="SetAdditionalTermsBelowOrder"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateStoresTermsAndConditionsRule" stepKey="CreateStoreCondition">
+                <argument name="termsAndConditionsData" value="OSCTermsAndConditionsData"/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- Delete Created Data and Return Default Setting after Test -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <actionGroup ref="AdminConfigOSCAdditionalMain" stepKey="ReturnDefaultAdditionalSetting"/>
+            <actionGroup ref="AdminDeleteTermsAndConditionsRule" stepKey="DeleteCondition">
+                <argument name="conditionName" value="OSCTermsAndConditionsData.name"/>
+            </actionGroup>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <!--Add Product to Cart and Co to Checkout-->
+        <actionGroup ref="AddCreatedProductToCart" stepKey="AddFirstProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="GoToOSCAsGuestAndChooseShipping" stepKey="NavigateToOneStepCheckoutFromCart">
+            <argument name="customer" value="defaultCustomerOSCData"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <!-- Check Condition Position -->
+        <actionGroup ref="StorefrontOSCCheckHaveConditionBelowOrder" stepKey="checkHaveConditionsOrder">
+            <argument name="conditionCheckboxText" value="OSCTermsAndConditionsData.checkboxText"/>
+            <argument name="conditionContent" value="OSCTermsAndConditionsData.content"/>
+        </actionGroup>
+
+    </test>
+</tests>
